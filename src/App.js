@@ -27,11 +27,6 @@ class App extends Component {
             <div className="title">Interpretable Machine Learning Research Project</div>
             <div id="cmu"><img src = {cmuLogo} /></div>
           </div>
-          {/* <div className="loading">
-            <div className = "dots" />
-            <div className = "dots" />
-            <div className = "dots" />
-          </div> */}
           </div>
           {/* <Category setAnswer={this.setAnswer.bind(this)}/> */}
           <Game answer={this.state.answer}/>
