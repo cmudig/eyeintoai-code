@@ -260,8 +260,8 @@ body, .App{
         }
       }
       @include keyframes(timer){
-        from{stroke-dashoffset: 0px;}
-        to{stroke-dashoffset: 60px;}
+        from{stroke-dasharray: 0px;}
+        to{stroke-dasharray: 240px;}
       }
       #hint{
         position:fixed;
@@ -290,23 +290,25 @@ body, .App{
             size: 52px;
             family: 'VT323', monospace;
           }
-          circle{
+          svg{
             position: absolute;
-            height:150px;
-            width: 150px;
             left:0;
             top:0;
+          }
+          circle{
+            height:120px;
+            width: 120px;
             fill: none;
             @include animation(timer);
           animation: {
             duration: 1s;
-            iteration-count: 3;
+            iteration-count: infinite;
             timing-function: linear;
           }
             stroke: $maincolor {
               width: 6px;
-              dasharray:100px;
-              dashoffset: 20px;
+              dasharray:20px;
+              dashoffset: 1000px;
             }
           }
         }

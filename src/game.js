@@ -16,7 +16,7 @@ class Game extends Component {
             imgs: [],
             timerWidth: "120px",
             mode: 1,
-            opacity: 1,
+            opacity: 0,
             display: "block",
 
             answer1: [],
@@ -223,7 +223,7 @@ class Game extends Component {
                     </div>
                     <div id="hint">
                         Type of mammal
-                        <div id = "hintTimer" > <circle r="60" cx="60" cy="60" /></div> 3
+                        <div id = "hintTimer" > <svg width="150" height="120"><circle r="54" cx="60" cy="60" /></svg>3</div> 
                     </div>
                     <div style={{ opacity: this.state.opacity, display: this.state.display, overflow: "hidden" }} key="viswrapper">
                         <Vis answer={this.answer} selectedImg={this.selectedImg.bind(this)} round={this.state.round} countRound={this.countRound.bind(this)} />
