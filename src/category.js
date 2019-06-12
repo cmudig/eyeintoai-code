@@ -36,6 +36,7 @@ class Category extends Component {
   break;
       case 1: element=[(this.displayImg())];
       break;
+      default:
     }
 return element;
   }
@@ -44,9 +45,9 @@ return element;
     let images = [];
     if(this.state.imgType === "animals"){
       for(let i =0; i<4; i++){
-        images.push( <img src= {this.animals[i][0]} alt={this.animals[i][1]} onClick={(ev)=>{this.props.setAnswer(this.animals[i][1])}} />)
+        images.push( <img src= {this.animals[i][0]} alt={this.animals[i][1]} key={this.animals[i][1]} onClick={(ev)=>{this.props.setAnswer(this.animals[i][1])}} />)
       }
-      element = <div className = "select-Category">
+      element = <div className = "select-Category" key="selectCategory">
       <div className = "title">Select an image</div>
           <div className = "photo-row">
              {images}
@@ -54,9 +55,9 @@ return element;
       </div>
     } else{
       for(let i =0; i<4; i++){
-        images.push( <img src= {this.objects[i][0]} alt={this.objects[i][1]} onClick={(ev)=>{this.props.setAnswer(this.objects[i][1])}} />)
+        images.push( <img src= {this.objects[i][0]} alt={this.objects[i][1]} key={this.objects[i][1]} onClick={(ev)=>{this.props.setAnswer(this.objects[i][1])}} />)
       }
-      element = <div className = "select-Category">
+      element = <div className = "select-Category" key="select-category">
       <div className = "title">Select an image</div>
           <div className = "photo-row">
               {images}
@@ -69,7 +70,7 @@ return element;
   render() {
 
     return (
-      <div className="App" style={{ width: "100%", height: "100%" }}>
+      <div className="App" style={{ width: "100%", height: "100%" }} key="Category">
         <div className="main vertCenter">
           {this.displayContent()}
         </div>

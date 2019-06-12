@@ -28,7 +28,7 @@
 	}
 }
 
-$maincolor : #ccc;
+$maincolor : #C41E3A;
 
 body, .App{
   width: 100%;
@@ -245,11 +245,20 @@ body, .App{
         position:fixed;
         top: 100px;
         left: 50%;
-        @include transform(translateX(calc(-50% - 85px)));
+        @include transform(translateX(calc(-50% - 75px)));
         width: 120px;
         height: 30px;
         #timer_in{
           overflow:hidden;
+        }
+        #timer_highlight{
+          position:absolute;
+          left:10px;
+          top: 4px;
+          background:rgba(255,255,255,.5);
+          width: 100px;
+          height:10px;
+          border-radius: 6px;
         }
         #counter{
           width: 120px;
@@ -259,8 +268,8 @@ body, .App{
         }
       }
       @include keyframes(timer){
-        from{stroke-dasharray: 0px;}
-        to{stroke-dasharray: 240px;}
+        from{stroke-dashoffset: 0px;}
+        to{stroke-dashoffset: 400px;}
       }
       #hint{
         position:fixed;
@@ -274,6 +283,19 @@ body, .App{
         font: {
           size: 32px;
           family: 'VT323', monospace;
+        }
+        .hinttop{
+          font-size: 24px;
+          line-height: 2;
+        }
+        .hintWrapper{
+          display:flex;
+          justify-content: center;
+          .hintCard{
+            margin: 5px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.4);
+
+          }
         }
         #hintTimer{
           position: relative;
@@ -306,7 +328,7 @@ body, .App{
           }
             stroke: $maincolor {
               width: 6px;
-              dasharray:20px;
+              dasharray:400px;
               dashoffset: 1000px;
             }
           }
@@ -366,6 +388,7 @@ body, .App{
         padding: 15px 30px;
         margin: 20px;
         border: 1px solid $maincolor;
+        color: $maincolor;
         border-radius: 50px;
         font: { 
           family:'Share Tech Mono', monospace;

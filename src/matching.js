@@ -28,7 +28,7 @@ class Match extends Component {
             <div className = "profiles">
                 <div className = "profile">
                     <div className = "photo" >
-                      <img src= {profile1} />
+                      <img src= {profile1} alt="profile1"/>
                     </div>
                     <div className = "name">
                         Qian
@@ -36,7 +36,7 @@ class Match extends Component {
                 </div>
                 <div className = "profile">
                     <div className = "photo" >
-                      <img src= {profile2} />
+                      <img src= {profile2} alt="profile2"/>
                     </div>
                     <div className = "name">
                         Young

@@ -88,7 +88,6 @@ import umbrella_feature7 from './image/vis/umbrella/7.jpg'
 import umbrella_feature8 from './image/vis/umbrella/8.jpg'
 import umbrella_feature9 from './image/vis/umbrella/9.jpg'
 import umbrella_feature10 from './image/vis/umbrella/10.jpg'
-import { Z_BLOCK } from 'zlib';
 
 class Vis extends Component {
     constructor(props) {
@@ -108,7 +107,7 @@ class Vis extends Component {
 
         this.strawberry = [strawberry_feature1,strawberry_feature2,strawberry_feature3,strawberry_feature4,strawberry_feature5,strawberry_feature6,strawberry_feature7,strawberry_feature8,strawberry_feature9,strawberry_feature10];
         this.castle = [castle_feature1,castle_feature2,castle_feature3,castle_feature4,castle_feature5,castle_feature6,castle_feature7,castle_feature8,castle_feature9,castle_feature10];
-        this.ballon = [balloon_feature1,balloon_feature2,balloon_feature3,balloon_feature4,balloon_feature5,balloon_feature6,balloon_feature7,balloon_feature8,balloon_feature9,balloon_feature10];
+        this.balloon = [balloon_feature1,balloon_feature2,balloon_feature3,balloon_feature4,balloon_feature5,balloon_feature6,balloon_feature7,balloon_feature8,balloon_feature9,balloon_feature10];
         this.umbrella = [umbrella_feature1,umbrella_feature2,umbrella_feature3,umbrella_feature4,umbrella_feature5,umbrella_feature6,umbrella_feature7,umbrella_feature8,umbrella_feature9,umbrella_feature10];
     }
     componentDidMount(){
@@ -132,20 +131,31 @@ class Vis extends Component {
                     break;
                 case "umbrella": imglist = this.umbrella;
                     break;
+                default:
             }
             this.setState({nonSelected: imglist});
         }
     }
     selectVis(i){
         this.props.countRound();
-        let nonselected = this.state.nonSelected;
-        let selected = this.state.selected;
-        window.setTimeout(function(){
-            selected.push(nonselected[i]);
-            nonselected.splice(i, 1);  
-            this.setState({selected: selected, nonSelected: nonselected, display:"block"});
-            this.props.selectedImg(selected);
-        }.bind(this), 300);
+
+        if(i < 11){
+            let nonselected = this.state.nonSelected;
+            let selected = this.state.selected;
+            window.setTimeout(function(){
+                selected.push(nonselected[i]);
+                nonselected.splice(i, 1);  
+                this.setState({selected: selected, nonSelected: nonselected, display:"block"});
+                this.props.selectedImg(selected);
+                this.props.hideVisPanel();
+            }.bind(this), 300);
+        } else{
+            window.setTimeout(function(){
+                    this.props.turnHintOn(true)
+
+            }.bind(this), 300);
+        }
+       
        
 
     }
@@ -177,7 +187,7 @@ class Vis extends Component {
         return (
             <div className="modal-select" >
             <div className="title">Select a feature you want to reveal</div>
-                <div className = "btn" style={{width: "216px", margin:"0 auto 26px", display:this.state.display}}>Stop Revealing</div>
+                <div className = "btn" style={{width: "216px", margin:"0 auto 26px", display:this.state.display}} onClick={(ev)=>{this.selectVis(11)}}>Stop Revealing</div>
                 {this.renderVis()}
             </div>
                   
