@@ -193,7 +193,7 @@ class Game extends Component {
                         <div className="side left">
                             <div className="profiles">
                                 <div className="profile">
-                                    <div className="photo" >
+                                    <div className="photo plyr1" >
                                         <img src={profile1} alt="profile1"/>
                                     </div>
                                     <div className="name">
@@ -218,7 +218,7 @@ class Game extends Component {
 
                             <div className="profiles">
                                 <div className="profile">
-                                    <div className="photo" >
+                                    <div className="photo plyr2" >
                                         <img src={profile2} alt="profile2"/>
                                     </div>
                                     <div className="name">
@@ -228,7 +228,7 @@ class Game extends Component {
 
                                 <div className="profiles">
                                     <div className="profile">
-                                        <div className="photo" >
+                                        <div className="photo plyr3" >
                                             <img src={profile3} alt="profile3"/>
                                         </div>
                                         <div className="name">

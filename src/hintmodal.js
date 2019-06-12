@@ -10,6 +10,7 @@ class Hint extends Component {
             hint: "",
         }
         this.answer = this.props.answer;
+        this.hinttimer = "";
 }
 
 hintRound(){
@@ -40,31 +41,50 @@ hintRound(){
     } else{
         time = 10
     }   
-    let hinttimer = window.setInterval(function () {
+    if(time > 9){
+        window.setTimeout(function(){this.test_selectCard()}.bind(this), 1000);
+    }
+    this.hinttimer = window.setInterval(function () {
         time -= 1;
         this.setState({ hintTimer : time, });
         if (time === 0) {
-            clearInterval(hinttimer);
+            clearInterval(this.hinttimer);
             this.props.changeMode(0);
             this.props.setTimer();
         }
         
     }.bind(this), 1000);
+    
 }
 hintTimer(){
 //timer
 let time = this.state.hintTimer;
 this.setState({ hintTimer : time, });
-let hinttimer = window.setInterval(function () {
+this.hinttimer = window.setInterval(function () {
     time -= 1;
     this.setState({ hintTimer : time, });
     if (time === 0) {
-        clearInterval(hinttimer);
+        clearInterval(this.hinttimer);
         this.props.changeMode(0);
         this.props.setTimer();
     }
     
 }.bind(this), 1000);
+window.setTimeout(function(){this.test_selectCard()}.bind(this), 1000);
+}
+test_selectCard(){
+    let cards = document.getElementsByClassName("hintCard");
+
+    window.setTimeout(function(){
+        cards[1].classList.add("plyr2");
+    }.bind(this),2000);
+
+    window.setTimeout(function(){
+        cards[3].classList.add("plyr3");
+        clearInterval(this.hinttimer);
+        // document.getElementsByTagName("circle")[0].style.animation = "none"
+    }.bind(this),3000)
+
 }
 hintGenerator(){
     
@@ -72,8 +92,8 @@ hintGenerator(){
         return <div><span className="hinttop">It's a</span><br />
         {this.state.hint} </div>
     } else{
-        let answer = this.answer[0].toUpperCase() + this.answer.slice(1, -1);
-        return <div><span className="hinttop">Select the answer</span><br />
+        let answer = this.answer[0].toUpperCase() + this.answer.slice(1,);
+        return <div>Select the answer<br />
         <div className = "hintWrapper">
             <div className = "hintCard">Armadillo</div> 
             <div className = "hintCard">Potato</div>
