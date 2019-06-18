@@ -64,17 +64,31 @@ body, .App{
         }
       }
     }
-
+    .App{
+      max-width: 2000px;
+      margin:0 auto;
+    }
     .main{
       transition: .3s;
       margin-top: 10vh;
+      position:absolute;
+      top: 50%;
+      width: 100%;
+      @include transform(trnaslateY(-50%));
       &.vertCenter{
         height: calc(100vh - 340px);
+        max-height: 700px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         align-content: center;
+      }
+      &.round{
+        font: {
+          family: 'VT323', monospace;
+          size: 32px;
+        }
       }
       //matching
       .matching{
@@ -87,6 +101,9 @@ body, .App{
             size: 40px;
             family: 'VT323', monospace;
             
+          }
+          &.round{
+            font-size: 50px;
           }
         }
         .profiles{
@@ -118,6 +135,13 @@ body, .App{
                 height: 103%;
                 @include transform(translateX(-22px));
               }
+            }
+          }
+          .expla{
+            @include transform(translateY(-10px));
+            font: {
+              size: 32px;
+              family: 'VT323', monospace;
             }
           }
         }
@@ -207,6 +231,9 @@ body, .App{
               background: $plyr3;
               color: #fff;
             }
+            &.grey{
+              width: 100px;
+            }
           }
         }
       }
@@ -258,20 +285,81 @@ body, .App{
         display: flex;
         justify-content: center;
         flex-wrap:wrap;
-        @include transform(translateX(0px));
+        @include transform(translateX(60px));
         img{
           margin:10px 10px;
           align-self: center;
           width: 128px;
         }
       }
-
+      #answerWrap{
+        position: fixed;
+        width: 382px;
+        top: calc(110vh - 410px);
+        left: 50%;
+        height: 150px;
+        display: flex;
+        flex-direction: column-reverse;
+        @include transform(translateX(-50%));
+        
+        .tAnsr{
+          &:nth-child(3){
+            opacity: .3;
+          }
+          &:nth-child(2){
+            opacity: .5;
+          }
+          align-self: baseline;
+          background: $maincolor;
+          color: #fff;
+          padding: 10px 20px;
+          border-radius: 20px;
+          margin-bottom: 10px;
+          font: {
+            family:'Share Tech Mono', monospace;
+            size: 18px;
+          }
+        }
+      }
+      #tAnsrWrap{
+        position: fixed;
+        top: calc(110vh - 270px);
+        left: 50%;
+        display: flex;
+      
+        @include transform(translateX(-50%));
+        #answerType{
+          transition: .3s;
+          align-self: center;
+          font: {
+            family:'Share Tech Mono', monospace;
+            size: 18px;
+          }
+          padding: 10px 20px;
+          border-radius: 20px;
+          border: 2px solid $maincolor;
+          &:focus{
+            outline-width: 0;
+          }
+        }
+        .btn{
+          text-transform: uppercase;
+          background: $maincolor;
+          padding: 10px 20px ;
+          border: 2px solid $maincolor;
+          color: #fff;
+          font: {
+            family:'Share Tech Mono', monospace;
+            size: 18px;
+          }
+        }
+      }
       #timer{
         position:fixed;
-        top: 100px;
+        top: 50%;
         left: 50%;
-        @include transform(translateX(calc(-50% - 75px)));
-        width: 120px;
+        @include transform(translateX(calc(-50%)) translateY(-350px));
+        width: 300px;
         height: 30px;
         #timer_in{
           overflow:hidden;
@@ -281,20 +369,49 @@ body, .App{
           left:10px;
           top: 4px;
           background:rgba(255,255,255,.5);
-          width: 100px;
+          width: 280px;
           height:10px;
           border-radius: 6px;
         }
         #counter{
-          width: 120px;
+          width: 300px;
           border-radius: 15px;
           height: 30px;
           background: $maincolor;
         }
       }
+      //score
+#result{
+  #asrImg{
+    width: 350px;
+    max-width: 100%;
+    display: block;
+    margin: 10px auto; 
+  }
+  .asrColr{
+    color: $maincolor;
+  }
+  .score{
+    margin: 20px auto 10px;
+    line-height: 1.4;
+  }
+}
+
       @include keyframes(timer){
         from{stroke-dashoffset: 0px;}
         to{stroke-dashoffset: 400px;}
+      }
+      #hintDisplay{
+        position: fixed;
+        top: 50%;
+        margin: 0 auto;
+        left: 50%;
+        color: $maincolor;
+        @include transform(translateX(calc(-50%)) translateY(-280px));
+        font: {
+          size: 32px;
+          family: 'VT323', monospace;
+        }
       }
       #hint{
         position:fixed;
@@ -320,8 +437,8 @@ body, .App{
             margin: 26px 10px 5px;
             padding: 10px 20px;
             border: 4px solid $maincolor; 
-            background: $maincolor;
-            color: #fff;
+            // background: $maincolor;
+            color: $maincolor;
             // cursor: pointer;
             font-family:'Share Tech Mono', monospace;
             font-size: 20px;
@@ -331,9 +448,13 @@ body, .App{
             // }
               &.plyr2{
                 border: 4px solid $plyr2;
+                background: $plyr2;
+                color: #fff;
               }
               &.plyr3{
                 border: 4px solid $plyr3;
+                background: $plyr3;
+                color: #fff;
               }
           }
         }
@@ -360,17 +481,20 @@ body, .App{
             height:120px;
             width: 120px;
             fill: none;
+            &.active{
             @include animation(timer);
           animation: {
             duration: 1s;
             iteration-count: infinite;
             timing-function: linear;
           }
+        
             stroke: $maincolor {
               width: 6px;
               dasharray:400px;
               dashoffset: 1000px;
             }
+          }
           }
         }
       }
@@ -390,6 +514,7 @@ body, .App{
         background: #fff;
         .title{
           font-size: 28px;
+         
         }
       }
       .vis-row{
@@ -424,6 +549,7 @@ body, .App{
         }
       }
       .btn{
+        transition: .3s;
         cursor: pointer;
         padding: 15px 30px;
         margin: 20px;

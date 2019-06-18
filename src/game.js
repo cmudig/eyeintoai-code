@@ -8,6 +8,7 @@ import profile3 from './image/profile/profile3.png'
 import Vis from './visualizations.js'
 import Hint from './hintmodal.js'
 
+
 class Game extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +16,7 @@ class Game extends Component {
             selected: [],
             round: 1,
             imgs: [],
-            timerWidth: "120px",
+            timerWidth: "300px",
             mode: 0,
             opacity: 1,
             display: "block",
@@ -25,8 +26,11 @@ class Game extends Component {
 
             hintOn: false,
             hint: "",
+            hintDisplay: false,
         }
         this.answer = this.props.answer;
+        this.image = this.props.image; 
+
         this.round1_1 = ["wolf", "bug", "dog", "cat", "fur", "cotton"];
         this.round1_2 = ["fabric", "web", "spider", "fox", "wolf", "rubber", "mouse", "flower"];
 
@@ -64,6 +68,9 @@ class Game extends Component {
     turnHintOn(n){
         this.setState({hintOn: n, mode: 3, round: 11, display:"none"})
     }
+    turnHintDisplay(){
+        this.setState({displayHint: true});
+    }
     selectedImg(imgs) {
         this.setState({ imgs: imgs, opacity: 0 });
         this.setTimer();
@@ -82,7 +89,14 @@ class Game extends Component {
     }
     generateHint(){
         if(this.state.mode === 3){
-            return <Hint answer= {this.answer} round = {this.state.round} setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} changeHint = {this.changeHint.bind(this)} />
+            return <Hint image = {this.image} answer= {this.answer} addRound = {this.props.addRound.bind(this)} round = {this.state.round} turnHintDisplay = {this.turnHintDisplay.bind(this)} setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} changeHint = {this.changeHint.bind(this)} />
+        }
+    }
+    displayHint(){
+        if(this.state.displayHint === true){
+        return <div id = "hintDisplay" key ="hintPerm">
+                It's a {this.state.hint}     
+        </div>
         }
     }
     generateAnswer1() {
@@ -113,12 +127,15 @@ class Game extends Component {
     </div>
     }
     setTimer() {
-        let width = 120;
+        let width = 300;
         //timer
         let timer = window.setInterval(function () {
+            width -= 15;
             this.setState({ timerWidth: width + "px" });
             if (width === 0) {
                 clearInterval(timer);
+                window.setTimeout(function(){this.setState({ timerWidth: "300px" });
+            }.bind(this), 1000);
                 if(this.state.hintOn !== true){
                     this.setState({ mode: 1});
                 } else{
@@ -132,7 +149,7 @@ class Game extends Component {
                     this.setState({round: 12});
                 }
             }
-            width -= 6;
+            
         }.bind(this), 1000);
 
         //answers
@@ -161,12 +178,12 @@ class Game extends Component {
             }
         }.bind(this), (20000/this.answers2[round].length));
     } else{
-
+        this.setState({round: 12})
         let answers1 = window.setInterval(function () {
             tempAnswer1.push(this.answersHint2[0][answer1])
             this.setState({ answer1: tempAnswer1});
             answer1 += 1;
-            if(answer1 >= (this.answersHint2[0].length - 1)){
+            if(answer1 > (this.answersHint2[0].length - 1)){
                 clearInterval(answers1);
             }
         }.bind(this), (20000/this.answersHint2[0].length));
@@ -175,9 +192,9 @@ class Game extends Component {
             tempAnswer2.push(this.answersHint2[1][answer2])
             this.setState({ answer2: tempAnswer2});
             answer2 += 1;
-            if(answer2 >= (this.answersHint2[1].length - 1)){
+            if(answer2 > (this.answersHint2[1].length - 1)){
                 clearInterval(answers2);
-                this.setState({round: 12, mode: 3});
+                window.setTimeout(function(){this.setState({mode: 3});}.bind(this), 2000);
             }
         }.bind(this), (20000/this.answersHint2[1].length));
         
@@ -245,6 +262,7 @@ class Game extends Component {
                             <div id="counter"></div>
                         </div>
                     </div>
+                    {this.displayHint()}
                     {this.generateHint()}
                     <div style={{ opacity: this.state.opacity, display: this.state.display, overflow: "hidden" }} key="viswrapper">
                         <Vis answer={this.answer} hideVisPanel = {this.hideVisPanel.bind(this)} turnHintOn = {this.turnHintOn.bind(this)} selectedImg={this.selectedImg.bind(this)} round={this.state.round} countRound={this.countRound.bind(this)} />

@@ -45,7 +45,7 @@ return element;
     let images = [];
     if(this.state.imgType === "animals"){
       for(let i =0; i<4; i++){
-        images.push( <img src= {this.animals[i][0]} alt={this.animals[i][1]} key={this.animals[i][1]} onClick={(ev)=>{this.props.setAnswer(this.animals[i][1])}} />)
+        images.push( <img src= {this.animals[i][0]} alt={this.animals[i][1]} key={this.animals[i][1]} onClick={(ev)=>{this.props.setAnswer(this.animals[i][1]); this.props.setImage(this.animals[i][0])}} />)
       }
       element = <div className = "select-Category" key="selectCategory">
       <div className = "title">Select an image</div>
