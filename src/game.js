@@ -89,7 +89,7 @@ class Game extends Component {
     }
     generateHint(){
         if(this.state.mode === 3){
-            return <Hint image = {this.image} answer= {this.answer} addRound = {this.props.addRound.bind(this)} round = {this.state.round} turnHintDisplay = {this.turnHintDisplay.bind(this)} setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} changeHint = {this.changeHint.bind(this)} />
+            return <Hint image = {this.image} answer= {this.answer} addRound = {this.props.addRound.bind(this)} round = {this.state.round} entireRound={this.props.round} turnHintDisplay = {this.turnHintDisplay.bind(this)} setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} changeHint = {this.changeHint.bind(this)} />
         }
     }
     displayHint(){

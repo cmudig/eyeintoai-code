@@ -17,13 +17,18 @@ class Score extends Component {
 scoreGenerator(){
     let element =[]
     for(let i = 0; i<this.score.length; i++){
-        element.push(<div><span style={{color: this.score[i].color}}>{this.score[i].name}</span> got {this.score[i].score} points</div>)
+        element.push(<div key={"score" + i}><span style={{color: this.score[i].color}}>{this.score[i].name}</span> got {this.score[i].score} points</div>)
     }
 
     return <div className="score">
        {element}
         </div>
         
+}
+componentDidMount(){
+    if(this.props.round < 2){
+        window.setTimeout(function(){this.props.addRound()}.bind(this), 5000);
+    }
 }
    
     render() {

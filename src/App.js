@@ -13,14 +13,13 @@ class App extends Component {
     super(props);
     this.state = {
       answer:"hamster",
-      mode: 4,
+      mode: 0,
       round: 1,
       image: "",
     }
   }
   setAnswer(n){
-    this.setState({answer: n, mode: 3});
-    window.setTimeout(function(){this.setState({mode: 2})}.bind(this), 3000);
+    this.setState({answer: n, mode: 2});
   }
   setImage(n){
     this.setState({image : n})
@@ -41,7 +40,7 @@ class App extends Component {
       }.bind(this), 3000);
       return <Match />
       case 1: return  <Category setAnswer={this.setAnswer.bind(this)} setImage = {this.setImage.bind(this)} />
-      case 2: return <Game answer={this.state.answer} addRound = {this.addRound.bind(this)} image = {this.state.image}/> 
+      case 2: return <Game answer={this.state.answer} round = {this.state.round} addRound = {this.addRound.bind(this)} image = {this.state.image}/> 
       case 3: return  <Round round = {this.state.round} />
       case 4: return  <Guess round = {this.state.round} addRound = {this.addRound.bind(this)} />
       default:

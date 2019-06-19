@@ -51,8 +51,8 @@ class Guess extends Component {
         }
         this.timer = "";
         this.answer = "sea lion";
-        this.vis_seaLion = [seaLion1, seaLion2, seaLion3];
-        // this.vis_seaLion = [seaLion1];
+        // this.vis_seaLion = [seaLion1, seaLion2, seaLion3];
+        this.vis_seaLion = [seaLion1];
         this.hint1 = "type of animal"
         this.vis_stingray = [stingray1, stingray2, stingray3, stingray4, stingray5];
         this.hint2 = "type of sea animal"
@@ -78,10 +78,11 @@ class Guess extends Component {
         }
        }
        this.loading("an image");
+       this.turnInput(3000);
        this.loadingoff();
     }
     countRound() {
-        this.setState({ round: this.state.round + 1 })
+        this.setState({ sessionRound: this.state.sessionRound + 1 })
     }
     changeMode(n){
         this.setState({mode: n});
@@ -90,7 +91,7 @@ class Guess extends Component {
         this.setState({hint: n});
     }
     turnHintOn(n){
-        this.setState({hintOn: n, mode: 3, sessionRound: 11, display:"none"})
+        this.setState({hintOn: n, mode: 3, display:"none"})
     }
     turnHintDisplay(){
         this.setState({displayHint: true});
@@ -111,7 +112,7 @@ class Guess extends Component {
     }
     generateHint(){
         if(this.state.mode === 3){
-            return <Hint turnInput = {this.turnInput.bind(this)} answer= {this.answer} addRound = {this.props.addRound.bind(this)} round = {this.state.sessionRound} turnHintDisplay = {this.turnHintDisplay.bind(this)} setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} changeHint = {this.changeHint.bind(this)} />
+            return <Hint image = {this.answerSet.image} turnInput = {this.turnInput.bind(this)} answer= {this.answer} addRound = {this.props.addRound.bind(this)} countRound = {this.countRound.bind(this)} round = {this.state.sessionRound} entireRound = "2" turnHintDisplay = {this.turnHintDisplay.bind(this)} setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} changeHint = {this.changeHint.bind(this)} />
         }
     }
     displayHint(){
@@ -161,14 +162,14 @@ class Guess extends Component {
     }
     //disable the input field
     turnInput(n){
-        this.setState({disable: true, inputOpcity: 1});
-        window.setTimeout(function(){this.setState({disable: false, inputOpcity: .5})}.bind(this), n)
+        let inputField = document.getElementById("answerType");
+        this.setState({disable: true, inputOpcity: .5});
+        window.setTimeout(function(){this.setState({disable: false, inputOpcity: 1}); inputField.focus()}.bind(this), n)
     }
     //if score is right, disable the input and display the score modal
     rightAnswer(){
-        this.turnInput(500);
         window.clearInterval(this.timer);
-        window.setTimeout(function(){this.setState({answeron : true})}.bind(this),300);
+        window.setTimeout(function(){this.setState({answeron : true, disable: true, inputOpcity: .5})}.bind(this),300);
     }
     //if answer is right, display score modal
     answerModal(){
@@ -205,26 +206,23 @@ class Guess extends Component {
                 this.setState({answerLength: this.state.answerLength + 1})
             }
             if (width === 0) {
+                let curround = this.state.sessionRound + 1;
                 clearInterval(this.timer);
-                window.setTimeout(function(){this.setState({ timerWidth: "300px", sessionRound : this.state.sessionRound+1});
-                if(this.answerSet.vis[this.state.sessionRound - 1]){
+                window.setTimeout(function(){this.setState({ timerWidth: "300px", sessionRound: curround});
+                if(this.answerSet.vis[curround]){
                 this.setState({loadingon : true, });
                 this.loadingoff();
                 } else{
-                    this.turnHintOn(true)
+                    if(this.state.sessionRound < 11){
+                        this.setState({sessionRound: 11})
+                    }
+                    window.setTimeout(function(){this.turnHintOn(true)}.bind(this), 500);
                 }
             }.bind(this), 1000);
                 if(this.state.hintOn !== true){
                     this.setState({ mode: 1});
                 } else{
                     this.setState({ mode: 3});
-                }
-                if(this.state.round < 11){
-                    //first hint
-                    this.setState({opacity: 1, display: "block" });
-                } else{
-                    //second hint
-                    this.setState({round: 12});
                 }
             }
             
@@ -283,7 +281,7 @@ class Guess extends Component {
                     <div id="tAnsrWrap">
                         <input type ="text" id = "answerType" style={{opacity: this.state.inputOpcity}} disabled = {this.state.disable} autoFocus onKeyPress={(ev) => {
                     if(ev.key === "Enter"){this.addAnswer()}}} />
-                        <div class = "submit btn" onClick= {this.addAnswer.bind(this)} style={{opacity: this.state.inputOpcity}}>
+                        <div className = "submit btn" onClick= {this.addAnswer.bind(this)} style={{opacity: this.state.inputOpcity}}>
                             Enter
                         </div>
                     </div>

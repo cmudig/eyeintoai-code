@@ -446,6 +446,14 @@ body, .App{
             // &:hover{
             //   opacity: .7;
             // }
+            &.active{
+              cursor: pointer;
+            }
+            &.plyr1{
+              border: 4px solid $plyr1;
+              background: $plyr1;
+              color: #fff;
+            }
               &.plyr2{
                 border: 4px solid $plyr2;
                 background: $plyr2;
