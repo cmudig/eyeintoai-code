@@ -51,8 +51,8 @@ class Guess extends Component {
         }
         this.timer = "";
         this.answer = "sea lion";
-        // this.vis_seaLion = [seaLion1, seaLion2, seaLion3];
-        this.vis_seaLion = [seaLion1];
+        this.vis_seaLion = [seaLion1, seaLion2, seaLion3];
+        // this.vis_seaLion = [seaLion1];
         this.hint1 = "type of animal"
         this.vis_stingray = [stingray1, stingray2, stingray3, stingray4, stingray5];
         this.hint2 = "type of sea animal"
