@@ -33,8 +33,11 @@ $plyr1 : #F2A900;
 $plyr2 : #01843D;
 $plyr3 : #002D72;
 
+$shadow: 0px 0px 24px rgba(56, 178, 205, 0.3);
+
 
 body, .App{
+  
   width: 100%;
   height: 100%;
   margin: 0;
@@ -49,32 +52,79 @@ body, .App{
   }
     .header{
       width: 100%;
-      padding: 15px;
+      padding: 0 32px;
+      height: 54px;
       margin-bottom:60px;
-      .left{
-        width: 100%;
-        display:flex;
-        flex-direction: row;
-        justify-content: space-between;
+      background: #fff;
+      box-shadow: 0px 1px 4px rgba(39, 75, 130, 0.2);
+      z-index: 999;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
         .title{
           font: {
-            size: 18px;
-            weight: 300;
+            size: 15px;
+            weight: 600;
           }
         }
-      }
+        .menuBar{
+          display: flex;
+          width: 30%;
+          max-width: 220px;
+          justify-content: space-between;
+          height:54px;
+          align-items: center;
+          font: {
+            size: 14px;
+          }
+          .menu{
+            height: 100%;
+            align-items: center;
+            display: flex;
+            color: rgba(0,0,0,0.4);
+            cursor: pointer;
+            &.active{
+              color: $maincolor;
+              font-weight: bold;
+              border-bottom: 4px solid $maincolor;
+            }
+          }
+          .profileWrapper{
+            width: 40px;
+            height: 40px;
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.4);
+          }
+        }
+        .profile{
+          width: 132%;
+          @include transform(translateX(-6px))
+        }
     }
     .App{
       max-width: 2000px;
       margin:0 auto;
     }
-    .main{
-      transition: .3s;
-      margin-top: 10vh;
-      position:absolute;
-      top: 50%;
+    #blue{
       width: 100%;
-      @include transform(trnaslateY(-50%));
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: linear-gradient(180deg, rgba(220, 242, 255, 0.3) 0%, #BBDAFF 100%);
+    }
+    .main{
+      
+      transition: .3s;
+      position:relative;
+      // top: 50%;
+      width: 100%;
+      max-width: 1400px;
+      margin: 10vh auto;
+      // @include transform(trnaslateY(-50%));
       &.vertCenter{
         height: calc(100vh - 340px);
         max-height: 700px;
@@ -106,31 +156,78 @@ body, .App{
             font-size: 50px;
           }
         }
-        .profiles{
+        
+      }
+      .profiles{
           text-align: center;
           width: 100%;
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: center;
+
           .profile{
             margin: 30px;
+            width: 160px;
+            height: 230px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            background: #fff;
+            border-radius: 6px;
+            border-top: {
+              left-radius: 6px;
+              right-radius: 6px;
+            }
+            &.plyr1{
+              border: 2px solid $plyr1;
+              .playerNum{
+                background :$plyr1;
+              }
+            }
+            &.plyr2{
+              border: 2px solid $plyr2;
+              .playerNum{
+                background :$plyr2;
+              }
+            }
+            &.plyr3{
+              border: 2px solid $plyr3;
+              .playerNum{
+                background :$plyr3;
+              }
+        
+            }
+            .playerNum{
+              width: 160px;
+              height: 30px;
+              color: #fff;
+              line-height: 1.5;
+              font: {
+                family: 'VT323', monospace;
+                size: 18px;
+              }
+            }
             .name{
+              margin-bottom:30px;
               font: { 
                 family:'Share Tech Mono', monospace;
                 size: 18px;
               }
+             
             }
             .photo{
+              
               width: 100px;
               height: 100px;
               border-radius: 50px;
               margin-bottom: 10px;
               text-align: center;
               overflow: hidden;
-              border: 1px solid rgba(0,0,0,0.4);
+              border: 1px solid rgba(0,0,0,0.2);
+              background: rgba(0,0,0,0.2);
               img{
                 height: 103%;
                 @include transform(translateX(-22px));
@@ -145,8 +242,6 @@ body, .App{
             }
           }
         }
-      }
-      
       //select-category
       .select-Category{
         .photo-row{
@@ -184,12 +279,219 @@ body, .App{
       .side{
         height: 100%;
         position: relative;
-        display: flex;
+        
+        
+        &.left{width: 270px;
+          display: flex;
         flex-direction: column;
-        justify-content: center;
-        width: 120px;
-        &.left{
-          align-content: left;
+        }
+        .answerBox{
+          width: 250px;
+          height: 364px;
+          border-radius: 6px;
+          padding: 10px;
+          margin:32px 10px;
+          box-shadow:$shadow;
+          background: #fff;
+            .answerImg{
+              width: 100%;
+              border-radius: 6px;
+              margin: 0;
+            }
+            .answerList{
+              display: flex;
+              flex-direction: column;
+              align-content: left;
+              .answer{
+                font: {
+                  family: "share tech mono", "monospace";
+                  size: 14px;
+                }
+                align-self: flex-start;
+                margin: 4px 0;
+                color: $maincolor;
+                border: 1px solid $maincolor;
+                border-radius: 15px;
+                padding: 4px 12px;
+              }
+            }
+          
+        }
+        .profileWrapper{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .profiles{
+            .profile{
+              border-radius: 6px;
+              justify-content: center;
+              width: 90px;
+              height: 140px;
+              margin: 0 12px;
+              .name{
+                font-size: 14px;
+                margin: 6px 0;
+              }
+              .photo{
+                width: 56px;
+                height: 56px;
+                img{
+                  width: 100%;
+                  object-fit: cover;
+                  transform: none;
+                }
+              }
+              .score{
+                font-size: 14px;
+                width: 42px;
+                text-align: center;
+                color: #fff;
+                border-radius: 10px;
+                padding: 2px 0;
+                font-family:'Share Tech Mono', monospace;
+                &.plyr1{
+                  background: $plyr1;
+                }
+                &.plyr2{
+                  background: $plyr2;
+                }
+                &.plyr3{
+                  background: $plyr3;
+                }
+              }
+              &.mainGame{
+                width: 80px;
+                margin:0 8px;
+                .name{
+                  font-size: 13px;
+                }
+              } 
+            }
+          }
+        }
+        .convo{
+          background: #fff;
+          width: 260px;
+          height: 540px;
+          border-radius: 6px;
+          box-shadow: $shadow;
+          overflow: hidden;
+          font-size: 14px;
+          .convo_inner{
+            width: 260px;
+            height: 470px;
+            overflow-y: scroll
+          }
+          .profile{
+            width: 32px;
+            height: 32px;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.4);
+            img{
+              width: 160%;
+              @include transform(translateX(-10px));
+            }
+          }
+          .convoWrap{
+           display: flex;
+           justify-content: flex-end;
+           align-items: center;
+           margin: 16px 8px;
+            
+          }
+          .bubble{
+            color: #fff;
+            padding: 6px 12px;
+            margin-right:8px;
+            border-radius: 20px;
+            &.plyr1{
+              background: $plyr1;
+            }
+            &.plyr2{
+              background: $plyr2;
+            }
+            &.plyr3{
+              background: $plyr3;
+            }
+            &.all{
+              height: 33px;
+              padding:0 16px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: rgba(0,0,0,0.2);
+              .dot{
+                @include keyframes (dots){
+                  from{
+                    opacity: 1;
+                  }
+                  28%{
+                    opacity: 1;
+                  }
+                  36%{
+                    opacity: .4;
+                  }
+                  92%{
+                    opacity: .4;
+                  }
+                  to{
+                    opacity: 1;
+                  }
+                }
+               @include animation(dots);
+               animation-duration: .6s;
+               animation-iteration-count: infinite;
+                height: 10px;
+                width: 10px;
+                margin:0 4px;
+                border-radius: 6px;
+                background: rgba(0,0,0,0.2);
+                &:nth-child(2){
+                  animation-delay: .2s;
+                }
+                &:nth-child(3){
+                  animation-delay: .4s;
+                }
+              }
+            }
+          }
+          .typing{
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 0 8px;
+            padding: 0 8px;
+            height: 47px;
+            .profileWrap{
+              width:60px;
+              height: 33px;
+              margin-left: 8px;
+              position:relative;
+            .profile{    
+              position:absolute;
+              width: 32px;
+              height: 32px;
+              top: 0;
+              right: 24px;
+              overflow: hidden;
+              border-radius: 16px;
+              border: 1px solid rgba(0,0,0,0.4);
+              img{
+                width: 160%;
+                @include transform(translateX(-10px));
+              }
+              &:nth-child(3){
+                right: 36px;
+              }
+              &:nth-child(2){
+                right: 30px;
+              }
+            }
+
+          }
+          }
         }
         .answers{
           display: flex;
@@ -198,6 +500,7 @@ body, .App{
           width: 170px;
           margin: 90px 30px 130px;
           height: 96px;
+          
           .answer{
             font: {
               family:'Share Tech Mono', monospace;
@@ -237,59 +540,53 @@ body, .App{
           }
         }
       }
-      .profiles{
-        text-align: center;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        .profile{
-          margin: 90px 30px;
-          display: flex;
-          flex-direction: column;
-          height: 130px;
-          .name{
-            font: { 
-              family:'Share Tech Mono', monospace;
-              size: 18px;
-            }
+      .visDisplay{
+        background: #fff;
+        border-radius: 6px;
+        width: 490px;
+        height: 450px;
+        padding: 32px 16px;
+        box-shadow: $shadow;
+        font-family: "VT323", "monospace";
+        line-height: 1.5;
+        margin-top: 32px;
+        .title{
+          font-size: 30px;
+          margin-bottom: 0
+        }
+        .hint{
+          font-size: 22px;
+          color: $maincolor;
+          .title{
+            font-size: 22px;
+            color: #000;
           }
-          .photo{
-            width: 100px;
-            height: 100px;
-            border-radius: 50px;
-            margin-bottom: 10px;
-            text-align: center;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.4);
-            &.plyr1{
-              border: 4px solid $plyr1
-            }
-            &.plyr2{
-              border: 4px solid $plyr2
-            }
-            &.plyr3{
-              border: 4px solid $plyr3
-            }
-            img{
-              height: 103%;
-              @include transform(translateX(-22px));
+          #hintContent{
+            background-color: $maincolor;
+            &.active{
+              background-color: #fff;
             }
           }
         }
       }
       .selected-vis{
-        width: calc(100% - 410px);
+        margin-top: 48px;
+        width: 100%;
         height: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         flex-wrap:wrap;
-        @include transform(translateX(60px));
+        .visWrapper{
+          width: 100px;
+          height:100px;
+          border: 2px solid rgba(0,0,0,0.2);
+          border-radius: 6px;
+          overflow: hidden;
+        }
         img{
-          margin:10px 10px;
           align-self: center;
-          width: 128px;
+          width: 100%
+
         }
       }
       #answerWrap{
@@ -354,26 +651,34 @@ body, .App{
           }
         }
       }
-      #timer{
-        position:fixed;
-        top: 50%;
-        left: 50%;
-        @include transform(translateX(calc(-50%)) translateY(-350px));
+      .timer{
+        position: relative;
+        margin:24px auto;
         width: 300px;
         height: 30px;
-        #timer_in{
+        border-radius: 15px;
+        box-shadow:$shadow;
+        background: #fff;
+        padding: 0;
+
+        .timer_in{
           overflow:hidden;
+          position: relative;
+          height: 30px;
+          width: 300px;
+          margin:0;
         }
-        #timer_highlight{
+        .timer_highlight{ 
           position:absolute;
           left:10px;
           top: 4px;
+          margin: 0 auto;
           background:rgba(255,255,255,.5);
           width: 280px;
           height:10px;
           border-radius: 6px;
         }
-        #counter{
+        .counter{
           width: 300px;
           border-radius: 15px;
           height: 30px;
@@ -382,18 +687,64 @@ body, .App{
       }
       //score
 #result{
-  #asrImg{
-    width: 350px;
+  position:fixed;
+  box-shadow: 0 0 15px rgba(56, 178, 205, 0.3);
+  top:50%;
+  left:50%;
+  background: #fff;
+  padding: 60px;
+  text-align: center;
+  display: flex;
+  @include transform(translateX(-50%) translateY(-50%));
+  font: {
+    size: 24px;
+    family: 'VT323', monospace;
+  }
+  #asrImg{ 
+    width: 310px;
     max-width: 100%;
     display: block;
     margin: 10px auto; 
   }
   .asrColr{
     color: $maincolor;
+  
   }
   .score{
-    margin: 20px auto 10px;
+    margin: 0px auto 8px;
     line-height: 1.4;
+  }
+  .score_visWrap{
+    display: flex;
+  }
+  .visWrapper{
+    width: 70px;
+    height:70px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    margin:16px 5px 32px;
+    overflow: hidden;
+    img{
+      width: 100%;
+    }
+  }
+  .answerWrapMsg{
+    margin-top: 32px;
+    font-size: 21px;
+  }
+  .inputAnswerWrap{
+    height: 190px;
+    margin-top: 16px;
+    border-radius: 6px;
+    overflow:hidden;
+    border: 1px solid rgba(0,0,0,0.2);
+    .convo{
+      width: 100%;
+      .convo_inner{
+        width: 100%;
+        
+      }
+    }
   }
 }
 
@@ -413,10 +764,10 @@ body, .App{
           family: 'VT323', monospace;
         }
       }
-      #hint{
+      #hint, #pause{
         position:fixed;
-        box-shadow: 0 0 15px rgba(0,0,0,0.4);
-        top:50%;
+        box-shadow: 0 0 15px rgba(56, 178, 205, 0.3);
+        top:30%;
         left:50%;
         background: #fff;
         padding: 30px 60px;
@@ -437,15 +788,11 @@ body, .App{
             margin: 26px 10px 5px;
             padding: 10px 20px;
             border: 4px solid $maincolor; 
-            // background: $maincolor;
+            border-radius: 6px;
             color: $maincolor;
             // cursor: pointer;
             font-family:'Share Tech Mono', monospace;
-            font-size: 20px;
-            // box-shadow: 0 0 8px rgba(0,0,0,0.4);
-            // &:hover{
-            //   opacity: .7;
-            // }
+            font-size: 16px;
             &.active{
               cursor: pointer;
             }
@@ -466,7 +813,7 @@ body, .App{
               }
           }
         }
-        #hintTimer{
+        #hintTimer, #pauseTimer{
           position: relative;
           // border: 6px solid $maincolor;
           border-radius: 60px;
@@ -506,47 +853,25 @@ body, .App{
           }
         }
       }
-      .modal-select{
-        position:fixed;
-        top:50%;
-        left: 50%;
-        @include transform(translateX(-50%) translateY(-50%));
-        transition: .3s;
-        width: 95%;
-        max-width: 1000px;
-        margin:0 auto;
-        box-shadow: 0 0 15px rgba(0,0,0,0.4);
-        padding: 80px 20px 100px;
-        text-align: center;
-        z-index: 999;
-        background: #fff;
-        .title{
-          font-size: 28px;
-         
+     #hint{
+       top: 60%;
+       @include transform(translateX(-50%));
+       line-height: 1.5;
+       font-size: 28px;
+       #hintTimer{
+         position: absolute;
+         top: 0;
+         right:64px;
+         font-size: 24px;
+         width:70px;
+         height: 70px;
+         circle{
+          height: 90px;
+          width: 90px;
         }
-      }
-      .vis-row{
-        display: flex;
-        flex-direction: row;
-        width: 95%;
-        margin:0 auto;
-        flex-wrap: wrap;
-        justify-content: center;
-        img{
-          border-radius: 6px;
-          border: 6px solid #fff;
-          width: 20%;
-          align-self: center;
-          margin: 10px;
-          max-width: 128px;
-          &.active{
-            cursor: pointer;
-          }
-          &.active:hover{
-            border: 6px solid $maincolor;
-          }
-        }
-      }
+       }
+      
+     }
       .title{
         color: rgba(0,0,0,0.8);
         margin-bottom: 30px;
@@ -556,37 +881,99 @@ body, .App{
           
         }
       }
-      .btn{
-        transition: .3s;
-        cursor: pointer;
-        padding: 15px 30px;
-        margin: 20px;
-        border: 1px solid $maincolor;
-        color: $maincolor;
-        border-radius: 50px;
-        font: { 
-          family:'Share Tech Mono', monospace;
-          size: 18px;
-        }
-        &:hover{
-          background:$maincolor;
-          color: #fff;
-        }
-      }
+     
     }
-
-
-    
-      
-      
-
       .btn-row{
         display:flex;
         flex-direction: row;
         justify-content: center;
       }
 }
+.btn{
+  transition: .3s;
+  cursor: pointer;
+  padding: 15px 30px;
+  margin: 20px;
+  border: 1px solid $maincolor;
+  color: $maincolor;
+  border-radius: 50px;
+  font: { 
+    family:'Share Tech Mono', monospace;
+    size: 18px;
+  }
+  &:hover{
+    background:$maincolor;
+    color: #fff;
+  }
+}
+.modal-select{
+  font: {
+    family: 'VT323', monospace;
+  }
+  position: relative;
+  margin-top: 0;
+  transition: .3s;
+  width: 95%;
+  max-width: 1000px;
+  margin:0 auto;
+  padding: 16px 16px 100px;
+  text-align: center;
+  z-index: 999;
+  background: #fff;
+  #answerImg{
+    width: 95%;
+    max-width: 300px;
+  }
+  .title{
+    font-size: 28px;
+   line-height: 1.2;
+   max-width: 350px;
+   margin: 0 auto 32px;
+  }
+  .order{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #fff;
+    background: $maincolor;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
+}
+.vis-row{
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  max-width: 740px;
+  margin:0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  div{
+    position: relative;
+    width: 100%;
+    max-width: 128px;
+    margin: 1%;
+  }
+  img{
+    border-radius: 6px;
+    border: 6px solid #fff;
+    width: 100%;
+    align-self: center;
 
+   
+    &.active{
+      cursor: pointer;
+    }
+    &.active:hover, &.selected{
+      border: 6px solid $maincolor;
+    }
+  }
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

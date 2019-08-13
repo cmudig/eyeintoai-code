@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Profile from './profile.js'
 
 
 class Loading extends Component {
@@ -7,17 +8,24 @@ class Loading extends Component {
         super(props);
         this.state = {
         }
-}
-componentDidMount(){
-}
-   
+    }
+    //profile loading
+    componentDidMount() {
+            window.setTimeout(function(){
+                this.props.movetoNext(1)
+            }.bind(this),3000)
+    }
+
     render() {
 
         return (
-            <div id="hint" key = "loading" >
-            <div id="hintTimer" key="hintTimer"> <svg width="150" height="120"><circle className = "active" key = "timeAnim" r="54" cx="60" cy="60" /></svg></div>
-            <br />
-            The player is selecting an image
+            <div id="hint" key="loading" >
+                <div className="main vertCenter">
+                    <div className="matching" >
+                        <div className="title">Finding players...</div>
+                    </div>
+                    <Profile/>
+                </div>
             </div>
 
         );

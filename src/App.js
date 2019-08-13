@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
 import cmuLogo from './image/CMU_Logo.png'
+import Loading from './loading.js'
+import Vis from './visualizations.js'
 import Match from './matching.js'
 import Category from './category.js'
 import Game from './game.js'
 import Round from './round.js'
 import Guess from './guessorRound.js'
+import profile1 from './image/profile/profile1.png'
 
+import ladybug from "./image/samples/ladybug.jpg"
+import ladybug_feature1 from './image/vis/ladybug/1.jpg'
+import ladybug_feature2 from './image/vis/ladybug/2.jpg'
+import ladybug_feature3 from './image/vis/ladybug/3.jpg'
+import ladybug_feature4 from './image/vis/ladybug/4.jpg'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer:"hamster",
+      answer:"ladybug",
       mode: 0,
       round: 1,
-      image: "",
+      image: ladybug,
+      hints: [ladybug_feature1, ladybug_feature2, ladybug_feature3, ladybug_feature4],
+      bluOpcity: 0,
+      score: [[0, 10], [0, 10], [0, 0]]
     }
   }
   setAnswer(n){
@@ -24,25 +35,34 @@ class App extends Component {
   setImage(n){
     this.setState({image : n})
   }
+  setHint(n){
+    this.setState({hints: n})
+  }
   addRound(){
     this.setState({round: this.state.round + 1})
     this.movetoNext(4);
   }
+  setScore(n){
+    this.setState({score: n})
+  }
   movetoNext(n){
-    window.setTimeout(function(){this.setState({mode: 3})}.bind(this), 5000);
-    window.setTimeout(function(){this.setState({mode: n})}.bind(this), 11000);
+    
+    window.setTimeout(function(){
+      if(n === 3){
+        this.setState({bluOpcity : 1});
+      } else{
+        this.setState({bluOpcity : 0});
+      }
+      this.setState({mode: n})}.bind(this), 100);
   }
   renderMode(){
     switch(this.state.mode){
-      case 0:  window.setTimeout(function(){
-        this.setState({mode : 3});
-        this.movetoNext(1);
-      }.bind(this), 3000);
-      return <Match />
-      case 1: return  <Category setAnswer={this.setAnswer.bind(this)} setImage = {this.setImage.bind(this)} />
-      case 2: return <Game answer={this.state.answer} round = {this.state.round} addRound = {this.addRound.bind(this)} image = {this.state.image}/> 
-      case 3: return  <Round round = {this.state.round} />
-      case 4: return  <Guess round = {this.state.round} addRound = {this.addRound.bind(this)} />
+      case 0: return <Loading movetoNext = {this.movetoNext.bind(this)}/>
+      case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} setImage = {this.setImage.bind(this)}  movetoNext = {this.movetoNext.bind(this)} />
+      case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} setHint = {this.setHint.bind(this)} answer = {this.state.answer} image = {this.state.image}/>
+      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} round = {this.state.round} addRound = {this.addRound.bind(this)} hints = {this.state.hints} image = {this.state.image} score = {this.state.score}/> 
+      case 4: return  <Round round = {this.state.round} movetoNext = {this.movetoNext.bind(this)}/>
+      case 5: return  <Guess round = {this.state.round} addRound = {this.addRound.bind(this)} />
       default:
     }
     
@@ -50,12 +70,18 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App" style={{ width: "100%", height: "100%", position:"relative" }} key="main">
+      <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
+        <div id = "blue" style = {{opacity: this.state.bluOpcity}}/>
         <div className="header" >
-          <div className="left">
+          <div id="cmu"><img src = {cmuLogo} alt="CMU logo" /></div>
             <div className="title">Interpretable Machine Learning Research Project</div>
-            <div id="cmu"><img src = {cmuLogo} alt="CMU logo" /></div>
-          </div>
+            <div className = "menuBar">
+                <div className = "menu active">Game 1</div>
+                <div className = "menu">Game 2</div>
+                <div className = "profileWrapper">
+                  <img src= {profile1} className =  "profile" />
+                </div>
+            </div>
           </div>
         { this.renderMode()}
       </div>

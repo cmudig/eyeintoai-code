@@ -26,22 +26,17 @@ class extends Component {
 
     return (
       <div className="App" style={{ width: "100%", height: "100%" }}>
-        <div className="header" >
+       
           <div className="left">
             <div id="cmu">CMU</div>
             <div className="title">Interpretable Machine Learning Research Project</div>
           </div>
-          <div className = "profiles">
-                <div className = "profile">
-                    <div className = "photo" />
-                </div>
-            </div>
-
             <div className = "select-Category">
                 <div className = "title">Select a category</div>
                 <div className = "btn-row">
                     <div className = "btn">Animals</div>
                     <div className = "btn">Objects</div>
+                    <div className = "btn">Randon</div>
                 </div>
             </div>
             <div className = "select-Category">
@@ -54,7 +49,6 @@ class extends Component {
                     <img src= {this.animals[3]}/>
                 </div>
             </div>
-        </div>
 
       </div>
     );

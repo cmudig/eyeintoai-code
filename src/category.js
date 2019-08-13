@@ -31,6 +31,7 @@ class Category extends Component {
       <div className = "btn-row">
           <div className = "btn" onClick={(ev)=>{this.setState({questionNum:1, imgType: "animals"})}}>Animals</div>
           <div className = "btn" onClick={(ev)=>{this.setState({questionNum:1, imgType: "objects"})}}>Objects</div>
+          <div className = "btn" onClick={(ev)=>{this.setState({questionNum:1, imgType: "random"})}}>Random</div>
       </div>
   </div>);
   break;
@@ -45,7 +46,7 @@ return element;
     let images = [];
     if(this.state.imgType === "animals"){
       for(let i =0; i<4; i++){
-        images.push( <img src= {this.animals[i][0]} alt={this.animals[i][1]} key={this.animals[i][1]} onClick={(ev)=>{this.props.setAnswer(this.animals[i][1]); this.props.setImage(this.animals[i][0])}} />)
+        images.push( <img src= {this.animals[i][0]} alt={this.animals[i][1]} key={this.animals[i][1]} onClick={(ev)=>{this.props.setAnswer(this.animals[i][1]); this.props.setImage(this.animals[i][0]); this.props.movetoNext(2)}} />)
       }
       element = <div className = "select-Category" key="selectCategory">
       <div className = "title">Select an image</div>
@@ -53,9 +54,9 @@ return element;
              {images}
           </div>
       </div>
-    } else{
+    } else if(this.state.imgType === "objects"){
       for(let i =0; i<4; i++){
-        images.push( <img src= {this.objects[i][0]} alt={this.objects[i][1]} key={this.objects[i][1]} onClick={(ev)=>{this.props.setAnswer(this.objects[i][1])}} />)
+        images.push( <img src= {this.objects[i][0]} alt={this.objects[i][1]} key={this.objects[i][1]} onClick={(ev)=>{this.props.setAnswer(this.objects[i][1]); this.props.setImage(this.objects[i][0]); this.props.movetoNext(2)}} />)
       }
       element = <div className = "select-Category" key="select-category">
       <div className = "title">Select an image</div>
@@ -63,6 +64,10 @@ return element;
               {images}
           </div>
       </div>
+    } else {
+      this.props.setAnswer(this.objects[0][1]);
+      this.props.setImage(this.objects[0][0]);
+      this.props.movetoNext(2);
     };
     return element;
   }

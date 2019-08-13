@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
-import Score from './score.js'
-
 class Hint extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hintTimer: 3,
-            hint: "",
+            hintTimer: 10,
             animation: "active",
             result: false,
         }
@@ -39,43 +35,12 @@ class Hint extends Component {
         }]
     ]
     }
-
+    componentWillUnmount(){
+        clearInterval(this.hinttimer);
+        this.props.changeMode(4);
+    }
     hintRound() {
-        let hint;
-        //answer
-        switch (this.answer) {
-            case "sea lion": hint = "type of animal";
-                break;
-            case "ladybug": hint = "type of insect";
-                break;
-            case "flamingo": hint = "type of bird";
-                break;
-            case "hamster": hint = "type of mammal";
-                break;
-            case "jellyfish": hint = "type of sea animal";
-                break;
-            case "strawberry": hint = "type of fruit";
-                break;
-            case "castle": hint = "type of building";
-                break;
-            case "balloon":
-            case "umbrella": hint = "type of object";
-                break;
-            default:
-        }
-        this.setState({ hint: hint });
-        if (this.round === 12) {
-            this.setState({ hintTimer: 10 });
-            if(this.props.turnInput){
-            this.props.turnInput(10000);
-        }
-        } else {
-            if(this.props.turnInput){
-            this.props.turnInput(3000);
-            }
-        }
         let time;
-
         this.hinttimer = window.setInterval(function () {
             time = this.state.hintTimer - 1;
             if (time === 9) {
@@ -83,14 +48,7 @@ class Hint extends Component {
             }
             this.setState({ hintTimer: time, });
             if (time === 0) {
-                if(this.props.countRound){
-                                    this.props.countRound()
-                                }
-                clearInterval(this.hinttimer);
-                this.props.changeMode(0);
-                this.props.setTimer();
-                this.props.changeHint(this.state.hint)
-                this.props.turnHintDisplay();
+                this.props.changeMode(4);
             }
 
         }.bind(this), 1000);
@@ -111,14 +69,9 @@ class Hint extends Component {
     }
         window.setTimeout(function () {
             cards[1].classList.add("plyr3");
-            clearInterval(this.hinttimer);
+            this.props.changeMode(4);
             this.setState({ animation: "" });
-
             window.setTimeout(function () { this.setState({ result: true }); }.bind(this), 3000)
-            // if (this.props.entireRound < 2) {
-            //     window.setTimeout(function () { this.props.addRound() }.bind(this), 3000)
-            // }
-            // document.getElementsByTagName("circle")[0].style.animation = "none"
         }.bind(this), time)
 
     }
@@ -133,43 +86,20 @@ class Hint extends Component {
         }
     }
     hintGenerator() {
-
-        if (this.round < 12) {
-            return <div>
-                <div><span className="hinttop">It's a</span><br />
-                    {this.state.hint} </div>
-                <div id="hintTimer" key="hintTimer"> <svg width="150" height="120"><circle className={this.state.animation} key="timeAnim" r="54" cx="60" cy="60" /></svg>{this.state.hintTimer}</div>
-            </div>
-        } else {
-
             if (this.state.result === false) {
                 let answer = this.answer[0].toUpperCase() + this.answer.slice(1);
-
-                if(this.props.entireRound < 2){
-                return <div>Select the answer<br />
+                return <div>Last chance!<br />
+                Select the answer
+                <div id="hintTimer" key="hintTimer"> <svg width="90" height="90"><circle className={this.state.animation} key="timeAnim" r="30" cx="35" cy="35" /></svg>{this.state.hintTimer}</div>
                     <div className="hintWrapper">
                         <div className="hintCard">Armadillo</div>
                         <div className="hintCard">Potato</div>
                         <div className="hintCard">Beetles</div>
                         <div className="hintCard">{answer}</div>
                     </div>
-                    <div id="hintTimer" key="hintTimer"> <svg width="150" height="120"><circle className={this.state.animation} key="timeAnim" r="54" cx="60" cy="60" /></svg>{this.state.hintTimer}</div>
                 </div>
-                } else{
-                    return <div>Select the answer<br />
-                    <div className="hintWrapper">
-                        <div className="hintCard active" onClick={this.selectCard}>Armadillo</div>
-                        <div className="hintCard active" onClick={this.selectCard}>Potato</div>
-                        <div className="hintCard active" onClick={this.selectCard}>Beetles</div>
-                        <div className="hintCard active" onClick={this.selectCard}>{answer}</div>
-                    </div>
-                    <div id="hintTimer" key="hintTimer"> <svg width="150" height="120"><circle className={this.state.animation} key="timeAnim" r="54" cx="60" cy="60" /></svg>{this.state.hintTimer}</div>
-                </div>
-                }
-            } else {
-                return <Score image={this.props.image} answer={this.answer} score={this.score[this.props.entireRound - 1]} round = {this.props.entireRound} addRound = {this.props.addRound.bind(this)}/>
+                
             }
-        }
     }
     componentDidMount() {
         this.hintRound();
