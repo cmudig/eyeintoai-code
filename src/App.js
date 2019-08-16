@@ -3,11 +3,9 @@ import './App.css';
 import cmuLogo from './image/CMU_Logo.png'
 import Loading from './loading.js'
 import Vis from './visualizations.js'
-import Match from './matching.js'
 import Category from './category.js'
 import Game from './game.js'
 import Round from './round.js'
-import Guess from './guessorRound.js'
 import profile1 from './image/profile/profile1.png'
 
 import ladybug from "./image/samples/ladybug.jpg"
@@ -22,7 +20,7 @@ class App extends Component {
     this.state = {
       answer:"ladybug",
       mode: 0,
-      round: 1,
+      entireRound: 1,
       image: ladybug,
       hints: [ladybug_feature1, ladybug_feature2, ladybug_feature3, ladybug_feature4],
       bluOpcity: 0,
@@ -39,7 +37,7 @@ class App extends Component {
     this.setState({hints: n})
   }
   addRound(){
-    this.setState({round: this.state.round + 1})
+    this.setState({entireRound: this.state.entireRound + 1})
     this.movetoNext(4);
   }
   setScore(n){
@@ -60,9 +58,8 @@ class App extends Component {
       case 0: return <Loading movetoNext = {this.movetoNext.bind(this)}/>
       case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} setImage = {this.setImage.bind(this)}  movetoNext = {this.movetoNext.bind(this)} />
       case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} setHint = {this.setHint.bind(this)} answer = {this.state.answer} image = {this.state.image}/>
-      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} round = {this.state.round} addRound = {this.addRound.bind(this)} hints = {this.state.hints} image = {this.state.image} score = {this.state.score}/> 
-      case 4: return  <Round round = {this.state.round} movetoNext = {this.movetoNext.bind(this)}/>
-      case 5: return  <Guess round = {this.state.round} addRound = {this.addRound.bind(this)} />
+      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} hints = {this.state.hints} image = {this.state.image} score = {this.state.score}/> 
+      case 4: return  <Round round = {this.state.entireRound} movetoNext = {this.movetoNext.bind(this)}/>
       default:
     }
     

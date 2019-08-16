@@ -456,7 +456,7 @@ body, .App{
               }
             }
           }
-          .typing{
+          .typing, #tAnsrWrap{
             width: 100%;
             display: flex;
             justify-content: flex-end;
@@ -491,6 +491,37 @@ body, .App{
             }
 
           }
+          .btn{
+            text-transform: uppercase;
+            background: $maincolor;
+            padding: 10px;
+            border: 2px solid $maincolor;
+            color: #fff;
+            margin: 16px 8px 0;
+            font: {
+              family:'Share Tech Mono', monospace;
+              size: 13px;
+            }
+          }
+          } 
+          #tAnsrWrap{
+            justify-content: center;
+          }
+          #answerType{
+            transition: .3s;
+            width: calc(100% - 70px);
+            margin-top: 16px;
+            align-self: center;
+            font: {
+              family:'Share Tech Mono', monospace;
+              size: 14px;
+            }
+            padding: 10px;
+            border-radius: 20px;
+            border: 2px solid $maincolor;
+            &:focus{
+              outline-width: 0;
+            }
           }
         }
         .answers{
@@ -612,39 +643,6 @@ body, .App{
           padding: 10px 20px;
           border-radius: 20px;
           margin-bottom: 10px;
-          font: {
-            family:'Share Tech Mono', monospace;
-            size: 18px;
-          }
-        }
-      }
-      #tAnsrWrap{
-        position: fixed;
-        top: calc(110vh - 270px);
-        left: 50%;
-        display: flex;
-      
-        @include transform(translateX(-50%));
-        #answerType{
-          transition: .3s;
-          align-self: center;
-          font: {
-            family:'Share Tech Mono', monospace;
-            size: 18px;
-          }
-          padding: 10px 20px;
-          border-radius: 20px;
-          border: 2px solid $maincolor;
-          &:focus{
-            outline-width: 0;
-          }
-        }
-        .btn{
-          text-transform: uppercase;
-          background: $maincolor;
-          padding: 10px 20px ;
-          border: 2px solid $maincolor;
-          color: #fff;
           font: {
             family:'Share Tech Mono', monospace;
             size: 18px;

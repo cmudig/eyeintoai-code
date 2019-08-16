@@ -14,21 +14,58 @@ class Convo extends Component {
             generateAnswer: [],
             time: 1,
             opacity: 1,
-            convo : [],
+            convo: [],
+           
         }
         this.answers = ["wolf", "bug", "dog", "cat", "fur", "cotton", "fabric", "web", "spider", "fox", "rubber", "mouse", "flower", "polar bear", "vase", "plant", "mint", "daisy", "mouse", "glass", "cosmos", "space", "blanket", "monkey", "otter", "goose", "lion", "bird", "peacock", "sky", "ceramic", "cotton", "linen"];
         this.profile = [profile1, profile2, profile3]
         this.hintAnswer = ["strawberry", "jellyfish", "flamingo", "castle", "umbrella", "ladybug", "balloon", "peacock"];
-
+        this.convo = [];
+        this.answer = this.props.answer;
+        this.score = this.props.score;
     }
     componentDidMount() {
         if (this.props.typemode === 0) {
-            this.setState({opacity: 1})
+            this.setState({ opacity: 1 })
         }
-            this.convoGenerate()
-        
-    }
+        this.convoGenerate()
 
+    }
+    componentWillUnmount() {
+        clearInterval(this.convo);
+    }
+    addAnswer(){
+        let tanswer = document.getElementById("answerType");
+        let answers = [tanswer.value];
+        if(tanswer.value === this.answer){
+           this.rightAnswer()
+        }
+        let element = this.state.generateAnswer;
+        element.push(<div>
+            <div className="convoWrap" key={"convo" + element.length}>
+                <div className={"bubble plyr1"} key={"convoBubble" + element.length}>
+                    {answers}
+                </div>
+                <div className="profile" key={"profile" + element.length}>
+                    <img src={profile1} className="photo " key={"profileImage" + element.length} />
+                </div>
+            </div>
+        </div>);
+        this.setState({ generateAnswer: element });
+
+        let convoBox = document.getElementsByClassName("convo_inner")[0];
+        if (convoBox) {
+            convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
+        }
+        this.setState({ time: (this.state.time * 1) + 1 });
+    tanswer.value = "";
+    }
+    rightAnswer(){
+        window.clearInterval(this.timer);
+        this.score[0][1] += 10;
+        this.props.setScore(this.score);
+        window.setTimeout(function(){this.setState({ disable: true, inputOpcity: .5});  this.props.changeMode(4);}.bind(this),300);
+    }
     generateAnswer1() {
         let answer1 = [];
         let length = this.state.answer1.length - 1;
@@ -47,19 +84,18 @@ class Convo extends Component {
     convoGenerate() {
         let date = "";
         let answer = this.answers
-        this.setState({opacity: 1});
-        let convo = setInterval(function () {
+        this.setState({ opacity: 1 });
+        this.convo = setInterval(function () {
             if (this.state.time > 4) {
-                clearInterval(convo);
-                this.setState({opacity: 0});
+                this.setState({ opacity: 0 });
                 let element = this.state.convo;
                 element.push(this.state.generateAnswer);
-                this.setState({convo: element});
+                this.setState({ convo: element });
                 this.props.saveAnswers(this.state.convo);
             }
             date = new Date();
             let answers = answer[(date.getSeconds() * date.getSeconds()) % answer.length]
-            let player = (date.getSeconds() * date.getSeconds()) % 3;
+            let player = ((date.getSeconds() * date.getSeconds()) % 2) + 1;
             let element = this.state.generateAnswer;
             element.push(<div>
                 <div className="convoWrap" key={"convo" + element.length}>
@@ -73,11 +109,42 @@ class Convo extends Component {
             </div>);
             this.setState({ generateAnswer: element });
             let convoBox = document.getElementsByClassName("convo_inner")[0];
-            if(convoBox){
-            convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
-        }
-            this.setState({time: (this.state.time * 1) + 1});
+            if (convoBox) {
+                convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
+            }
+            this.setState({ time: (this.state.time * 1) + 1 });
         }.bind(this), 4000)
+    }
+    renderInputBox() {
+        if (this.props.typemode === 0) {
+            return <div className="typing">
+                <div className="bubble all">
+                    <div className="dot" />
+                    <div className="dot" />
+                    <div className="dot" />
+                </div>
+                <div className='profileWrap'>
+                    <div className="profile">
+                        <img src={this.profile[0]} className="photo " />
+                    </div>
+                    <div className="profile">
+                        <img src={this.profile[1]} className="photo " />
+                    </div>
+                    <div className="profile">
+                        <img src={this.profile[2]} className="photo " />
+                    </div>
+                </div>
+            </div>
+        } else {
+            return <div id="tAnsrWrap">
+                <input type="text" id="answerType" style={{ opacity: this.state.inputOpcity }} disabled={this.state.disable} autoFocus onKeyPress={(ev) => {
+                    if (ev.key === "Enter") { this.addAnswer() }
+                }} />
+                <div className="submit btn" onClick={this.addAnswer.bind(this)} style={{ opacity: this.state.inputOpcity }}>
+                    Enter
+            </div>
+            </div>
+        }
     }
     render() {
 
@@ -87,24 +154,7 @@ class Convo extends Component {
                 <div className="convo_inner">
                     {this.state.generateAnswer}
                 </div>
-                <div className="typing" style = {{opacity: this.state.opacity}}>
-                    <div className="bubble all">
-                        <div className="dot" />
-                        <div className="dot" />
-                        <div className="dot" />
-                    </div>
-                    <div className='profileWrap'>
-                        <div className="profile">
-                            <img src={this.profile[0]} className="photo " />
-                        </div>
-                        <div className="profile">
-                            <img src={this.profile[1]} className="photo " />
-                        </div>
-                        <div className="profile">
-                            <img src={this.profile[2]} className="photo " />
-                        </div>
-                    </div>
-                </div>
+                {this.renderInputBox()}
             </div>
         )
 

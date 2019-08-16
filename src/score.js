@@ -35,11 +35,10 @@ class Score extends Component {
         return element;
     }
     componentDidMount() {
-        if(this.props.round < 2){
+        if(this.props.round < 3){
             window.setTimeout(function(){this.props.addRound()}.bind(this), 10000);
         }
         this.setState({score: this.props.score});
-        console.log(this.state.score);
     }
 
     render() {
@@ -54,7 +53,7 @@ class Score extends Component {
                     The answer is <span className="asrColr">{this.answer}</span>!
                 </div>
                 <div className="side">
-                    <Profile score={this.state.score} countScore = {true} setScore = {this.props.setScore.bind(this)}/>
+                    <Profile score={this.props.score} countScore = {true} setScore = {this.props.setScore.bind(this)} setScore = {this.props.setScore.bind(this)}/>
                     <div className = "answerWrapMsg">
                     See what other players thought
                     </div>

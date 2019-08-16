@@ -27,7 +27,7 @@ class Profile extends Component {
                 score: 0,
                 effect: "",
             }],
-            score: null,
+            score: this.props.score,
             counter: [0, 0, 0],
         }
     }
@@ -62,13 +62,12 @@ class Profile extends Component {
             this.countScore()
         }
         if(this.props.score){
-            this.setState({score: this.props.score.slice()})
+            this.setState({score: this.props.score})
         }
        
     }
     countScore() {
         for (let i = 0; i < 3; i++) {
-            console.log(this.statescore);
             if (this.state.score[i][0] !== this.state.score[i][1]) {
                 let addScore = window.setInterval(function () {
                     let scoreCopy = this.state.score;
@@ -79,7 +78,7 @@ class Profile extends Component {
                         this.setState({score: scoreCopy, counter: counterCopy })
                     } else{
                         window.clearInterval(addScore);
-                        this.props.setScore(this.state.score)
+                        this.props.setScore(this.state.score);
                         
                     }
                 }.bind(this), 100)

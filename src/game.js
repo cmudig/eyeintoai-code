@@ -26,7 +26,7 @@ class Game extends Component {
             opacity: 1,
             display: "block",
 
-            typemode : 0,
+            typemode : this.props.entireRound - 1,
             //player's current mode. 0: select image, 1: guess mode
             score: this.props.score,
 
@@ -38,6 +38,7 @@ class Game extends Component {
         }
         this.answer = this.props.answer;
         this.image = this.props.image;
+        this.addRound = this.props.addRound;
     }
     componentDidMount() {
         this.setState({ selected: [] });
@@ -50,6 +51,10 @@ class Game extends Component {
     }
     saveAnswers(n){
         this.setState({inputAnswers: n})
+    }
+    changeScore(n){
+        this.setState({score: n});
+        this.props.setScore(n);
     }
 
     //Generate 4 visualizations for the Guess box
@@ -104,7 +109,7 @@ class Game extends Component {
         let width = 300;
         //timer
         let timer = window.setInterval(function () {
-            width -= 15;
+            width -= 10;
             this.setState({ timerWidth: width + "px" });
             if (width === 0) {
                 clearInterval(timer);
@@ -165,7 +170,7 @@ class Game extends Component {
     }
     generateConvo() {
         if(this.state.mode === 0){
-        return  <Convo typemode = {this.state.typemode} saveAnswers = {this.saveAnswers.bind(this)} key ="convo"/>
+        return  <Convo typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)} key ="convo"/>
     }
     }
     generateModals() {
@@ -173,7 +178,7 @@ class Game extends Component {
             case 1: 
                 return  <Pause setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} />
             case 3: 
-                return <Hint image={this.image} answer={this.answer} round={this.state.round} entireRound={this.props.round}setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} />
+                return <Hint image={this.image} answer={this.answer} round={this.state.round} entireRound={this.props.round}setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />
             case 4: 
                 return <Score image={this.image} answer={this.answer} score={this.state.score} round = {this.props.entireRound} hints = {this.props.hints} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal"/>
         }
