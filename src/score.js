@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Profile from './profile.js'
 import * as firebase from 'firebase';
-import Setup from './firebase'
+// import Setup from './firebase'
 
 class Score extends Component {
     constructor(props) {
@@ -15,8 +15,7 @@ class Score extends Component {
         this.answer = this.props.answer;
     }
     componentWillMount(){
-        Setup();
-        console.log(this.props.answerSet)
+        // Setup();
     }
     scoreGenerator() {
         let element = []

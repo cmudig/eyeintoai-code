@@ -109,12 +109,12 @@ class Convo extends Component {
             if (this.props.entireRound === 1) {
                 player = (Math.floor(Math.random() * 2)) + 1;
             } 
-            element.push(<div>
-                <div className="convoWrap" key={"convo" + Math.random() + element.length}>
-                    <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + Math.random() + element.length}>
+            element.push(<div key={"convoWarp"  + element.length}>
+                <div className="convoWrap" key={"convo" + element.length}>
+                    <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
                         {answers}
                     </div>
-                    <div className={"profile plyr" + (player + 1)} key={"profile" + Math.random() + element.length}>
+                    <div className={"profile plyr" + (player + 1)} key={"profile" + element.length}>
                         <i className={this.props.players[player]}></i>
                     </div>
                 </div>
