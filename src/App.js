@@ -16,8 +16,8 @@ class App extends Component {
     super(props);
     this.state = {
       answer:{},
-      mode: 4,
-      entireRound: 2,
+      mode: 0,
+      entireRound: 1,
       hintVis: [],
       bluOpcity: 0,
       score: [[0, 0], [0, 0], [0, 0]],
