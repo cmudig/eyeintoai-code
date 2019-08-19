@@ -3,14 +3,8 @@ import './index.scss';
 
 import Convo from './convo.js'
 import Profile from './profile.js'
-import profile1 from './image/profile/profile1.png'
-import profile2 from './image/profile/profile2.png'
-import profile3 from './image/profile/profile3.png'
 
 import Score from './score.js'
-
-import ladybug from "./image/samples/ladybug.jpg"
-import ladybug_feature1 from './image/vis/ladybug/1.jpg'
 import Hint from './hintmodal.js'
 import Pause from './pause.js'
 
@@ -31,13 +25,13 @@ class Game extends Component {
             score: this.props.score,
 
             hint: "animal",
-            hintDisplay: false,
+            hintMode: false,
             hintContent:  <span id = "hintContent" key = "hintcontent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>,
 
             inputAnswers: [],
+            answerSet:[],
         }
         this.answer = this.props.answer;
-        this.image = this.props.image;
         this.addRound = this.props.addRound;
     }
     componentDidMount() {
@@ -49,8 +43,10 @@ class Game extends Component {
     changeMode(n) {
         this.setState({ mode: n });
     }
-    saveAnswers(n){
-        this.setState({inputAnswers: n})
+    saveAnswers(n, a){
+        let element = this.state.answerSet;
+        element.push(a);
+        this.setState({inputAnswers: n, answerSet: element})
     }
     changeScore(n){
         this.setState({score: n});
@@ -62,17 +58,17 @@ class Game extends Component {
         let element = [];
         if(this.state.round < 5){
         for (let i = 0; i <  this.state.round; i++) {
-            element.push(<div class = "visWrapper">
-            <img src={this.props.hints[i]} alt={"vis" + i} key={"vis" + i} /></div>)
+            element.push(<div className =  "visWrapper">
+            <img src={this.props.hintVis[i]} alt={"vis" + i} key={"vis" + i} /></div>)
         }
         for (let i = 0; i < (4 - this.state.round); i++) {
-            element.push(<div class = "visWrapper" />)
+            element.push(<div className =  "visWrapper" key={"vis" + i + 5}/>)
         } 
        
     }else{
         for (let i = 0; i <  4; i++) {
-            element.push(<div class = "visWrapper">
-            <img src={this.props.hints[i]} alt={"vis" + i} key={"vis" + i} /></div>)
+            element.push(<div className =  "visWrapper">
+            <img src={this.props.hintVis[i]} alt={"vis" + i} key={"vis" + i} /></div>)
         }
     }
     return element;
@@ -109,7 +105,7 @@ class Game extends Component {
         let width = 300;
         //timer
         let timer = window.setInterval(function () {
-            width -= 10;
+            width -=50;
             this.setState({ timerWidth: width + "px" });
             if (width === 0) {
                 clearInterval(timer);
@@ -117,29 +113,10 @@ class Game extends Component {
                     this.setState({round: (this.state.round * 1) + 1,
                     mode: 1})
                 } else if (this.state.round === 4){
-                    let hint = "";
-                    switch (this.answer) {
-                        case "sea lion": hint = "animal";
-                            break;
-                        case "ladybug": hint = "insect";
-                            break;
-                        case "flamingo": hint = "bird";
-                            break;
-                        case "hamster": hint = "mammal";
-                            break;
-                        case "jellyfish": hint = "sea animal";
-                            break;
-                        case "strawberry": hint = "fruit";
-                            break;
-                        case "castle": hint = "building";
-                            break;
-                        case "balloon":
-                        case "umbrella": hint = "object";
-                            break;
-                        default:
-                    }
+                    let hint = this.answer.hint;
+
                    hint =  <span id = "hintContent" key = "hintcontent" className = "active">{hint}</span>;
-                    this.setState({ round: (this.state.round * 1) + 1,mode: 1, hintContent: hint });
+                    this.setState({ round: (this.state.round * 1) + 1,mode: 1, hintContent: hint, hintMode: true });
                 } else if(this.state.round === 5){
                     this.setState({mode: 3})
                 }else{
@@ -158,19 +135,22 @@ class Game extends Component {
         return this.state.hintContent;
     }
     renderAnswerBox(){
+        let element = [];
+        for(let i = 0; i < this.props.answer.classLabels.length / 2; i++){
+            element.push(<div className="answer" key = {"answer" + i}>{this.props.answer.classLabels[i * 2]}(s)</div>)
+        }
         if(this.state.typemode === 0){
             return   <div className="answerBox">
-            <img className="answerImg" src={this.props.image} />
+            <img className="answerImg" src={this.props.answer.url} alt = "Answer"/>
             <div className="answerList">
-                <div className="answer" >{this.props.answer}</div>
-                <div className="answer" >Dog</div>
+                {element}
             </div>
     </div>
         }
     }
     generateConvo() {
         if(this.state.mode === 0){
-        return  <Convo typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)} key ="convo"/>
+        return  <Convo typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} key ="convo"/>
     }
     }
     generateModals() {
@@ -178,9 +158,10 @@ class Game extends Component {
             case 1: 
                 return  <Pause setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} />
             case 3: 
-                return <Hint image={this.image} answer={this.answer} round={this.state.round} entireRound={this.props.round}setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />
+                return <Hint answer={this.answer} round={this.state.round} entireRound={this.props.round}setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />
             case 4: 
-                return <Score image={this.image} answer={this.answer} score={this.state.score} round = {this.props.entireRound} hints = {this.props.hints} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal"/>
+                return <Score answer={this.answer}  players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} />
+            default:
         }
     }
 
@@ -191,7 +172,7 @@ class Game extends Component {
                 <div className="main">
                     <div className="game">
                         <div className="side left">
-                           <Profile score = {this.state.score}/>
+                           <Profile score = {this.state.score} players = {this.props.players}/>
                           {this.renderAnswerBox()}
                         </div>
 

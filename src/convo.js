@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
 
-import profile1 from './image/profile/profile1.png'
-import profile2 from './image/profile/profile2.png'
-import profile3 from './image/profile/profile3.png'
-
-
-
 class Convo extends Component {
     constructor(props) {
         super(props);
@@ -15,11 +9,12 @@ class Convo extends Component {
             time: 1,
             opacity: 1,
             convo: [],
-           
+            typedAnswer: [],
+
         }
         this.answers = ["wolf", "bug", "dog", "cat", "fur", "cotton", "fabric", "web", "spider", "fox", "rubber", "mouse", "flower", "polar bear", "vase", "plant", "mint", "daisy", "mouse", "glass", "cosmos", "space", "blanket", "monkey", "otter", "goose", "lion", "bird", "peacock", "sky", "ceramic", "cotton", "linen"];
-        this.profile = [profile1, profile2, profile3]
-        this.hintAnswer = ["strawberry", "jellyfish", "flamingo", "castle", "umbrella", "ladybug", "balloon", "peacock"];
+        this.hintAnswer_animal = ["poodle", "alphaca", "lama", "snake", "spider", "cat", "parrot", "jellyfish", "otter", "frog", "bee", "butterfly", "shark", "turtle", "tiger", "bear", "deer", "mouse", "hamster"];
+        this.hintAnswer_object = ["acorn", "plum", "bottle", "balloon", "confetti", "toaster", "camera", "socks", "strawberry", "castle", "train", "soccer ball", "vacuum", "spoon", "desk", "bed", "corn", "pumpkin", "candy"]
         this.convo = [];
         this.answer = this.props.answer;
         this.score = this.props.score;
@@ -29,42 +24,44 @@ class Convo extends Component {
             this.setState({ opacity: 1 })
         }
         this.convoGenerate()
-
     }
     componentWillUnmount() {
+        this.props.saveAnswers(this.state.typedElement, this.state.generateAnswer);
         clearInterval(this.convo);
     }
-    addAnswer(){
+    addAnswer() {
         let tanswer = document.getElementById("answerType");
         let answers = [tanswer.value];
-        if(tanswer.value === this.answer){
-           this.rightAnswer()
+        if (this.answer.includes(tanswer.value)) {
+            this.rightAnswer()
         }
         let element = this.state.generateAnswer;
+        let typedElement = this.state.typedAnswer;
+        typedElement.push(answers);
         element.push(<div>
             <div className="convoWrap" key={"convo" + element.length}>
                 <div className={"bubble plyr1"} key={"convoBubble" + element.length}>
                     {answers}
                 </div>
                 <div className="profile" key={"profile" + element.length}>
-                    <img src={profile1} className="photo " key={"profileImage" + element.length} />
+                    <i className={this.props.players[0]}></i>
                 </div>
             </div>
         </div>);
-        this.setState({ generateAnswer: element });
+        this.setState({ generateAnswer: element, typedAnswer: typedElement });
 
         let convoBox = document.getElementsByClassName("convo_inner")[0];
         if (convoBox) {
             convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
         }
         this.setState({ time: (this.state.time * 1) + 1 });
-    tanswer.value = "";
+        tanswer.value = "";
     }
-    rightAnswer(){
+    rightAnswer() {
         window.clearInterval(this.timer);
         this.score[0][1] += 10;
         this.props.setScore(this.score);
-        window.setTimeout(function(){this.setState({ disable: true, inputOpcity: .5});  this.props.changeMode(4);}.bind(this),300);
+        window.setTimeout(function () { this.setState({ disable: true, inputOpcity: .5 }); this.props.changeMode(4); }.bind(this), 300);
     }
     generateAnswer1() {
         let answer1 = [];
@@ -82,8 +79,22 @@ class Convo extends Component {
     }
 
     convoGenerate() {
-        let date = "";
-        let answer = this.answers
+        let answer;
+        if (this.props.hintMode === true) {
+            if (this.hintAnswer_animal.includes(this.props.answer.classLabels[0])) {
+                answer = this.hintAnswer_animal;
+            } else {
+                answer = this.hintAnswer_object;
+            }
+        } else {
+            answer = this.answers;
+        }
+        let answers, player, element;
+        switch (this.props.entireRound) {
+            case 2: player = 2; break;
+            case 3: player = 1; break;
+            default:
+        }
         this.setState({ opacity: 1 });
         this.convo = setInterval(function () {
             if (this.state.time > 4) {
@@ -93,20 +104,22 @@ class Convo extends Component {
                 this.setState({ convo: element });
                 this.props.saveAnswers(this.state.convo);
             }
-            date = new Date();
-            let answers = answer[(date.getSeconds() * date.getSeconds()) % answer.length]
-            let player = ((date.getSeconds() * date.getSeconds()) % 2) + 1;
-            let element = this.state.generateAnswer;
+            answers = answer[Math.floor(Math.random() * answer.length)]
+            element = this.state.generateAnswer;
+            if (this.props.entireRound === 1) {
+                player = (Math.floor(Math.random() * 2)) + 1;
+            } 
             element.push(<div>
-                <div className="convoWrap" key={"convo" + element.length}>
-                    <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
+                <div className="convoWrap" key={"convo" + Math.random() + element.length}>
+                    <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + Math.random() + element.length}>
                         {answers}
                     </div>
-                    <div className="profile" key={"profile" + element.length}>
-                        <img src={this.profile[player]} className="photo " key={"profileImage" + element.length} />
+                    <div className={"profile plyr" + (player + 1)} key={"profile" + Math.random() + element.length}>
+                        <i className={this.props.players[player]}></i>
                     </div>
                 </div>
             </div>);
+           
             this.setState({ generateAnswer: element });
             let convoBox = document.getElementsByClassName("convo_inner")[0];
             if (convoBox) {
@@ -124,14 +137,11 @@ class Convo extends Component {
                     <div className="dot" />
                 </div>
                 <div className='profileWrap'>
-                    <div className="profile">
-                        <img src={this.profile[0]} className="photo " />
+                    <div className="profile player3">
+                        <i className={this.props.players[2]}></i>
                     </div>
-                    <div className="profile">
-                        <img src={this.profile[1]} className="photo " />
-                    </div>
-                    <div className="profile">
-                        <img src={this.profile[2]} className="photo " />
+                    <div className="profile player2">
+                        <i className={this.props.players[1]}></i>       
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@ class Loading extends Component {
     componentDidMount() {
             window.setTimeout(function(){
                 this.props.movetoNext(1)
-            }.bind(this),3000)
+            }.bind(this),1000)
     }
 
     render() {
@@ -24,7 +24,7 @@ class Loading extends Component {
                     <div className="matching" >
                         <div className="title">Finding players...</div>
                     </div>
-                    <Profile/>
+                    <Profile players  = {this.props.players}/>
                 </div>
             </div>
 

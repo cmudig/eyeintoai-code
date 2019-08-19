@@ -1,40 +1,56 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import cmuLogo from './image/CMU_Logo.png'
 import Loading from './loading.js'
 import Vis from './visualizations.js'
 import Category from './category.js'
 import Game from './game.js'
 import Round from './round.js'
-import profile1 from './image/profile/profile1.png'
 
-import ladybug from "./image/samples/ladybug.jpg"
-import ladybug_feature1 from './image/vis/ladybug/1.jpg'
-import ladybug_feature2 from './image/vis/ladybug/2.jpg'
-import ladybug_feature3 from './image/vis/ladybug/3.jpg'
-import ladybug_feature4 from './image/vis/ladybug/4.jpg'
+const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-kiwi-bird", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-crow", "fas fa-cat"]
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer:"ladybug",
-      mode: 0,
-      entireRound: 1,
-      image: ladybug,
-      hints: [ladybug_feature1, ladybug_feature2, ladybug_feature3, ladybug_feature4],
+      answer:{},
+      mode: 4,
+      entireRound: 2,
+      hintVis: [],
       bluOpcity: 0,
-      score: [[0, 10], [0, 10], [0, 0]]
+      score: [[0, 0], [0, 0], [0, 0]],
+      players: [],
+      hintVisUrl: [],
+    }
+    
+  }
+  componentWillMount(){
+    let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let ran1, ran2, ranTemp;
+    for (let i = 0; i < 10; i++) {
+      ran1 = Math.floor(Math.random() * 11);
+      ran2 = Math.floor(Math.random() * 11);
+ 
+      ranTemp = ranNum[ran1];
+      ranNum[ran1] = ranNum[ran2]
+      ranNum[ran2] = ranTemp;
+    }
+   this.setState({players: [profiles[ranNum[0]], profiles[ranNum[1]], profiles[ranNum[2]]]})
+  }
+
+  setAnswer(n){
+    this.setState({answer: n});
+    if(this.state.entireRound === 1) {
+      this.movetoNext(2)
     }
   }
-  setAnswer(n){
-    this.setState({answer: n, mode: 2});
-  }
-  setImage(n){
-    this.setState({image : n})
-  }
   setHint(n){
-    this.setState({hints: n})
+    this.setState({hintVis: n})
+  }
+  setHintVisUrl(n){
+    this.setState({hintVisUrl: n})
   }
   addRound(){
     this.setState({entireRound: this.state.entireRound + 1})
@@ -55,11 +71,12 @@ class App extends Component {
   }
   renderMode(){
     switch(this.state.mode){
-      case 0: return <Loading movetoNext = {this.movetoNext.bind(this)}/>
-      case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} setImage = {this.setImage.bind(this)}  movetoNext = {this.movetoNext.bind(this)} />
-      case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} setHint = {this.setHint.bind(this)} answer = {this.state.answer} image = {this.state.image}/>
-      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} hints = {this.state.hints} image = {this.state.image} score = {this.state.score}/> 
-      case 4: return  <Round round = {this.state.entireRound} movetoNext = {this.movetoNext.bind(this)}/>
+      case 0: 
+      return <Loading movetoNext = {this.movetoNext.bind(this)} players = {this.state.players}/>
+      case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} movetoNext = {this.movetoNext.bind(this)} />
+      case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} setHint = {this.setHint.bind(this)} answer = {this.state.answer} setHintVisUrl = {this.setHintVisUrl.bind(this)}/>
+      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players}/> 
+      case 4: return  <Round round = {this.state.entireRound} movetoNext = {this.movetoNext.bind(this)} players = {this.state.players} setAnswer={this.setAnswer.bind(this)} setHintVisUrl = {this.setHintVisUrl.bind(this)} setHint = {this.setHint.bind(this)}/>
       default:
     }
     
@@ -76,7 +93,7 @@ class App extends Component {
                 <div className = "menu active">Game 1</div>
                 <div className = "menu">Game 2</div>
                 <div className = "profileWrapper">
-                  <img src= {profile1} className =  "profile" />
+                <i className={"profile " + this.state.players[0]}></i>
                 </div>
             </div>
           </div>

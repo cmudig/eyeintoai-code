@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './App.css';
 
 class Hint extends Component {
@@ -9,7 +10,7 @@ class Hint extends Component {
             animation: "active",
             result: false,
         }
-        this.answer = this.props.answer;
+        this.answer = this.props.answer.classLabels[0];
         this.hinttimer = "";
         this.round = this.props.round;
         this.score = this.props.score;

@@ -10,20 +10,20 @@ class Profile extends Component {
         super(props);
         this.state = {
             players: [{
-                img: profile1,
-                name: "Player 1",
+                img: <i className={this.props.players[0]}></i>,
+                name: <b>Me</b>,
                 score: 0,
                 effect: "",
             },
             {
-                img: profile2,
-                name: "Qian",
+                img: <i className={this.props.players[1]}></i>,
+                name: this.props.players[1].slice(7),
                 score: 0,
                 effect: "",
             },
             {
-                img: profile3,
-                name: "John",
+                img: <i className={this.props.players[2]}></i>,
+                name: this.props.players[2].slice(7),
                 score: 0,
                 effect: "",
             }],
@@ -32,7 +32,6 @@ class Profile extends Component {
         }
     }
     componentDidMount() {
-
         if (this.props.wait) {
             this.setState({
                 players: [{
@@ -58,13 +57,13 @@ class Profile extends Component {
                 this.props.movetoNext(4);
             }.bind(this), 3000)
         }
-        if(this.props.countScore){
+        if (this.props.countScore) {
             this.countScore()
         }
-        if(this.props.score){
-            this.setState({score: this.props.score})
+        if (this.props.score) {
+            this.setState({ score: this.props.score })
         }
-       
+
     }
     countScore() {
         for (let i = 0; i < 3; i++) {
@@ -75,11 +74,11 @@ class Profile extends Component {
                     if (scoreCopy[i][0] !== scoreCopy[i][1]) {
                         scoreCopy[i][0] += 1;
                         counterCopy[i] += 1;
-                        this.setState({score: scoreCopy, counter: counterCopy })
-                    } else{
+                        this.setState({ score: scoreCopy, counter: counterCopy })
+                    } else {
                         window.clearInterval(addScore);
                         this.props.setScore(this.state.score);
-                        
+
                     }
                 }.bind(this), 100)
 
@@ -91,10 +90,10 @@ class Profile extends Component {
         for (let i = 0; i < 3; i++) {
             if (this.state.score) {
                 element.push(
-                    <div className={"mainGame profile plyr" + (i + 1)}>
+                    <div className={"mainGame profile plyr" + (i + 1)} key = {"profile" + i}>
 
                         <div className="photo " >
-                            <img src={this.state.players[i].img} alt={"profile" + (i + 1)} />
+                            {this.state.players[i].img}
                         </div>
                         <div className="name">
                             {this.state.players[i].name}
@@ -102,16 +101,14 @@ class Profile extends Component {
                         <div id={"plyr" + (i + 1) + "_score"} className={"score plyr" + (i + 1)}>{this.state.score[i][0]}</div>
                     </div>)
             }
-            else if (this.state.players[i].effect == "wait") {
-
+            else if (this.state.players[i].effect === "wait") {
                 element.push(
                     <div className={"profile wait plyr" + (i + 1)}>
                         <div className="playerNum">
                             Player {i}
                         </div>
                         <div className="photo " >
-                            <img src={this.state.players[i].img} alt={"profile" + (i + 1)} />
-                        </div>
+                            {this.state.players[i].img}</div>
                         <div className="name">
                             {this.state.players[i].name}
                         </div>
@@ -119,13 +116,12 @@ class Profile extends Component {
             } else {
 
                 element.push(
-                    <div className={"profile plyr" + (i + 1)}>
+                    <div className={"profile plyr" + (i + 1)} key ={"profile"+i}>
                         <div className="playerNum">
-                            Player {i}
+                            Player {i}<i className="mega-octicon octicon-squirrel"></i>
                         </div>
                         <div className="photo " >
-                            <img src={this.state.players[i].img} alt={"profile" + (i + 1)} />
-                        </div>
+                            {this.state.players[i].img}</div>
                         <div className="name">
                             {this.state.players[i].name}
                         </div>
