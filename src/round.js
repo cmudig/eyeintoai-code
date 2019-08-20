@@ -3,6 +3,11 @@ import './App.css';
 
 import { StaticData } from './images'
 
+const vis = [];
+for(let i = 0; i < 484; i++){
+    vis[i] = require('./image/mixed4d/'+ (i + 1) +'.png')
+}
+
 class Round extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +26,7 @@ class Round extends Component {
         <div className="photo " >
           <i className={this.props.players[0]} /></div>
         <div className="name">
-          Me
+        {this.props.players[0].slice(7)}
         </div>
       </div>)
         break;
@@ -70,8 +75,8 @@ class Round extends Component {
       (ranNum % 2 === 0) ? answerSet = this.animals : answerSet = this.objects;
       visSet = answerSet[ran2].correctURLs.concat(answerSet[ran2].wrongVizURLs);
       this.props.setAnswer(answerSet[ran2]);
-      this.props.setHint(visSet[ranVisOrder[0]], visSet[ranVisOrder[1]], visSet[ranVisOrder[2]], visSet[ranVisOrder[3]]);
-      this.props.setHintVisUrl(ranVisOrder[0], ranVisOrder[1],ranVisOrder[2], ranVisOrder[3]);
+      this.props.setHint([vis[visSet[ranVisOrder[0]]], vis[visSet[ranVisOrder[1]]], vis[visSet[ranVisOrder[2]]], vis[visSet[ranVisOrder[3]]]]);
+      this.props.setHintVisUrl([visSet[ranVisOrder[0]], visSet[ranVisOrder[1]],visSet[ranVisOrder[2]], visSet[ranVisOrder[3]]]);
     }
   }
   render() {

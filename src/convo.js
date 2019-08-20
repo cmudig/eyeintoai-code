@@ -29,55 +29,19 @@ class Convo extends Component {
         this.props.saveAnswers(this.state.typedElement, this.state.generateAnswer);
         clearInterval(this.convo);
     }
-    addAnswer() {
-        let tanswer = document.getElementById("answerType");
-        let answers = [tanswer.value];
-        if (this.answer.includes(tanswer.value)) {
-            this.rightAnswer()
+    rightAnswer(n, i) {
+        clearInterval(this.convo);
+        this.props.clearTimer();
+        this.score[n][1] += 10;
+        this.score[this.props.entireRound - 1][1] += 10;
+        if(i){
+            this.score[i][1] += 10;
+            this.score[this.props.entireRound - 1][1] += 5;
         }
-        let element = this.state.generateAnswer;
-        let typedElement = this.state.typedAnswer;
-        typedElement.push(answers);
-        element.push(<div>
-            <div className="convoWrap" key={"convo" + element.length}>
-                <div className={"bubble plyr1"} key={"convoBubble" + element.length}>
-                    {answers}
-                </div>
-                <div className="profile" key={"profile" + element.length}>
-                    <i className={this.props.players[0]}></i>
-                </div>
-            </div>
-        </div>);
-        this.setState({ generateAnswer: element, typedAnswer: typedElement });
-
-        let convoBox = document.getElementsByClassName("convo_inner")[0];
-        if (convoBox) {
-            convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
-        }
-        this.setState({ time: (this.state.time * 1) + 1 });
-        tanswer.value = "";
-    }
-    rightAnswer() {
-        window.clearInterval(this.timer);
-        this.score[0][1] += 10;
         this.props.setScore(this.score);
-        window.setTimeout(function () { this.setState({ disable: true, inputOpcity: .5 }); this.props.changeMode(4); }.bind(this), 300);
+        this.setState({ disable: true, inputOpcity: .5 }); 
+        window.setTimeout(function () { this.props.changeMode(4); }.bind(this), 300);
     }
-    generateAnswer1() {
-        let answer1 = [];
-        let length = this.state.answer1.length - 1;
-
-        for (let i = 0; i < 3; i++) {
-            if (this.state.answer1[length - i]) {
-                answer1.push(<div className="answer plyr2" key={"answer" + i}> {this.state.answer1[length - i]} </div>);
-            }
-        }
-        return <div className="answers">
-            {answer1}
-        </div>
-
-    }
-
     convoGenerate() {
         let answer;
         if (this.props.hintMode === true) {
@@ -90,26 +54,29 @@ class Convo extends Component {
             answer = this.answers;
         }
         let answers, player, element;
+        //make player num random if it's the first round
         switch (this.props.entireRound) {
             case 2: player = 2; break;
             case 3: player = 1; break;
             default:
         }
+        //make the loading bubble animation opaque
         this.setState({ opacity: 1 });
+
         this.convo = setInterval(function () {
             if (this.state.time > 4) {
                 this.setState({ opacity: 0 });
                 let element = this.state.convo;
                 element.push(this.state.generateAnswer);
                 this.setState({ convo: element });
-                this.props.saveAnswers(this.state.convo);
             }
+            if(this.props.entireRound === 1){
+                 player = (Math.floor(Math.random() * 2)) + 1 ;
+                }
             answers = answer[Math.floor(Math.random() * answer.length)]
             element = this.state.generateAnswer;
-            if (this.props.entireRound === 1) {
-                player = (Math.floor(Math.random() * 2)) + 1;
-            } 
-            element.push(<div key={"convoWarp"  + element.length}>
+
+            element.push(<div key={"convoWarp" + element.length}>
                 <div className="convoWrap" key={"convo" + element.length}>
                     <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
                         {answers}
@@ -119,14 +86,40 @@ class Convo extends Component {
                     </div>
                 </div>
             </div>);
-           
-            this.setState({ generateAnswer: element });
-            let convoBox = document.getElementsByClassName("convo_inner")[0];
-            if (convoBox) {
-                convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
-            }
-            this.setState({ time: (this.state.time * 1) + 1 });
+            if(this.answer.classLabels.includes(answer)){this.rightAnswer(player)}
+            this.setState({ generateAnswer: element, time: (this.state.time * 1) + 1 });
+            this.autoScroll()
         }.bind(this), 4000)
+    }
+    //if player 1 types answer  
+    addAnswer() {
+        let tanswer = document.getElementById("answerType");
+        let answers = [tanswer.value];
+        if (this.answer.classLabels.includes(tanswer.value)) {
+            this.rightAnswer(0)
+        }
+        let element = this.state.generateAnswer;
+        let typedElement = this.state.typedAnswer;
+        typedElement.push(answers);
+        element.push(<div>
+            <div className="convoWrap" key={"convo" + element.length}>
+                <div className="bubble plyr1" key={"convoBubble" + element.length}>
+                    {answers}
+                </div>
+                <div className="profile plyr1" key={"profile" + element.length}>
+                    <i className={this.props.players[0]}></i>
+                </div>
+            </div>
+        </div>);
+        this.setState({ generateAnswer: element, typedAnswer: typedElement, time: (this.state.time * 1) + 1 });
+        tanswer.value = "";
+        window.setTimeout((ev) => { this.autoScroll() }, 10);
+    }
+    autoScroll() {
+        let convoBox = document.getElementsByClassName("convo_inner")[0];
+        if (convoBox) {
+            convoBox.scrollTop = convoBox.scrollHeight - convoBox.clientHeight;
+        }
     }
     renderInputBox() {
         if (this.props.typemode === 0) {
@@ -141,7 +134,7 @@ class Convo extends Component {
                         <i className={this.props.players[2]}></i>
                     </div>
                     <div className="profile player2">
-                        <i className={this.props.players[1]}></i>       
+                        <i className={this.props.players[1]}></i>
                     </div>
                 </div>
             </div>
@@ -152,14 +145,12 @@ class Convo extends Component {
                 }} />
                 <div className="submit btn" onClick={this.addAnswer.bind(this)} style={{ opacity: this.state.inputOpcity }}>
                     Enter
-            </div>
+                </div>
             </div>
         }
     }
     render() {
-
         return (
-
             <div>
                 <div className="convo_inner">
                     {this.state.generateAnswer}

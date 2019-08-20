@@ -63,6 +63,9 @@ body, .App{
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      @media screen and (max-height: 750px) {
+        margin-bottom: 2vh;
+      }
         .title{
           font: {
             size: 15px;
@@ -121,14 +124,14 @@ body, .App{
       background: linear-gradient(180deg, rgba(220, 242, 255, 0.3) 0%, #BBDAFF 100%);
     }
     .main{
-      
       transition: .3s;
       position:relative;
-      // top: 50%;
       width: 100%;
       max-width: 1400px;
       margin: 10vh auto;
-      // @include transform(trnaslateY(-50%));
+      @media screen and (max-height: 750px) {
+        margin-top: 2vh;
+      }
       &.vertCenter{
         height: calc(100vh - 340px);
         max-height: 700px;
@@ -137,6 +140,9 @@ body, .App{
         justify-content: center;
         align-items: center;
         align-content: center;
+        @media screen and (max-height: 640px) {
+          height: 90vh;
+        }
       }
       &.round{
         font: {
@@ -169,24 +175,30 @@ body, .App{
               left-radius: 6px;
               right-radius: 6px;
             }
+            border: 1px solid rgba(0,0,0,0.4);
             &.plyr1{
-              border: 2px solid $plyr1;
               .playerNum, .photo{
                 background :$plyr1;
               }
+              &.active{
+                border: 2px solid $plyr1;
+              }
             }
             &.plyr2{
-              border: 1px solid rgba(0,0,0,0.4);
+              &.active{
+                border: 2px solid $plyr2;
+              }
               .playerNum, .photo{
                 background :$plyr2;
               }
             }
             &.plyr3{
-              border: 1px solid rgba(0,0,0,0.4);
               .playerNum, .photo{
                 background :$plyr3;
               }
-        
+              &.active{
+                border: 2px solid $plyr3;
+              }
             }
             .playerNum{
               width: 160px;
@@ -248,6 +260,28 @@ body, .App{
             &.round{
               font-size: 50px;
             }
+            @include keyframes(loadingDots){
+              from{opacity: .2;}
+              50%{opacity: .2}
+              51%{opacity: 1}
+              to{opacity: 1}
+            }
+            span{
+              @include animation(loadingDots);
+              animation-duration: 1s;
+              animation-iteration-count: infinite;
+              &:nth-child(1){
+                animation-delay: 0;
+              }
+              &:nth-child(2){
+                animation-delay: .2s;
+              }
+              &:nth-child(3){
+                animation-delay: .4s;
+              }
+            }
+            
+
           }
           .profile{
             height: 90px;
@@ -287,7 +321,7 @@ body, .App{
       //game
       .game{
         width: 100%;
-        padding: 30px 60px;
+        padding: 30px 1%;
         height: calc(100vh - 340px);
         display:flex;
         flex-direction: row;
@@ -296,13 +330,19 @@ body, .App{
       .side{
         height: 100%;
         position: relative;
-        
-        
         &.left{width: 270px;
+           max-width: 30%;
           display: flex;
         flex-direction: column;
         }
+        &.right{
+          max-width: 20%;
+        }
+        &.center{
+          max-width: 46%;
+        }
         .answerBox{
+          max-width: 100%;
           width: 250px;
           height: 364px;
           border-radius: 6px;
@@ -377,7 +417,16 @@ body, .App{
               }
               &.mainGame{
                 width: 80px;
-                margin:0 8px;
+                margin: 0 2%;
+                .photo{
+                 @media screen and (max-width: 900px){
+                   width: 44px;
+                   height: 44px;
+                   i{
+                     font-size: 20px;
+                   }
+                 }
+                }
                 .name{
                   font-size: 13px;
                 }
@@ -388,28 +437,42 @@ body, .App{
         .convo{
           background: #fff;
           width: 260px;
+          max-width: 100%;
           height: 540px;
           border-radius: 6px;
           box-shadow: $shadow;
           overflow: hidden;
           font-size: 14px;
+          @media screen and (max-height: 640px) {
+            height: 392px;
+          }
+          @media screen and (max-width: 750px) {
+            font-size: 12px;
+          }
           .convo_inner{
             width: 260px;
+            max-width: 100%;
             height: 470px;
-            overflow-y: scroll
+            overflow-y: scroll;
+            @media screen and (max-height: 640px) {
+              height: 466px;
+            }
           }
           .profile{
             width: 32px;
             height: 32px;
             overflow: hidden;
             border-radius: 16px;
-            border: 1px solid rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             i{
              font-size: 16px;
              color: #fff;
+            }
+            &.plyr1{
+              background: $plyr1;
             }
             &.plyr2{
               background: $plyr2;
@@ -489,6 +552,10 @@ body, .App{
             margin: 0 8px;
             padding: 0 8px;
             height: 47px;
+            @media screen and (max-width: 750px){
+              margin:0 4px 4px;
+              padding:0 4px 4px;
+            }
             .profileWrap{
               width:56px;
               height: 33px;
@@ -506,6 +573,9 @@ body, .App{
               display: flex;
               justify-content: center;
               align-items: center;
+              &.player1{
+                background: $plyr1;
+              }
               &.player2{
                 background: $plyr2
               }
@@ -532,6 +602,11 @@ body, .App{
             font: {
               family:'Share Tech Mono', monospace;
               size: 13px;
+            }
+            @media screen and (max-width: 750px){
+              font-size: 12px;
+              padding: 10px 2px;
+              margin: 16px 4px 0;
             }
           }
           } 
@@ -606,22 +681,31 @@ body, .App{
         background: #fff;
         border-radius: 6px;
         width: 490px;
+        max-width: 100%;
         height: 450px;
         padding: 32px 16px;
         box-shadow: $shadow;
         font-family: "VT323", "monospace";
         line-height: 1.5;
         margin-top: 32px;
+        @media screen and (max-height: 640px) {
+          height: 320px;
+        }
         .title{
           font-size: 30px;
-          margin-bottom: 0
+          margin-bottom: 0;
+          @media screen and (max-width: 900px) {
+            font-size: 22px;
+          }
         }
         .hint{
           font-size: 22px;
           color: $maincolor;
           .title{
-            font-size: 22px;
             color: #000;
+          }
+          @media screen and (max-width: 900px) {
+            font-size: 18px;
           }
           #hintContent{
             background-color: $maincolor;
@@ -634,16 +718,26 @@ body, .App{
       .selected-vis{
         margin-top: 48px;
         width: 100%;
-        height: 100%;
         display: flex;
         justify-content: space-around;
         flex-wrap:wrap;
+        @media screen and (max-height: 640px) {
+          margin-top: 16px;
+        }
         .visWrapper{
           width: 100px;
           height:100px;
           border: 2px solid rgba(0,0,0,0.2);
           border-radius: 6px;
           overflow: hidden;
+          margin: 8px 2px;
+          @media screen and (max-width: 1100px){
+          width: 80px;
+          height: 80px;
+          }
+          @media screen and (max-width: 820px){
+           margin: 8px;
+            }
         }
         img{
           align-self: center;
@@ -689,7 +783,9 @@ body, .App{
         box-shadow:$shadow;
         background: #fff;
         padding: 0;
-
+        @media screen and (max-height: 640px) {
+          margin: 10px auto;
+        }
         .timer_in{
           overflow:hidden;
           position: relative;
@@ -724,6 +820,15 @@ body, .App{
   padding: 60px;
   text-align: center;
   display: flex;
+  @media screen and (max-width: 750px) {
+    padding: 32px 24px;
+  }
+  .side.resultleft{
+    margin-right: 60px;
+    @media screen and (max-width: 750px) {
+      margin-right: 30px;
+    }
+  }
   @include transform(translateX(-50%) translateY(-50%));
   font: {
     size: 24px;
@@ -734,6 +839,9 @@ body, .App{
     max-width: 100%;
     display: block;
     margin: 10px auto; 
+    @media screen and (max-height: 640px) {
+      width: 250px;
+    }
   }
   .asrColr{
     color: $maincolor;
@@ -760,6 +868,10 @@ body, .App{
   .answerWrapMsg{
     margin-top: 32px;
     font-size: 21px;
+    @media screen and (max-height: 640px) {
+      margin-top: 18px;
+      font-size: 18px;
+    }
   }
   .inputAnswerWrap{
     height: 190px;
@@ -767,10 +879,16 @@ body, .App{
     border-radius: 6px;
     overflow:hidden;
     border: 1px solid rgba(0,0,0,0.2);
+    @media screen and (max-height: 640px) {
+      height: 120px;
+    }
     .convo{
       width: 100%;
+      height: 100%;
+    
       .convo_inner{
         width: 100%;
+        height: 100%;
         
       }
     }
@@ -778,8 +896,8 @@ body, .App{
 }
 
       @include keyframes(timer){
-        from{stroke-dashoffset: 0px;}
-        to{stroke-dashoffset: 400px;}
+        from{stroke-dashoffset: 400px;}
+        to{stroke-dashoffset: 0px;}
       }
       #hintDisplay{
         position: fixed;
@@ -813,6 +931,7 @@ body, .App{
         .hintWrapper{
           display:flex;
           justify-content: center;
+        
           .hintCard{
             margin: 26px 10px 5px;
             padding: 10px 20px;
@@ -822,9 +941,7 @@ body, .App{
             // cursor: pointer;
             font-family:'Share Tech Mono', monospace;
             font-size: 16px;
-            &.active{
-              cursor: pointer;
-            }
+           
             &.plyr1{
               border: 4px solid $plyr1;
               background: $plyr1;
@@ -840,9 +957,39 @@ body, .App{
                 background: $plyr3;
                 color: #fff;
               }
+            &.plyr1plyr2{
+              border: 4px solid $plyr2;
+              background: $plyr1;
+              color: #fff;
+            }
+            &.plyr2plyr1{
+              border: 4px solid $plyr1;
+              background: $plyr2;
+              color: #fff;
+            }
+            &.plyr1plyr3{
+              border: 4px solid $plyr3;
+              background: $plyr1;
+              color: #fff;
+            }
+            &.plyr3plyr1{
+              border: 4px solid $plyr1;
+              background: $plyr3;
+              color: #fff;
+            }
+            &.plyr2plyr3{
+              border: 4px solid $plyr3;
+              background: $plyr2;
+              color: #fff;
+            }
+          }
+          &.active{
+            .hintCard{
+            cursor: pointer;
+            }
           }
         }
-        #hintTimer, #pauseTimer{
+        #hintTimer, #pauseTimer, #scoreTimer{
           position: relative;
           // border: 6px solid $maincolor;
           border-radius: 60px;
@@ -851,20 +998,34 @@ body, .App{
           margin: 40px auto 10px;
           display: flex;
           justify-content: center;
+          align-items: center;
           flex-direction: column;
           font: {
             size: 52px;
             family: 'VT323', monospace;
           }
-          svg{
+          .seconds{
             position: absolute;
-            left:0;
-            top:0;
+            top: 50%;
+            left: 50%;
+            @include transform(translateX(-50%) translateY(-50%));
+          }
+          svg{
+            @include transform(rotate(-90deg));
+            position: relative;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
           }
           circle{
-            height:120px;
-            width: 120px;
+            position: absolute;
+            left: 0;
+            top: 0;
             fill: none;
+            stroke: $maincolor {
+              width: 6px;
+            };
             &.active{
             @include animation(timer);
           animation: {
@@ -872,12 +1033,80 @@ body, .App{
             iteration-count: infinite;
             timing-function: linear;
           }
-        
-            stroke: $maincolor {
-              width: 6px;
+          
+          &:nth-child(2){
+            stroke: #fff {
+              width: 8px;
               dasharray:400px;
               dashoffset: 1000px;
             }
+          }
+           
+          }
+          }
+        }
+        #hintTimer{
+          width: 90px;
+          height: 90px;
+          svg{
+            circle{
+              
+            }
+          }
+        }
+        
+      }
+      .scoreTimer{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+       #scoreTimer{
+          position: relative;
+          display: flex;
+          width: 50px;
+          height: 50px;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          font: {
+            size: 22px;
+            family: 'VT323', monospace;
+          }
+          .seconds{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include transform(translateX(-50%) translateY(-50%));
+          }
+          svg{
+            @include transform(rotate(-90deg));
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
+          circle{
+            position: absolute;
+            left: 0;
+            top: 0;
+            fill: none;
+            stroke: $maincolor {
+              width: 6px;
+            };
+            &.active{
+            @include animation(timer);
+          animation: {
+            duration: 1s;
+            iteration-count: infinite;
+            timing-function: linear;
+          }
+          
+          &:nth-child(2){
+            stroke: #fff {
+              width: 8px;
+              dasharray:400px;
+              dashoffset: 1000px;
+            }
+          }
           }
           }
         }
@@ -885,6 +1114,9 @@ body, .App{
      #hint{
        top: 60%;
        @include transform(translateX(-50%));
+       @media screen and (max-height: 590px) {
+         top: 20%;
+       }
        line-height: 1.5;
        font-size: 28px;
        #hintTimer{
@@ -952,12 +1184,19 @@ body, .App{
   #answerImg{
     width: 95%;
     max-width: 300px;
+    @media screen and (max-height: 640px) {
+      width: 180px;
+    }
   }
   .title{
     font-size: 28px;
    line-height: 1.2;
    max-width: 350px;
    margin: 0 auto 32px;
+   @media screen and (max-height: 640px) {
+     font-size: 22px;
+     margin:0 auto 16px;
+   }
   }
   .order{
     position: absolute;
@@ -987,6 +1226,9 @@ body, .App{
     width: 100%;
     max-width: 128px;
     margin: 1%;
+    @media screen and (max-height: 640px) {
+      max-width: 120px;
+    }
   }
   img{
     border-radius: 6px;

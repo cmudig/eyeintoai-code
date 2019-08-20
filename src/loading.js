@@ -10,21 +10,17 @@ class Loading extends Component {
         }
     }
     //profile loading
-    componentDidMount() {
-            window.setTimeout(function(){
-                this.props.movetoNext(1)
-            }.bind(this),1000)
-    }
-
     render() {
-
         return (
             <div id="hint" key="loading" >
                 <div className="main vertCenter">
                     <div className="matching" >
-                        <div className="title">Finding players...</div>
+                        <div className="title">Finding players
+                        <span>.</span>
+                        <span>.</span>
+                        <span>.</span></div>
                     </div>
-                    <Profile players  = {this.props.players}/>
+                    <Profile players  = {this.props.players} wait= "true" movetoNext = {this.props.movetoNext.bind(this)}/>
                 </div>
             </div>
 

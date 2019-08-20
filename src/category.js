@@ -16,7 +16,7 @@ class Category extends Component {
   }
   componentDidMount(){
     let ranNum = [0, 1, 2, 3, 4, 5, 6, 7];
-    let ran1, ran2, ranTemp, category;
+    let ran1, ran2, ranTemp;
     for (let i = 0; i < 20; i++) {
       ran1 = Math.floor(Math.random() * 8);
       ran2 = Math.floor(Math.random() * 8);

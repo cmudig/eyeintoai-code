@@ -39,7 +39,7 @@ class Pause extends Component {
     hintRound() {
         let time;
 
-        this.pauseTimer = window.setInterval(function () {
+        this.pauseTimer = setInterval(function () {
             time = this.state.pauseTimer - 1;
             if (time === 9) {
                 window.setTimeout(function () { this.test_selectCard() }.bind(this), 1000);
@@ -59,7 +59,13 @@ class Pause extends Component {
     hintGenerator() {
         return <div>
             Ready to guess!
-                <div id="pauseTimer" key="pauseTimer"> <svg width="150" height="120"><circle className={this.state.animation} key="timeAnim" r="54" cx="60" cy="60" /></svg>{this.state.pauseTimer}</div>
+                <div id="pauseTimer" key="pauseTimer"> 
+                <svg width="120" height="120">
+                <circle key="timeAnim" r="54" cx="60" cy="60" />
+                <circle className={this.state.animation} key="timeAnim2" r="54" cx="60" cy="60" />
+                </svg>
+                <div className = "seconds"> {this.state.pauseTimer}</div>
+                </div>
         </div>
     }
     componentDidMount() {
