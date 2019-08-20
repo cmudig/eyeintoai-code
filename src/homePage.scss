@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Montserrat|Share+Tech+Mono|VT323&display=swap');
+
+$maincolor : #C41E3A;
+$game1: #002D72;
+
+
+.home{
+  width: 100%;
+  display: flex;
+
+  .side{
+    width: 50%;
+    max-width: 560px;
+    
+    &.left{
+      display: flex;
+      flex-wrap: wrap;
+      img{
+        width: 100px;
+      }
+    }
+
+    &.right{
+      font-family: "lato", "sans-serif";
+      .title{
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+      .expla{
+        font-size: 16px;
+        line-height: 1.4;
+        a{
+          color: $maincolor;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .btnWrapper{
+    width: 100%;
+    display: flex;
+    max-width: 1000px;
+    justify-content: space-evenly;
+    margin: 32px auto;
+    .gameBtn{
+      width: 480px;
+      height: 200px;
+      background: linear-gradient(180deg, #FFFFFF 41.82%, #BBDAFF 128.04%);
+      border-radius: 10px;
+      &.guessAI{
+        .title{
+          font: {
+            family: "VT323", "monospace";
+            size: 32px;
+          }
+          color: $game1;
+        }
+        .expla{
+          font: {
+            family: "share tech mono", "monospace";
+            size: 15px;
+          }
+        }
+      }
+      &.AIQuiz{
+        font-family: "montserrat", "sans-serif";
+        background: linear-gradient(145.5deg, #F07676 16.87%, #F2994A 86.81%);
+        .title{
+          font-size: 24px;
+        }
+        .expla{
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
