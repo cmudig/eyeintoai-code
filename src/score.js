@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Profile from './profile.js'
 
+const domtoimage = require('dom-to-image');
+
 class Score extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +12,7 @@ class Score extends Component {
             animation: "active",
             result: false,
             score: this.props.score,
-            timerOn : "block",
+            timerOn: "block",
         }
         this.answer = this.props.answer;
         this.timer = '';
@@ -18,28 +20,62 @@ class Score extends Component {
     generateVis() {
         let element = [];
         for (let i = 0; i < 4; i++) {
-            element.push(<div className="visWrapper">
+            element.push(<div className="visWrapper" key={"visWrapper" + i}>
                 <img src={this.props.hintVis[i]} alt={"vis" + i} key={"Scorevis" + i} /></div>)
         }
         return element;
     }
-    changeMode(){
+    changeMode() {
         clearInterval(this.timer);
-        this.setState({animation: "none"})
-        if (this.props.round < 3) {this.props.addRound();}
+        this.setState({ animation: "none" })
+        let scoreImage = "";
+
+        domtoimage.toPng(document.getElementById('resultInner'))
+            .then(function (dataUrl) {
+                scoreImage = dataUrl
+                this.props.setScoreImages(scoreImage);
+
+                if (this.props.round < 3) { 
+                    this.props.addRound(); 
+                } else {
+                    this.props.movetoNext(5)
+                }
+
+            }.bind(this))
+            .catch(function (error) {
+                console.error("Couldn't save the image", error);
+                domtoimage.toPng(document.getElementById('resultInner'))
+                .then(function (dataUrl) {
+                    scoreImage = dataUrl
+                    this.props.setScoreImages(scoreImage);
+    
+                    if (this.props.round < 3) { 
+                        this.props.addRound(); 
+                    } else {
+                        this.props.movetoNext(5)
+                    }
+    
+                }.bind(this))
+                .catch(function (error) {
+                    console.error("Couldn't save the image", error);
+                    this.props.setScoreImages("Error");
+                    if (this.props.round < 3) { 
+                        this.props.addRound(); 
+                    } else {
+                        this.props.movetoNext(5)
+                    }
+                }.bind(this));
+            }.bind(this));
+
     }
     componentDidMount() {
         // const db = firebase.firestore();
-        if(this.props.round < 3){
         this.timer = setInterval(function () {
             this.setState({ timer: this.state.timer - 1, });
             if (this.state.timer === 0) {
                 this.changeMode()
             }
         }.bind(this), 1000);
-    } else{
-        this.setState({timerOn: "none"})
-    }
 
         if (this.props.round === 1) {
             let urls = [];
@@ -50,7 +86,7 @@ class Score extends Component {
                     urls.push(this.props.answer.correctURLs[this.props.hintVisUrl[i]])
                 }
             }
-        
+
             // db.collection('games').doc().set({
             //     originalImage: this.props.answer.url,
             //     selectedViz: this.props.hintVisUrl,
@@ -68,12 +104,13 @@ class Score extends Component {
     render() {
         return (
             <div id="result" key="result">
-                <div className="scoreTimer" style={{display: this.state.timerOn}}>
-                    <div id="scoreTimer" key="scoreTimer"> 
+                <div id = "resultInner">
+                <div className="scoreTimer" style={{ display: this.state.timerOn }}>
+                    <div id="scoreTimer" key="scoreTimer">
                         <svg>
-                        <circle key="timeAnimScore" r="16" cx="25" cy="25" />
-                        <circle className={this.state.animation} key="timeAnimScore2"  r="16" cx="25" cy="25"  />
-                    </svg>
+                            <circle key="timeAnimScore" r="16" cx="25" cy="25" />
+                            <circle className={this.state.animation} key="timeAnimScore2" r="16" cx="25" cy="25" />
+                        </svg>
                         <div className="seconds">
                             {this.state.timer}
                         </div>
@@ -100,6 +137,7 @@ class Score extends Component {
                     </div>
                 </div>
             </div>
+        </div>
 
         );
     }

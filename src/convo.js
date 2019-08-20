@@ -30,10 +30,10 @@ class Convo extends Component {
         this.props.saveAnswers(this.state.typedElement, this.state.generateAnswer);
         clearInterval(this.convo);
     }
-    rightAnswer(n, i) {
+    rightAnswer(n, i = undefined) {
         clearInterval(this.convo);
         this.props.clearTimer();
-        this.score[n][1] += 10;
+        this.score[n][1] += 20;
         this.score[this.props.entireRound - 1][1] += 20;
         if(i){
             this.score[i][1] += 10;
@@ -108,8 +108,7 @@ class Convo extends Component {
                 element.push(convo);
                 displayElement.push(displayConvo);
                }
-           
-            if(this.answer.classLabels.includes(answer)){this.rightAnswer(player)}
+            if(this.answer.classLabels.includes(answers)){this.rightAnswer(player)}
             this.setState({ generateAnswer: element, generateDisplay: displayElement, time: (this.state.time * 1) + 1 });
             this.autoScroll()
         }.bind(this), 4000)
@@ -126,7 +125,7 @@ class Convo extends Component {
         let typedElement = this.state.typedAnswer;
         typedElement.push(answers);
         
-        let display = <div>
+        let display = <div key ={"convoWrap" + element.length}>
         <div className="convoWrap" key={"convo" + element.length}>
             <div className="bubble plyr1" key={"convoBubble" + element.length}>
                 {answers}

@@ -7,11 +7,12 @@ import Vis from './visualizations.js'
 import Category from './category.js'
 import Game from './game.js'
 import Round from './round.js'
+import ScoreImage from './scoreimages.js'
 
 const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-kiwi-bird", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-crow", "fas fa-cat"]
 
 
-class App extends Component {
+class GuessAI extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,8 +22,9 @@ class App extends Component {
       hintVis: [],
       bluOpcity: 0,
       score: [[0, 0], [0, 0], [0, 0]],
-      players: [],
+      players: this.props.players,
       hintVisUrl: [],
+      scoreImages : [],
     }
     
   }
@@ -37,7 +39,7 @@ class App extends Component {
       ranNum[ran1] = ranNum[ran2]
       ranNum[ran2] = ranTemp;
     }
-   this.setState({players: [profiles[ranNum[0]], profiles[ranNum[1]], profiles[ranNum[2]]]})
+   this.setState({players: [this.state.players[0], profiles[ranNum[1]], profiles[ranNum[2]]]})
   }
 
   setAnswer(n){
@@ -59,6 +61,11 @@ class App extends Component {
   setScore(n){
     this.setState({score: n})
   }
+  setScoreImages(n){
+    let images = this.state.scoreImages;
+    images.push(n);
+    this.setState({scoreImages: images})
+  }
   movetoNext(n){
     
     window.setTimeout(function(){
@@ -75,8 +82,9 @@ class App extends Component {
       return <Loading movetoNext = {this.movetoNext.bind(this)} players = {this.state.players}/>
       case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} movetoNext = {this.movetoNext.bind(this)} />
       case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} setHint = {this.setHint.bind(this)} answer = {this.state.answer} setHintVisUrl = {this.setHintVisUrl.bind(this)}/>
-      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players}/> 
+      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players} setScoreImages = {this.setScoreImages.bind(this)} movetoNext = {this.movetoNext.bind(this)}/> 
       case 4: return  <Round round = {this.state.entireRound} movetoNext = {this.movetoNext.bind(this)} players = {this.state.players} setAnswer={this.setAnswer.bind(this)} setHintVisUrl = {this.setHintVisUrl.bind(this)} setHint = {this.setHint.bind(this)}/>
+      case 5: return <ScoreImage scoreImages = {this.state.scoreImages}/>
       default:
     }
     
@@ -86,21 +94,10 @@ class App extends Component {
     return (
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div id = "blue" style = {{opacity: this.state.bluOpcity}}/>
-        <div className="header" >
-          <div id="cmu"><img src = {cmuLogo} alt="CMU logo" /></div>
-            <div className="title">Interpretable Machine Learning Research Project</div>
-            <div className = "menuBar">
-                <div className = "menu active">Game 1</div>
-                <div className = "menu">Game 2</div>
-                <div className = "profileWrapper">
-                <i className={"profile " + this.state.players[0]}></i>
-                </div>
-            </div>
-          </div>
         { this.renderMode()}
       </div>
     );
   }
 }
 
-export default App;
+export default GuessAI;

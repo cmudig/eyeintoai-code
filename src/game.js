@@ -109,7 +109,7 @@ class Game extends Component {
         let width = 300;
         //timer
         this.timer = setInterval(function () {
-            width -=50;
+            width -=15;
             this.setState({ timerWidth: width + "px" });
             if (width === 0) {
                 clearInterval(this.timer);
@@ -164,7 +164,7 @@ class Game extends Component {
             case 3: 
                 return <Hint answer={this.answer} round={this.state.round} entireRound={this.props.entireRound} setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />
             case 4: 
-                return <Score answer={this.answer}  players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} />
+                return <Score answer={this.answer}  players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} setScoreImages = {this.props.setScoreImages.bind(this)} movetoNext = {this.props.movetoNext.bind(this)}/>
             default:
         }
     }

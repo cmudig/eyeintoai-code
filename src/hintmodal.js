@@ -65,7 +65,7 @@ class Hint extends Component {
         for(let j = 0; j < 4; j++){
             for(let i = 0; i < 5; i++){
                 if(cards[j].innerHTML === this.answer && cards[j].classList.contains(classlists[i])){
-                    i < 3 ? this.rightAnswer(i) : this.rightAnswer(0, i-3);
+                    i < 3 ? this.rightAnswer(i) : this.rightAnswer(0, i-2);
                 }
             }
         }

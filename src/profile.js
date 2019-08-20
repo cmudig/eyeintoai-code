@@ -22,6 +22,7 @@ class Profile extends Component {
             }],
             score: this.props.score,
             counter: [0, 0, 0],
+            addscore: [],
         }
     }
 
@@ -82,7 +83,7 @@ class Profile extends Component {
     countScore() {
         for (let i = 0; i < 3; i++) {
             if (this.state.score[i][0] !== this.state.score[i][1]) {
-                let addScore = setInterval(function () {
+                this.addScore = setInterval(function () {
                     let scoreCopy = this.state.score;
                     let counterCopy = this.state.counter;
                     if (scoreCopy[i][0] !== scoreCopy[i][1]) {
@@ -90,12 +91,15 @@ class Profile extends Component {
                         counterCopy[i] += 1;
                         this.setState({ score: scoreCopy, counter: counterCopy })
                     } else {
-                        window.clearInterval(addScore);
+                        clearInterval(this.addScore);
                         this.props.setScore(this.state.score);
                     }
                 }.bind(this), 100)
             }
         }
+    }
+    componentWillUnmount(){
+        clearInterval(this.addScore);
     }
     generateProfiles() {
         let element = []
