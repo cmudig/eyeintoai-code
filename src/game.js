@@ -109,7 +109,7 @@ class Game extends Component {
         let width = 300;
         //timer
         this.timer = setInterval(function () {
-            width -=15;
+            width -=50;
             this.setState({ timerWidth: width + "px" });
             if (width === 0) {
                 clearInterval(this.timer);

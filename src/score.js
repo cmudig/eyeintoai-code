@@ -10,6 +10,7 @@ class Score extends Component {
             animation: "active",
             result: false,
             score: this.props.score,
+            timerOn : "block",
         }
         this.answer = this.props.answer;
         this.timer = '';
@@ -29,12 +30,16 @@ class Score extends Component {
     }
     componentDidMount() {
         // const db = firebase.firestore();
+        if(this.props.round < 3){
         this.timer = setInterval(function () {
             this.setState({ timer: this.state.timer - 1, });
             if (this.state.timer === 0) {
                 this.changeMode()
             }
         }.bind(this), 1000);
+    } else{
+        this.setState({timerOn: "none"})
+    }
 
         if (this.props.round === 1) {
             let urls = [];
@@ -63,7 +68,7 @@ class Score extends Component {
     render() {
         return (
             <div id="result" key="result">
-                <div className="scoreTimer">
+                <div className="scoreTimer" style={{display: this.state.timerOn}}>
                     <div id="scoreTimer" key="scoreTimer"> 
                         <svg>
                         <circle key="timeAnimScore" r="16" cx="25" cy="25" />
@@ -74,7 +79,7 @@ class Score extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="side" style={{ marginRight: "60px" }}>
+                <div className="side resultleft">
                     <img id="asrImg" src={this.answer.url} alt="Answer" />
                     <div className="score_visWrap">
                         {this.generateVis()}

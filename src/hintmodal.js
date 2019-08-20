@@ -94,11 +94,11 @@ class Hint extends Component {
             cards[3].classList.remove("plyr2");
             cards[3].classList.add("plyr2plyr3");
             this.setState({ animation: "" });
-
+            clearInterval(this.hinttimer);
             window.setTimeout(function () {
                 this.setState({ result: true });
                 this.rightAnswer(1, 2)
-                clearInterval(this.hinttimer);
+                
             }.bind(this), 3000)
         }.bind(this), 3000);
     }
