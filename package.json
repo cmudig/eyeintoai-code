@@ -2,7 +2,7 @@
   "name": "mlint",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jayolee.github.io/mlint_3plyrs",
+  "homepage": "https://jayolee.github.io/mlint",
   "dependencies": {
     "firebase": "^6.4.0",
     "react": "^16.8.6",
