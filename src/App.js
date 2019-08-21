@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import { Link, withRouter } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './index.scss';
 
 import cmuLogo from './image/CMU_Logo.png'
@@ -68,11 +68,10 @@ setMenu(i){
             <Link to={process.env.PUBLIC_URL} className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
             <div className = "menuBar">
 
-            <Link to={process.env.PUBLIC_URL + "/guessai"} className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
+            <Link to={process.env.PUBLIC_URL + "/guessai/"} className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
 
              {/* <Link to={process.env.PUBLIC_URL + "/aiquiz"} className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); this.getCurPage()}}> */}
              <div className = "menu">AI Quiz</div>
-             
              {/* </Link> */}
              
                 <div className = "profileWrapper">
@@ -83,7 +82,7 @@ setMenu(i){
           <Switch>
             <Route path = {process.env.PUBLIC_URL} exact render={props => <Home  setMenu = {this.setMenu.bind(this)} />} />
             <Route path = {process.env.PUBLIC_URL  + "/guessai/"} render={props => <GAIHome  />} />
-            <Route path = {process.env.PUBLIC_URL + "/guessai/play/"} render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
+            <Route path = {process.env.PUBLIC_URL + "/guessai-play/"} render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
           </Switch>
       </div>
       </Router>

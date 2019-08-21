@@ -44,7 +44,7 @@ class Home extends Component {
         </div>
         <div className="btnWrapper">
 
-          <Link to={process.env.PUBLIC_URL + "/guessai/play"} key="btn1" onClick={(ev) => { this.props.setMenu(0) }}>
+          <Link to={process.env.PUBLIC_URL + "/guessai-play"} key="btn1" onClick={(ev) => { this.props.setMenu(0) }}>
             <div className="gameBtn guessAI">
               <div className="icon">
 
