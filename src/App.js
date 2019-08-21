@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Route, Link } from "react-router-dom";
 import { Link } from 'react-router-dom'
 import './index.scss';
 
@@ -61,14 +61,14 @@ setMenu(i){
 }
 
   render() {
-    return (<Router>
+    return (<HashRouter basename = '/'>
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
           <div id="cmu"><img src = {cmuLogo} alt="CMU logo" /></div>
-            <Link to={process.env.PUBLIC_URL} className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
+            <Link to="/" className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
             <div className = "menuBar">
 
-            <Link to={process.env.PUBLIC_URL + "/guessai/"} className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
+            <Link to="/guessai/" className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
 
              {/* <Link to={process.env.PUBLIC_URL + "/aiquiz"} className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); this.getCurPage()}}> */}
              <div className = "menu">AI Quiz</div>
@@ -79,13 +79,13 @@ setMenu(i){
                 </div>
             </div>
           </div>
-          <Switch>
-            <Route path = {process.env.PUBLIC_URL} exact render={props => <Home  setMenu = {this.setMenu.bind(this)} />} />
-            <Route path = {process.env.PUBLIC_URL  + "/guessai/"} render={props => <GAIHome  />} />
-            <Route path = {process.env.PUBLIC_URL + "/guessai-play/"} render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
-          </Switch>
+         
+            <Route path ="/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
+            <Route path = "/guessai/" render={props => <GAIHome  />} />
+            <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
+         
       </div>
-      </Router>
+      </HashRouter>
     );
   }
 }
