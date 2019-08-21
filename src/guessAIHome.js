@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import './homePage.scss';
 import './index.scss';
 import Convo from './convo.js'
