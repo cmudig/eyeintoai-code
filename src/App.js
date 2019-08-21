@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Link } from "react-router-dom";
-import { Link } from 'react-router-dom'
 import './index.scss';
 
 import cmuLogo from './image/CMU_Logo.png'
