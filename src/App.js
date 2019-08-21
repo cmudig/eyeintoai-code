@@ -16,7 +16,6 @@ class App extends Component {
     super(props);
     this.state = {
       players: [],
-      pagenumber: 3,
       gameClass: [" ", " "],
     }
     
@@ -37,6 +36,12 @@ class App extends Component {
 componentDidMount(){
   this.getCurPage();
 }
+setMenu(i){
+  let menuClass = [" ", " "];
+  menuClass[i] = "active";
+  this.setState({gameClass: menuClass})
+
+}
   getCurPage(){
     let curpagePath=window.location.pathname;
     curpagePath=curpagePath.toLowerCase();
@@ -47,7 +52,6 @@ componentDidMount(){
     for(let i=0; i<urlList.length; i++){
         urlRegex = new RegExp(urlList[i]);
         if(urlRegex.exec(curpagePath)){
-            this.setState({pagenumber:i});
             classlist[i] = "active"
         } else{
           classlist[i] = " "
@@ -61,12 +65,15 @@ componentDidMount(){
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
           <div id="cmu"><img src = {cmuLogo} alt="CMU logo" /></div>
-            <div className="title">Interpretable Machine Learning Research Project</div>
+            <Link to={process.env.PUBLIC_URL} className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
             <div className = "menuBar">
 
-            <Link to={process.env.PUBLIC_URL + "/guessai"} className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({pagenumber: 1}); this.getCurPage()}}>Guess AI</Link>
+            <Link to={process.env.PUBLIC_URL + "/guessai"} className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
 
-             <Link to={process.env.PUBLIC_URL + "/aiquiz"} className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({pagenumber: 2}); this.getCurPage()}}>AI Quiz</Link>
+             {/* <Link to={process.env.PUBLIC_URL + "/aiquiz"} className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); this.getCurPage()}}> */}
+             <div className = "menu">AI Quiz</div>
+             
+             {/* </Link> */}
              
                 <div className = "profileWrapper">
                 <i className={"profile " + this.state.players[0]}></i>
@@ -74,9 +81,9 @@ componentDidMount(){
             </div>
           </div>
           <Switch>
-            <Route path = {process.env.PUBLIC_URL} exact render={props => <Home />} />
-            <Route path = {process.env.PUBLIC_URL  + "/guessai/"} render={props => <GAIHome />} />
-            <Route path = {process.env.PUBLIC_URL + "/guessai/play"}render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
+            <Route path = {process.env.PUBLIC_URL} exact render={props => <Home  setMenu = {this.setMenu.bind(this)} />} />
+            <Route path = {process.env.PUBLIC_URL  + "/guessai/"} render={props => <GAIHome  />} />
+            <Route path = {process.env.PUBLIC_URL + "/guessai/play/"} render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
           </Switch>
       </div>
       </Router>

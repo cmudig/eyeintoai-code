@@ -144,6 +144,8 @@ body, .App{
          height:98px;
        }
         .title{
+          text-decoration: none;
+          color: rgba(0,0,0,0.8);
           font: {
             size: 15px;
             weight: 600;

@@ -67,7 +67,7 @@ class GAIHome extends Component {
                 }}>
                   How to Play?
                 </div>
-                <a href={process.env.PUBLIC_URL + "/guessai/play"} >
+                <a href={process.env.PUBLIC_URL + "/guessai/play"}>
                 <div className="btn">
                   Play Now &#9655;
                 </div>

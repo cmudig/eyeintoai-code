@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import './homePage.scss';
 
 import game2 from './image/home/game2.png'
@@ -43,36 +43,38 @@ class Home extends Component {
           </div>
         </div>
         <div className="btnWrapper">
-          <div className="gameBtn guessAI">
-            <div className="icon">
 
+          <Link to={process.env.PUBLIC_URL + "/guessai/play"} key="btn1" onClick={(ev) => { this.props.setMenu(0) }}>
+            <div className="gameBtn guessAI">
+              <div className="icon">
+
+              </div>
+              <div className="textWrap">
+                <div className="title">
+                  Guess AI
+            </div>
+                <div className="expla">
+                  Compete with other players on guessing what machine speaks!
+            </div>
+              </div>
+            </div>
+          </Link>
+          <div className="gameBtn AIQuiz">
+            <div className="icon">
+              <img src={game2} />
             </div>
             <div className="textWrap">
               <div className="title">
-                Guess AI
-            </div>
+                AI Quiz
+                </div>
               <div className="expla">
-                Compete with other players on guessing what machine speaks!
-            </div>
-            </div>
-          </div>
-       
-            <div className="gameBtn AIQuiz">
-              <div className="icon">
-                <img src= {game2} />
-              </div>
-              <div className="textWrap">
-                  <div className="title">
-                    AI Quiz
+                Find who has similar AI taste as you at Carnegie Mellon University!
                 </div>
-                  <div className="expla">
-                    Find who has similar AI taste as you at Carnegie Mellon University!
-                </div>
-              </div>
             </div>
           </div>
         </div>
-    
+      </div>
+
     );
   }
 }
