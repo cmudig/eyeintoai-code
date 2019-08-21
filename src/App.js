@@ -60,12 +60,12 @@ setMenu(i){
 }
 
   render() {
-    return (<HashRouter >
+    return (<HashRouter basename = "/">
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
           <div id="cmu">
           <a href="https://www.cmu.edu/" rel ="noopener noreferrer" target="_blank"> <img src = {cmuLogo} alt="CMU logo" /></a></div>
-            <Link to="/" className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
+            <Link to="/home/" className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
             <div className = "menuBar">
 
             <Link to="/guessai/" className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
@@ -81,8 +81,9 @@ setMenu(i){
           </div>
          
             <Route path ="/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
+            <Route path ="/home/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
             <Route path = "/guessai/" render={props => <GAIHome  />} />
-            <Route path = "/guessai/play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
+            <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
          
       </div>
       </HashRouter>
