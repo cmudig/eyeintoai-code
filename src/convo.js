@@ -35,12 +35,12 @@ class Convo extends Component {
         this.props.clearTimer();
         this.score[n][1] += 20;
         this.score[this.props.entireRound - 1][1] += 20;
-        if(i){
+        if (i) {
             this.score[i][1] += 10;
             this.score[this.props.entireRound - 1][1] += 10;
         }
         this.props.setScore(this.score);
-        this.setState({ disable: true, inputOpcity: .5 }); 
+        this.setState({ disable: true, inputOpcity: .5 });
         window.setTimeout(function () { this.props.changeMode(4); }.bind(this), 300);
     }
     convoGenerate() {
@@ -63,15 +63,62 @@ class Convo extends Component {
         }
         //make the loading bubble animation opaque
         this.setState({ opacity: 1 });
+        if (this.props.mode !== "home") {
+            this.convo = setInterval(function () {
+                answers = answer[Math.floor(Math.random() * answer.length)]
+                element = this.state.generateAnswer;
+                displayElement = this.state.generateDisplay;
 
-        this.convo = setInterval(function () {         
+                if (this.props.entireRound === 1) {
+                    player = (Math.floor(Math.random() * 2)) + 1;
+                    let convo = <div key={"convoWarp" + element.length}>
+                        <div className="convoWrap" key={"convo" + element.length}>
+                            <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
+                                {answers}
+                            </div>
+                            <div className={"profile plyr" + (player + 1)} key={"profile" + element.length}>
+                                <i className={this.props.players[player]}></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    element.push(convo);
+                    displayElement.push(convo);
+                } else {
+                    let convo = <div key={"convoWarp" + element.length}>
+                        <div className="convoWrap" key={"convo" + element.length}>
+                            <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
+                                {answers}
+                            </div>
+                            <div className={"profile plyr" + (player + 1)} key={"profile" + element.length}>
+                                <i className={this.props.players[player]}></i>
+                            </div>
+                        </div>
+                    </div>
+                    let displayConvo = <div key={"convoWarp" + element.length}>
+                        <div className="convoWrap" key={"convo" + element.length}>
+                            <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                            <div className={"profile plyr" + (player + 1)} key={"profile" + element.length}>
+                                <i className={this.props.players[player]}></i>
+                            </div>
+                        </div>
+                    </div>
+                    element.push(convo);
+                    displayElement.push(displayConvo);
+                }
+                if (this.answer.classLabels.includes(answers)) { this.rightAnswer(player) }
+                this.setState({ generateAnswer: element, generateDisplay: displayElement, time: (this.state.time * 1) + 1 });
+                this.autoScroll()
+            }.bind(this), 4000)
+        }
+        else {
+            this.convo = setInterval(function () {
             answers = answer[Math.floor(Math.random() * answer.length)]
-            element = this.state.generateAnswer;
-            displayElement = this.state.generateDisplay;
-
-            if(this.props.entireRound === 1){
-                player = (Math.floor(Math.random() * 2)) + 1 ;
-                let convo = <div key={"convoWarp" + element.length}>
+            element = this.state.generateDisplay;
+            player = (Math.floor(Math.random() * 2)) + 1;
+            let convo = <div key={"convoWarp" + element.length}>
                 <div className="convoWrap" key={"convo" + element.length}>
                     <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
                         {answers}
@@ -81,60 +128,34 @@ class Convo extends Component {
                     </div>
                 </div>
             </div>
-               
-                element.push(convo);
-                displayElement.push(convo);
-               } else{
-                   let convo = <div key={"convoWarp" + element.length}>
-                   <div className="convoWrap" key={"convo" + element.length}>
-                       <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
-                       {answers}
-                       </div>
-                       <div className={"profile plyr" + (player + 1)} key={"profile" + element.length}>
-                           <i className={this.props.players[player]}></i>
-                       </div>
-                   </div>
-               </div>
-                let displayConvo = <div key={"convoWarp" + element.length}>
-                <div className="convoWrap" key={"convo" + element.length}>
-                    <div className={"bubble plyr" + (player + 1)} key={"convoBubble" + element.length}>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div className={"profile plyr" + (player + 1)} key={"profile" + element.length}>
-                        <i className={this.props.players[player]}></i>
-                    </div>
-                </div>
-            </div>
-                element.push(convo);
-                displayElement.push(displayConvo);
-               }
-            if(this.answer.classLabels.includes(answers)){this.rightAnswer(player)}
-            this.setState({ generateAnswer: element, generateDisplay: displayElement, time: (this.state.time * 1) + 1 });
+            element.push(convo);
+            this.setState({ generateDisplay: element });
             this.autoScroll()
         }.bind(this), 4000)
     }
+}
     //if player 1 types answer  
     addAnswer() {
         let tanswer = document.getElementById("answerType");
-        let answers = [tanswer.value];
-        if (this.answer.classLabels.includes(tanswer.value)) {
+        let answers = [tanswer.value.toLowerCase()];
+        if (this.answer.classLabels.includes(tanswer.value.toLowerCase())) {
             this.rightAnswer(0)
         }
         let element = this.state.generateAnswer;
         let displayElement = this.state.generateDisplay;
         let typedElement = this.state.typedAnswer;
         typedElement.push(answers);
-        
-        let display = <div key ={"convoWrap" + element.length}>
-        <div className="convoWrap" key={"convo" + element.length}>
-            <div className="bubble plyr1" key={"convoBubble" + element.length}>
-                {answers}
-            </div>
-            <div className="profile plyr1" key={"profile" + element.length}>
-                <i className={this.props.players[0]}></i>
+
+        let display = <div key={"convoWrap" + element.length}>
+            <div className="convoWrap" key={"convo" + element.length}>
+                <div className="bubble plyr1" key={"convoBubble" + element.length}>
+                    {answers}
+                </div>
+                <div className="profile plyr1" key={"profile" + element.length}>
+                    <i className={this.props.players[0]}></i>
+                </div>
             </div>
         </div>
-    </div>
         element.push(display);
         displayElement.push(display);
         this.setState({ generateAnswer: element, generateDisplay: displayElement, typedAnswer: typedElement, time: (this.state.time * 1) + 1 });

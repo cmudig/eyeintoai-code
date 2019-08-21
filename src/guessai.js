@@ -9,8 +9,7 @@ import Game from './game.js'
 import Round from './round.js'
 import ScoreImage from './scoreimages.js'
 
-const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-kiwi-bird", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-crow", "fas fa-cat"]
-
+const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
 
 class GuessAI extends Component {
   constructor(props) {
