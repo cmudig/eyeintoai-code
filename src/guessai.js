@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import cmuLogo from './image/CMU_Logo.png'
 import Loading from './loading.js'
 import Vis from './visualizations.js'
 import Category from './category.js'

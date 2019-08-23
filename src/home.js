@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './homePage.scss';
-
+import game1 from './image/home/game1.png'
 import game2 from './image/home/game2.png'
 
 const vis = [];
@@ -47,7 +47,7 @@ class Home extends Component {
           <Link to="/guessai" key="btn1" onClick={(ev) => { this.props.setMenu(0) }}>
             <div className="gameBtn guessAI">
               <div className="icon">
-
+              <img src={game1} />
               </div>
               <div className="textWrap">
                 <div className="title">

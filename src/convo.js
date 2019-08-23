@@ -27,7 +27,9 @@ class Convo extends Component {
         this.convoGenerate()
     }
     componentWillUnmount() {
-        this.props.saveAnswers(this.state.typedElement, this.state.generateAnswer);
+        if(this.props.saveAnswers){
+            this.props.saveAnswers(this.state.typedElement, this.state.generateAnswer);
+        }
         clearInterval(this.convo);
     }
     rightAnswer(n, i = undefined) {

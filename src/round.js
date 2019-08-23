@@ -5,7 +5,7 @@ import { StaticData } from './images'
 
 const vis = [];
 for(let i = 0; i < 484; i++){
-    vis[i] = require('./image/mixed4d/'+ (i + 1) +'.png')
+    vis[i] = require('./image/mixed4d/'+ (i) +'.png')
 }
 
 class Round extends Component {
