@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/TinderCard.css';
-import { animated, interpolate } from "react-spring/hooks";
+import { animated, interpolate } from "react-spring";
 
 class TinderCard extends Component {
   render() {

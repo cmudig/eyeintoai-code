@@ -6,6 +6,7 @@ import cmuLogo from './image/CMU_Logo.png'
 import GuessAI from './guessai.js'
 import Home from './home.js'
 import GAIHome from './guessAIHome.js'
+import AIQuiz from './aiQuiz/aiQuiz.js'
 
 const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
 
@@ -42,21 +43,23 @@ setMenu(i){
 
 }
   getCurPage(){
-    let curpagePath=window.location.pathname;
-    curpagePath=curpagePath.toLowerCase();
+    // console.log(this)
+    // let curpagePath=this.props.location;
+    // console.log(curpagePath)
+    // curpagePath=curpagePath.toLowerCase();
     
-    let urlList=['/guessai', '/aiquiz']
-    let classlist = this.state.gameClass;
-    let urlRegex;
-    for(let i=0; i<urlList.length; i++){
-        urlRegex = new RegExp(urlList[i]);
-        if(urlRegex.exec(curpagePath)){
-            classlist[i] = "active"
-        } else{
-          classlist[i] = " "
-        }
-    }
-    this.setState({gameClass: classlist});
+    // let urlList=['/guessai', '/aiquiz']
+    // let classlist = this.state.gameClass;
+    // let urlRegex;
+    // for(let i=0; i<urlList.length; i++){
+    //     urlRegex = new RegExp(urlList[i]);
+    //     if(urlRegex.exec(curpagePath)){
+    //         classlist[i] = "active"
+    //     } else{
+    //       classlist[i] = " "
+    //     }
+    // }
+    // this.setState({gameClass: classlist});
 }
 
   render() {
@@ -64,14 +67,13 @@ setMenu(i){
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
           <div id="cmu">
-          <a href="https://www.cmu.edu/" rel ="noopener noreferrer" target="_blank"> <img src = {cmuLogo} alt="CMU logo" /></a></div>
+<img src = {cmuLogo} alt="CMU logo" /></div>
             <Link to="/home/" className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
             <div className = "menuBar">
 
             <Link to="/guessai/" className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
 
-             {/* <Link to={process.env.PUBLIC_URL + "/aiquiz"} className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); this.getCurPage()}}> */}
-             <div className = "menu">AI Quiz</div>
+            <Link to="/aiquiz/" className="title" className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); }} >AI Quiz</Link>
              {/* </Link> */}
              
                 <div className = "profileWrapper">
@@ -81,7 +83,8 @@ setMenu(i){
           </div>
          
             <Route path ="/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
-            <Route path ="/home/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
+            <Route path ="/home/" render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
+            <Route path = "/aiquiz/" render = {props => <AIQuiz />} />
             <Route path = "/guessai/" render={props => <GAIHome  />} />
             <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
          

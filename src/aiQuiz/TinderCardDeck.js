@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import './css/TinderCardDeck.css';
-import { useSprings } from "react-spring/hooks";
+import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
 import TinderCard from './TinderCard';
 

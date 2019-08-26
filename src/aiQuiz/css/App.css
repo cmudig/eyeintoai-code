@@ -9,7 +9,7 @@ html, body {
   line-height: 150%;
   font-family: 'Montserrat', sans-serif;
 }
-.App {
+.aiQuiz_App {
   align-self: center;
   background-image: linear-gradient(135deg, #F07676, #F2994A);
   width: 100vw;
@@ -20,7 +20,7 @@ html, body {
   padding: 20px;
 }
 
-.App.Light {
+.aiQuiz_.Light {
   background: white;
   color: black;
   align-items: center;
@@ -32,6 +32,7 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
+  object-fit: contain;
 }
 
 .AlignToBottom {
