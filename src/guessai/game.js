@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './index.scss';
+import '../index.scss';
 
 import Convo from './convo.js'
 import Profile from './profile.js'
@@ -66,7 +66,7 @@ class Game extends Component {
             <img src={this.props.hintVis[i]} alt={"vis" + i} key={"vis" + i} /></div>)
         }
         for (let i = 0; i < (4 - this.state.round); i++) {
-            element.push(<div className =  "visWrapper" key={"vis" + i + 5}/>)
+            element.push(<div className =  "visWrapper" key={"vis" + i + 5}> ? </div>)
         } 
        
     }else{

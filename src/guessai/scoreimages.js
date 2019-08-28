@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Link } from "react-router-dom";
 
 class ScoreImage extends Component {
     constructor(props) {
@@ -40,6 +40,8 @@ class ScoreImage extends Component {
                         Below are screenshots of the result of each round.<br />
                         Feel free to download and share with your friends!
                     </div>
+                    <a href={process.env.PUBLIC_URL + "/guessai-play" } className = "btn" key="btn1">
+                    Play Again</a>
                     <div id="resultImage" key="resultImage">
                         {this.returnScoreImages()}
                     </div>

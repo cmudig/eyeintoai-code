@@ -159,14 +159,20 @@ align-items: center;
   background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 0%, #BBDAFF 100%);
   background-repeat: no-repeat;
   background-position-y: 70vh;
-  padding-top: 5vh;
+  padding-top: 10vh;
   .sideWrapper{
     max-width: 1500px;
   }
   .side{
+    @media screen and (max-width: 1000px){
+      margin-bottom: 60px;
+      &.right{
+        margin-bottom: 120px;
+      }
+    }
     .title{
       font-family: "VT323", "monospace";
-      font-size: 40px;
+      font-size: 30px;
     }
     .expla{
       font-family: "share tech mono", "monospace";
@@ -205,7 +211,7 @@ align-items: center;
       max-width: 700px;
       @media screen and (max-width: 1000px){
         width: 100%;
-        margin-bottom: 32px;
+        margin-bottom: 8px;
       }
     }
     
@@ -213,28 +219,47 @@ align-items: center;
       margin: 0;
       display: flex;
       width: 100%;
-      max-width: 700px;
-      justify-content: space-between;
-      
+      max-width: 680px;
+      justify-content: center;
+      padding-left: 5%;
       .side{
         width: 50%;
         width: 260px;
         margin-top: 32px;
 
         &.center{
-          width: 500px;
+          width: 350px;
           max-width: 95%;
-          margin-left: calc(50% - 450px);
+          
           .visDisplay{
-            max-width: 500px;
+            max-width: 350px;
+            padding-left: 32px;
+            padding-right: 32px;
+            @media screen and (max-width: 1100px){
+              max-width: 300px;
+              padding-left: 16px;
+              padding-right: 16px;
+              margin-top: 10px;
+              height: 380px;
+            }
+            .selected-vis{
+              justify-content: center;
+              .visWrapper{
+                  margin: 0 8px 16px;
+              }
+            }
             .title{
-              font-size: 32px;
+              font-size: 24px;
             }
           }
         }
       }
     }
-    
+    .convo{
+      @media screen and (max-width: 1100px){
+        height: 400px;
+      }
+    }
   }
 }
 .howToWrapper{

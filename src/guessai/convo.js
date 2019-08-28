@@ -200,7 +200,7 @@ class Convo extends Component {
     }
     render() {
         return (
-            <div>
+            <div style={{height: "100%"}}>
                 <div className="convo_inner">
                     {this.state.generateDisplay}
                 </div>

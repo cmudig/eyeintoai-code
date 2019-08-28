@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './App.css';
-
 const answers = ["wolf", "bug", "fur", "cotton", "fabric", "web", "spider", "fox", "rubber", "mouse", "flower", "polar bear", "vase", "plant", "mint", "daisy", "mouse", "glass", "cosmos", "space", "blanket", "monkey", "otter", "goose", "lion", "bird", "peacock", "sky", "ceramic", "cotton", "linen"];
 
 class Hint extends Component {

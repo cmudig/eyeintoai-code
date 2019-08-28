@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import profile1 from './image/profile/profile1.png'
 import profile2 from './image/profile/profile2.png'
 import profile3 from './image/profile/profile3.png'

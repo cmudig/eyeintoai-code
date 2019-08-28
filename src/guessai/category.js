@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import {StaticData} from './images'
 
 
@@ -59,7 +58,7 @@ class Category extends Component {
     }
 
     for (let i = 0; i < 4; i++) {
-      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { this.props.setAnswer(category[ranNum[i]]); }} />)
+      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { this.props.setAnswer(category[ranNum[i]]);}} />)
     }
     element = <div className="select-Category" key="selectCategory">
       <div className="title">Select an image</div>

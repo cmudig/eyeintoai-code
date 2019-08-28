@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
 
 import { StaticData } from './images'
 
 const vis = [];
 for(let i = 0; i < 484; i++){
-    vis[i] = require('./image/mixed4d/'+ (i) +'.png')
+    vis[i] = require('../image/mixed4d/'+ (i) +'.png')
 }
 
 class Round extends Component {
@@ -73,8 +72,12 @@ class Round extends Component {
         ranVisOrder[ran2] = ranTemp;
       }
       (ranNum % 2 === 0) ? answerSet = this.animals : answerSet = this.objects;
-      visSet = answerSet[ran2].correctURLs.concat(answerSet[ran2].wrongVizURLs);
-      this.props.setAnswer(answerSet[ran2]);
+      let ranNumTemp = ran2
+      while(this.props.answerRecord.includes(answerSet[ran2].classLabels[0])){
+        ranNumTemp = (ran2 + 1) % 8;
+      }
+      visSet = answerSet[ranNumTemp].correctURLs.concat(answerSet[ranNumTemp].wrongVizURLs);
+      this.props.setAnswer(answerSet[ranNumTemp]);
       this.props.setHint([vis[visSet[ranVisOrder[0]]], vis[visSet[ranVisOrder[1]]], vis[visSet[ranVisOrder[2]]], vis[visSet[ranVisOrder[3]]]]);
       this.props.setHintVisUrl([visSet[ranVisOrder[0]], visSet[ranVisOrder[1]],visSet[ranVisOrder[2]], visSet[ranVisOrder[3]]]);
     }

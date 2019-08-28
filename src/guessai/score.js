@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Profile from './profile.js'
 
 const domtoimage = require('dom-to-image');

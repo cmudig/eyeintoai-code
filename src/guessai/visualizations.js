@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-
 const vis = [];
 for(let i = 0; i < 484; i++){
-    vis[i] = require('./image/mixed4d/'+ (i) +'.png')
+    vis[i] = require('../image/mixed4d/'+ (i) +'.png')
 }
 
 class Vis extends Component {
@@ -98,7 +96,7 @@ class Vis extends Component {
                 <img src={this.props.answer.url} id="answerImg" alt = "answer"/>
                 <div className="title"><span style={{ fontSize: "24px", lineHeight: "2" }}>
                     Make other players guess the image!</span><br />
-                    Select 4 feature visualizations
+                    Select the most representative 4 feature visualizations
             of the {this.props.answer.classLabels[0]} for hints</div>
                 <div className="timer" key="timer">
                     <div className="timer_in" key="timer_in" style={{ width: this.state.timerWidth }} > <div className="timer_highlight" />

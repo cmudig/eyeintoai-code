@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './homePage.scss';
-import './index.scss';
-import Convo from './convo.js'
+import './guessai/index.scss';
+import Convo from './guessai/convo.js'
 import step1 from './image/guessaihome/step1.png'
 import step2 from './image/guessaihome/step2.png'
 import step3 from './image/guessaihome/step3.png'
-import game2 from './image/home/game2.png'
 
 const vis = [];
 for (let i = 0; i < 4; i++) {
@@ -38,16 +37,20 @@ class GAIHome extends Component {
                   <div className="title">Guess the original image!</div>
                   <div className="hint" key="hints"><span className="title">Hint:</span> It's a type of  <span id="hintContent" key="hintcontent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
                   <div className="selected-vis" key="visDisplay">
+                  <div>
                     <div className="visWrapper" key={"viswrapper0"}>
                       <img src={vis[0]} alt={"vis0"} key={"vis0"} /></div>
                       <div className="visWrapper" key={"viswrapper1"}>
                       <img src={vis[1]} alt={"vis1"} key={"vis1"} /></div>
+                    </div>
+                    <div>
                       <div className="visWrapper" key={"viswrapper2"}>
                       <img src={vis[2]} alt={"vis2"} key={"vis2"} /></div>
                       <div className="visWrapper" key={"viswrapper3"}>
                       <img src={vis[3]} alt={"vis3"} key={"vis3"} /></div>
+                    </div>
                   </div>
-                </div>
+                   </div>
               </div>
               <div className="side">
                 <div className="convo">

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Link } from "react-router-dom";
-import './index.scss';
+import './guessai/index.scss';
 
 import cmuLogo from './image/CMU_Logo.png'
-import GuessAI from './guessai.js'
+import GuessAI from './guessai/guessai.js'
 import Home from './home.js'
 import GAIHome from './guessAIHome.js'
 import AIQuiz from './aiQuiz/aiQuiz.js'
@@ -21,6 +21,7 @@ class App extends Component {
     
   }
   componentWillMount(){
+    //set player's profile
     let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let ran1, ran2, ranTemp;
     for (let i = 0; i < 10; i++) {
