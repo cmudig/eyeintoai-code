@@ -20,8 +20,8 @@ class Game extends Component {
             opacity: 1,
             display: "block",
 
-            typemode : this.props.entireRound - 1,
-            //player's current mode. 0: select image, 1: guess mode
+            typemode : this.props.turns[this.props.entireRound - 1] === 1,
+            //player's current mode. true: select mode, false: guess mode
             score: this.props.score,
 
             hint: "animal",
@@ -38,7 +38,8 @@ class Game extends Component {
     componentDidMount() {
         this.setState({ selected: [] });
     }
-    countRound() {
+    countRound = () => {
+        //add one round after each round
         this.setState({ round: this.state.round + 1 })
     }
     changeMode(n) {
@@ -48,11 +49,13 @@ class Game extends Component {
         clearInterval(this.timer);
     }
     saveAnswers(n, a){
+        //save the answers so we can save it on Firebase after the round + prompt typed answers on the score modal
         let element = this.state.answerSet;
         element.push(a);
         this.setState({inputAnswers: n, answerSet: element})
     }
     changeScore(n){
+        //if player gets score, update the score
         this.setState({score: n});
         this.props.setScore(n);
     }
@@ -76,34 +79,6 @@ class Game extends Component {
         }
     }
     return element;
-    }
-
-    
-    generateAnswer1() {
-        let answer1 = [];
-        let length = this.state.answer1.length - 1;
-
-        for (let i = 0; i < 3; i++) {
-            if (this.state.answer1[length - i]) {
-                answer1.push(<div className="answer plyr2" key={"answer" + i}> {this.state.answer1[length - i]} </div>);
-            }
-        }
-        return <div className="answers">
-            {answer1}
-        </div>
-
-    }
-    generateAnswer2() {
-        let answer2 = [];
-        let length = this.state.answer2.length - 1;
-        for (let i = 0; i < 3; i++) {
-            if (this.state.answer2[length - i]) {
-                answer2.push(<div className="answer plyr3" key={"answer" + i}> {this.state.answer2[length - i]} </div>);
-            }
-        }
-        return <div className="answers">
-            {answer2}
-        </div>
     }
     setTimer() {
         let width = 300;
@@ -138,12 +113,13 @@ class Game extends Component {
     renderFirstHint(){
         return this.state.hintContent;
     }
+    //if the player is not in guessing turn, show the answer modal
     renderAnswerBox(){
         let element = [];
         for(let i = 0; i < this.props.answer.classLabels.length / 2; i++){
             element.push(<div className="answer" key = {"answer" + i}>{this.props.answer.classLabels[i * 2]}(s)</div>)
         }
-        if(this.state.typemode === 0){
+        if(this.state.typemode === true){
             return   <div className="answerBox">
             <img className="answerImg" src={this.props.answer.url} alt = "Answer"/>
             <div className="answerList">
@@ -154,7 +130,7 @@ class Game extends Component {
     }
     generateConvo() {
         if(this.state.mode === 0){
-        return  <Convo typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} key ="convo"/>
+        return  <Convo turns = {this.props.turns} typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} key ="convo"/>
     }
     }
     generateModals() {
@@ -162,9 +138,9 @@ class Game extends Component {
             case 1: 
                 return  <Pause setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} />
             case 3: 
-                return <Hint answer={this.answer} round={this.state.round} entireRound={this.props.entireRound} setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />
+                return <Hint answer={this.answer} turns = {this.props.turns} round={this.state.round} entireRound={this.props.entireRound} setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />
             case 4: 
-                return <Score answer={this.answer}  players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} setScoreImages = {this.props.setScoreImages.bind(this)} movetoNext = {this.props.movetoNext.bind(this)}/>
+                return <Score answer={this.answer} turns = {this.props.turns} players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} setScoreImages = {this.props.setScoreImages.bind(this)} movetoNext = {this.props.movetoNext.bind(this)}/>
             default:
         }
     }
@@ -176,7 +152,7 @@ class Game extends Component {
                 <div className="main">
                     <div className="game">
                         <div className="side left">
-                           <Profile score = {this.state.score} players = {this.props.players}entireRound = {this.props.entireRound}/>
+                           <Profile score = {this.state.score} turns = {this.props.turns} players = {this.props.players}entireRound = {this.props.entireRound}/>
                           {this.renderAnswerBox()}
                         </div>
 

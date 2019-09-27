@@ -30,6 +30,10 @@ class AIQuiz extends Component {
     };
   }
 
+  componentDidMount(){
+      //change the url when the view is mounted
+      this.props.setMenu(1)
+  }
   changeState(gameState) {
     console.log('changeState', gameState);
     this.setState({gameState: gameState});

@@ -1023,17 +1023,18 @@ body, .App{
   font-size: 22px;
   margin-bottom: 48px;
   line-height: 1.2;
-  .btn{
-    display: block;
-    text-decoration:none;
-    text-align: center;
-    width: 200px;
-    margin:24px auto 0;
-  }
+  
   .large{
     font-size: 28px;
     line-height: 2;
   }
+}
+.btn.again{
+  display: block;
+  text-decoration:none;
+  text-align: center;
+  width: 200px;
+  margin:24px auto 60px;
 }
 #resultImage{
   display: flex;

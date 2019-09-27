@@ -21,7 +21,7 @@ class App extends Component {
     
   }
   componentWillMount(){
-    //set player's profile
+    //randomly set player's profile
     let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let ran1, ran2, ranTemp;
     for (let i = 0; i < 10; i++) {
@@ -34,33 +34,13 @@ class App extends Component {
     }
    this.setState({players: [profiles[ranNum[0]]]})
   }
-componentDidMount(){
-  this.getCurPage();
-}
+
+//change the url depending on the pages
 setMenu(i){
   let menuClass = [" ", " "];
   menuClass[i] = "active";
   this.setState({gameClass: menuClass})
 
-}
-  getCurPage(){
-    // console.log(this)
-    // let curpagePath=this.props.location;
-    // console.log(curpagePath)
-    // curpagePath=curpagePath.toLowerCase();
-    
-    // let urlList=['/guessai', '/aiquiz']
-    // let classlist = this.state.gameClass;
-    // let urlRegex;
-    // for(let i=0; i<urlList.length; i++){
-    //     urlRegex = new RegExp(urlList[i]);
-    //     if(urlRegex.exec(curpagePath)){
-    //         classlist[i] = "active"
-    //     } else{
-    //       classlist[i] = " "
-    //     }
-    // }
-    // this.setState({gameClass: classlist});
 }
 
   render() {
@@ -85,9 +65,9 @@ setMenu(i){
          
             <Route path ="/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
             <Route path ="/home/" render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
-            <Route path = "/aiquiz/" render = {props => <AIQuiz />} />
-            <Route path = "/guessai/" render={props => <GAIHome  />} />
-            <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} />} />
+            <Route path = "/aiquiz/" render = {props => <AIQuiz setMenu = {this.setMenu.bind(this)}/>} />
+            <Route path = "/guessai/" render={props => <GAIHome  setMenu = {this.setMenu.bind(this)}/>} />
+            <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} setMenu = {this.setMenu.bind(this)} />}  />
          
       </div>
       </HashRouter>

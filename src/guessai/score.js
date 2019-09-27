@@ -28,7 +28,7 @@ class Score extends Component {
         clearInterval(this.timer);
         this.setState({ animation: "none" })
         let scoreImage = "";
-
+        //save the score modal image so ppl can share
         domtoimage.toPng(document.getElementById('resultInner'))
             .then(function (dataUrl) {
                 scoreImage = dataUrl
@@ -43,27 +43,11 @@ class Score extends Component {
             }.bind(this))
             .catch(function (error) {
                 console.error("Couldn't save the image", error);
-                domtoimage.toPng(document.getElementById('resultInner'))
-                .then(function (dataUrl) {
-                    scoreImage = dataUrl
-                    this.props.setScoreImages(scoreImage);
-    
-                    if (this.props.round < 3) { 
-                        this.props.addRound(); 
-                    } else {
-                        this.props.movetoNext(5)
-                    }
-    
-                }.bind(this))
-                .catch(function (error) {
-                    console.error("Couldn't save the image", error);
-                    this.props.setScoreImages("Error");
-                    if (this.props.round < 3) { 
-                        this.props.addRound(); 
-                    } else {
-                        this.props.movetoNext(5)
-                    }
-                }.bind(this));
+                if (this.props.round < 3) { 
+                    this.props.addRound(); 
+                } else {
+                    this.props.movetoNext(5)
+                }
             }.bind(this));
 
     }
@@ -75,8 +59,8 @@ class Score extends Component {
                 this.changeMode()
             }
         }.bind(this), 1000);
-
-        if (this.props.round === 1) {
+        //if the player selected the image, save it to Firebase
+        if (this.props.turns[this.props.entireRound - 1] === 1) {
             let urls = [];
             for (let i = 0; i < 4; i++) {
                 if (this.props.hintVisUrl[i] > 7) {
@@ -123,7 +107,7 @@ class Score extends Component {
                     The answer is <span className="asrColr">{this.answer.classLabels[0]}</span>!
                 </div>
                 <div className="side">
-                    <Profile score={this.props.score} countScore={true} setScore={this.props.setScore.bind(this)} players={this.props.players} />
+                    <Profile score={this.props.score}  countScore={true} setScore={this.props.setScore.bind(this)} players={this.props.players} />
                     <div className="answerWrapMsg">
                         See what other players thought
                     </div>

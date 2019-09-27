@@ -13,40 +13,24 @@ class Round extends Component {
     this.state = {
       mode: 0,
     }
-    this.round = this.props.round
+    this.round = this.props.entireRound
     this.animals = StaticData.animal;
     this.objects = StaticData.object;
+    this.turns = this.props.turns
   }
 
   renderContent() {
     let element = [];
-    switch (this.round) {
-      case 1: element.push(<div className={"profile plyr1"} key="roundProfile">
+    let curplayer = this.turns[this.round - 1];
+    //current round's non-guessing player
+     element.push(<div className={"profile plyr" + (curplayer)} key="roundProfile">
         <div className="photo " >
-          <i className={this.props.players[0]} /></div>
+          <i className={this.props.players[curplayer - 1]} /></div>
         <div className="name">
-        {this.props.players[0].slice(7)}
+        {this.props.players[curplayer - 1].slice(7)}
         </div>
       </div>)
-        break;
-      case 2: element.push(<div className={"profile plyr2"} key="roundProfile">
-        <div className="photo" >
-          <i className={this.props.players[1]} /></div>
-        <div className="name">
-          {this.props.players[1].slice(7)}
-        </div>
-      </div>)
-        break;
-      case 3: element.push(<div className={"profile plyr3"} key="roundProfile">
-        <div className="photo" >
-          <i className={this.props.players[2]} /></div>
-        <div className="name">
-          {this.props.players[2].slice(7)}
-        </div>
-      </div>)
-        break;
-      default:
-    }
+       
     return <div key="roundInfo">
       <div className="title round">Round {this.props.round}</div>
       <div className="profiles">
@@ -58,8 +42,9 @@ class Round extends Component {
     window.setTimeout(function () {
       this.props.movetoNext(3)
     }.bind(this), 5000)
-
-    if (this.round > 1) {
+    let curplayer = this.turns[this.round - 1];
+    //if the player is guessing, randomly select the answer set
+    if (curplayer !== 1) {
       let ranNum = (Math.floor(Math.random() * 2));
       let ranVisOrder = [0, 1, 2, 3, 4, 5, 6, 7];
       let ran1, ran2, ranTemp, answerSet, visSet;

@@ -19,7 +19,11 @@ class GAIHome extends Component {
     this.state = {
     }
   }
-  renderImgs() {
+  componentDidMount(){
+    //change the url when the view is mounted
+    this.props.setMenu(0)
+  }
+  renderImgs = () => {
     let element = [];
     for (let i = 0; i < 10; i++) {
       element.push(<img src={vis[i]} />)

@@ -43,7 +43,8 @@ class Hint extends Component {
                 this.props.changeMode(4);
             }
         }.bind(this), 1000);
-        (this.props.entireRound * 1 === 1) ? this.test_selectCard() : this.random_selectCard();
+        //if the player is guessing, using random selectcard
+        (this.props.turns[this.props.entireRound - 1] === 1) ? this.test_selectCard() : this.random_selectCard();
     }
 
     componentWillUnmount() {
@@ -122,7 +123,7 @@ class Hint extends Component {
     }
 
     hintGenerator() {
-        if (this.props.entireRound === 1) {
+        if (this.props.turns[this.props.entireRound - 1] === 1) {
             return <div>Last chance!<br />
                 Select the answer
                 <div id="hintTimer" key="hintTimer"> <svg width="90" height="90">

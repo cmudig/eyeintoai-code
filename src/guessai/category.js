@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StaticData} from './images'
 
-
+//the player selecting the original image
 class Category extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +34,8 @@ class Category extends Component {
         <div className="btn-row">
           <div className="btn" onClick={(ev) => { this.setState({ questionNum: 1, imgType: "animals" });}}>Animals</div>
           <div className="btn" onClick={(ev) => { this.setState({ questionNum: 1, imgType: "objects" }); }}>Objects</div>
-          <div className="btn" onClick={(ev) => { (this.state.ranNum[0] % 2 === 1) ? this.props.setAnswer(this.animals[this.state.ranNum[0]]) : this.props.setAnswer(this.objects[this.state.ranNum[0]])}}>Random</div>
+          <div className="btn" onClick={(ev) => { (this.state.ranNum[0] % 2 === 1) ? this.props.setAnswer(this.animals[this.state.ranNum[0]]) : this.props.setAnswer(this.objects[this.state.ranNum[0]])
+          this.props.movetoNext(2)}}>Random</div>
         </div>
       </div>);
         break;
@@ -58,7 +59,7 @@ class Category extends Component {
     }
 
     for (let i = 0; i < 4; i++) {
-      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { this.props.setAnswer(category[ranNum[i]]);}} />)
+      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { this.props.setAnswer(category[ranNum[i]]); this.props.movetoNext(2)}} />)
     }
     element = <div className="select-Category" key="selectCategory">
       <div className="title">Select an image</div>

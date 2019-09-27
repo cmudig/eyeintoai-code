@@ -24,8 +24,13 @@ class Profile extends Component {
             counter: [0, 0, 0],
         }
         this.addScore = [];
+        this.curplayer = 0;
     }
-
+    componentWillMount(){
+        if(this.props.turns){
+            this.curplayer = this.props.turns[this.props.entireRound - 1]
+        }
+    }
     componentDidMount() {
       if (this.props.countScore) {
             window.setTimeout(this.countScore.bind(this), 500);
@@ -35,9 +40,10 @@ class Profile extends Component {
         }
         if (this.props.entireRound) {
             let players = this.state.players;
-            players[this.props.entireRound - 1].name = <b>{players[this.props.entireRound - 1].name}</b>
+            players[this.curplayer - 1].name = <b>{players[this.curplayer - 1].name}</b>
             this.setState({ players: players })
         }
+        //render the profiles one by one when the game first starts
         if(this.props.wait)
         {
             let players =  [{
@@ -109,7 +115,7 @@ class Profile extends Component {
         let element = []
         for (let i = 0; i < 3; i++) {
             if (this.state.score) {
-                (i === this.props.entireRound - 1) ?
+                (i === this.curplayer - 1) ?
                     element.push(
                         <div className={"mainGame active profile plyr" + (i + 1)} key={"profile" + i}>
 
@@ -136,7 +142,7 @@ class Profile extends Component {
                 element.push(
                     <div className={"profile plyr" + (i + 1)} key={"profile" + i}>
                         <div className="playerNum">
-                            Player {i}
+                            Player {i + 1}
                         </div>
                         <div className="photo " >
                             {this.state.players[i].img}</div>

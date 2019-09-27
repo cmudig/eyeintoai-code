@@ -3,7 +3,7 @@ const vis = [];
 for(let i = 0; i < 484; i++){
     vis[i] = require('../image/mixed4d/'+ (i) +'.png')
 }
-
+//the player selecting feature vizs 
 class Vis extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +20,7 @@ class Vis extends Component {
        this.nonSelectedVis()
     }
     nonSelectedVis(){
+        //put entire viz of the image in the beginning
         let vislist = [];
         for(let i = 0; i < 8;  i++){
             vislist.push(vis[this.answer.correctURLs[i]]);
@@ -29,11 +30,12 @@ class Vis extends Component {
         }
         this.setState({ nonSelected: vislist });
     }
-    selectVis(list, item, number) {
+    selectVis(list, item, number, target) {
         //select 4 vis
         let selected = this.state.selected;
 
         if (list.contains("selected")) {
+            target.classList.remove("selected")
             for (let i = 0; i < selected.length; i++) {
                 if (selected[i].number === number) {
                     selected.splice(i, 1);
@@ -43,6 +45,7 @@ class Vis extends Component {
             this.setState({ display: "none" })
         } else {
                 if(this.state.selected.length < 4){
+                    target.classList.add("selected")
                 document.getElementById("order" + number).classList.add("active");
                 selected.push({ image: item, number: number });
                 if (selected.length === 4) {
@@ -64,6 +67,7 @@ class Vis extends Component {
         }
     }
     sendHint() {
+        //set hint and hint vizs
         let hints = [];
         let hinturls = [];
         for (let i = 0; i < this.state.selected.length; i++) {
@@ -82,7 +86,7 @@ class Vis extends Component {
             element1.push(
                 <div key={"vis" + i}>
                     <div className="order" id={"order" + i}>{this.returnIndex(imglist[i])}</div>
-                    <img src={imglist[i]} className="active" alt={this.answer.classLabels[0] + " visualization " + (i + 1)} key={this.answer.classLabels[0] + " visualization " + (i + 1)} onClick={(ev) => { this.selectVis(ev.target.classList, imglist[i], i); if(this.state.selected.length < 5){(ev.target.classList.contains("selected")) ? ev.target.classList.remove("selected") : ev.target.classList.add("selected") }}} />
+                    <img src={imglist[i]} className="active" alt={this.answer.classLabels[0] + " visualization " + (i + 1)} key={this.answer.classLabels[0] + " visualization " + (i + 1)} onClick={(ev) => { this.selectVis(ev.target.classList, imglist[i], i, ev.target); }} />
                 </div>)
         }
         return (<div className="vis-row">

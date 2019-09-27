@@ -14,48 +14,75 @@ class GuessAI extends Component {
     super(props);
     this.state = {
       answer:{},
+      turns: 0,
+      //randomized turns. When is the non-guessing turn
       mode: 0,
       //0:loading, 1:category, 2:selectViz, 3:game, 4:round, 5:scoreImage
       entireRound: 1,
+      //guessing turn round
       hintVis: [],
       bluOpcity: 0,
+      //when the guess starts, change the bg to blue
       score: [[0, 0], [0, 0], [0, 0]],
+      //score sets. 1st one for each array is the current score, and the 2nd one is the new score. Requires both for the animation on the score view
       players: this.props.players,
+      //player profile selected from the app.js
       hintVisUrl: [],
       scoreImages : [],
+      //score modal screenshots
       answerRecord: [],
     }
     
   }
   componentWillMount(){
-    //select player's profile
-    let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+   this.selectProfile()
+   this.randomizeTurn()
+
+  }
+  componentDidMount(){
+    //change the url when the view is mounted
+    this.props.setMenu(0)
+  }
+  selectProfile(){
+      //randomly select players' profile
+      let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      let ran1, ran2, ranTemp;
+      for (let i = 0; i < 10; i++) {
+        ran1 = Math.floor(Math.random() * 11);
+        ran2 = Math.floor(Math.random() * 11);
+   
+        ranTemp = ranNum[ran1];
+        ranNum[ran1] = ranNum[ran2]
+        ranNum[ran2] = ranTemp;
+      }
+      //player 1's profile is already selected from the parent's view
+    let players = [this.state.players[0]];
+    //if random profile is the same as player 1's, select another profile
+    profiles[ranNum[1]] === players[0] ? players.push(profiles[ranNum[3]]) : players.push(profiles[ranNum[1]])
+    profiles[ranNum[2]] === players[0] ? players.push(profiles[ranNum[4]]) : players.push(profiles[ranNum[2]])
+     this.setState({players: players})
+  }
+  randomizeTurn(){
+    //randomize the guessing turns
+    let ranNum = [1, 2, 3];
     let ran1, ran2, ranTemp;
-    for (let i = 0; i < 10; i++) {
-      ran1 = Math.floor(Math.random() * 11);
-      ran2 = Math.floor(Math.random() * 11);
+    for (let i = 0; i < 5; i++) {
+      ran1 = Math.floor(Math.random() * 3);
+      ran2 = Math.floor(Math.random() * 3);
  
       ranTemp = ranNum[ran1];
       ranNum[ran1] = ranNum[ran2]
-      ranNum[ran2] = ranTemp;
+      ranNum[ran2] = ranTemp; 
     }
-  let players = [this.state.players[0]];
-  //if random profile is the same as player 1's, select another profile
-  profiles[ranNum[1]] === players[0] ? players.push(profiles[ranNum[3]]) : players.push(profiles[ranNum[1]])
-  profiles[ranNum[2]] === players[0] ? players.push(profiles[ranNum[4]]) : players.push(profiles[ranNum[2]])
-   this.setState({players: players})
-  }
 
+    this.setState({turns: ranNum})
+  }
   setAnswer(n){
     let answerRecord = this.state.answerRecord;
     answerRecord.push(n.classLabels[0]);
     this.setState({answer: n, answerRecord: answerRecord});
 
     this.setState({setAnswerRecord: n});
-    if(this.state.entireRound === 1) {
-      //if it's the first round, make the player select the vis
-      this.movetoNext(2)
-    }
   }
   setHint(n){
     this.setState({hintVis: n})
@@ -78,7 +105,6 @@ class GuessAI extends Component {
     this.setState({scoreImages: images})
   }
   movetoNext(n){
-    
     window.setTimeout(function(){
       if(n === 3){
         this.setState({bluOpcity : 1});
@@ -93,8 +119,8 @@ class GuessAI extends Component {
       return <Loading movetoNext = {this.movetoNext.bind(this)} players = {this.state.players}/>
       case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} movetoNext = {this.movetoNext.bind(this)} />
       case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} setHint = {this.setHint.bind(this)} answer = {this.state.answer} setHintVisUrl = {this.setHintVisUrl.bind(this)} />
-      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players} setScoreImages = {this.setScoreImages.bind(this)} movetoNext = {this.movetoNext.bind(this)}/> 
-      case 4: return  <Round round = {this.state.entireRound} movetoNext = {this.movetoNext.bind(this)} players = {this.state.players} setAnswer={this.setAnswer.bind(this)} setHintVisUrl = {this.setHintVisUrl.bind(this)} setHint = {this.setHint.bind(this)} answerRecord = {this.state.answerRecord}/>
+      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} turns = {this.state.turns} entireRound = {this.state.entireRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players} setScoreImages = {this.setScoreImages.bind(this)} movetoNext = {this.movetoNext.bind(this)}/> 
+      case 4: return  <Round entireRound = {this.state.entireRound} turns = {this.state.turns} movetoNext = {this.movetoNext.bind(this)} players = {this.state.players} setAnswer={this.setAnswer.bind(this)} setHintVisUrl = {this.setHintVisUrl.bind(this)} setHint = {this.setHint.bind(this)} answerRecord = {this.state.answerRecord}/>
       case 5: return <ScoreImage scoreImages = {this.state.scoreImages}/>
       default:
     }
