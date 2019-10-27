@@ -65,15 +65,15 @@ class GuessAI extends Component {
   randomizeTurn(){
     //randomize the guessing turns
     let ranNum = [1, 2, 3];
-    let ran1, ran2, ranTemp;
-    for (let i = 0; i < 5; i++) {
-      ran1 = Math.floor(Math.random() * 3);
-      ran2 = Math.floor(Math.random() * 3);
+    // let ran1, ran2, ranTemp;
+    // for (let i = 0; i < 5; i++) {
+    //   ran1 = Math.floor(Math.random() * 3);
+    //   ran2 = Math.floor(Math.random() * 3);
  
-      ranTemp = ranNum[ran1];
-      ranNum[ran1] = ranNum[ran2]
-      ranNum[ran2] = ranTemp; 
-    }
+    //   ranTemp = ranNum[ran1];
+    //   ranNum[ran1] = ranNum[ran2]
+    //   ranNum[ran2] = ranTemp; 
+    // }
 
     this.setState({turns: ranNum})
   }
