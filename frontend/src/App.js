@@ -11,16 +11,31 @@ import AIQuiz from './aiQuiz/aiQuiz.js'
 const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
 
 
+/* global gapi */
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isSignedIn: false,
       players: [],
       gameClass: [" ", " "],
+      playerProfile: null,
     }
-    
   }
-  componentWillMount(){
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.handleLeavePage);
+    window.gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '423634020815-9pu8kc2gfh3s7rejq6d7k1nmcaqn70d4.apps.googleusercontent.com',
+        scope: 'profile'
+      })
+    })
+    window.gapi.signin2.render('g-signin2', {
+      'theme': 'dark',
+      'onsuccess': this.onSuccess.bind(this),
+    });  
+    
     //randomly set player's profile
     let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let ran1, ran2, ranTemp;
@@ -35,31 +50,56 @@ class App extends Component {
    this.setState({players: [profiles[ranNum[0]]]})
   }
 
-//change the url depending on the pages
-setMenu(i){
-  let menuClass = [" ", " "];
-  menuClass[i] = "active";
-  this.setState({gameClass: menuClass})
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleAppStateChange);
+  }
+  
+  handleLeavePage = (e) => {
+    this.signOut();
+    this.state.isSignedIn = false;
+    return "leave";
+  }
+  
 
-}
+  //change the url depending on the pages
+  setMenu(i){
+    let menuClass = [" ", " "];
+    menuClass[i] = "active";
+    this.setState({gameClass: menuClass})
 
+  }
+
+  onSuccess(googleUser) {
+    if (this.state.isSignedIn) {
+      this.signOut();
+    } else {
+      this.state.playerProfile =  googleUser.getBasicProfile();
+    }
+    this.state.isSignedIn = !this.state.isSignedIn;
+  }
+
+  signOut() {
+    this.auth2.signOut().then(function () {
+    });
+    this.auth2.disconnect();
+  }
+  
   render() {
     return (<HashRouter basename = "/">
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
           <div id="cmu">
-<img src = {cmuLogo} alt="CMU logo" /></div>
+            <img src = {cmuLogo} alt="CMU logo" /></div>
+            
             <Link to="/home/" className="title" onClick={(ev)=> {this.setState({ gameClass: [" ", " "]}); }}>Interpretable Machine Learning Research Project</Link>
             <div className = "menuBar">
-
+           
             <Link to="/guessai/" className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
 
             <Link to="/aiquiz/" className="title" className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); }} >AI Quiz</Link>
              {/* </Link> */}
              
-                <div className = "profileWrapper">
-                <i className={"profile " + this.state.players[0]}></i>
-                </div>
+             <div id="g-signin2" onClick={(env) => {this.signOut.bind(this)}}></div>
             </div>
           </div>
          
