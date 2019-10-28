@@ -20,13 +20,13 @@ export const StaticData = {
     {
     url: poodle,
 	correctURLs: [166, 39, 23, 85, 188, 21, 182, 478],
-	wrongVizURLs: [509, 330],
+	wrongVizURLs: [39, 330],
 	classLabels: ['dog', 'dogs', 'poodle', 'poodles', 'standard poodle', 'standard poodles'],
 	hint: 'animals',
 },
 {
     url: tabby,
-	correctURLs: [493, 88, 168, 93, 450, 162, 305, 433],
+	correctURLs: [/**/1, 88, 168, 93, 450, 162, 305, 433],
 	wrongVizURLs: [374, 107],
 	classLabels: ['cat', 'cats', 'tabby', 'tabbies'],
 	hint: 'animals',
@@ -34,7 +34,7 @@ export const StaticData = {
 },
 {
     url:macaw,
-	correctURLs: [504, 433, 475, 386, 162, 30, 47, 251],
+	correctURLs: [/**/1, 433, 475, 386, 162, 30, 47, 251],
 	wrongVizURLs: [421, 142],
 	classLabels: ['parrot', 'parrots', 'macaw', 'macaws', 'bird', 'birds'],
 	hint: 'birds',
@@ -42,14 +42,14 @@ export const StaticData = {
 {
     url: jellyfish,
 	correctURLs: [4, 103, 393, 23, 325, 11, 9, 433],
-	wrongVizURLs: [ 102, 489],
+	wrongVizURLs: [ 102, 39],
 	classLabels: ['jellyfish'],
 	hint: 'sea animals',
 
 },
 {
     url: treeFrog,
-	correctURLs: [18, 359, 527, 35, 396, 252, 93, 245],
+	correctURLs: [18, 359, /**/1, 35, 396, 252, 93, 245],
 	wrongVizURLs: [13, 285],
 	classLabels: ['frog', 'frogs', 'tree frog', 'tree frogs'],
 	hint: 'animals',
@@ -71,7 +71,7 @@ export const StaticData = {
 },
 {
     url: bee,
-	correctURLs: [25, 30, 200, 105, 498, 387, 23, 4],
+	correctURLs: [25, 30, 200, 105, /**/1, 387, 23, 4],
 	wrongVizURLs: [232, 70],
 	classLabels: ['bee', 'bees', 'honey bee', 'honey bees'],
 	hint: 'insects',
@@ -81,8 +81,8 @@ export const StaticData = {
 object: [
 {
     url: acorn,
-	correctURLs: [508, 40, 186, 6, 14, 23, 82, 478],
-	wrongVizURLs: [127, 496],
+	correctURLs: [/**/1, 40, 186, 6, 14, 23, 82, 478],
+	wrongVizURLs: [127, 39],
 	classLabels: ['acorn', 'acorns'],
 	hint: 'nuts',
 },
@@ -107,7 +107,7 @@ object: [
 },{
     url: castle,
 	correctURLs: [88, 8, 467, 39, 3, 44, 462, 99],
-	wrongVizURLs: [1, 497],
+	wrongVizURLs: [1, 39],
 	classLabels: ['castle', 'castles'],
 	hint: 'building',
 },{
@@ -125,7 +125,7 @@ object: [
 },
 {
     url: camera,
-	correctURLs: [527, 31, 11, 32, 23, 60, 399, 91],
+	correctURLs: [/**/1, 31, 11, 32, 23, 60, 399, 91],
 	wrongVizURLs: [455, 86],
 	classLabels: ['camera', 'cameras', 'reflex camera', 'reflex cameras'],
 	hint: 'object',
