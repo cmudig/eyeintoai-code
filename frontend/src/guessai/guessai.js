@@ -35,13 +35,11 @@ class GuessAI extends Component {
     
   }
   componentWillMount(){
-    console.log("profile.js", this.state.players);
    this.randomizeTurn()
 
   }
   componentDidMount(){
     //change the url when the view is mounted
-    console.log("guessai", this.props.players);
     this.props.setMenu(0)
   }
   
@@ -110,7 +108,6 @@ class GuessAI extends Component {
     
   }
   render() {
-    console.log("guessai.js", this.state.players);
     return (
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div id = "blue" style = {{opacity: this.state.bluOpcity}}/>

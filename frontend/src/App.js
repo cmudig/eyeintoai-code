@@ -65,9 +65,7 @@ class App extends Component {
     players.push(this.constructPlayer(profiles[ranNum[0]]));
     players.push(this.constructPlayer(profiles[ranNum[1]]));
     players.push(this.constructPlayer(profiles[ranNum[2]]));
-    console.log("app.js before", players);
     this.setState({players: players});
-    console.log("app.js", this.state.players);
   }
   constructPlayer(name) {
     return {
@@ -105,7 +103,6 @@ class App extends Component {
   }
   
   render() {
-    console.log("app.js", this.state.players);
     return (<HashRouter basename = "/">
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
