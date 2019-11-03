@@ -59,19 +59,6 @@ class Home extends Component {
               </div>
             </div>
           </Link>
-          <div className="gameBtn AIQuiz">
-            <div className="icon">
-              <img src={game2} />
-            </div>
-            <div className="textWrap">
-              <div className="title">
-                AI Quiz
-                </div>
-              <div className="expla">
-                Find who has similar AI taste as you at Carnegie Mellon University!
-                </div>
-            </div>
-          </div>
         </div>
       </div>
 
