@@ -35,7 +35,6 @@ class AIQuiz extends Component {
       this.props.setMenu(1)
   }
   changeState(gameState) {
-    console.log('changeState', gameState);
     this.setState({gameState: gameState});
   }
 
