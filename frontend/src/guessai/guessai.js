@@ -35,33 +35,16 @@ class GuessAI extends Component {
     
   }
   componentWillMount(){
-   this.selectProfile()
+    console.log("profile.js", this.state.players);
    this.randomizeTurn()
 
   }
   componentDidMount(){
     //change the url when the view is mounted
+    console.log("guessai", this.props.players);
     this.props.setMenu(0)
   }
-  selectProfile(){
-      //randomly select players' profile
-      let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      let ran1, ran2, ranTemp;
-      for (let i = 0; i < 10; i++) {
-        ran1 = Math.floor(Math.random() * 11);
-        ran2 = Math.floor(Math.random() * 11);
-   
-        ranTemp = ranNum[ran1];
-        ranNum[ran1] = ranNum[ran2]
-        ranNum[ran2] = ranTemp;
-      }
-      //player 1's profile is already selected from the parent's view
-    let players = [this.state.players[0]];
-    //if random profile is the same as player 1's, select another profile
-    profiles[ranNum[1]] === players[0] ? players.push(profiles[ranNum[3]]) : players.push(profiles[ranNum[1]])
-    profiles[ranNum[2]] === players[0] ? players.push(profiles[ranNum[4]]) : players.push(profiles[ranNum[2]])
-     this.setState({players: players})
-  }
+  
   randomizeTurn(){
     //randomize the guessing turns
     let ranNum = [1, 2, 3];
@@ -127,7 +110,7 @@ class GuessAI extends Component {
     
   }
   render() {
-
+    console.log("guessai.js", this.state.players);
     return (
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div id = "blue" style = {{opacity: this.state.bluOpcity}}/>

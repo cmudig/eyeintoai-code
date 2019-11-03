@@ -5,21 +5,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            players: [{
-                img: <i className={this.props.players[0]}></i>,
-                name: this.props.players[0].slice(7),
-                score: 0,
-            },
-            {
-                img: <i className={this.props.players[1]}></i>,
-                name: this.props.players[1].slice(7),
-                score: 0,
-            },
-            {
-                img: <i className={this.props.players[2]}></i>,
-                name: this.props.players[2].slice(7),
-                score: 0,
-            }],
+            players: this.props.players,
             score: this.props.score,
             counter: [0, 0, 0],
         }
@@ -46,11 +32,7 @@ class Profile extends Component {
         //render the profiles one by one when the game first starts
         if(this.props.wait)
         {
-            let players =  [{
-                img: <i className={this.props.players[0]}></i>,
-                name: this.props.players[0].slice(7),
-                score: 0,
-            },
+            let players =  [this.props.players[0],
             {
                 img: "",
                 name: "",
@@ -64,18 +46,10 @@ class Profile extends Component {
             this.setState({players: players})
 
             window.setTimeout(function(){
-                players[1] = {
-                    img: <i className={this.props.players[1]}></i>,
-                    name: this.props.players[1].slice(7),
-                    score: 0,
-                }
+                players[1] = this.props.players[1];
                 this.setState({players: players});
                 window.setTimeout(function(){
-                    players[2] = {
-                        img: <i className={this.props.players[2]}></i>,
-                        name: this.props.players[2].slice(7),
-                        score: 0,
-                    }
+                    players[2] = this.props.players[2];
                     this.setState({players: players});
 
                     window.setTimeout(function(){

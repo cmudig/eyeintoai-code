@@ -35,8 +35,22 @@ class App extends Component {
       'theme': 'dark',
       'onsuccess': this.onSuccess.bind(this),
     });  
-    
-    //randomly set player's profile
+    this.selectProfile();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleAppStateChange);
+   
+  }
+  
+  handleLeavePage = (e) => {
+    this.signOut();
+    this.state.isSignedIn = false;
+    return "leave";
+  }
+  
+  selectProfile(){
+    //randomly select players' profile
     let ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let ran1, ran2, ranTemp;
     for (let i = 0; i < 10; i++) {
@@ -47,20 +61,21 @@ class App extends Component {
       ranNum[ran1] = ranNum[ran2]
       ranNum[ran2] = ranTemp;
     }
-   this.setState({players: [profiles[ranNum[0]]]})
+    let players = [];
+    players.push(this.constructPlayer(profiles[ranNum[0]]));
+    players.push(this.constructPlayer(profiles[ranNum[1]]));
+    players.push(this.constructPlayer(profiles[ranNum[2]]));
+    console.log("app.js before", players);
+    this.setState({players: players});
+    console.log("app.js", this.state.players);
   }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleAppStateChange);
+  constructPlayer(name) {
+    return {
+      img: <i className={name}></i>,
+      name: name.slice(7),
+      score: 0,
+    };
   }
-  
-  handleLeavePage = (e) => {
-    this.signOut();
-    this.state.isSignedIn = false;
-    return "leave";
-  }
-  
-
   //change the url depending on the pages
   setMenu(i){
     let menuClass = [" ", " "];
@@ -73,7 +88,12 @@ class App extends Component {
     if (this.state.isSignedIn) {
       this.signOut();
     } else {
-      this.state.playerProfile =  googleUser.getBasicProfile();
+      let playerProfile =  googleUser.getBasicProfile();
+      let players = this.state.players;
+      
+      players[0].img = <i className={players[0].name}><img src={playerProfile.getImageUrl()}></img></i>;
+      players[0].name = playerProfile.getGivenName();
+      this.setState({players: players, playerProfile: playerProfile});
     }
     this.state.isSignedIn = !this.state.isSignedIn;
   }
@@ -85,6 +105,7 @@ class App extends Component {
   }
   
   render() {
+    console.log("app.js", this.state.players);
     return (<HashRouter basename = "/">
       <div className="App" style={{ width: "100%", height: "100%", position:"relative"}} key="main">
         <div className="header" >
@@ -95,17 +116,12 @@ class App extends Component {
             <div className = "menuBar">
            
             <Link to="/guessai/" className={"menu " + this.state.gameClass[0]} key="menu0" onClick={(ev)=> {this.setState({ gameClass: ["active", " "]}); }}>Guess AI</Link>
-
-            <Link to="/aiquiz/" className="title" className={"menu " + this.state.gameClass[1]} key="menu1" onClick={(ev)=> {this.setState({ gameClass: [" ", "active"]}); }} >AI Quiz</Link>
-             {/* </Link> */}
-             
              <div id="g-signin2" onClick={(env) => {this.signOut.bind(this)}}></div>
             </div>
           </div>
          
             <Route path ="/" exact render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
             <Route path ="/home/" render={props => <Home setMenu = {this.setMenu.bind(this)} />} />
-            <Route path = "/aiquiz/" render = {props => <AIQuiz setMenu = {this.setMenu.bind(this)}/>} />
             <Route path = "/guessai/" render={props => <GAIHome  setMenu = {this.setMenu.bind(this)}/>} />
             <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} setMenu = {this.setMenu.bind(this)} />}  />
          
