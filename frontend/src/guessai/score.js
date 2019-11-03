@@ -69,18 +69,6 @@ class Score extends Component {
                     urls.push(this.props.answer.correctURLs[this.props.hintVisUrl[i]])
                 }
             }
-
-            // db.collection('games').doc().set({
-            //     originalImage: this.props.answer.url,
-            //     selectedViz: this.props.hintVisUrl,
-            // })
-            // .then(function(docRef) {
-            //     console.log("Document written with ID: ", docRef.id);
-            // })
-            // .catch(function(error) {
-            //     console.error("Error adding document: ", error);
-            // });
-
         }
     }
 
