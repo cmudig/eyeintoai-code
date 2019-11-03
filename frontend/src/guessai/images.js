@@ -100,7 +100,7 @@ object: [
 	hint: 'clothings',
 },{
     url: strawberry,
-	correctURLs: [20, 197, 69, 202, 520, 239, 368, 386],
+	correctURLs: [20, 197, 69, 202, /**/1, 239, 368, 386],
 	wrongVizURLs: [478, 18],
 	classLabels: ['strawberry', 'strawberries'],
 	hint: 'fruits',
