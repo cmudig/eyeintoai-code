@@ -13,4 +13,9 @@
 # [START app_yaml]
 env: flex
 runtime: nodejs
+resources:
+  memory_gb: 4
+handlers:
+- url: /.*
+  script: this field is required, but ignored
 # [END app_yaml]

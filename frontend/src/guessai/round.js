@@ -27,7 +27,7 @@ class Round extends Component {
         <div className="photo " >
           <i className={this.props.players[curplayer - 1]} /></div>
         <div className="name">
-        {this.props.players[curplayer - 1].slice(7)}
+        {this.props.players[curplayer - 1].name}
         </div>
       </div>)
        
