@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "IML",
+  "name": "Interpretable Machine Learning Research Project",
   "icons": [
     {
       "src": "favicon.ico",

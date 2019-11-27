@@ -2,7 +2,7 @@
   "name": "mlint",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jayolee.github.io/mlint",
+  "homepage": "https://github.com/cmuvis/mlint",
   "dependencies": {
     "dom-to-image": "^2.6.0",
     "dom-to-image-font-patch": "^1.0.1",
@@ -26,7 +26,105 @@
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": [
+      "react"
+    ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "block-spacing": "error",
+      "brace-style": [
+        "error",
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "comma-spacing": "error",
+      "comma-style": "error",
+      "curly": "error",
+      "default-case": "error",
+      "handle-callback-err": "error",
+      "indent": [
+        "error",
+        2
+      ],
+      "jsx-quotes": "error",
+      "no-console": "off",
+      "no-empty-function": "error",
+      "no-floating-decimal": "error",
+      "no-inline-comments": "off",
+      "no-lonely-if": "error",
+      "no-multi-spaces": "error",
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 1,
+          "maxEOF": 1,
+          "maxBOF": 0
+        }
+      ],
+      "no-trailing-spaces": "error",
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "prefer-const": "error",
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "react/no-unescaped-entities": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "semi": "error",
+      "space-before-blocks": "error",
+      "space-before-function-paren": [
+        "error",
+        {
+          "anonymous": "never",
+          "named": "never",
+          "asyncArrow": "always"
+        }
+      ],
+      "space-in-parens": "error",
+      "space-infix-ops": "error",
+      "space-unary-ops": [
+        "error",
+        {
+          "words": true,
+          "nonwords": false
+        }
+      ],
+      "spaced-comment": "error",
+      "yoda": "error",
+      "eol-last": "error"
+    }
   },
   "browserslist": {
     "production": [
