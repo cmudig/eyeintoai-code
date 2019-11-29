@@ -73,10 +73,10 @@ class Game extends Component {
         return element;
     }
     setTimer() {
-        let width = 30;
+        let width = 300;
         //timer
         this.timer = setInterval(function () {
-            width -= 300;
+            width -= 30;
             this.setState({ timerWidth: width + "px" });
 
             if (width === 0) {
