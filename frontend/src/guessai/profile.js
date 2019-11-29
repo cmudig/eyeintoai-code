@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
-import '../index.scss';
+import './index.scss';
 
 class Profile extends Component {
     constructor(props) {

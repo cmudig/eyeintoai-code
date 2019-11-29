@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../index.scss';
+import './index.scss';
 
 import Convo from './convo.js'
 import Profile from './profile.js'

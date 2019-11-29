@@ -6,14 +6,11 @@ import GuessAI from './guessai/guessai.js'
 import Home from './home.js'
 import GAIHome from './guessAIHome.js'
 import * as firebase from 'firebase/app';
+import firebaseConfig from './firebaseConfig';
 require("firebase/firestore");
 
-import './guessai/index.scss';
-import cmuLogo from './image/CMU_Logo.png';
-import GuessAI from './guessai/guessai.js';
-import Home from './home.js';
-import GAIHome from './guessAIHome.js';
 
+const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
 /* global gapi */
 class App extends Component {
   constructor(props) {
@@ -110,6 +107,7 @@ class App extends Component {
     if (this.state.isSignedIn) {
       this.signOut();
     } else {
+      
       if (!this.db) {
         const firebaseApp = firebase.initializeApp({
           apiKey: process.env.apiKey, 
@@ -125,7 +123,6 @@ class App extends Component {
       
       let playerProfile =  googleUser.getBasicProfile();
       let players = this.state.players;
-
       players[0].img = <i className={players[0].name}><img src={playerProfile.getImageUrl()}></img></i>;
       players[0].name = playerProfile.getGivenName();
       
