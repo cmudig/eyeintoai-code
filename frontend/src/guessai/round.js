@@ -45,7 +45,7 @@ class Round extends Component {
 
     window.setTimeout(function () {
       this.props.movetoNext(3)
-    }.bind(this), 5000)
+    }.bind(this), 100)
     let curplayer = this.turns[this.round - 1];
     //if the player is guessing, randomly select the answer set
     if (curplayer !== 1) {

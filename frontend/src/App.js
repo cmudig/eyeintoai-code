@@ -6,7 +6,6 @@ import GuessAI from './guessai/guessai.js'
 import Home from './home.js'
 import GAIHome from './guessAIHome.js'
 import * as firebase from 'firebase/app';
-import firebaseConfig from './firebaseConfig';
 require("firebase/firestore");
 
 const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]

@@ -4,7 +4,7 @@ class Pause extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pauseTimer: 3,
+            pauseTimer: 1,
             animation: "active",
             result: false,
         }
