@@ -40,8 +40,10 @@ class ScoreImage extends Component {
                         Below are screenshots of the result of each round.<br />
                         Feel free to download and share with your friends!
                     </div>
-                    <a onClick={(ev) => {window.location.reload()}} className = "btn again" key="btn1">
-                    Play Again</a>
+                    <Link to="/guessai/" className="btn again"  key="btn1"onClick={(ev)=> {
+                        this.setState({ gameClass: ["active", " "]}); 
+                    }}>Play Again</Link>
+
                     <div id="resultImage" key="resultImage">
                         {this.returnScoreImages()}
                     </div>
