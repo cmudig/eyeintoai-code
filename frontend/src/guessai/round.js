@@ -25,20 +25,24 @@ class Round extends Component {
     //current round's non-guessing player
      element.push(<div className={"profile plyr" + (curplayer)} key="roundProfile">
         <div className="photo " >
-          <i className={this.props.players[curplayer - 1]} /></div>
+            {this.props.players[curplayer - 1].img}</div>
         <div className="name">
-        {this.props.players[curplayer - 1].name}
+            {this.props.players[curplayer - 1].name}
         </div>
       </div>)
        
     return <div key="roundInfo">
-      <div className="title round">Round {this.props.round}</div>
+      <div className="title round">Round {this.round}</div>
       <div className="profiles">
         {element} selects an image
         </div>
     </div>
   }
+ 
+  
   componentDidMount() {
+    window.addEventListener('beforeunload', this.props.handleLeavePage);
+
     window.setTimeout(function () {
       this.props.movetoNext(3)
     }.bind(this), 5000)
@@ -65,7 +69,13 @@ class Round extends Component {
       this.props.setAnswer(answerSet[ran2]);
       this.props.setHint([vis[visSet[ranVisOrder[0]]], vis[visSet[ranVisOrder[1]]], vis[visSet[ranVisOrder[2]]], vis[visSet[ranVisOrder[3]]]]);
       this.props.setHintVisUrl([visSet[ranVisOrder[0]], visSet[ranVisOrder[1]],visSet[ranVisOrder[2]], visSet[ranVisOrder[3]]]);
+    } else {
+      this.props.setPlayerHint();
+
     }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.props.handleLeavePage);
   }
   render() {
 

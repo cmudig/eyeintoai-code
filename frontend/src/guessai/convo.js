@@ -151,7 +151,10 @@ class Convo extends Component {
         let tanswer = document.getElementById("answerType");
         let answers = [tanswer.value.toLowerCase()];
         if (this.answer.classLabels.includes(tanswer.value.toLowerCase())) {
-            this.rightAnswer(0)
+            this.rightAnswer(0);
+            this.props.updateWrapper({guess:tanswer.value.toLowerCase(), guessHit:true, timeOfAction: Date.now()});
+        } else {
+            this.props.updateWrapper({guess:tanswer.value.toLowerCase(), guessHit:false, timeOfAction: Date.now()});
         }
         let element = this.state.generateAnswer;
         let displayElement = this.state.generateDisplay;

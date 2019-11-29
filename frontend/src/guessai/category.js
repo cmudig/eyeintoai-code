@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {StaticData} from './images'
-
+import _ from 'lodash'
 //the player selecting the original image
 class Category extends Component {
   constructor(props) {
@@ -50,16 +50,35 @@ class Category extends Component {
     let ranNum = this.state.ranNum;
     let element, images = [];
     let category = "";
+    let categoryName = "";
     switch (this.state.imgType) {
-      case "animals": category = this.animals;
+      case "animals": {
+        category = this.animals;
+        categoryName = "animals";
         break;
-      case "objects": category = this.objects;
+      }
+      case "objects": {
+        category = this.objects;
+        categoryName = "objects";
         break;
-      default: (ranNum[0] % 2 === 1) ? category = this.animals : category = this.objects;
+      }
+      default: {
+        if (ranNum[0] % 2 === 1) {
+          category = this.animals 
+          categoryName = "animals";
+        } else {
+          category = this.objects;
+          categoryName = "objects";
+        }
+      }
     }
 
     for (let i = 0; i < 4; i++) {
-      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { this.props.setAnswer(category[ranNum[i]]); this.props.movetoNext(2)}} />)
+      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { 
+        this.props.update({ explain_round: {categorySelect:categoryName, imgSelect: _.get(category[ranNum[i]].classLabels, 0, "")}});
+        this.props.setAnswer(category[ranNum[i]]);
+        this.props.movetoNext(2)
+      }} />)
     }
     element = <div className="select-Category" key="selectCategory">
       <div className="title">Select an image</div>

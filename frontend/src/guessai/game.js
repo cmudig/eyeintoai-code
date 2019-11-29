@@ -3,7 +3,7 @@ import '../index.scss';
 
 import Convo from './convo.js'
 import Profile from './profile.js'
-
+import _ from 'lodash'
 import Score from './score.js'
 import Hint from './hintmodal.js'
 import Pause from './pause.js'
@@ -36,7 +36,7 @@ class Game extends Component {
         this.timer = "";
     }
     componentDidMount() {
-        this.setState({ selected: [] });
+        this.setState({ selected: []});
     }
     countRound = () => {
         //add one round after each round
@@ -63,29 +63,22 @@ class Game extends Component {
     //Generate 4 visualizations for the Guess box
     generateVis() {
         let element = [];
-        if(this.state.round < 5){
-        for (let i = 0; i <  this.state.round; i++) {
+        for (let i = 0; i <  Math.min(4, this.state.round); i++) {
             element.push(<div className =  "visWrapper" key = {"viswrapper" + i}>
             <img src={this.props.hintVis[i]} alt={"vis" + i} key={"vis" + i} /></div>)
         }
         for (let i = 0; i < (4 - this.state.round); i++) {
             element.push(<div className =  "visWrapper" key={"vis" + i + 5}> ? </div>)
         } 
-       
-    }else{
-        for (let i = 0; i <  4; i++) {
-            element.push(<div className =  "visWrapper" key = {"viswrapper" + i}>
-            <img src={this.props.hintVis[i]} alt={"vis" + i} key={"vis" + i} /></div>)
-        }
-    }
-    return element;
+        return element;
     }
     setTimer() {
         let width = 300;
         //timer
         this.timer = setInterval(function () {
-            width -=15;
+            width -= 30;
             this.setState({ timerWidth: width + "px" });
+
             if (width === 0) {
                 clearInterval(this.timer);
                 if(this.state.round < 4){
@@ -109,6 +102,11 @@ class Game extends Component {
         }.bind(this), 1000);
 
     }
+
+    updateWrapper(newGuess) {
+        newGuess["release"] = this.state.round;
+        this.props.addGuess(newGuess);
+    }
     
     renderFirstHint(){
         return this.state.hintContent;
@@ -130,7 +128,7 @@ class Game extends Component {
     }
     generateConvo() {
         if(this.state.mode === 0){
-        return  <Convo turns = {this.props.turns} typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} key ="convo"/>
+        return  <Convo turns = {this.props.turns} typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} updateWrapper = {this.updateWrapper.bind(this)} key ="convo"/>
     }
     }
     generateModals() {
