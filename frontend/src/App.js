@@ -8,7 +8,11 @@ import GAIHome from './guessAIHome.js'
 import * as firebase from 'firebase/app';
 require("firebase/firestore");
 
-const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
+import './guessai/index.scss';
+import cmuLogo from './image/CMU_Logo.png';
+import GuessAI from './guessai/guessai.js';
+import Home from './home.js';
+import GAIHome from './guessAIHome.js';
 
 /* global gapi */
 class App extends Component {
@@ -75,17 +79,18 @@ class App extends Component {
     for (let i = 0; i < 10; i++) {
       ran1 = Math.floor(Math.random() * 11);
       ran2 = Math.floor(Math.random() * 11);
- 
+
       ranTemp = ranNum[ran1];
-      ranNum[ran1] = ranNum[ran2]
+      ranNum[ran1] = ranNum[ran2];
       ranNum[ran2] = ranTemp;
     }
-    let players = [];
+    const players = [];
     players.push(this.constructPlayer(profiles[ranNum[0]]));
     players.push(this.constructPlayer(profiles[ranNum[1]]));
     players.push(this.constructPlayer(profiles[ranNum[2]]));
-    this.setState({players: players});
+    this.setState({ players: players });
   }
+
   constructPlayer(name) {
     return {
       img: <i className={name}></i>,
@@ -93,12 +98,12 @@ class App extends Component {
       score: 0,
     };
   }
-  //change the url depending on the pages
-  setMenu(i){
-    let menuClass = [" ", " "];
-    menuClass[i] = "active";
-    this.setState({gameClass: menuClass})
 
+  // Change the url depending on the pages
+  setMenu(i) {
+    const menuClass = [' ', ' '];
+    menuClass[i] = 'active';
+    this.setState({ gameClass: menuClass });
   }
 
   onSuccess(googleUser) {
@@ -148,7 +153,7 @@ class App extends Component {
     });
     this.auth.disconnect();
   }
-  
+
   render() {
     return (
       <HashRouter basename = "/">
