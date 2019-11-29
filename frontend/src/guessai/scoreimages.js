@@ -11,7 +11,7 @@ class ScoreImage extends Component {
         let element = [];
         for (let i = 0; i < 3; i++) {
             if (this.props.scoreImages[i] !== "Error") {
-                element.push(<div className="scoreImage">
+                element.push(<div className="scoreImage" key={i}>
                     <img src={this.props.scoreImages[i]} alt="Round 1 score" />
                     <a className="btn" download="Round1_Score.jpeg" href={this.props.scoreImages[i]}>
                         Download the Image

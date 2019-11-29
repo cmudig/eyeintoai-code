@@ -6,9 +6,9 @@ import GuessAI from './guessai/guessai.js'
 import Home from './home.js'
 import GAIHome from './guessAIHome.js'
 import * as firebase from 'firebase/app';
-import firebaseConfig from './firebaseConfig';
-require("firebase/firestore");
 
+require('dotenv').config()
+require("firebase/firestore");
 
 const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
 /* global gapi */
@@ -109,15 +109,17 @@ class App extends Component {
     } else {
       
       if (!this.db) {
-        const firebaseApp = firebase.initializeApp({
-          apiKey: process.env.apiKey, 
-          authDomain: process.env.authDomain, 
-          databaseURL: process.env.databaseURL,
-          projectId: process.env.projectId,
-          storageBucket: process.env.storageBucket,
-          messagingSenderId: process.env.messagingSenderId,
-          appId: process.env.appId,
-        });
+        let firebaseConfig = {
+          apiKey: process.env.REACT_APP_apiKey, 
+          authDomain: process.env.REACT_APP_authDomain, 
+          databaseURL: process.env.REACT_APP_databaseURL,
+          projectId: process.env.REACT_APP_projectId,
+          storageBucket: process.env.REACT_APP_storageBucket,
+          messagingSenderId: process.env.REACT_APP_messagingSenderId,
+          appId: process.env.REACT_APP_appId,
+        };
+     
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
         this.db = firebaseApp.firestore();
       }
       
@@ -125,8 +127,8 @@ class App extends Component {
       let players = this.state.players;
       players[0].img = <i className={players[0].name}><img src={playerProfile.getImageUrl()}></img></i>;
       players[0].name = playerProfile.getGivenName();
-      
       this.update({playerEmail: playerProfile.getEmail(), playerId: playerProfile.getGivenName(), versionNumber: "v1", startTime: Date.now(), totalPoints: 0});
+      
       this.setState({players: players, playerProfile: playerProfile});
     }
     this.setState({ isSignedIn: this.auth.isSignedIn.get() });
@@ -136,9 +138,10 @@ class App extends Component {
   update(fieldAndvalue) {
     if (!this.docRef) {
       this.db.collection("data").add({}).then((docRef) => {
-        
         this.docRef = docRef;
         this.docRef.update(fieldAndvalue);
+      }).catch(err => {
+        console.log('Error getting document', err);
       });
     } else {
       this.db.collection("data").doc(this.docRef.id).update(fieldAndvalue);

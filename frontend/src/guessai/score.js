@@ -31,7 +31,7 @@ class Score extends Component {
         //save the score modal image so ppl can share
         domtoimage.toPng(document.getElementById('resultInner'))
             .then(function (dataUrl) {
-                scoreImage = dataUrl
+                scoreImage = dataUrl;
                 this.props.setScoreImages(scoreImage);
 
                 if (this.props.round < 3) { 
