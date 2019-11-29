@@ -8,6 +8,15 @@ class Loading extends Component {
         this.state = {
         }
     }
+    
+        
+    
+    componentDidMount() {
+        window.addEventListener('beforeunload', this.props.handleLeavePage);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.props.handleLeavePage);
+    }
     //profile loading
     render() {
         return (

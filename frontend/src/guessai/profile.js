@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
+import _ from 'lodash'
 import '../index.scss';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            players: this.props.players,
             score: this.props.score,
             counter: [0, 0, 0],
+            players: [],
         }
         this.addScore = [];
         this.curplayer = 0;
     }
     componentWillMount(){
+        this.players = this.props.players;
+        this.setState({ players: this.players });
         if(this.props.turns){
             this.curplayer = this.props.turns[this.props.entireRound - 1]
         }
     }
+    
+  
     componentDidMount() {
+      window.addEventListener('beforeunload', this.props.handleLeavePage);
       if (this.props.countScore) {
             window.setTimeout(this.countScore.bind(this), 500);
         }
@@ -32,7 +38,13 @@ class Profile extends Component {
         //render the profiles one by one when the game first starts
         if(this.props.wait)
         {
-            let players =  [this.props.players[0],
+            let interval = 500;
+            let players =  [
+            {
+                img: "",
+                name: "",
+                score: 0,
+            },
             {
                 img: "",
                 name: "",
@@ -44,20 +56,17 @@ class Profile extends Component {
                 score: 0,
             }];
             this.setState({players: players})
-
-            window.setTimeout(function(){
-                players[1] = this.props.players[1];
-                this.setState({players: players});
-                window.setTimeout(function(){
-                    players[2] = this.props.players[2];
+            
+            for (let i = 0; i < this.players.length; i++) {
+                window.setTimeout(() => {
+                    players[i] = this.players[i];
                     this.setState({players: players});
-
-                    window.setTimeout(function(){
-                        this.props.movetoNext(1)
-                    }.bind(this),1500)
-
-                }.bind(this), 1000)
-            }.bind(this), 700);
+                }, interval * i);
+            }
+            window.setTimeout(() => {
+                this.props.movetoNext(1);
+            }, interval * this.players.length)
+            
         }
     }
     countScore() {
@@ -80,6 +89,7 @@ class Profile extends Component {
         }
     }
     componentWillUnmount(){
+        window.removeEventListener('beforeunload', this.props.handleLeavePage);
         if(this.addScore){
             this.addScore.forEach(function(element){clearInterval(element)}.bind(this));
         }

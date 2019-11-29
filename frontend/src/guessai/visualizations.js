@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import _ from 'lodash'
+
 const vis = [];
 for(let i = 0; i < 484; i++){
     vis[i] = require('../image/mixed4d/'+ (i) +'.png')
@@ -17,7 +19,7 @@ class Vis extends Component {
          }
     componentDidMount() {
         this.setState({ opacity: 1 });
-       this.nonSelectedVis()
+        this.nonSelectedVis()
     }
     nonSelectedVis(){
         //put entire viz of the image in the beginning
@@ -44,14 +46,13 @@ class Vis extends Component {
             }
             this.setState({ display: "none" })
         } else {
-                if(this.state.selected.length < 4){
-                    target.classList.add("selected")
-                document.getElementById("order" + number).classList.add("active");
-                selected.push({ image: item, number: number });
-                if (selected.length === 4) {
-                    this.setState({ display: "block" })
-                }
-            
+            if(this.state.selected.length < 4){
+                target.classList.add("selected")
+            document.getElementById("order" + number).classList.add("active");
+            selected.push({ image: item, number: number });
+            if (selected.length === 4) {
+                this.setState({ display: "block" })
+            }
             this.setState({ selected: selected })
         }
         }
@@ -67,16 +68,13 @@ class Vis extends Component {
         }
     }
     sendHint() {
-        //set hint and hint vizs
         let hints = [];
         let hinturls = [];
         for (let i = 0; i < this.state.selected.length; i++) {
             hints.push(this.state.selected[i].image);
             hinturls.push(this.state.selected[i].number);
         }
-        this.props.setHint(hints);
-        this.props.setHintVisUrl(hinturls);
-
+        this.props.getPlayerHint(hints, hinturls, this.props.answer);
     }
     renderVis() {
         let element1 = [];
@@ -108,7 +106,15 @@ class Vis extends Component {
                     </div>
                 </div>
                 {this.renderVis()}
-                <div className="btn" style={{ width: "216px", margin: "32px auto 0", display: this.state.display }} onClick={(ev) => { this.sendHint(); this.props.movetoNext(4) }}>Start the Game</div>
+                <div className="btn" style={{ width: "216px", margin: "32px auto 0", display: this.state.display }} onClick={(ev) => { 
+                    let explanations = [];
+                    for (let i = 0; i < this.state.selected.length; i++) {
+                        explanations.push({featureID: _.get(this.state.selected, i).image, featureImportanceScore: 0, timeStamp: Date.now()});
+                    }
+                    this.sendHint();
+                    this.props.update({ 'explain_round.explanations_chosen': explanations} );
+                    this.props.movetoNext(4);
+                }}>Start the Game</div>
             </div>
 
         );

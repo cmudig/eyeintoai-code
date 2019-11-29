@@ -42,7 +42,6 @@ class Score extends Component {
 
             }.bind(this))
             .catch(function (error) {
-                console.error("Couldn't save the image", error);
                 if (this.props.round < 3) { 
                     this.props.addRound(); 
                 } else {
@@ -52,7 +51,6 @@ class Score extends Component {
 
     }
     componentDidMount() {
-        // const db = firebase.firestore();
         this.timer = setInterval(function () {
             this.setState({ timer: this.state.timer - 1, });
             if (this.state.timer === 0) {

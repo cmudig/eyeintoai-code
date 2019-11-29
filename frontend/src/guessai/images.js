@@ -1,4 +1,4 @@
-import poodle from '../image/samples/soccerball.jpg'
+import poodle from '../image/samples/dog.jpg'
 import tabby from '../image/samples/cat.jpg'
 import macaw from '../image/samples/parrot.jpg'
 import jellyfish from '../image/samples/jellyfish.jpg'
