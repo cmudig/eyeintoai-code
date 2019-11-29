@@ -100,13 +100,13 @@ class GuessAI extends Component {
     //add the round and move to the Round view
     let playerGuesses = [];
     let roundCnt = -1;
-
+    let pointsGot = 0;
     _.keys(this.guessPerRound).forEach((function (round) {
       roundCnt = roundCnt + 1;
       playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.state.score[0][roundCnt] });  
+      pointsGot = this.state.score[0][roundCnt];
     }).bind(this));  
-    
-    this.props.update({guessRounds: playerGuesses, totalPoints: this.state.score[0][roundCnt]});
+    this.props.update({guessRounds: playerGuesses, totalPoints: pointsGot});
     let images = this.state.scoreImages;
     images.push(n);
     this.setState({scoreImages: images})
