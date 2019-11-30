@@ -21,6 +21,7 @@ class App extends Component {
       gameClass: [" ", " "],
       playerProfile: null,
     }
+    this.playerProfile = null;
     this.db = null;
     this.docRef = null;
   }
@@ -127,25 +128,21 @@ class App extends Component {
       let players = this.state.players;
       players[0].img = <i className={players[0].name}><img src={playerProfile.getImageUrl()}></img></i>;
       players[0].name = playerProfile.getGivenName();
-      this.update({playerEmail: playerProfile.getEmail(), playerId: playerProfile.getGivenName(), versionNumber: "v1", startTime: Date.now(), totalPoints: 0});
-      
-      this.setState({players: players, playerProfile: playerProfile});
+      this.playerProfile = playerProfile;
+      this.setState({players: players});
     }
     this.setState({ isSignedIn: this.auth.isSignedIn.get() });
   }
 
+  startNewLog() {
+    this.db.collection("data").add({}).then((docRef) => {
+      this.docRef = docRef;
+      this.docRef.update({playerEmail: this.playerProfile.getEmail(), playerId: this.playerProfile.getGivenName(), versionNumber: "v1", startTime: Date.now(), totalPoints: 0});
+    });
+  }
 
   update(fieldAndvalue) {
-    if (!this.docRef) {
-      this.db.collection("data").add({}).then((docRef) => {
-        this.docRef = docRef;
-        this.docRef.update(fieldAndvalue);
-      }).catch(err => {
-        console.log('Error getting document', err);
-      });
-    } else {
-      this.db.collection("data").doc(this.docRef.id).update(fieldAndvalue);
-    }
+    this.db.collection("data").doc(this.docRef.id).update(fieldAndvalue);
   }
 
   signOut() {
@@ -174,7 +171,7 @@ class App extends Component {
           
               <Route path ="/" exact render={props => <Home isSignedIn = {this.state.isSignedIn} setMenu = {this.setMenu.bind(this)} />} />
               <Route path ="/home/" render={props => <Home isSignedIn = {this.state.isSignedIn} setMenu = {this.setMenu.bind(this)} />} />
-              <Route path = "/guessai/" render={props => <GAIHome  players = {this.state.players} update={this.update.bind(this)} setMenu = {this.setMenu.bind(this)}/>} />
+              <Route path = "/guessai/" render={props => <GAIHome  players = {this.state.players} startNewLog={this.startNewLog.bind(this)} update={this.update.bind(this)} setMenu = {this.setMenu.bind(this)}/>} />
               <Route path = "/guessai-play/" render = {props => <GuessAI key = "guessAI" players = {this.state.players} update={this.update.bind(this)} setMenu = {this.setMenu.bind(this)} handleLeavePage = {this.handleLeavePage.bind(this)}/>}  />
           
         </div>

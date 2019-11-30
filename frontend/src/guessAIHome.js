@@ -82,7 +82,9 @@ class GAIHome extends Component {
                 }}>
                   How to Play?
                 </div>
-                <Link to="/guessai-play" key="btn1">
+                <Link to="/guessai-play" key="btn1" onClick ={() => {
+                  this.props.startNewLog();
+                }}>
                   <div className="btn">
                     Play Now &#9655;
                   </div>
