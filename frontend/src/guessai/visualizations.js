@@ -112,7 +112,7 @@ class Vis extends Component {
                         explanations.push({featureID: _.get(this.state.selected, i).image, featureImportanceScore: 0, timeStamp: Date.now()});
                     }
                     this.sendHint();
-                    this.props.update({ 'explain_round.explanations_chosen': explanations} );
+                    this.props.update({ explain_round: {explanations_chosen: explanations} });
                     this.props.movetoNext(4);
                 }}>Start the Game</div>
             </div>

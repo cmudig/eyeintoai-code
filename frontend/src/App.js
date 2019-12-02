@@ -9,6 +9,7 @@ import * as firebase from 'firebase/app';
 
 require('dotenv').config()
 require("firebase/firestore");
+require("firebase/auth");
 
 const profiles = ["fas fa-otter", "fas fa-hippo", "fas fa-dog", "fas fa-crow", "fas fa-horse", "fas fa-frog", "fas fa-fish", "fas fa-dragon", "fas fa-dove", "fas fa-spider", "fas fa-cat"]
 /* global gapi */
@@ -19,11 +20,11 @@ class App extends Component {
       isSignedIn: false,
       players: [],
       gameClass: [" ", " "],
-      playerProfile: null,
     }
-    this.playerProfile = null;
+    this.googleUser = null;
+    this.uid = "";
     this.db = null;
-    this.docRef = null;
+    this.timestamp = null;
   }
 
   componentDidMount() {    
@@ -38,6 +39,21 @@ class App extends Component {
         this.auth.isSignedIn.listen(this.handleAuthChange);
       });
     })
+    if (!this.db) {
+      let firebaseConfig = {
+        apiKey: process.env.REACT_APP_apiKey, 
+        authDomain: process.env.REACT_APP_authDomain, 
+        databaseURL: process.env.REACT_APP_databaseURL,
+        projectId: process.env.REACT_APP_projectId,
+        storageBucket: process.env.REACT_APP_storageBucket,
+        messagingSenderId: process.env.REACT_APP_messagingSenderId,
+        appId: process.env.REACT_APP_appId,
+      };
+   
+      const firebaseApp = firebase.initializeApp(firebaseConfig);
+      this.db = firebaseApp.firestore();
+    }
+    
     window.gapi.signin2.render('g-signin2', {
       'theme': 'dark',
       'onsuccess': this.onSuccess.bind(this),
@@ -103,46 +119,70 @@ class App extends Component {
     menuClass[i] = 'active';
     this.setState({ gameClass: menuClass });
   }
-
+  
   onSuccess(googleUser) {
     if (this.state.isSignedIn) {
       this.signOut();
     } else {
       
-      if (!this.db) {
-        let firebaseConfig = {
-          apiKey: process.env.REACT_APP_apiKey, 
-          authDomain: process.env.REACT_APP_authDomain, 
-          databaseURL: process.env.REACT_APP_databaseURL,
-          projectId: process.env.REACT_APP_projectId,
-          storageBucket: process.env.REACT_APP_storageBucket,
-          messagingSenderId: process.env.REACT_APP_messagingSenderId,
-          appId: process.env.REACT_APP_appId,
-        };
-     
-        const firebaseApp = firebase.initializeApp(firebaseConfig);
-        this.db = firebaseApp.firestore();
+      function isUserEqual(googleUser, firebaseUser) {
+        if (firebaseUser) {
+          var providerData = firebaseUser.providerData;
+          for (var i = 0; i < providerData.length; i++) {
+            if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+                providerData[i].uid === googleUser.getBasicProfile().getId()) {
+              // We don't need to reauth the Firebase connection.
+              return true;
+            }
+          }
+        }
+        return false;
       }
-      
+      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+      firebase.auth().onAuthStateChanged((function(firebaseUser) {
+        // Check if we are already signed-in Firebase with the correct user.
+        if (!isUserEqual(googleUser, firebaseUser)) {
+          // Build Firebase credential with the Google ID token.
+          var credential = firebase.auth.GoogleAuthProvider.credential(
+              googleUser.getAuthResponse().id_token);
+          // Sign in with credential from the Google user.
+          firebase.auth().signInWithCredential(credential).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+        } else {
+          this.uid = firebaseUser.uid;
+          console.log('User already signed-in Firebase.');
+        }
+      }).bind(this));
       let playerProfile =  googleUser.getBasicProfile();
       let players = this.state.players;
       players[0].img = <i className={players[0].name}><img src={playerProfile.getImageUrl()}></img></i>;
       players[0].name = playerProfile.getGivenName();
-      this.playerProfile = playerProfile;
+      this.googleUser = googleUser;
       this.setState({players: players});
     }
     this.setState({ isSignedIn: this.auth.isSignedIn.get() });
   }
 
   startNewLog() {
-    this.db.collection("data").add({}).then((docRef) => {
-      this.docRef = docRef;
-      this.docRef.update({playerEmail: this.playerProfile.getEmail(), playerId: this.playerProfile.getGivenName(), versionNumber: "v1", startTime: Date.now(), totalPoints: 0});
-    });
+    this.timestamp  =  Date.now();
+    var usersUpdate = {};
+    usersUpdate[`${this.timestamp}`] = {playerEmail: this.googleUser.getBasicProfile().getEmail(), playerId: this.googleUser.getBasicProfile().getGivenName(), versionNumber: "v1", totalPoints: 0};
+    this.db.collection("gameLogs").doc(this.uid).set(usersUpdate, {merge: true});
+
   }
 
   update(fieldAndvalue) {
-    this.db.collection("data").doc(this.docRef.id).update(fieldAndvalue);
+    var usersUpdate = {};
+    usersUpdate[`${this.timestamp}`] = fieldAndvalue;
+    this.db.collection("gameLogs").doc(this.uid).set(usersUpdate, {merge: true});
   }
 
   signOut() {
