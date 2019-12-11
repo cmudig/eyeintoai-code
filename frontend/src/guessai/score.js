@@ -42,6 +42,7 @@ class Score extends Component {
 
             }.bind(this))
             .catch(function (error) {
+                console.log("error occurred while creating the images", error);
                 if (this.props.round < 3) { 
                     this.props.addRound(); 
                 } else {

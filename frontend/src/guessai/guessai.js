@@ -85,7 +85,7 @@ class GuessAI extends Component {
 
   addGuess(newGuess) {
     this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
-    if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length == 0) {
+    if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length === 0) {
         for (let i = 0; i < 4; i++) {
             this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(this.state.hintVis[i]);
         }
@@ -95,7 +95,7 @@ class GuessAI extends Component {
 
   addHintSelected(hintGuess) {
     this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
-    if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length == 0) {
+    if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length === 0) {
       for (let i = 0; i < 4; i++) {
           this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(this.state.hintVis[i]);
       }
@@ -117,10 +117,11 @@ class GuessAI extends Component {
     let roundCnt = -1;
     let pointsGot = 0;
 
-    this.guessPerRound[this.state.entireRound]["pointsEarned"] = this.state.score[0][1] - this.prevRoundScore;
+    
     this.prevRoundScore = this.state.score[0][1];
     _.keys(this.guessPerRound).forEach((function (round) {
       roundCnt = roundCnt + 1;
+      this.guessPerRound[round]["pointsEarned"] = _.get(this.guessPerRound[round], "pointsEarned",  this.state.score[0][1] - this.prevRoundScore);
       playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], hintRound: this.guessPerRound[round]["hintRound"], guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.guessPerRound[round]["pointsEarned"]});  
       pointsGot = this.state.score[0][roundCnt];
     }).bind(this));  

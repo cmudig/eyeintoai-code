@@ -61,7 +61,6 @@ class Round extends Component {
         ranVisOrder[ran2] = ranTemp;
       }
       (ranNum % 2 === 0) ? answerSet = this.animals : answerSet = this.objects;
-      console.log(this.round, this.props.testPhase);
       if (this.round == 1 && this.props.testPhase) {
         ran2 = 2;
         answerSet = this.animals;
