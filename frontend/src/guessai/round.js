@@ -61,11 +61,18 @@ class Round extends Component {
         ranVisOrder[ran2] = ranTemp;
       }
       (ranNum % 2 === 0) ? answerSet = this.animals : answerSet = this.objects;
-
+      console.log(this.round, this.props.testPhase);
+      if (this.round == 1 && this.props.testPhase) {
+        ran2 = 2;
+        answerSet = this.animals;
+      }
+      
       while(this.props.answerRecord.includes(answerSet[ran2].classLabels[0])){
         ran2 = (ran2 + 1) % 8;
       }
+
       visSet = answerSet[ran2].correctURLs.concat(answerSet[ran2].wrongVizURLs);
+ 
       this.props.setAnswer(answerSet[ran2]);
       this.props.setHint([vis[visSet[ranVisOrder[0]]], vis[visSet[ranVisOrder[1]]], vis[visSet[ranVisOrder[2]]], vis[visSet[ranVisOrder[3]]]]);
       this.props.setHintVisUrl([visSet[ranVisOrder[0]], visSet[ranVisOrder[1]],visSet[ranVisOrder[2]], visSet[ranVisOrder[3]]]);

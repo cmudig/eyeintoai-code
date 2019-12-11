@@ -59,26 +59,30 @@ class Hint extends Component {
         }.bind(this), 2000)
 
         let cards = document.getElementsByClassName("hintCard");
-        let classlists = ['plyr1', 'plyr2', 'plyr3', 'plyr1plyr2', 'plyr1plyr3']
-
+  
         for(let j = 0; j < 4; j++){
-            for(let i = 0; i < 5; i++){
-                if(cards[j].innerHTML === this.answer && cards[j].classList.contains(classlists[i])){
-                    i < 3 ? this.rightAnswer(i) : this.rightAnswer(0, i-2);
-                }
+            let players = cards[j].classList;
+            if(cards[j].innerHTML === this.answer) {
+                if (players.contains("plyr1")) this.props.addHintSelected({ hintSelectionRight: true, answerSelected: cards[j].innerHTML});
+                this.rightAnswer(players);
+            } else {
+                if (players.contains("plyr1")) this.props.addHintSelected({ hintSelectionRight: false, answerSelected: cards[j].innerHTML});
             }
+        
         }
     }
-    rightAnswer(n, i = undefined) {
-        this.score[n][1] += 10;
-        this.score[this.props.entireRound - 1][1] += 10;
-        if (i) {
-            this.score[i][1] += 10;
-            this.score[this.props.entireRound - 1][1] += 5;
+    rightAnswer(playersSelectCurCard) {
+        for(let i = 1; i < playersSelectCurCard.length; i++) {
+            let player =  parseInt(playersSelectCurCard[i].charAt(playersSelectCurCard[i].length - 1));
+            
+            this.score[player - 1][1] += 15;
+            if (playersSelectCurCard < 3) {
+                this.score[player - 1][1] += 5;
+            } 
+            this.props.setScore(this.score);
+            this.setState({ disable: true, inputOpcity: .5 });
+            window.setTimeout(function () { this.props.changeMode(4); }.bind(this), 300);
         }
-        this.props.setScore(this.score);
-        this.setState({ disable: true, inputOpcity: .5 });
-        window.setTimeout(function () { this.props.changeMode(4); }.bind(this), 300);
     }
     //player 2 and 3 automatically select card for the first round
     test_selectCard() {
@@ -90,13 +94,12 @@ class Hint extends Component {
 
         //plyr3 select card and finish the round
         window.setTimeout(function () {
-            cards[3].classList.remove("plyr2");
-            cards[3].classList.add("plyr2plyr3");
+            cards[3].classList.add("plyr3");
             this.setState({ animation: "" });
             clearInterval(this.hinttimer);
             window.setTimeout(function () {
                 this.setState({ result: true });
-                this.rightAnswer(1, 2)
+                this.rightAnswer(cards[3].classList);
                 
             }.bind(this), 3000)
         }.bind(this), 3000);
@@ -105,19 +108,20 @@ class Hint extends Component {
     random_selectCard() {
         let cards = document.getElementsByClassName("hintCard");
         let ranNum = Math.floor(Math.random() * 4);
+        let fakePlayers = [2, 3];
+        let randPlayer =  fakePlayers[Math.floor(Math.random() * fakePlayers.length)];
         cards = cards[ranNum]
         //if player already selected the same card, add class name of plyr1+corresponding player
         window.setTimeout(function(){
-            cards.classList.length !== 1 ? cards.classList.add("plyr1plyr" + (6 / this.props.entireRound)) : cards.classList.add("plyr" + (6 / (this.props.entireRound * 1)))
+            cards.classList.add("plyr" + randPlayer);
             this.state.ranSelected ? this.stopTimer() : this.setState({ ranSelected: 1 });
         }.bind(this), 3000);
       
     }
     selectCard(ev) {
         if (this.state.selectable === "active") {
-            ev.target.classList.length === 1 ? ev.target.classList.add("plyr1") : ev.target.classList.add("plyr" + (6 / (this.props.entireRound * 1)) + "plyr1");
-        
-            this.setState({ selectable: " " })
+          ev.target.classList.add("plyr1");
+          this.setState({ selectable: " " })
         }
         this.state.ranSelected ? this.stopTimer() : this.setState({ ranSelected: 1 });
     }
@@ -157,7 +161,7 @@ class Hint extends Component {
                     <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[0]}</div>
                     <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[1]}</div>
                     <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[2]}</div>
-                    <div className="hintCard" onClick={this.selectCard.bind(this)}> {this.state.randomOptions[3]}</div>
+                    <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[3]}</div>
                 </div>
             </div>
         }

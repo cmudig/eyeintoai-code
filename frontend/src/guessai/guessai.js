@@ -36,11 +36,16 @@ class GuessAI extends Component {
       //score modal screenshots
       answerRecord: [],
     }
+    this.testPhase = false;
     this.guessPerRound = {};
+    this.prevRoundScore = 0;
   }
   componentWillMount(){
    this.randomizeTurn()
+  }
 
+  setTestPhase() {
+    this.testPhase = true;
   }
   componentDidMount(){
     window.addEventListener('beforeunload', this.props.handleLeavePage);
@@ -79,17 +84,27 @@ class GuessAI extends Component {
   }
 
   addGuess(newGuess) {
-    this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[]});
-    this.guessPerRound[this.state.entireRound]["guesses"].push(newGuess);
+    this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
     if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length == 0) {
         for (let i = 0; i < 4; i++) {
             this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(this.state.hintVis[i]);
         }
     }
+    this.guessPerRound[this.state.entireRound]["guesses"].push(newGuess);
+  }
+
+  addHintSelected(hintGuess) {
+    this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
+    if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length == 0) {
+      for (let i = 0; i < 4; i++) {
+          this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(this.state.hintVis[i]);
+      }
+    }
+    this.guessPerRound[this.state.entireRound]["hintRound"] = hintGuess;
   }
 
   addRound(){
-    this.setState({entireRound: this.state.entireRound + 1})
+    this.setState({entireRound: this.state.entireRound + 1});
     this.movetoNext(4);
   }
   setScore(n){
@@ -101,9 +116,12 @@ class GuessAI extends Component {
     let playerGuesses = [];
     let roundCnt = -1;
     let pointsGot = 0;
+
+    this.guessPerRound[this.state.entireRound]["pointsEarned"] = this.state.score[0][1] - this.prevRoundScore;
+    this.prevRoundScore = this.state.score[0][1];
     _.keys(this.guessPerRound).forEach((function (round) {
       roundCnt = roundCnt + 1;
-      playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.state.score[0][roundCnt] });  
+      playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], hintRound: this.guessPerRound[round]["hintRound"], guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.guessPerRound[round]["pointsEarned"]});  
       pointsGot = this.state.score[0][roundCnt];
     }).bind(this));  
     this.props.update({guessRounds: playerGuesses, totalPoints: pointsGot});
@@ -124,10 +142,10 @@ class GuessAI extends Component {
     switch(this.state.mode){
       case 0: 
       return <Loading movetoNext = {this.movetoNext.bind(this)} players = {this.state.players}/>
-      case 1:  return  <Category setAnswer={this.setAnswer.bind(this)} movetoNext = {this.movetoNext.bind(this)} update={this.props.update} />
+      case 1:  return  <Category setTestPhase={this.setTestPhase.bind(this)} setAnswer={this.setAnswer.bind(this)} movetoNext = {this.movetoNext.bind(this)} update={this.props.update} />
       case 2: return <Vis movetoNext = {this.movetoNext.bind(this)} getPlayerHint={this.getPlayerHint.bind(this)} update={this.props.update} answer={this.state.answer}/>
-      case 3: return <Game answer={this.state.answer} setScore = {this.setScore.bind(this)} update={this.props.update} turns = {this.state.turns} entireRound = {this.state.entireRound} guessPerRound = {this.guessPerRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players} setScoreImages = {this.setScoreImages.bind(this)} movetoNext = {this.movetoNext.bind(this)} addGuess = {this.addGuess.bind(this)}/> 
-      case 4: return  <Round entireRound = {this.state.entireRound} turns = {this.state.turns} movetoNext = {this.movetoNext.bind(this)} update={this.props.update} players = {this.state.players} setAnswer={this.setAnswer.bind(this)} setHintVisUrl = {this.setHintVisUrl.bind(this)} setHint = {this.setHint.bind(this)} setPlayerHint = {this.setPlayerHint.bind(this)} answerRecord = {this.state.answerRecord}/>
+      case 3: return <Game answer={this.state.answer} addHintSelected={this.addHintSelected.bind(this)}  setScore = {this.setScore.bind(this)} update={this.props.update} turns = {this.state.turns} entireRound = {this.state.entireRound} guessPerRound = {this.guessPerRound} addRound = {this.addRound.bind(this)} score = {this.state.score} hintVis = {this.state.hintVis} hintVisUrl = {this.state.hintVisUrl} players = {this.state.players} setScoreImages = {this.setScoreImages.bind(this)} movetoNext = {this.movetoNext.bind(this)} addGuess = {this.addGuess.bind(this)}/> 
+      case 4: return <Round testPhase = {this.testPhase} entireRound = {this.state.entireRound} turns = {this.state.turns} movetoNext = {this.movetoNext.bind(this)} update={this.props.update} players = {this.state.players} setAnswer={this.setAnswer.bind(this)} setHintVisUrl = {this.setHintVisUrl.bind(this)} setHint = {this.setHint.bind(this)} setPlayerHint = {this.setPlayerHint.bind(this)} answerRecord = {this.state.answerRecord}/>
       case 5: return <ScoreImage scoreImages = {this.state.scoreImages}/>
       default:
     }

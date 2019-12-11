@@ -35,6 +35,7 @@ class Category extends Component {
           <div className="btn" onClick={(ev) => { this.setState({ questionNum: 1, imgType: "animals" });}}>Animals</div>
           <div className="btn" onClick={(ev) => { this.setState({ questionNum: 1, imgType: "objects" }); }}>Objects</div>
           <div className="btn" onClick={(ev) => { 
+            this.props.setTestPhase();
             if (this.state.ranNum[0] % 2 === 1) {
               this.props.setAnswer(this.animals[this.state.ranNum[0]]);
               this.props.update({ explain_round: {categorySelect:"animals", imgSelect: this.animals[this.state.ranNum[0]].classLabels[0]}});
