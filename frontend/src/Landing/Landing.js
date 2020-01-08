@@ -65,14 +65,14 @@ class Home extends Component {
               <div className={styles['home__links']}>
                 <Link
                   className={styles['home__btn']}
-                  to="/guessai"
+                  to="/"
                   onClick={() => { this.props.setMenu(0); }}
                 >
                   How to Play
                 </Link>
                 <Link
                   className={styles['home__btn']}
-                  to="/guessai-play"
+                  to="/play"
                   onClick={() => { this.props.setMenu(0); }}
                 >
                   Play
@@ -125,7 +125,7 @@ class Home extends Component {
               <div className={styles['home__links']}>
                 <Link
                   className={styles['home__btn']}
-                  to="/guessai"
+                  to="/"
                   onClick={() => { this.props.setMenu(0); }}
                 >
                   How to Play
