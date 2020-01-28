@@ -14,8 +14,12 @@ class Convo extends Component {
         }
         this.answers = ["wolf", "bug", "dog", "cat", "fur", "cotton", "fabric", "web", "spider", "fox", "rubber", "mouse", "flower", "polar bear", "vase", "plant", "mint", "daisy", "mouse", "glass", "cosmos", "space", "blanket", "monkey", "otter", "goose", "lion", "bird", "peacock", "sky", "ceramic", "cotton", "linen"];
         //lists of answers for automated players guessing when a hint is given
-        this.hintAnswer_animal = ["poodle", "alphaca", "lama", "snake", "spider", "cat", "parrot", "jellyfish", "otter", "frog", "bee", "butterfly", "shark", "turtle", "tiger", "bear", "deer", "mouse", "hamster"];
-        this.hintAnswer_object = ["acorn", "plum", "bottle", "balloon", "confetti", "toaster", "camera", "socks", "strawberry", "castle", "train", "soccer ball", "vacuum", "spoon", "desk", "bed", "corn", "pumpkin", "candy"]
+        this.hintAnswer = { "animals": ["poodle", "alphaca", "lama", "snake", "spider", "cat", "parrot", "jellyfish", "otter", "frog", "bee", "butterfly", "shark", "turtle", "tiger", "bear", "deer", "mouse", "hamster"], 
+                            "food": ["acorn", "plum", "strawberry", "corn", "pumpkin", "candy", "watermelon", "peanut"],
+                            "toy": ["confetti", "soccer ball", "toy bear", "puppet", "balloon"],
+                            "transportation": ["train", "car", "plane", "bike", "metro", "ship"],
+                            "building": ["tower", "theatre", "school", "temple"],
+                            "home appliances": ["bottle", "toaster", "camera", "socks", "vacuum cleaner", "spoon", "desk", "bed"]}
         this.convo = [];
         this.answer = this.props.answer;
         this.score = this.props.score;
@@ -51,12 +55,9 @@ class Convo extends Component {
     }
     convoGenerate() {
         let answer;
+        
         if (this.props.hintMode === true) {
-            if (this.hintAnswer_animal.includes(this.props.answer.classLabels[0])) {
-                answer = this.hintAnswer_animal;
-            } else {
-                answer = this.hintAnswer_object;
-            }
+            answer = this.hintAnswer[this.props.answer.hint];
         } else {
             answer = this.answers;
         }

@@ -37,14 +37,14 @@ export const StaticData = {
 	correctURLs: [/**/1, 433, 475, 386, 162, 30, 47, 251],
 	wrongVizURLs: [421, 142],
 	classLabels: ['parrot', 'parrots', 'macaw', 'macaws', 'bird', 'birds'],
-	hint: 'birds',
+	hint: 'animals',
 },
 {
     url: jellyfish,
 	correctURLs: [4, 103, 393, 23, 325, 11, 9, 433],
 	wrongVizURLs: [ 102, 39],
 	classLabels: ['jellyfish'],
-	hint: 'sea animals',
+	hint: 'animals',
 
 },
 {
@@ -74,7 +74,7 @@ export const StaticData = {
 	correctURLs: [25, 30, 200, 105, /**/1, 387, 23, 4],
 	wrongVizURLs: [232, 70],
 	classLabels: ['bee', 'bees', 'honey bee', 'honey bees'],
-	hint: 'insects',
+	hint: 'animals',
 
 },
 ],
@@ -84,7 +84,7 @@ object: [
 	correctURLs: [/**/1, 40, 186, 6, 14, 23, 82, 478],
 	wrongVizURLs: [127, 39],
 	classLabels: ['acorn', 'acorns'],
-	hint: 'nuts',
+	hint: 'food',
 },
 {
     url: toaster,
@@ -97,13 +97,13 @@ object: [
 	correctURLs: [109, 407, 70, 124, 310, 96, 197, 32],
 	wrongVizURLs: [23, 296],
 	classLabels: ['sock', 'socks'],
-	hint: 'clothings',
+	hint: 'home appliances',
 },{
     url: strawberry,
 	correctURLs: [20, 197, 69, 202, /**/1, 239, 368, 386],
 	wrongVizURLs: [478, 18],
 	classLabels: ['strawberry', 'strawberries'],
-	hint: 'fruits',
+	hint: 'food',
 },{
     url: castle,
 	correctURLs: [88, 8, 467, 39, 3, 44, 462, 99],
@@ -121,13 +121,13 @@ object: [
 	correctURLs: [148, 252, 301, 152, 104, 376, 23, 185],
 	wrongVizURLs: [268, 172],
 	classLabels: ['soccer ball', 'soccer balls', 'ball', 'balls'],
-	hint: 'object',
+	hint: 'toy',
 },
 {
     url: camera,
 	correctURLs: [/**/1, 31, 11, 32, 23, 60, 399, 91],
 	wrongVizURLs: [455, 86],
 	classLabels: ['camera', 'cameras', 'reflex camera', 'reflex cameras'],
-	hint: 'object',
+	hint: 'home appliances',
 },
 ]}

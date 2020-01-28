@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
-const answers = ["wolf", "bug", "fur", "cotton", "fabric", "web", "spider", "fox", "rubber", "mouse", "flower", "polar bear", "vase", "plant", "mint", "daisy", "mouse", "glass", "cosmos", "space", "blanket", "monkey", "otter", "goose", "lion", "bird", "peacock", "sky", "ceramic", "cotton", "linen"];
-
+const hintAnswers = { "animals": ["dolphin", "alphaca", "lama", "snake", "spider", "otter", "butterfly", "shark", "bear", "deer", "mouse", "hamster"], 
+                            "food": ["plum", "corn", "pumpkin", "candy", "watermelon", "peanut"],
+                            "toy": ["confetti", "toy bear", "puppet", "balloon"],
+                            "transportation": ["car", "plane", "bike", "metro", "ship"],
+                            "building": ["tower", "theatre", "school", "temple"],
+                            "home appliances": ["bottle", "vacuum cleaner", "spoon", "desk", "bed", "fork", "TV"]}
 class Hint extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +24,7 @@ class Hint extends Component {
     componentDidMount() {
         //set numbers to randomly generate answers
         let numbers = [];
+        let answers = hintAnswers[this.props.answer.hint]
         for (let i = 0; i < answers.length; i++) {
             numbers.push(i);
         }
@@ -33,7 +38,11 @@ class Hint extends Component {
             numbers[ran2] = ranTemp;
         }
         numbers = [answers[numbers[0]], answers[numbers[1]], answers[numbers[2]], answers[numbers[3]]];
-        numbers[Math.floor(Math.random() * 4)] = this.answer;
+        if (this.props.turns[this.props.entireRound - 1] === 1) {
+            numbers[3] = this.answer;
+        } else {
+            numbers[Math.floor(Math.random() * 4)] = this.answer;
+        }
         this.setState({randomOptions: numbers})
 
         this.hinttimer = setInterval(function () {
@@ -127,44 +136,23 @@ class Hint extends Component {
     }
 
     hintGenerator() {
-        if (this.props.turns[this.props.entireRound - 1] === 1) {
-            return <div>Last chance!<br />
-                Select the answer
-                <div id="hintTimer" key="hintTimer"> <svg width="90" height="90">
-                    <circle key="timeAnimHint" r="30" cx="35" cy="35" />
-                    <circle className={this.state.animation} key="timeAnimHint2" r="30" cx="35" cy="35" />
-
-                </svg>
-                    <div className="seconds">
-                        {this.state.hintTimer}
-                    </div>
-                </div>
-                <div className="hintWrapper">
-                    <div className="hintCard">Armadillo</div>
-                    <div className="hintCard">Potato</div>
-                    <div className="hintCard">Beetles</div>
-                    <div className="hintCard"> {this.props.answer.classLabels[0]}</div>
+        return <div>Last chance!<br />
+            Select the answer
+            <div id="hintTimer" key="hintTimer"> <svg width="90" height="90">
+                <circle key="timeAnimHint" r="30" cx="35" cy="35" />
+                <circle className={this.state.animation} key="timeAnimHint2" r="30" cx="35" cy="35" />
+            </svg>
+                <div className="seconds">
+                    {this.state.hintTimer}
                 </div>
             </div>
-        } else {
-            return <div>Last chance!<br />
-                Select the answer
-                <div id="hintTimer" key="hintTimer"> <svg width="90" height="90">
-                    <circle key="timeAnimHint" r="30" cx="35" cy="35" />
-                    <circle className={this.state.animation} key="timeAnimHint2" r="30" cx="35" cy="35" />
-                </svg>
-                    <div className="seconds">
-                        {this.state.hintTimer}
-                    </div>
-                </div>
-                <div className={"hintWrapper "+ this.state.selectable}>
-                    <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[0]}</div>
-                    <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[1]}</div>
-                    <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[2]}</div>
-                    <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[3]}</div>
-                </div>
+            <div className={"hintWrapper "+ this.state.selectable}>
+                <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[0]}</div>
+                <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[1]}</div>
+                <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[2]}</div>
+                <div className="hintCard" onClick={this.selectCard.bind(this)}>{this.state.randomOptions[3]}</div>
             </div>
-        }
+        </div>
     }
 
 
