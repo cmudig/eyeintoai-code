@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Montserrat|Share+Tech+Mono|VT323&display=swap');
+
+.home {
+  width: 100%;
+  padding: 15vh 0;
+
+  &__modal {
+    display: flex;
+    justify-content: space-between;
+
+    &--section {
+      width: 312px;
+      height: 353px;
+      padding: 30px;
+      border: solid 1px black;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
+    &--image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 75px;
+      width: 50%;
+    }
+  }
+
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    max-width: 1120px;
+    margin: 0 auto;
+    align-items: center;
+
+    @media screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
+  }
+
+  &__side {
+    width: 40%;
+    max-width: 560px;
+    margin-bottom:  10vh;
+  }
+
+  &--left {
+    width: 560px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(100% - 560px);
+
+    img {
+      width: 100px;
+      border-radius: 6px;
+      margin: 4px;
+    }
+  }
+
+  &--right {
+    width: 60%;
+    text-align: left;
+    font-family: "lato", "sans-serif";
+    padding-left: 8%;
+
+    @media screen and (max-width: 1000px) {   
+      width: 100%;
+      padding: 0 2%;
+    }
+  }
+
+  &__title {
+    margin-bottom: 24px;
+
+    font: {
+      size: 32px;
+      weight: 300;
+    }
+  }
+
+  &__details {
+    font-size: 14px;
+    line-height: 1.4;
+
+    a {
+      color: #C41E3A;
+      text-decoration: underline;
+    }
+  }
+
+  &__links {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    display: inline-block;
+    margin-top: 45px;
+    padding: 10px 24px;
+    background-color: #3AA757;
+    text-decoration: none;
+    text-align: right;
+    color: white;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+    
+    &:last-child {
+      background-color: #4c8bf5;
+    }
+  }
+
+  &__footer {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+  }
+}
