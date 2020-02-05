@@ -4,6 +4,28 @@
   width: 100%;
   padding: 15vh 0;
 
+  &__modal {
+    display: flex;
+    justify-content: space-between;
+
+    &--section {
+      width: 312px;
+      height: 353px;
+      padding: 30px;
+      border: solid 1px black;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
+    &--image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 75px;
+      width: 50%;
+    }
+  }
+
   &__wrapper {
     width: 100%;
     display: flex;
@@ -79,6 +101,7 @@
     text-decoration: none;
     text-align: right;
     color: white;
+    cursor: pointer;
 
     &:not(:last-child) {
       margin-right: 20px;

@@ -5,7 +5,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import dotenv from 'dotenv';
 
-import Landing from './Landing/Landing';
+import Landing from './components/Landing/Landing';
 import GuessAI from './guessai/guessai.js';
 
 import './guessai/index.scss';

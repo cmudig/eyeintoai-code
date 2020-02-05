@@ -3,13 +3,28 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 
 import styles from './Landing.module.scss';
+import Modal from '../Modal/Modal';
+
+import firstStep from '../../image/home/step1.png';
+import secondStep from '../../image/home/step2.png';
+import thirdStep from '../../image/home/step3.png';
 
 const vis = [];
 for (let i = 0; i < 10; i++) {
-  vis[i] = require('../image/mixed4d/' + (i + 1) + '.png');
+  vis[i] = require('../../image/mixed4d/' + (i + 1) + '.png');
 }
 
 class Home extends Component {
+  state = { showHelpModal: false };
+
+  showHelpModal = () => {
+    this.setState({ showHelpModal: true });
+  };
+
+  hideHelpModal = () => {
+    this.setState({ showHelpModal: false });
+  };
+
   renderImgs() {
     const element = [];
     for (let i = 0; i < 10; i++) {
@@ -28,6 +43,49 @@ class Home extends Component {
     if (this.props.isSignedIn) {
       return (
         <div className={styles['home']}>
+          <Modal show={this.state.showHelpModal} handleClose={this.hideHelpModal}>
+            <div className={styles['home__modal']}>
+              <section className={styles['home__modal--section']}>
+                <img
+                  className={styles['home__modal--image']}
+                  src={firstStep}
+                  alt="First Step"
+                />
+                <h1 className={styles['home__modal--header']}>
+                  Step 1. As the Explainer: Select an image
+                </h1>
+                <p className={styles['home__modal--desc']}>
+                  Select an image for other players to guess.
+                </p>
+              </section>
+              <section className={styles['home__modal--section']}>
+                <img
+                  className={styles['home__modal--image']}
+                  src={secondStep}
+                  alt="Second Step"
+                />
+                <h1 className={styles['home__modal--header']}>
+                  Step 2. As the Explainer: Select 4 feature visualizations
+                </h1>
+                <p className={styles['home__modal--desc']}>
+                  Choose features that will be given as hints to other players. Pick the best ones 1st!
+                </p>
+              </section>
+              <section className={styles['home__modal--section']}>
+                <img
+                  className={styles['home__modal--image']}
+                  src={thirdStep}
+                  alt="Third Step"
+                />
+                <h1 className={styles['home__modal--header']}>
+                  Step 3. As a Guesser: Now it’s your turn to play.
+                </h1>
+                <p className={styles['home__modal--desc']}>
+                  Guess original images from visualizations that other players choose and gain points.
+                </p>
+              </section>
+            </div>
+          </Modal>
           <div className={styles['home__wrapper']}>
             <div className={styles['home__side']}>
               <div className={styles['home--left']}>
@@ -63,13 +121,12 @@ class Home extends Component {
                 </p>
               </div>
               <div className={styles['home__links']}>
-                <Link
+                <button
                   className={styles['home__btn']}
-                  to="/"
-                  onClick={() => { this.props.setMenu(0); }}
+                  onClick={this.showHelpModal}
                 >
                   How to Play
-                </Link>
+                </button>
                 <Link
                   className={styles['home__btn']}
                   to="/play"
@@ -88,6 +145,49 @@ class Home extends Component {
     } else {
       return (
         <div className={styles['home']}>
+          <Modal show={this.state.showHelpModal} handleClose={this.hideHelpModal}>
+            <div className={styles['home__modal']}>
+              <section className={styles['home__modal--section']}>
+                <img
+                  className={styles['home__modal--image']}
+                  src={firstStep}
+                  alt="First Step"
+                />
+                <h1 className={styles['home__modal--header']}>
+                  Step 1. As the Explainer: Select an image
+                </h1>
+                <p className={styles['home__modal--desc']}>
+                  Select an image for other players to guess.
+                </p>
+              </section>
+              <section className={styles['home__modal--section']}>
+                <img
+                  className={styles['home__modal--image']}
+                  src={secondStep}
+                  alt="Second Step"
+                />
+                <h1 className={styles['home__modal--header']}>
+                  Step 2. As the Explainer: Select 4 feature visualizations
+                </h1>
+                <p className={styles['home__modal--desc']}>
+                  Choose features that will be given as hints to other players. Pick the best ones 1st!
+                </p>
+              </section>
+              <section className={styles['home__modal--section']}>
+                <img
+                  className={styles['home__modal--image']}
+                  src={thirdStep}
+                  alt="Third Step"
+                />
+                <h1 className={styles['home__modal--header']}>
+                  Step 3. As a Guesser: Now it’s your turn to play.
+                </h1>
+                <p className={styles['home__modal--desc']}>
+                  Guess original images from visualizations that other players choose and gain points.
+                </p>
+              </section>
+            </div>
+          </Modal>
           <div className={styles['home__wrapper']}>
             <div className={styles['home__side']}>
               <div className={styles['home--left']}>
@@ -123,13 +223,13 @@ class Home extends Component {
                 </p>
               </div>
               <div className={styles['home__links']}>
-                <Link
+                <button
+                  type="button"
                   className={styles['home__btn']}
-                  to="/"
-                  onClick={() => { this.props.setMenu(0); }}
+                  onClick={this.showHelpModal}
                 >
                   How to Play
-                </Link>
+                </button>
               </div>
             </div>
           </div>
