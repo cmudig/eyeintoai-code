@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StaticData } from './images'
 
 const vis = [];
-for(let i = 0; i < 484; i++){
+for(let i = 0; i < 528; i++){
     vis[i] = require('../image/mixed4d/'+ (i) +'.png')
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash'
 
 const vis = [];
-for(let i = 0; i < 484; i++){
+for(let i = 0; i < 528; i++){
     vis[i] = require('../image/mixed4d/'+ (i) +'.png')
 }
 //the player selecting feature vizs 
@@ -109,7 +109,9 @@ class Vis extends Component {
                 <div className="btn" style={{ width: "216px", margin: "32px auto 0", display: this.state.display }} onClick={(ev) => { 
                     let explanations = [];
                     for (let i = 0; i < this.state.selected.length; i++) {
-                        explanations.push({featureID: _.get(this.state.selected, i).image, featureImportanceScore: 0, timeStamp: Date.now()});
+                        let curImage = _.get(this.state.selected, i).image
+                        let imgIdx = curImage.substring(curImage.lastIndexOf("/") + 1, curImage.indexOf("."))
+                        explanations.push({featureID: imgIdx, featureImportanceScore: 0, timeStamp: Date.now()});
                     }
                     this.sendHint();
                     this.props.update({ explain_round: {explanations_chosen: explanations} });

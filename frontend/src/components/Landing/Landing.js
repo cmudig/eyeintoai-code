@@ -130,7 +130,10 @@ class Home extends Component {
                 <Link
                   className={styles['home__btn']}
                   to="/play"
-                  onClick={() => { this.props.setMenu(0); }}
+                  onClick={() => { 
+                      this.props.startNewLog();
+                      this.props.setMenu(0); 
+                    }}
                 >
                   Play
                 </Link>
@@ -223,6 +226,9 @@ class Home extends Component {
                 </p>
               </div>
               <div className={styles['home__links']}>
+            
+                <div id="g-signin2" onClick={() => { this.props.signOut(); }} />
+
                 <button
                   type="button"
                   className={styles['home__btn']}

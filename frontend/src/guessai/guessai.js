@@ -84,20 +84,25 @@ class GuessAI extends Component {
   }
 
   addGuess(newGuess) {
+    
     this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
     if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length === 0) {
         for (let i = 0; i < 4; i++) {
-            this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(this.state.hintVis[i]);
+            let curImage = this.state.hintVis[i];
+            let imgIdx = curImage ? curImage.substring(curImage.lastIndexOf("/") + 1, curImage.indexOf(".")) : "-1";
+            this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(imgIdx);
         }
     }
-    this.guessPerRound[this.state.entireRound]["guesses"].push(newGuess);
+    this.guessPerRound[this.state.entireRound]["guesses"].push(newGuess);    
   }
 
   addHintSelected(hintGuess) {
     this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
     if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length === 0) {
       for (let i = 0; i < 4; i++) {
-          this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(this.state.hintVis[i]);
+          let curImage = this.state.hintVis[i];
+          let imgIdx = curImage ? curImage.substring(curImage.lastIndexOf("/") + 1, curImage.indexOf(".")) : "-1";
+          this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].push(imgIdx);
       }
     }
     this.guessPerRound[this.state.entireRound]["hintRound"] = hintGuess;
