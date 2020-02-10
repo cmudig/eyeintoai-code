@@ -201,8 +201,23 @@ class App extends Component {
               Interpretable Machine Learning Research Project
             </Link>
           </div>
-          <Route path ="/" exact render={() => <Landing isSignedIn = {this.state.isSignedIn} startNewLog = {this.startNewLog.bind(this) }signOut = {this.signOut.bind(this)} setMenu = {this.setMenu.bind(this)} />} />
-          <Route path = "/play" render = {() => <GuessAI key = "guessAI" players = {this.state.players} update={this.update.bind(this)} setMenu = {this.setMenu.bind(this)} handleLeavePage = {this.handleLeavePage.bind(this)}/>} />
+          <Route exact path="/" render={() => (
+            <Landing
+              isSignedIn={this.state.isSignedIn}
+              startNewLog={this.startNewLog.bind(this)}
+              signOut={this.signOut.bind(this)}
+              setMenu={this.setMenu.bind(this)}
+            />
+          )} />
+          <Route path="/play" render={() => (
+            <GuessAI
+              key="guessAI"
+              players={this.state.players}
+              update={this.update.bind(this)}
+              setMenu={this.setMenu.bind(this)}
+              handleLeavePage={this.handleLeavePage.bind(this)}
+            />
+          )} />
         </div>
       </HashRouter>
     );
