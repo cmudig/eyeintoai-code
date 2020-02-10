@@ -30,6 +30,7 @@ class GuessAI extends Component {
       playerHints: [],
       playerHintsUrl: [],
       playerAnswer: [],
+      playerScore: [],
       //player profile selected from the app.js
       hintVisUrl: [],
       scoreImages : [],
@@ -84,7 +85,6 @@ class GuessAI extends Component {
   }
 
   addGuess(newGuess) {
-    
     this.guessPerRound[this.state.entireRound] = _.get(this.guessPerRound, this.state.entireRound, {"guesses": [], "featuresChosenByExplainer":[], "hintRound":{}});
     if (this.guessPerRound[this.state.entireRound]["featuresChosenByExplainer"].length === 0) {
         for (let i = 0; i < 4; i++) {
@@ -118,20 +118,19 @@ class GuessAI extends Component {
 
   setScoreImages(n){
     //add the round and move to the Round view
+    this.state.playerScore.push(this.state.score[0][1]);
     let playerGuesses = [];
     let roundCnt = -1;
     let pointsGot = 0;
-
-    
-    this.prevRoundScore = this.state.score[0][1];
     _.keys(this.guessPerRound).forEach((function (round) {
-      roundCnt = roundCnt + 1;
-      this.guessPerRound[round]["pointsEarned"] = _.get(this.guessPerRound[round], "pointsEarned",  this.state.score[0][1] - this.prevRoundScore);
-      playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], hintRound: this.guessPerRound[round]["hintRound"], 
-        guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.guessPerRound[round]["pointsEarned"], answer: this.state.answer.classLabels[0]});  
-      pointsGot = this.state.score[0][roundCnt];
+        roundCnt += 1
+        this.guessPerRound[round]["pointsEarned"] = _.get(this.guessPerRound[round], "pointsEarned", _.get(this.state.playerScore, this.state.entireRound - 1, 0) - _.get(this.state.playerScore, this.state.entireRound - 2, 0));
+        playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], hintRound: this.guessPerRound[round]["hintRound"], 
+            guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.guessPerRound[round]["pointsEarned"], answer: this.state.answer.classLabels[0]});  
+        pointsGot = this.state.score[0][roundCnt];
     }).bind(this));  
     this.props.update({guessRounds: playerGuesses, totalPoints: pointsGot});
+    
     let images = this.state.scoreImages;
     images.push(n);
     this.setState({scoreImages: images})
