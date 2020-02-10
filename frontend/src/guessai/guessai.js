@@ -122,7 +122,8 @@ class GuessAI extends Component {
     _.keys(this.guessPerRound).forEach((function (round) {
       roundCnt = roundCnt + 1;
       this.guessPerRound[round]["pointsEarned"] = _.get(this.guessPerRound[round], "pointsEarned",  this.state.score[0][1] - this.prevRoundScore);
-      playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], hintRound: this.guessPerRound[round]["hintRound"], guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.guessPerRound[round]["pointsEarned"]});  
+      playerGuesses.push({ featuresChosenByExplainer: this.guessPerRound[round]["featuresChosenByExplainer"], hintRound: this.guessPerRound[round]["hintRound"], 
+        guesses: this.guessPerRound[round]["guesses"], pointsEarned: this.guessPerRound[round]["pointsEarned"], answer: this.state.answer.classLabels[0]});  
       pointsGot = this.state.score[0][roundCnt];
     }).bind(this));  
     this.props.update({guessRounds: playerGuesses, totalPoints: pointsGot});

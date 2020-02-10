@@ -84,10 +84,9 @@ class Hint extends Component {
         for(let i = 1; i < playersSelectCurCard.length; i++) {
             let player =  parseInt(playersSelectCurCard[i].charAt(playersSelectCurCard[i].length - 1));
             
-            this.score[player - 1][1] += 15;
-            if (playersSelectCurCard < 3) {
-                this.score[player - 1][1] += 5;
-            } 
+            this.score[player - 1][1] += 5;
+            this.score[this.props.turns[this.props.entireRound - 1] - 1][1] += 10;
+            
             this.props.setScore(this.score);
             this.setState({ disable: true, inputOpcity: .5 });
             window.setTimeout(function () { this.props.changeMode(4); }.bind(this), 300);

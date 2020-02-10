@@ -40,12 +40,12 @@ class Convo extends Component {
         clearInterval(this.convo);
         this.props.clearTimer();
         //the one who guessed right get score
-        this.score[n][1] += 20;
+        this.score[n][1] += 30 - this.props.round * 5;
         //if somebody guessed right, the one who selected the original image get always get the score
-        this.score[this.props.turns[this.props.entireRound - 1] - 1][1] += 20;
+        this.score[this.props.turns[this.props.entireRound - 1] - 1][1] += 10;
         if (i) {
             //if second person also guessed right... the person also gets the score. But this can only happen when there's hint.
-            this.score[i][1] += 10;
+            this.score[i][1] += 5;
             this.score[this.props.turns[this.props.entireRound - 1] - 1][1] += 10;
         }
         this.props.setScore(this.score);

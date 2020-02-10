@@ -128,7 +128,7 @@ class Game extends Component {
     }
     generateConvo() {
         if(this.state.mode === 0){
-        return  <Convo turns = {this.props.turns} typemode = {this.state.typemode} score = {this.state.score} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} updateWrapper = {this.updateWrapper.bind(this)} key ="convo"/>
+        return  <Convo turns = {this.props.turns} typemode = {this.state.typemode} score = {this.state.score} round = {this.state.round} setScore = {this.props.setScore.bind(this)}  answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)}  players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} updateWrapper = {this.updateWrapper.bind(this)} key ="convo"/>
     }
     }
     generateModals() {
