@@ -5,6 +5,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
 
   &__main {
     position: fixed;
@@ -18,9 +19,11 @@
   }
 
   &__btn {
-    margin-top: 25px;
-    padding: 5px 10px;
-    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 36px;
+    background-color: #EEE;
     border: none;
     cursor: pointer;
   }

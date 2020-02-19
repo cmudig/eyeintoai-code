@@ -9,8 +9,8 @@ function Modal({ handleClose, show, children }) {
   return (
     <div className={showHideClassname}>
       <section className={styles['modal__main']}>
+        <button className={styles['modal__btn']} onClick={handleClose}>X</button>
         {children}
-        <button className={styles['modal__btn']} onClick={handleClose}>Close</button>
       </section>
     </div>
   );
