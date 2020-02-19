@@ -95,19 +95,16 @@
 
   &__btn {
     display: inline-block;
-
-    padding: 8px 24px;
+    padding: 11px 24px;
     background-color: #3AA757;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
     text-decoration: none;
     text-align: right;
     color: white;
     cursor: pointer;
 
-    &:not(:last-child) {
-      margin-right: 20px;
-    }
-    
     &:last-child {
+      margin-left: 20px;
       background-color: #4c8bf5;
     }
   }
