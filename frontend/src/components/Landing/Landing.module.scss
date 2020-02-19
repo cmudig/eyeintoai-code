@@ -103,8 +103,8 @@
     color: white;
     cursor: pointer;
 
-    &:last-child {
-      margin-left: 20px;
+    &:first-child {
+      margin-right: 20px;
       background-color: #4c8bf5;
     }
   }

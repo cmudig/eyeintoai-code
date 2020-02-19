@@ -226,7 +226,6 @@ class Home extends Component {
                 </p>
               </div>
               <div className={styles['home__links']}>
-                <div id="g-signin2" onClick={() => { this.props.signOut(); }} />
                 <button
                   type="button"
                   className={styles['home__btn']}
@@ -234,6 +233,7 @@ class Home extends Component {
                 >
                   How to Play
                 </button>
+                <div id="g-signin2" onClick={() => { this.props.signOut(); }} />
               </div>
             </div>
           </div>
