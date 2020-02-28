@@ -18,9 +18,9 @@ import soccerBall from '../image/samples/soccerball.jpg'
 export const StaticData = {
     animal:[
     {
-    url: poodle,
+    url: poodle, /* fixed */
 	correctURLs: [166, 39, 23, 85, 188, 21, 182, 478],
-	wrongVizURLs: [39, 330],
+	wrongVizURLs: [201, 502],
 	classLabels: ['dog', 'dogs', 'poodle', 'poodles', 'standard poodle', 'standard poodles'],
 	hint: 'animals',
 },
