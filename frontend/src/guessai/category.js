@@ -83,11 +83,19 @@ class Category extends Component {
     }
 
     for (let i = 0; i < 4; i++) {
-      images.push(<img src={category[ranNum[i]].url} alt={category[ranNum[i]].classLabels[0]} key={category[ranNum[i]].classLabels[0]} onClick={(ev) => { 
-        this.props.update({ explain_round: {categorySelect:categoryName, imgSelect: _.get(category[ranNum[i]].classLabels, 0, "")}});
-        this.props.setAnswer(category[ranNum[i]]);
-        this.props.movetoNext(2)
-      }} />)
+      images.push(
+        <div>
+          <img
+            src={category[ranNum[i]].url}
+            alt={category[ranNum[i]].classLabels[0]}
+            key={category[ranNum[i]].classLabels[0]} onClick={() => {
+              this.props.update({ explain_round: { categorySelect: categoryName, imgSelect: _.get(category[ranNum[i]].classLabels, 0, "") } });
+              this.props.setAnswer(category[ranNum[i]]);
+              this.props.movetoNext(2);
+            }}
+          />
+        </div>
+      );
     }
     element = <div className="select-Category" key="selectCategory">
       <div className="title">Select an image</div>

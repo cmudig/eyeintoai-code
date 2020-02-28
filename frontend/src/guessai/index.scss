@@ -458,19 +458,23 @@ body, .App {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        width: 95%;
-        max-width: 1200px;
-        margin: 0 auto;
+        margin: 0 10%;
+
+        div {
+          display: flex;
+          margin: 5px;
+          padding: 20px;
+          background-color: #EEE;
+        }
 
         img {
-          transform: .3s;
-          border: 6px solid #fff;
-          align-self: center;
-          cursor: pointer;
           display: block;
-          width: 25%;
-          margin: 10px;
+          align-self: center;
+          width: 100%;
+          border: 6px solid #fff;
           border-radius: 16px;
+          transform: all .3s;
+          cursor: pointer;
 
           &:hover {
             border: 6px solid $maincolor;
