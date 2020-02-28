@@ -85,7 +85,7 @@ class Convo extends Component {
                   {answers}
                 </div>
                 <div className={'profile plyr' + (player)} key={'profile' + element.length}>
-                  <i className={this.props.players[player - 1]}></i>
+                  {this.props.players[player - 1].img}
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@ class Convo extends Component {
                   {answers}
                 </div>
                 <div className={'profile plyr' + (player)} key={'profile' + element.length}>
-                  <i className={this.props.players[player - 1]}></i>
+                  {this.props.players[player - 1].img}
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ class Convo extends Component {
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div className={'profile plyr' + (player)} key={'profile' + element.length}>
-                  <i className={this.props.players[player - 1]}></i>
+                  {this.props.players[player - 1].img}
                 </div>
               </div>
             </div>
@@ -145,7 +145,7 @@ class Convo extends Component {
                 {answers}
               </div>
               <div className={'profile plyr' + (player + 1)} key={'profile' + element.length}>
-                <i className={this.props.players[player]}></i>
+                {this.props.players[player].img}
               </div>
             </div>
           </div>
@@ -178,7 +178,7 @@ class Convo extends Component {
             {answers}
           </div>
           <div className="profile plyr1" key={'profile' + element.length}>
-            <i className={this.props.players[0]}></i>
+            {this.props.players[0].img}
           </div>
         </div>
       </div>
