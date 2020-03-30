@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { StaticData } from './images'
+import { StaticData } from '../data/images'
 
 const vis = [];
 for(let i = 0; i < 528; i++){

@@ -17,7 +17,7 @@ import train from '../image/samples/train.jpg';
 
 import starfish from '../image/samples/starfish.jpg';
 // import spiderMonkey from '../image/samples/spiderMonkey.jpg';
-import mudTurtle from '../image/samples/mudTurtle.jpg';
+import mudTurtle from '../image/samples/mudturtle.jpg';
 import kingSnake from '../image/samples/kingSnake.jpg';
 import banana from '../image/samples/banana.jpg';
 import orange from '../image/samples/orange.jpg';
