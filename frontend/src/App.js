@@ -6,7 +6,7 @@ import 'firebase/auth';
 import dotenv from 'dotenv';
 
 import Landing from './components/Landing/Landing';
-import GuessAI from './guessai/guessai.js';
+import GameState from './components/GameState/GameState';
 
 import './guessai/index.scss';
 import cmuLogo from './image/CMU_Logo.png';
@@ -89,7 +89,6 @@ class App extends Component {
   }
 
   selectProfile() {
-    // randomly select players' profile
     const ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let ran1, ran2, ranTemp;
     for (let i = 0; i < 10; i++) {
@@ -115,7 +114,6 @@ class App extends Component {
     };
   }
 
-  // Change the url depending on the pages
   setMenu(i) {
     const menuClass = [' ', ' '];
     menuClass[i] = 'active';
@@ -128,7 +126,6 @@ class App extends Component {
       for (var i = 0; i < providerData.length; i++) {
         if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
         providerData[i].uid === googleUser.getBasicProfile().getId()) {
-        // We don't need to reauth the Firebase connection.
           return true;
         }
       }
@@ -210,7 +207,7 @@ class App extends Component {
             />
           )} />
           <Route path="/play" render={() => (
-            <GuessAI
+            <GameState
               key="guessAI"
               players={this.state.players}
               update={this.update.bind(this)}

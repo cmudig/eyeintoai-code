@@ -8,6 +8,8 @@ import Game from '../../guessai/game.js';
 import Round from '../../guessai/round.js';
 import ScoreImage from '../../guessai/scoreimages.js';
 
+import styles from './GameState.module.scss';
+
 class GameState extends Component {
   state = {
     answer: {},
@@ -27,7 +29,6 @@ class GameState extends Component {
     answerRecord: [],
     testPhase: false,
     guessPerRound: {},
-    prevRoundScore: 0,
   };
 
   UNSAFE_componentWillMount() {
@@ -100,7 +101,12 @@ class GameState extends Component {
         this.setState({
           guessPerRound: {
             ...this.state.guessPerRound,
-            [this.state.entireRound]: { 'featuresChosenByExplainer': imageIdx },
+            [this.state.entireRound]: {
+              'featuresChosenByExplainer': [
+                ...this.state.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'],
+                imageIdx,
+              ],
+            },
           },
         });
       }
@@ -108,7 +114,12 @@ class GameState extends Component {
     this.setState({
       guessPerRound: {
         ...this.state.guessPerRound,
-        [this.state.entireRound]: { 'guesses': newGuess },
+        [this.state.entireRound]: {
+          'guesses': [
+            ...this.state.guessPerRound[this.state.entireRound]['guesses'],
+            newGuess,
+          ],
+        },
       },
     });
   }
@@ -131,7 +142,12 @@ class GameState extends Component {
         this.setState({
           guessPerRound: {
             ...this.state.guessPerRound,
-            [this.state.entireRound]: { 'featuresChosenByExplainer': imageIdx },
+            [this.state.entireRound]: {
+              'featuresChosenByExplainer': [
+                ...this.state.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'],
+                imageIdx,
+              ],
+            },
           },
         });
       }
@@ -139,14 +155,19 @@ class GameState extends Component {
     this.setState({
       guessPerRound: {
         ...this.state.guessPerRound,
-        [this.state.entireRound]: { 'hintRound': hintGuess },
+        [this.state.entireRound]: {
+          'hintRound': [
+            ...this.state.guessPerRound[this.state.entireRound]['hintRound'],
+            hintGuess,
+          ],
+        },
       },
     });
   }
 
   addRound() {
     this.setState({ entireRound: this.state.entireRound + 1 });
-    this.movetoNext(4);
+    this.moveToNext(4);
   }
 
   setScore(n) {
@@ -179,7 +200,7 @@ class GameState extends Component {
     this.setState({ scoreImages: [...this.state.scoreImages, n] });
   }
 
-  movetoNext(n) {
+  moveToNext(n) {
     window.setTimeout(() => {
       if(n === 3) {
         this.setState({ blueOpacity : 1 });
@@ -194,7 +215,7 @@ class GameState extends Component {
     if (this.state.mode == 0) {
       return (
         <Loading
-          movetoNext={this.movetoNext.bind(this)}
+          movetoNext={this.moveToNext.bind(this)}
           players={this.state.players}
         />
       );
@@ -203,14 +224,14 @@ class GameState extends Component {
         <Category
           setTestPhase={this.setTestPhase.bind(this)}
           setAnswer={this.setAnswer.bind(this)}
-          movetoNext={this.movetoNext.bind(this)}
+          movetoNext={this.moveToNext.bind(this)}
           update={this.props.update}
         />
       );
     } else if (this.state.mode == 2) {
       return (
         <Vis
-          movetoNext={this.movetoNext.bind(this)}
+          movetoNext={this.moveToNext.bind(this)}
           getPlayerHint={this.getPlayerHint.bind(this)}
           update={this.props.update}
           answer={this.state.answer}
@@ -228,11 +249,11 @@ class GameState extends Component {
           guessPerRound={this.guessPerRound}
           addRound={this.addRound.bind(this)}
           score={this.state.score}
-          hintVis={this.state.hintVis}
+          hintVis={this.state.hints}
           hintVisUrl={this.state.hintsURL}
           players={this.state.players}
           setScoreImages={this.setScoreImages.bind(this)}
-          movetoNext={this.movetoNext.bind(this)}
+          movetoNext={this.moveToNext.bind(this)}
           addGuess={this.addGuess.bind(this)}
         />
       );
@@ -242,12 +263,12 @@ class GameState extends Component {
           testPhase={this.testPhase}
           entireRound={this.state.entireRound}
           turns={this.state.turns}
-          movetoNext={this.movetoNext.bind(this)}
+          movetoNext={this.moveToNext.bind(this)}
           update={this.props.update}
           players={this.state.players}
           setAnswer={this.setAnswer.bind(this)}
           setHintVisUrl={this.setHintsURL.bind(this)}
-          setHint={this.setHint.bind(this)}
+          setHint={this.setHints.bind(this)}
           setPlayerHint={this.setPlayerHint.bind(this)}
           answerRecord={this.state.answerRecord}
         />
@@ -262,7 +283,7 @@ class GameState extends Component {
   render() {
     return (
       <div key="main">
-        <div id="blue" style={{ opacity: this.state.blueOpacity }}/>
+        <div className={styles['GameState__blue']} style={{ opacity: this.state.blueOpacity }}/>
         {this.renderMode()}
       </div>
     );
