@@ -133,7 +133,7 @@ body, .App {
   .header {
     width: 100%;
     padding: 0 32px;
-    height: 54px;
+    height: 6vh;
     background: #fff;
     box-shadow: 0px 1px 4px rgba(39, 75, 130, 0.2);
     z-index: 999;
@@ -1416,7 +1416,6 @@ width: 100%;
   }
 
   position: relative;
-  margin-top: 0;
   transition: .3s;
   width: 95%;
   max-width: 1000px;
@@ -1425,6 +1424,7 @@ width: 100%;
   text-align: center;
   z-index: 999;
   background: #fff;
+  margin-top: 6.5vh;
 
   #answerImg {
     width: 95%;

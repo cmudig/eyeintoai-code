@@ -156,7 +156,7 @@ class Category extends Component {
     let prevItem = category[Math.floor(Math.random() * category.length)];
     for (let i = 0; i < 4; i++) {
       let item = category[Math.floor(Math.random() * category.length)];
-      while (prevItem.url == item.url) {
+      while (prevItem.url === item.url) {
         item = category[Math.floor(Math.random() * category.length)];
       }
       images.push(

@@ -1,43 +1,35 @@
 import React, { Component } from 'react';
-import './index.scss';
 
-import Convo from './convo.js';
-import Profile from './profile.js';
-import 'lodash';
-import Score from './score.js';
-import Hint from './hintmodal.js';
-import Pause from './pause.js';
+import Chat from '../../guessai/convo.js';
+import Profile from '../../guessai/profile.js';
+import Score from '../../guessai/score.js';
+import Hint from '../../guessai/hintmodal.js';
+import Pause from '../../guessai/pause.js';
 
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      round: 1,
-      timerWidth: '300px',
-      mode: 1,
-      // 0: game, 1: pause,  2: stop, 3: hint, 4:score
-      opacity: 1,
-      display: 'block',
-      typemode : this.props.turns[this.props.entireRound - 1] === 1,
-      // player's current mode. true: select mode, false: guess mode
-      score: this.props.score,
-      hint: 'animal',
-      hintMode: false,
-      hintContent:  <span id = "hintContent" key = "hintcontent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>,
-      inputAnswers: [],
-      answerSet:[],
-    };
-    this.answer = this.props.answer;
-    this.addRound = this.props.addRound;
     this.timer = '';
   }
 
-  componentDidMount() {
-    this.setState({ selected: [] });
-  }
+  state = {
+    score: this.props.score,
+    round: 1,
+    addRound: this.props.addRound,
+    mode: 1,
+    hint: 'landAnimal',
+    hintMode: false,
+    hintContent: <span id="hintContent" key="hintcontent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>,
+    selected: [],
+    inputAnswers: [],
+    answers: [],
+    opacity: 1,
+    display: 'block',
+    timerWidth: '300px',
+    typeMode: this.props.turns[this.props.entireRound - 1] === 1,
+  };
 
-  countRound = () => {
-    // add one round after each round
+  countRound() {
     this.setState({ round: this.state.round + 1 });
   }
 
@@ -46,33 +38,38 @@ class Game extends Component {
   }
 
   clearTimer() {
-    clearInterval(this.timer);
+    clearInterval(this.state.timer);
   }
 
   saveAnswers(n, a) {
-    // save the answers so we can save it on Firebase after the round + prompt typed answers on the score modal
-    const element = this.state.answerSet;
-    element.push(a);
-    this.setState({ inputAnswers: n, answerSet: element });
+    this.setState({
+      inputAnswers: n,
+      answers: [...this.state.answers, a],
+    });
   }
 
   changeScore(n) {
-    // if player gets score, update the score
     this.setState({ score: n });
     this.props.setScore(n);
   }
 
-  // Generate 4 visualizations for the Guess box
-  generateVis() {
-    const element = [];
+  generateVisual() {
+    const elements = [];
     for (let i = 0; i < Math.min(4, this.state.round); i++) {
-      element.push(<div className = "visWrapper" key = {'viswrapper' + i}>
-        <img src={this.props.hintVis[i]} alt={'vis' + i} key={'vis' + i} /></div>);
+      elements.push(
+        <div className="Visual__wrapper" key={'visual_wrapper_' + i}>
+          <img
+            key={'visual_' + i}
+            src={this.props.hints[i]}
+            alt={'visual_' + i}
+          />
+        </div>
+      );
     }
     for (let i = 0; i < (4 - this.state.round); i++) {
-      element.push(<div className = "visWrapper" key={'vis' + i + 5}> ? </div>);
+      elements.push(<div className="Visual__wrapper" key={'visual_wrapper_' + i + 5}> ? </div>);
     }
-    return element;
+    return elements;
   }
 
   setTimer() {
@@ -83,12 +80,22 @@ class Game extends Component {
       if (width === 0) {
         clearInterval(this.timer);
         if(this.state.round < 4) {
-          this.setState({ round: (this.state.round * 1) + 1,
-            mode: 1 });
+          this.setState({ round: (this.state.round * 1) + 1, mode: 1 });
         } else if (this.state.round === 4) {
-          let hint = this.answer.hint;
-          hint = <span id = "hintContent" key = "hintcontent" className = "active">{hint}</span>;
-          this.setState({ round: (this.state.round * 1) + 1, mode: 1, hintContent: hint, hintMode: true });
+          this.setState({
+            round: (this.state.round * 1) + 1,
+            mode: 1,
+            hintContent: (
+              <span
+                id="hintContent"
+                key="hintcontent"
+                className="active"
+              >
+                {this.props.answer.hint}
+              </span>
+            ),
+            hintMode: true,
+          });
         } else if(this.state.round === 5) {
           this.setState({ mode: 3 });
         } else {
@@ -110,13 +117,19 @@ class Game extends Component {
     return this.state.hintContent;
   }
 
-  // if the player is not in guessing turn, show the answer modal
   renderAnswerBox() {
     const element = [];
     for(let i = 0; i < this.props.answer.classLabels.length / 2; i++) {
-      element.push(<div className="answer" key = {'answer' + i}>{this.props.answer.classLabels[i * 2]}(s)</div>);
+      element.push(
+        <div
+          className="answer"
+          key={'answer' + i}
+        >
+          {this.props.answer.classLabels[i * 2]}(s)
+        </div>
+      );
     }
-    if(this.state.typemode === true) {
+    if(this.state.typeMode === true) {
       return (
         <div className="answerBox">
           <img className="answerImg" src={this.props.answer.url} alt="Answer" />
@@ -128,9 +141,28 @@ class Game extends Component {
     }
   }
 
-  generateConvo() {
+  generateChat() {
     if(this.state.mode === 0) {
-      return <Convo turns = {this.props.turns} typemode = {this.state.typemode} score = {this.state.score} round = {this.state.round} setScore = {this.props.setScore.bind(this)} answer = {this.answer} saveAnswers = {this.saveAnswers.bind(this)} addRound = {this.addRound.bind(this)} changeMode = {this.changeMode.bind(this)} players = {this.props.players} hintMode = {this.state.hintMode} entireRound = {this.props.entireRound} typedAnswer = {this.state.typedAnswer} clearTimer = {this.clearTimer.bind(this)} updateWrapper = {this.updateWrapper.bind(this)} key ="convo"/>;
+      return (
+        <Chat
+          key="convo"
+          turns={this.props.turns}
+          round={this.state.round}
+          typemode={this.state.typemode}
+          score={this.state.score}
+          setScore={this.props.setScore.bind(this)}
+          answer={this.answer}
+          saveAnswers={this.saveAnswers.bind(this)}
+          addRound={this.addRound.bind(this)}
+          changeMode={this.changeMode.bind(this)}
+          players={this.props.players}
+          hintMode={this.state.hintMode}
+          entireRound={this.props.entireRound}
+          typedAnswer={this.state.typedAnswer}
+          clearTimer={this.clearTimer.bind(this)}
+          updateWrapper={this.updateWrapper.bind(this)}
+        />
+      );
     }
   }
 
@@ -142,7 +174,7 @@ class Game extends Component {
       return <Hint answer={this.answer} addHintSelected= {this.props.addHintSelected} turns = {this.props.turns} round={this.state.round} entireRound={this.props.entireRound} setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />;
     case 4:
       return <Score answer={this.answer} turns = {this.props.turns} players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} setScoreImages = {this.props.setScoreImages.bind(this)} movetoNext = {this.props.movetoNext.bind(this)}/>;
-    default:
+    default: break;
     }
   }
 
@@ -167,7 +199,7 @@ class Game extends Component {
                 </div>
                 <div className="hint" key="hints"><span className = "title">Hint:</span> It's a type of {this.renderFirstHint()}</div>
                 <div className="selected-vis" key="visDisplay">
-                  {this.generateVis()}
+                  {this.generateVisual()}
                 </div>
                 <div className="tip">
                   {this.state.typemode ? 'This is your image...sit back and relax.' : 'It\'s time to guess... go, go, go!'}
@@ -176,7 +208,7 @@ class Game extends Component {
             </div>
             <div className="side right">
               <div className="convo" key="convo">
-                {this.generateConvo()}
+                {this.generateChat()}
               </div>
             </div>
           </div>

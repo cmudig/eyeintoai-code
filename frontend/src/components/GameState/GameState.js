@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 
-import Category from '../Category/Category';
 import Loading from '../../guessai/loading.js';
+import Category from '../Category/Category';
 import Vis from '../../guessai/visualizations.js';
-import Game from '../../guessai/game.js';
-import Round from '../../guessai/round.js';
+import Game from '../Game/Game';
+import Round from '../Round/Round';
 import ScoreImage from '../../guessai/scoreimages.js';
 
 import styles from './GameState.module.scss';
@@ -13,7 +13,7 @@ import styles from './GameState.module.scss';
 class GameState extends Component {
   state = {
     answer: {},
-    turns: 0,
+    turns: [],
     mode: 0,
     entireRound: 1,
     blueOpacity: 0,
@@ -49,8 +49,7 @@ class GameState extends Component {
   }
 
   randomizeTurn() {
-    const randomNum = Math.random() * (4 - 1) + 1;
-    this.setState({ turns: randomNum });
+    this.setState({ turns: [2, 1, 3] });
   }
 
   setAnswer(n) {
@@ -212,14 +211,14 @@ class GameState extends Component {
   }
 
   renderMode() {
-    if (this.state.mode == 0) {
+    if (this.state.mode === 0) {
       return (
         <Loading
           movetoNext={this.moveToNext.bind(this)}
           players={this.state.players}
         />
       );
-    } else if (this.state.mode == 1) {
+    } else if (this.state.mode === 1) {
       return (
         <Category
           setTestPhase={this.setTestPhase.bind(this)}
@@ -228,7 +227,7 @@ class GameState extends Component {
           update={this.props.update}
         />
       );
-    } else if (this.state.mode == 2) {
+    } else if (this.state.mode === 2) {
       return (
         <Vis
           movetoNext={this.moveToNext.bind(this)}
@@ -237,7 +236,7 @@ class GameState extends Component {
           answer={this.state.answer}
         />
       );
-    } else if (this.state.mode == 3) {
+    } else if (this.state.mode === 3) {
       return (
         <Game
           answer={this.state.answer}
@@ -249,31 +248,31 @@ class GameState extends Component {
           guessPerRound={this.guessPerRound}
           addRound={this.addRound.bind(this)}
           score={this.state.score}
-          hintVis={this.state.hints}
-          hintVisUrl={this.state.hintsURL}
+          hints={this.state.hints}
+          hintsURL={this.state.hintsURL}
           players={this.state.players}
           setScoreImages={this.setScoreImages.bind(this)}
           movetoNext={this.moveToNext.bind(this)}
           addGuess={this.addGuess.bind(this)}
         />
       );
-    } else if (this.state.mode == 4) {
+    } else if (this.state.mode === 4) {
       return (
         <Round
           testPhase={this.testPhase}
           entireRound={this.state.entireRound}
           turns={this.state.turns}
-          movetoNext={this.moveToNext.bind(this)}
+          moveToNext={this.moveToNext.bind(this)}
           update={this.props.update}
           players={this.state.players}
           setAnswer={this.setAnswer.bind(this)}
-          setHintVisUrl={this.setHintsURL.bind(this)}
-          setHint={this.setHints.bind(this)}
+          setHintsURL={this.setHintsURL.bind(this)}
+          setHints={this.setHints.bind(this)}
           setPlayerHint={this.setPlayerHint.bind(this)}
           answerRecord={this.state.answerRecord}
         />
       );
-    } else if (this.state.mode == 5) {
+    } else if (this.state.mode === 5) {
       return (
         <ScoreImage scoreImages={this.state.scoreImages} />
       );
@@ -282,10 +281,10 @@ class GameState extends Component {
 
   render() {
     return (
-      <div key="main">
+      <Fragment>
         <div className={styles['GameState__blue']} style={{ opacity: this.state.blueOpacity }}/>
         {this.renderMode()}
-      </div>
+      </Fragment>
     );
   }
 }

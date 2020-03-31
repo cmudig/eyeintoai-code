@@ -1,0 +1,50 @@
+.Round {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+
+  &__title {
+    margin-bottom: 48px;
+    font-family: 'VT323', monospace;
+    font-size: 50px;
+    font-weight: normal;
+    text-align: center;
+    color: rgba(0,0,0,0.8);
+  }
+
+  &__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 22px;
+  }
+}
+
+.Profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 36px;
+  text-align: center;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    background-color: #01843D;
+
+    & i {
+      font-size: 24px;
+      color: #fff;
+    }
+  }
+}

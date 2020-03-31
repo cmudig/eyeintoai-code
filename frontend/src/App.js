@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Link } from 'react-router-dom';
+import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -8,8 +8,8 @@ import dotenv from 'dotenv';
 import Landing from './components/Landing/Landing';
 import GameState from './components/GameState/GameState';
 
-import './guessai/index.scss';
-import cmuLogo from './image/CMU_Logo.png';
+import './App.scss';
+import CMULogo from './image/CMU_Logo.png';
 
 dotenv.config();
 const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-dog', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
@@ -51,7 +51,6 @@ class App extends Component {
         messagingSenderId: process.env.REACT_APP_messagingSenderId,
         appId: process.env.REACT_APP_appId,
       };
-
       const firebaseApp = firebase.initializeApp(firebaseConfig);
       this.db = firebaseApp.firestore();
     }
@@ -86,7 +85,7 @@ class App extends Component {
     this.signOut();
     e.preventDefault();
     e.returnValue = true;
-  }
+  };
 
   selectProfile() {
     const ranNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -183,38 +182,39 @@ class App extends Component {
   }
 
   render() {
+    const rootComponent = (
+      <Landing
+        isSignedIn={this.state.isSignedIn}
+        startNewLog={this.startNewLog.bind(this)}
+        signOut={this.signOut.bind(this)}
+        setMenu={this.setMenu.bind(this)}
+      />
+    );
+
+    const playComponent = (
+      <GameState
+        players={this.state.players}
+        update={this.update.bind(this)}
+        setMenu={this.setMenu.bind(this)}
+        handleLeavePage={this.handleLeavePage.bind(this)}
+      />
+    );
+
     return (
-      <HashRouter basename = "/">
-        <div className="App" style={{ width: '100%', height: '100%', position:'relative' }} key="main">
-          <div className="header">
-            <div id="cmu">
-              <img src = {cmuLogo} alt="CMU logo" />
-            </div>
-            <Link
-              to="/"
-              className="title"
-              onClick={()=> { this.setState({ gameClass: [' ', ' '] }); }}
-            >
+      <HashRouter basename="/">
+        <div>
+          <header className="Header">
+            <img className="Header__logo" src={CMULogo} alt="Carnegie Mellon University" />
+            <Link className="Header__link" to="/" onClick={()=> { this.setState({ gameClass: [' ', ' '] }); }}>
               Interpretable Machine Learning Research Project
             </Link>
-          </div>
-          <Route exact path="/" render={() => (
-            <Landing
-              isSignedIn={this.state.isSignedIn}
-              startNewLog={this.startNewLog.bind(this)}
-              signOut={this.signOut.bind(this)}
-              setMenu={this.setMenu.bind(this)}
-            />
-          )} />
-          <Route path="/play" render={() => (
-            <GameState
-              key="guessAI"
-              players={this.state.players}
-              update={this.update.bind(this)}
-              setMenu={this.setMenu.bind(this)}
-              handleLeavePage={this.handleLeavePage.bind(this)}
-            />
-          )} />
+          </header>
+          <main>
+            <Switch>
+              <Route path="/" render={() => rootComponent} exact />
+              <Route path="/play" render={() => playComponent} exact />
+            </Switch>
+          </main>
         </div>
       </HashRouter>
     );
