@@ -30,7 +30,7 @@ class Round extends Component {
         randomVisualOrder[secondNum] = tempNum;
       }
       (randomNum % 2 === 0) ? answers = StaticData.landAnimal : answers = StaticData.electronics;
-      if (this.props.entireRound == 1 && this.props.testPhase) {
+      if (this.props.entireRound === 1 && this.props.testPhase) {
         secondNum = 2;
         answers = StaticData.landAnimal;
       }

@@ -78,7 +78,8 @@ class Category extends Component {
               className={styles['Category__button']}
               onClick={() => {
                 this.props.setTestPhase();
-                if (this.state.randomNums[0] % 2 === 1) {
+                const randomBool = Math.random() >= 0.5;
+                if (randomBool) {
                   const item = StaticData.landAnimal[Math.floor(Math.random() * StaticData.landAnimal.length)];
                   this.props.setAnswer(item);
                   this.props.update({
@@ -160,7 +161,7 @@ class Category extends Component {
         item = category[Math.floor(Math.random() * category.length)];
       }
       images.push(
-        <div>
+        <div key={`${i}_${item.url}`}>
           <img
             src={item.url}
             alt={item.classLabels[0]}

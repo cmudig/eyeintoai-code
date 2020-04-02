@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import Loading from '../../guessai/loading.js';
 import Category from '../Category/Category';
-import Vis from '../../guessai/visualizations.js';
+import ImageSelect from '../ImageSelect/ImageSelect';
 import Game from '../Game/Game';
 import Round from '../Round/Round';
 import ScoreImage from '../../guessai/scoreimages.js';
@@ -229,7 +229,7 @@ class GameState extends Component {
       );
     } else if (this.state.mode === 2) {
       return (
-        <Vis
+        <ImageSelect
           movetoNext={this.moveToNext.bind(this)}
           getPlayerHint={this.getPlayerHint.bind(this)}
           update={this.props.update}
