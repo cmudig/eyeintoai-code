@@ -200,14 +200,12 @@ class GameState extends Component {
   }
 
   moveToNext(n) {
-    window.setTimeout(() => {
-      if(n === 3) {
-        this.setState({ blueOpacity : 1 });
-      } else{
-        this.setState({ blueOpacity : 0 });
-      }
-      this.setState({ mode: n });
-    }, 100);
+    if(n === 3) {
+      this.setState({ blueOpacity : 1 });
+    } else {
+      this.setState({ blueOpacity : 0 });
+    }
+    this.setState({ mode: n });
   }
 
   renderMode() {

@@ -73,7 +73,7 @@ class ImageSelect extends Component {
   renderVisuals() {
     const elements = [];
     const images = this.state.nonSelected.concat(this.state.selected);
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       elements.push(
         <div key={'vis' + i}>
           <div className="order" id={'order' + i}>

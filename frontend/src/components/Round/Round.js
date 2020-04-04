@@ -13,11 +13,11 @@ class Round extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.props.handleLeavePage);
-    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 100000);
+    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 1000);
     const player = this.props.turns[this.props.entireRound - 1];
     if (player !== 1) {
       const randomNum = (Math.floor(Math.random() * 2));
-      const randomVisualOrder = [0, 1, 2, 3, 4, 5, 6, 7];
+      const randomVisualOrder = [0, 1, 2, 3, 4, 5];
       let firstNum = 0;
       let secondNum = 0;
       let tempNum = 0;
@@ -29,7 +29,12 @@ class Round extends Component {
         randomVisualOrder[firstNum] = randomVisualOrder[secondNum];
         randomVisualOrder[secondNum] = tempNum;
       }
-      (randomNum % 2 === 0) ? answers = StaticData.landAnimal : answers = StaticData.electronics;
+      if (randomNum % 2 === 0) {
+        answers = StaticData.landAnimal;
+      } else {
+        answers = StaticData.electronics;
+      }
+
       if (this.props.entireRound === 1 && this.props.testPhase) {
         secondNum = 2;
         answers = StaticData.landAnimal;

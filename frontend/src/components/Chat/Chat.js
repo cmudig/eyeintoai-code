@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './index.scss';
 
-class Convo extends Component {
+import ChatAnswers from '../../data/ChatAnswers';
+import HintAnswers from '../../data/HintAnswers';
+
+class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,71 +13,50 @@ class Convo extends Component {
       convo: [],
       typedAnswer: [],
     };
-    this.answers = ['wolf', 'bug', 'dog', 'cat', 'fur', 'cotton', 'fabric', 'web', 'spider', 'fox', 'rubber', 'mouse', 'flower', 'polar bear', 'vase', 'plant', 'mint', 'daisy', 'mouse', 'glass', 'cosmos', 'space', 'blanket', 'monkey', 'otter', 'goose', 'lion', 'bird', 'peacock', 'sky', 'ceramic', 'cotton', 'linen'];
-    // lists of answers for automated players guessing when a hint is given
-    this.hintAnswer = { 'animals': ['poodle', 'alphaca', 'lama', 'snake', 'spider', 'cat', 'parrot', 'jellyfish', 'otter', 'frog', 'bee', 'butterfly', 'shark', 'turtle', 'tiger', 'bear', 'deer', 'mouse', 'hamster'],
-      'food': ['acorn', 'plum', 'strawberry', 'corn', 'pumpkin', 'candy', 'watermelon', 'peanut'],
-      'toy': ['confetti', 'soccer ball', 'toy bear', 'puppet', 'balloon'],
-      'transportation': ['train', 'car', 'plane', 'bike', 'metro', 'ship'],
-      'building': ['tower', 'theatre', 'school', 'temple'],
-      'home appliances': ['bottle', 'toaster', 'camera', 'socks', 'vacuum cleaner', 'spoon', 'desk', 'bed'] };
-    this.convo = [];
-    this.answer = this.props.answer;
+    this.messages = [];
     this.score = this.props.score;
   }
 
   componentDidMount() {
-    // start the interval for generating speech bubbles of answers
-    this.convoGenerate();
+    this.messageGenerator();
   }
 
   componentWillUnmount() {
     if (this.props.saveAnswers) {
-      // save answers to show it on the score modal
       this.props.saveAnswers(this.state.typedElement, this.state.generateAnswer);
     }
-    clearInterval(this.convo);
+    clearInterval(this.messages);
   }
 
-  // if someone guessed the answer correctly, run this function
   rightAnswer(n, i = undefined) {
-    clearInterval(this.convo);
+    clearInterval(this.messages);
     this.props.clearTimer();
-    // the one who guessed right get score
     this.score[n][1] += 30 - this.props.round * 5;
-    // if somebody guessed right, the one who selected the original image get always get the score
     this.score[this.props.turns[this.props.entireRound - 1] - 1][1] += 10;
     if (i) {
-      // if second person also guessed right... the person also gets the score. But this can only happen when there's hint.
       this.score[i][1] += 5;
       this.score[this.props.turns[this.props.entireRound - 1] - 1][1] += 10;
     }
     this.props.setScore(this.score);
-    // disable the input
     this.setState({ disable: true, inputOpcity: 0.5 });
     window.setTimeout(function() { this.props.changeMode(4); }.bind(this), 300);
   }
 
-  convoGenerate() {
-    let answer;
+  messageGenerator() {
+    let answer = '';
     if (this.props.hintMode === true) {
-      answer = this.hintAnswer[this.props.answer.hint];
+      answer = HintAnswers[this.props.answer.hint];
     } else {
-      answer = this.answers;
+      answer = ChatAnswers;
     }
     let answers, player, element, displayElement = [];
-
-    // make the loading bubble animation opaque
     this.setState({ opacity: 1 });
-
-    // if it's not home page of the game, display the convo for only 20 secs
     if (this.props.mode !== 'home') {
-      this.convo = setInterval(function() {
+      this.messages = setInterval(function() {
         answers = answer[Math.floor(Math.random() * answer.length)];
         element = this.state.generateAnswer;
         displayElement = this.state.generateDisplay;
 
-        // if it's the player's guessing round, make the speaker random(either player 2 or 3)
         if (this.props.turns[this.props.entireRound - 1] === 1) {
           player = (Math.floor(Math.random() * 2)) + 2;
           const convo = (
@@ -93,7 +74,6 @@ class Convo extends Component {
           element.push(convo);
           displayElement.push(convo);
         } else {
-          // make a player speaking if it's the player's guessing round
           switch (this.props.turns[this.props.entireRound - 1]) {
           case 2: player = 3;
             break;
@@ -128,13 +108,12 @@ class Convo extends Component {
           element.push(convo);
           displayElement.push(displayConvo);
         }
-        if (this.answer.classLabels.includes(answers)) { this.rightAnswer(player - 1); }
+        if (this.props.answer.classLabels.includes(answers)) { this.rightAnswer(player - 1); }
         this.setState({ generateAnswer: element, generateDisplay: displayElement, time: (this.state.time * 1) + 1 });
         this.autoScroll();
       }.bind(this), 4000);
     } else {
-      // generating convo on the home page
-      this.convo = setInterval(function() {
+      this.messages = setInterval(function() {
         answers = answer[Math.floor(Math.random() * answer.length)];
         element = this.state.generateDisplay;
         player = (Math.floor(Math.random() * 2)) + 1;
@@ -157,11 +136,10 @@ class Convo extends Component {
     }
   }
 
-  // if player 1 types answer
   addAnswer() {
     const tanswer = document.getElementById('answerType');
     const answers = [tanswer.value.toLowerCase()];
-    if (this.answer.classLabels.includes(tanswer.value.toLowerCase())) {
+    if (this.props.answer.classLabels.includes(tanswer.value.toLowerCase())) {
       this.rightAnswer(0);
       this.props.updateWrapper({ guess:tanswer.value.toLowerCase(), guessHit:true, timeOfAction: Date.now() });
     } else {
@@ -242,4 +220,4 @@ class Convo extends Component {
   }
 }
 
-export default Convo;
+export default Chat;

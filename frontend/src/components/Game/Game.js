@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Chat from '../../guessai/convo.js';
+import Chat from '../Chat/Chat';
 import Profile from '../../guessai/profile.js';
 import Score from '../../guessai/score.js';
-import Hint from '../../guessai/hintmodal.js';
+import Hint from '../HintModal/HintModal';
 import Pause from '../../guessai/pause.js';
 
 class Game extends Component {
@@ -15,7 +15,6 @@ class Game extends Component {
   state = {
     score: this.props.score,
     round: 1,
-    addRound: this.props.addRound,
     mode: 1,
     hint: 'landAnimal',
     hintMode: false,
@@ -105,7 +104,7 @@ class Game extends Component {
           this.setState({ timerWidth: '300px' });
         }.bind(this), 500);
       }
-    }.bind(this), 1000);
+    }.bind(this), 2000);
   }
 
   updateWrapper(newGuess) {
@@ -151,9 +150,9 @@ class Game extends Component {
           typemode={this.state.typemode}
           score={this.state.score}
           setScore={this.props.setScore.bind(this)}
-          answer={this.answer}
+          answer={this.props.answer}
           saveAnswers={this.saveAnswers.bind(this)}
-          addRound={this.addRound.bind(this)}
+          addRound={this.props.addRound.bind(this)}
           changeMode={this.changeMode.bind(this)}
           players={this.props.players}
           hintMode={this.state.hintMode}
@@ -169,11 +168,47 @@ class Game extends Component {
   generateModals() {
     switch(this.state.mode) {
     case 1:
-      return <Pause setTimer = {this.setTimer.bind(this)} changeMode = {this.changeMode.bind(this)} />;
+      return (
+        <Pause
+          setTimer={this.setTimer.bind(this)}
+          changeMode={this.changeMode.bind(this)}
+        />
+      );
     case 3:
-      return <Hint answer={this.answer} addHintSelected= {this.props.addHintSelected} turns = {this.props.turns} round={this.state.round} entireRound={this.props.entireRound} setTimer={this.setTimer.bind(this)} changeMode={this.changeMode.bind(this)} score = {this.state.score} changeScore = {this.changeScore.bind(this)} setScore = {this.props.setScore.bind(this)} key = "hintModal" />;
+      return (
+        <Hint
+          key="hintModal"
+          answer={this.props.answer}
+          addHintSelected={this.props.addHintSelected}
+          turns={this.props.turns}
+          round={this.state.round}
+          entireRound={this.props.entireRound}
+          setTimer={this.setTimer.bind(this)}
+          changeMode={this.changeMode.bind(this)}
+          score={this.state.score}
+          changeScore={this.changeScore.bind(this)}
+          setScore={this.props.setScore.bind(this)}
+        />
+      );
     case 4:
-      return <Score answer={this.answer} turns = {this.props.turns} players = {this.props.players} score={this.state.score} round = {this.props.entireRound} hintVis = {this.props.hintVis} addRound = {this.props.addRound.bind(this)} inputAnswers = {this.state.inputAnswers} setScore = {this.props.setScore.bind(this)} key = "scoreModal" answerSet = {this.state.answerSet} hintVisUrl = {this.props.hintVisUrl} setScoreImages = {this.props.setScoreImages.bind(this)} movetoNext = {this.props.movetoNext.bind(this)}/>;
+      return (
+        <Score
+          key="scoreModal"
+          answer={this.props.answer}
+          turns={this.props.turns}
+          players={this.props.players}
+          score={this.state.score}
+          round={this.props.entireRound}
+          hintVis={this.props.hints}
+          addRound={this.props.addRound.bind(this)}
+          inputAnswers={this.state.inputAnswers}
+          setScore={this.props.setScore.bind(this)}
+          answerSet={this.state.answerSet}
+          hintVisUrl={this.props.hintsURL}
+          setScoreImages={this.props.setScoreImages.bind(this)}
+          movetoNext={this.props.movetoNext.bind(this)}
+        />
+      );
     default: break;
     }
   }
