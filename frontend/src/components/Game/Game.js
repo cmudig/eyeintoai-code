@@ -56,17 +56,17 @@ class Game extends Component {
     const elements = [];
     for (let i = 0; i < Math.min(4, this.state.round); i++) {
       elements.push(
-        <div className="Visual__wrapper" key={'visual_wrapper_' + i}>
+        <div className="visWrapper" key={'viswrapper' + i}>
           <img
-            key={'visual_' + i}
+            key={'vis' + i}
             src={this.props.hints[i]}
-            alt={'visual_' + i}
+            alt={'vis' + i}
           />
         </div>
       );
     }
     for (let i = 0; i < (4 - this.state.round); i++) {
-      elements.push(<div className="Visual__wrapper" key={'visual_wrapper_' + i + 5}> ? </div>);
+      elements.push(<div className="visWrapper" key={'vis' + i + 5}> ? </div>);
     }
     return elements;
   }
@@ -228,7 +228,7 @@ class Game extends Component {
                   <div className="counter"></div>
                 </div>
               </div>
-              <div className="visDisplay" >
+              <div className="visDisplay">
                 <div className="title">
                   {this.state.typemode ? 'Others guess the original image' : 'Guess the original image!'}
                 </div>
