@@ -9,24 +9,23 @@ import Pause from '../../guessai/pause.js';
 class Game extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      score: this.props.score,
+      round: 1,
+      mode: 1,
+      hint: 'landAnimal',
+      hintMode: false,
+      hintContent: <span id="hintContent" key="hintcontent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>,
+      selected: [],
+      inputAnswers: [],
+      answers: [],
+      opacity: 1,
+      display: 'block',
+      timerWidth: '300px',
+      typeMode: this.props.turns[this.props.entireRound - 1] === 1,
+    };
     this.timer = '';
   }
-
-  state = {
-    score: this.props.score,
-    round: 1,
-    mode: 1,
-    hint: 'landAnimal',
-    hintMode: false,
-    hintContent: <span id="hintContent" key="hintcontent" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>,
-    selected: [],
-    inputAnswers: [],
-    answers: [],
-    opacity: 1,
-    display: 'block',
-    timerWidth: '300px',
-    typeMode: this.props.turns[this.props.entireRound - 1] === 1,
-  };
 
   countRound() {
     this.setState({ round: this.state.round + 1 });
@@ -37,7 +36,7 @@ class Game extends Component {
   }
 
   clearTimer() {
-    clearInterval(this.state.timer);
+    clearInterval(this.timer);
   }
 
   saveAnswers(n, a) {

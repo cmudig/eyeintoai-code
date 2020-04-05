@@ -59,7 +59,7 @@ class Score extends Component {
       if (this.state.timer === 0) {
         this.changeMode();
       }
-    }.bind(this), 2000);
+    }.bind(this), 1000);
     if (this.props.turns[this.props.entireRound - 1] === 1) {
       const urls = [];
       for (let i = 0; i < 4; i++) {
