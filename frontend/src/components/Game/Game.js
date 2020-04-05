@@ -203,7 +203,7 @@ class Game extends Component {
           addRound={this.props.addRound.bind(this)}
           inputAnswers={this.state.inputAnswers}
           setScore={this.props.setScore.bind(this)}
-          answerSet={this.state.answerSet}
+          answerSet={this.state.answers}
           hintVisUrl={this.props.hintsURL}
           setScoreImages={this.props.setScoreImages.bind(this)}
           movetoNext={this.props.movetoNext.bind(this)}
