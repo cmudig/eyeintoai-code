@@ -147,7 +147,7 @@ class Game extends Component {
           key="convo"
           turns={this.props.turns}
           round={this.state.round}
-          typemode={this.state.typemode}
+          typemode={this.state.typeMode}
           score={this.state.score}
           setScore={this.props.setScore.bind(this)}
           answer={this.props.answer}
@@ -230,14 +230,14 @@ class Game extends Component {
               </div>
               <div className="visDisplay">
                 <div className="title">
-                  {this.state.typemode ? 'Others guess the original image' : 'Guess the original image!'}
+                  {this.state.typeMode ? 'Others guess the original image' : 'Guess the original image!'}
                 </div>
                 <div className="hint" key="hints"><span className = "title">Hint:</span> It's a type of {this.renderFirstHint()}</div>
                 <div className="selected-vis" key="visDisplay">
                   {this.generateVisual()}
                 </div>
                 <div className="tip">
-                  {this.state.typemode ? 'This is your image...sit back and relax.' : 'It\'s time to guess... go, go, go!'}
+                  {this.state.typeMode ? 'This is your image...sit back and relax.' : 'It\'s time to guess... go, go, go!'}
                 </div>
               </div>
             </div>
