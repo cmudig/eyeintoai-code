@@ -221,8 +221,8 @@ export const StaticData = {
     },
     {
       url: keyboard,
-      correctURLs: [23, 75, 514, 218, 305, 168, 49, 27],
-      wrongVizURLs: [158, 54],
+      correctURLs: [441, 502, 47, 23, 104, 96, 435, 49],
+      wrongVizURLs: [341, 35],
       classLabels:['keyboard', 'keyboards', 'computer keyboard', 'computer keys', 'keys'],
       hint: 'electronics',
     },
