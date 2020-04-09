@@ -38,6 +38,22 @@ import electricFan from '../image/samples/electricFan.jpg';
 import laptop from '../image/samples/laptop.jpg';
 import keyboard from '../image/samples/keyboard.jpg';
 
+import seaUrchin from "../image/samples/seaUrchin.jpg"
+import seaAnemone from "../image/samples/seaAnemone.jpg"
+import pomegranate from "../image/samples/pomegranate.jpg"
+import fig from "../image/samples/fig.jpg
+import artichoke from "../image/samples/artichoke.jpg"
+import bellPepper from "../image/samples/bellPepper.jpg"
+import cucumber from "../image/samples/cucumber.jpg"
+import drum from "../image/samples/drum.jpg"
+import acousticGuitar from "../image/samples/acousticGuitar.jpg"
+import flute from "../image/samples/flute.jpg"
+import harmonica from "../image/samples/harmonica.jpg"
+import canoe from "../image/samples/canoe.jpg"
+import tractor from "../image/samples/tractor.jpg"
+import warplane from "../image/samples/warplane.jpg"
+import spiderMonkey from "../image/samples/spiderMonkey.jpg"
+
 export const StaticData = {
   landAnimal: [
     {
@@ -119,6 +135,20 @@ export const StaticData = {
       classLabels:['mud turtle', 'mud turtles', 'turtle', 'turtles', 'box turtle', 'box turtles'],
       hint: 'sea animals',
     },
+    {
+      url: seaUrchin,
+      correctURLs: [163, 485, 123, 18, 379, 94, 433, 158],
+      wrongVizURLs: [332, 25], 
+      classLabels:['sea urchin', 'urchin', 'urchins', 'sea urchins'],
+      hint: 'sea animal',
+    },
+    {
+      url: seaAnemone,
+      correctURLs: [280, 70, 200, 102, 95, 441, 101, 79], 
+      wrongVizURLs: [76, 146], 
+      classLabels:['sea anemone', 'anemone', 'anemones', 'sea anemones'],
+      hint: 'sea animal',
+    }
   ],
   fruit: [
     {
@@ -149,6 +179,20 @@ export const StaticData = {
       classLabels: ['strawberry', 'strawberries'],
       hint: 'food',
     },
+    {
+      url: pomegranate,
+      correctURLs: [82, 20, 323, 307, 72, 231, 58, 90], 
+      wrongVizURLs: [40, 434], 
+      classLabels:['pomegranate', 'pomegranates'],
+      hint: 'fruit',
+    },
+    {
+      url: fig,
+      correctURLs: [82, 114, 382, 73, 485, 307, 202, 8], 
+      wrongVizURLs: [26, 52], 
+      classLabels:['fig', 'figs'],
+      hint: 'fruit',
+    }
   ],
   vegetable: [
     {
@@ -165,6 +209,27 @@ export const StaticData = {
       classLabels:['corn', 'corns'],
       hint: 'vegetables',
     },
+    {
+      url: artichoke,
+      correctURLs: [33, 328, 447, 82, 130, 462, 23, 125], 
+      wrongVizURLs: [32, 229], 
+      classLabels:['artichoke', 'artichokes'],
+      hint: 'vegetable',
+    },
+    {
+      url: bellPepper,
+      correctURLs: [433, 294, 61, 16, 198, 43, 26, 447], 
+      wrongVizURLs: [19, 154], 
+      classLabels:['bell pepper', 'pepper', 'peppers', 'bell peppers'],
+      hint: 'vegetable',
+    },
+    {
+      url: cucumber,
+      correctURLs: [2, 202, 433, 294, 511, 73, 81, 368], 
+      wrongVizURLs: [355, 452], 
+      classLabels:['cucumber', 'cucumbers'],
+      hint: 'vegetable',
+    }
   ],
   instrument: [
     {
@@ -181,6 +246,34 @@ export const StaticData = {
       classLabels:['piano', 'pianos', 'grand piano', 'grand pianos'],
       hint: 'musical instrument',
     },
+    {
+      url: drum,
+      correctURLs: [84, 70, 42, 91, 38, 180, 45, 65], 
+      wrongVizURLs: [103, 58], 
+      classLabels:['drum', 'drums', 'steel drum', 'steel drums'],
+      hint: 'musical instrument',
+    },
+    {
+      url: acousticGuitar,
+      correctURLs: [348, 11, 108, 79, 93, 70, 33, 20], 
+      wrongVizURLs: [105, 135],
+      classLabels:['guitar', 'guitars', 'acoustic guitar', 'acoustic guitars'],
+      hint: 'musical instrument',
+    },
+    {
+      url: flute,
+      correctURLs: [75, 12, 368, 23, 4, 197, 231, 435],
+      wrongVizURLs: [156, 500], 
+      classLabels:['flute', 'flutes'],
+      hint: 'musical instrument',
+    },
+    {
+      url: harmonica,
+      correctURLs: [433, 435, 467, 132, 61, 421, 100, 12], 
+      wrongVizURLs: [494, 45], 
+      classLabels:['harmonica', 'harmonicas'],
+      hint: 'musical instrument',
+    }
   ],
   transportation: [
     {
@@ -196,13 +289,35 @@ export const StaticData = {
       wrongVizURLs: [410, 8],
       classLabels:['car', 'cars', 'passenger car', 'passenger cars', 'sedan', 'sedans'],
       hint: 'transportation',
-    }, {
+    }, 
+    {
       url: train,
       correctURLs: [62, 284, 39, 5, 433, 474, 23, 149],
       wrongVizURLs: [445, 12],
       classLabels: ['train', 'trains', 'passenger car', 'passenger cars', 'coach', 'coaches', 'railroad car', 'railroad cars', 'carriage', 'carriages', 'railway car', 'railway cars', 'railcar', 'railcars'],
       hint: 'transportation',
     },
+    {
+      url: canoe,
+      correctURLs: [27, 507, 462, 11, 13, 70, 397, 10], 
+      wrongVizURLs: [286, 322], 
+      classLabels:['canoe', 'boat', 'canoes', 'boats'],
+      hint: 'transportation',
+    },
+    {
+      url: tractor,
+      correctURLs: [169, 243, 72, 11, 375, 91, 20, 80], 
+      wrongVizURLs: [240, 204], 
+      classLabels:['tractor', 'tractors'],
+      hint: 'transportation',
+    },
+    {
+      url: warplane,
+      correctURLs: [217, 208, 347, 104, 433, 83, 125, 325],
+      wrongVizURLs: [211, 480], 
+      classLabels:['warplanes', 'warplane', 'jet', 'jets', 'plane', 'planes'],
+      hint: 'transportation',
+    }  
   ],
   electronics: [
     {
