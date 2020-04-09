@@ -84,7 +84,7 @@ export const StaticData = {
     },
     {
       url: kingSnake,
-      correctURLs: [6, 231, 23, 226, 39, 72],
+      correctURLs: [6, 231, 23, 226, 39, 72, 273, 31],
       wrongVizURLs: [280, 275],
       classLabels:['king snake', 'king snakes', 'snake', 'snakes'],
       hint: 'land animals',
@@ -107,14 +107,14 @@ export const StaticData = {
     },
     {
       url: starfish,
-      correctURLs: [280, 163, 375, 18, 71, 13],
+      correctURLs: [280, 163, 375, 18, 71, 13, 393, 0],
       wrongVizURLs: [177, 224],
       classLabels:['starfish', 'starfishes'],
       hint: 'sea animals',
     },
     {
       url: mudTurtle,
-      correctURLs: [93, 229, 527, 173, 88, 174],
+      correctURLs: [93, 229, 527, 173, 88, 174, 486, 377],
       wrongVizURLs: [72, 322],
       classLabels:['mud turtle', 'mud turtles', 'turtle', 'turtles', 'box turtle', 'box turtles'],
       hint: 'sea animals',
@@ -123,21 +123,21 @@ export const StaticData = {
   fruit: [
     {
       url: banana,
-      correctURLs: [47, 259, 44, 57, 131, 150],
+      correctURLs: [47, 259, 44, 57, 131, 150, 97, 407],
       wrongVizURLs: [5, 299],
       classLabels:['banana', 'bananas'],
       hint: 'fruits',
     },
     {
       url: orange,
-      correctURLs: [9, 111, 285, 435, 485, 239],
+      correctURLs: [9, 111, 285, 435, 485, 239, 98, 307],
       wrongVizURLs: [512, 196],
       classLabels:['orange', 'oranges', 'tangerine', 'tangerines'],
       hint: 'fruits',
     },
     {
       url: pineapple,
-      correctURLs: [2, 200, 96, 217, 61, 33],
+      correctURLs: [2, 200, 96, 217, 61, 33, 365, 127],
       wrongVizURLs: [79, 432],
       classLabels:['pineapple', 'pineapples'],
       hint: 'fruits',
@@ -153,14 +153,14 @@ export const StaticData = {
   vegetable: [
     {
       url: broccoli,
-      correctURLs: [0, 462, 86, 21, 58, 376],
+      correctURLs: [0, 462, 86, 21, 58, 376, 248, 109],
       wrongVizURLs: [229, 292],
       classLabels:['broccoli', 'broccolis'],
       hint: 'vegetables',
     },
     {
       url: corn,
-      correctURLs: [109, 435, 326, 25, 198, 282],
+      correctURLs: [109, 435, 326, 25, 198, 282, 9, 515],
       wrongVizURLs: [30, 222],
       classLabels:['corn', 'corns'],
       hint: 'vegetables',
@@ -169,14 +169,14 @@ export const StaticData = {
   instrument: [
     {
       url: violin,
-      correctURLs: [66, 348, 238, 98, 131, 47],
+      correctURLs: [66, 348, 238, 98, 131, 47, 58, 518],
       wrongVizURLs: [396, 208],
       classLabels:['violin', 'violins', 'viola', 'violas', 'cello', 'cellos'],
       hint: 'musical instrument',
     },
     {
       url: piano,
-      correctURLs: [338, 23, 156, 31, 249, 244],
+      correctURLs: [338, 23, 156, 31, 249, 244, 189, 22],
       wrongVizURLs: [519, 343],
       classLabels:['piano', 'pianos', 'grand piano', 'grand pianos'],
       hint: 'musical instrument',
@@ -185,14 +185,14 @@ export const StaticData = {
   transportation: [
     {
       url: bicycle,
-      correctURLs: [5, 74, 35, 27, 409, 251],
-      wrongVizURLs: [10, 435],
+      correctURLs: [42, 99, 204, 84, 39, 104, 72, 237],
+      wrongVizURLs: [48, 299],
       classLabels:['bicycle', 'bicycles', 'bike', 'bikes', 'bicycle-for-two'],
       hint: 'transportation',
     },
     {
       url: car,
-      correctURLs: [55, 409, 123, 498, 23, 273],
+      correctURLs: [55, 409, 123, 498, 23, 273, 197, 452],
       wrongVizURLs: [410, 8],
       classLabels:['car', 'cars', 'passenger car', 'passenger cars', 'sedan', 'sedans'],
       hint: 'transportation',
@@ -207,22 +207,22 @@ export const StaticData = {
   electronics: [
     {
       url: laptop,
-      correctURLs: [47, 3, 218, 234, 433, 11],
+      correctURLs: [47, 3, 218, 234, 433, 11, 95, 17],
       wrongVizURLs: [262, 66],
       classLabels:['laptop', 'laptops', 'computer', 'computers'],
       hint: 'electronics',
     },
     {
       url: electricFan,
-      correctURLs: [102, 127, 15, 237, 47, 408],
-      wrongVizURLs: [394, 419],
+      correctURLs: [15, 24, 203, 399, 0, 32, 31, 80],
+      wrongVizURLs: [373, 138],
       classLabels:['fan', 'fans', 'electric fan', 'electric fans'],
       hint: 'electronics',
     },
     {
       url: keyboard,
-      correctURLs: [441, 502, 47, 23, 104, 96],
-      wrongVizURLs: [341, 35],
+      correctURLs: [23, 75, 514, 218, 305, 168, 49, 27],
+      wrongVizURLs: [158, 54],
       classLabels:['keyboard', 'keyboards', 'computer keyboard', 'computer keys', 'keys'],
       hint: 'electronics',
     },
