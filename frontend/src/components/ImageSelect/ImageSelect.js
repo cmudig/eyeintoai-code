@@ -19,7 +19,7 @@ class ImageSelect extends Component {
 
   nonSelectedVisuals() {
     const newVisuals = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
       newVisuals.push(visuals[this.props.answer.correctURLs[i]]);
     }
     for (let i = 0; i < 2; i++) {
@@ -73,7 +73,7 @@ class ImageSelect extends Component {
   renderVisuals() {
     const elements = [];
     const images = this.state.nonSelected.concat(this.state.selected);
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
       elements.push(
         <div key={'vis' + i}>
           <div className="order" id={'order' + i}>

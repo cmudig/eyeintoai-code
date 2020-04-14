@@ -91,7 +91,7 @@ class HintModal extends Component {
     const cards = document.getElementsByClassName('hintCard');
     window.setTimeout(function() {
       cards[3].classList.add('plyr2');
-    }.bind(this), 2000);
+    }, 2000);
 
     window.setTimeout(function() {
       cards[3].classList.add('plyr3');

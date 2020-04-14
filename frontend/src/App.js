@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -201,7 +201,7 @@ class App extends Component {
     );
 
     return (
-      <HashRouter basename="/">
+      <BrowserRouter>
         <div>
           <header className="Header">
             <img className="Header__logo" src={CMULogo} alt="Carnegie Mellon University" />
@@ -216,7 +216,7 @@ class App extends Component {
             </Switch>
           </main>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }

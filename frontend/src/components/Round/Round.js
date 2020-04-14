@@ -17,7 +17,7 @@ class Round extends Component {
     const player = this.props.turns[this.props.entireRound - 1];
     if (player !== 1) {
       const randomNum = (Math.floor(Math.random() * 2));
-      const randomVisualOrder = [0, 1, 2, 3, 4, 5];
+      const randomVisualOrder = [0, 1, 2, 3, 4, 5, 6, 7];
       let firstNum = 0;
       let secondNum = 0;
       let tempNum = 0;
