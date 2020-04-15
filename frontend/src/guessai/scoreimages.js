@@ -37,8 +37,19 @@ class ScoreImage extends Component {
         <div className="main">
           <div className="result title">
             <span className="large" >
-                Thank you for playing our game!
+              Thank you for playing our game!
             </span>
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdRZs3KQo_SCFU99gJMUY0o-D6gVZ9tzVgnlZaX4yz6FnxmhQ/viewform?embedded=true"
+              width="640"
+              height="400"
+              frameBorder="0"
+              marginHeight="0"
+              marginWidth="0"
+              style={{ display: 'block', margin: '0 auto' }}
+            >
+              Loading…
+            </iframe>
             <br />
             Below are screenshots of the result of each round.
             <br />
