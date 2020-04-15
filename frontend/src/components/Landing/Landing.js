@@ -9,6 +9,9 @@ import firstStep from '../../image/home/step1.png';
 import secondStep from '../../image/home/step2.png';
 import thirdStep from '../../image/home/step3.png';
 
+import animatedGif from '../../image/home/eye-into-ai.gif';
+
+
 const vis = [];
 for (let i = 0; i < 10; i++) {
   vis[i] = require('../../image/mixed4d/' + (i + 1) + '.png');
@@ -26,16 +29,25 @@ class Home extends Component {
   };
 
   renderImgs() {
+    // const element = [];
+    // for (let i = 0; i < 10; i++) {
+    //   element.push(
+    //     <img
+    //       key={i}
+    //       src={vis[i]}
+    //       alt={`Visualization ${i + 1}`}
+    //     />
+    //   );
+    // }
+
     const element = [];
-    for (let i = 0; i < 10; i++) {
-      element.push(
-        <img
-          key={i}
-          src={vis[i]}
-          alt={`Visualization ${i + 1}`}
+    element.push(
+      <img 
+        src={animatedGif}
+        alt={'Eye into AI animation'}
         />
-      );
-    }
+    );
+
     return element;
   }
 
@@ -94,24 +106,22 @@ class Home extends Component {
             </div>
             <div className={classnames(styles['home__side'], styles['home--right'])}>
               <div className={styles['home__title']}>
-                Guess what the machine sees
+              We need your Eye into AI!
               </div>
               <div className={styles['home__details']}>
                 <p>
-                  Research:&nbsp;
-                  <a href="https://distill.pub/2017/feature-visualization/" target="_blank" rel="noopener noreferrer">
-                    Feature visualization
-                  </a>
-                  &nbsp;is how neural networks build understanding of images.
-                  This is how AI interprets objects, patterns, animals, etc.
-                  Our goal is to understand how humans select and interpret feature visualizations.
-                </p>
-                <p>
-                  This study is part of a research project within the Visualization Group at Carnegie Mellon University.
-                </p>
-                <p>
-                  Try our game to learn more about feature visualization which help AI categorize images.
-                </p>
+                The goal of <i>Explainable AI</i> is to bring transparency to humans about how
+AI systems make decisions. For example, why does the image recognition AI on the left think that image is dog?  
+How can we trust if the AI classifies dogs correctly is so the AI can detect dogs reliably in the future?   
+There have been many exciting proposals for how to explain AI to provide such reliability, 
+including <a href="https://distill.pub/2017/feature-visualization/" target="_blank" rel="noopener noreferrer"> feature visualizations </a>  and <a href="https://arxiv.org/pdf/1312.6034v2.pdf" target="_blank" rel="noopener noreferrer">saliency maps</a>.  But are these explanations helpful and interpretable to humans?   We believe its critical to find out!
+</p>
+<p>
+By playing our game, you will provide critical feedback for how explanations of AI may benefit human understanding of their complex algorithms.
+</p>
+<p>
+This study is part of a research project within the <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Data Interaction Group</a> at <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Carnegie Mellon University</a>.
+</p>
                 <p>
                   Consent: Your decision to participate is voluntary and we thank you for advancing research.
                   By playing this game, you agree that you are 18 or older and want to participate.
@@ -141,7 +151,7 @@ class Home extends Component {
             </div>
           </div>
           <p className={styles['home__footer']}>
-            Designed and developed at Carnegie Mellon University, © 2019
+            Designed and developed in the <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Data Interaction Group</a> at Carnegie Mellon University, © 2020
           </p>
         </div>
       );
@@ -199,24 +209,22 @@ class Home extends Component {
             </div>
             <div className={classnames(styles['home__side'], styles['home--right'])}>
               <div className={styles['home__title']}>
-                Guess what the machine sees
+              We need your Eye into AI!
               </div>
               <div className={styles['home__details']}>
-                <p>
-                  Research:&nbsp;
-                  <a href="https://distill.pub/2017/feature-visualization/" target="_blank" rel="noopener noreferrer">
-                    Feature visualization
-                  </a>
-                  &nbsp;is how neural networks build understanding of images.
-                  This is how AI interprets objects, patterns, animals, etc.
-                  Our goal is to understand how humans select and interpret feature visualizations.
-                </p>
-                <p>
-                  This study is part of a research project within the Visualization Group at Carnegie Mellon University.
-                </p>
-                <p>
-                  Try our game to learn more about feature visualization which help AI categorize images.
-                </p>
+              <p>
+                The goal of <i>Explainable AI</i> is to bring transparency to humans about how
+AI systems make decisions. For example, why does the image recognition AI on the left think that image is dog?  
+How can we trust if the AI classifies dogs correctly is so the AI can detect dogs reliably in the future?  
+There have been many exciting proposals for how to explain AI to provide such reliability, 
+including <a href="https://distill.pub/2017/feature-visualization/" target="_blank" rel="noopener noreferrer"> feature visualizations </a>  and <a href="https://arxiv.org/pdf/1312.6034v2.pdf" target="_blank" rel="noopener noreferrer">saliency maps</a>.  But are these explanations helpful and interpretable to humans?   We believe its critical to find out!
+</p>
+<p>
+By playing our game, you will provide critical feedback for how explanations of AI may benefit human understanding of their complex algorithms.
+</p>
+<p>
+This study is part of a research project within the <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Data Interaction Group</a> at <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Carnegie Mellon University</a>.
+</p>
                 <p>
                   Consent: Your decision to participate is voluntary and we thank you for advancing research.
                   By playing this game, you agree that you are 18 or older and want to participate.
@@ -238,7 +246,7 @@ class Home extends Component {
             </div>
           </div>
           <p className={styles['home__footer']}>
-            Designed and developed at Carnegie Mellon University, © 2019
+            Designed and developed in the <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Data Interaction Group</a> at Carnegie Mellon University, © 2020
           </p>
         </div>
       );

@@ -205,7 +205,7 @@ class App extends Component {
           <header className="Header">
             <img className="Header__logo" src={CMULogo} alt="Carnegie Mellon University" />
             <Link className="Header__link" to="/" onClick={()=> { this.setState({ gameClass: [' ', ' '] }); }}>
-              Interpretable Machine Learning Research Project
+              Eye into AI
             </Link>
           </header>
           <main>
