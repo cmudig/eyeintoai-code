@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import * as firebase from 'firebase/app';
+import dotenv from 'dotenv';
+
 import 'firebase/firestore';
 import 'firebase/auth';
-import dotenv from 'dotenv';
 
 import Landing from './components/Landing/Landing';
 import GameState from './components/GameState/GameState';
@@ -81,10 +82,8 @@ class App extends Component {
     this.auth.signOut();
   };
 
-  handleLeavePage = (e) => {
+  handleLeavePage = () => {
     this.signOut();
-    e.preventDefault();
-    e.returnValue = true;
   };
 
   selectProfile() {
