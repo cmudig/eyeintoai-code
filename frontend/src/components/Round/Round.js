@@ -17,31 +17,31 @@ class Round extends Component {
     const player = this.props.turns[this.props.entireRound - 1];
     if (player !== 1) {
       const randomNum = (Math.floor(Math.random() * 2));
-      const randomVisualOrder = [0, 1, 2, 3, 4, 5, 6, 7];
+      const randomVisualOrder = [0, 1, 2, 3, 4];
       let firstNum = 0;
       let secondNum = 0;
       let tempNum = 0;
       let answers = [];
       for (let i = 0; i < 10; i++) {
-        firstNum = Math.floor(Math.random() * 8);
-        secondNum = Math.floor(Math.random() * 8);
+        firstNum = Math.floor(Math.random() * 5);
+        secondNum = Math.floor(Math.random() * 5);
         tempNum = randomVisualOrder[firstNum];
         randomVisualOrder[firstNum] = randomVisualOrder[secondNum];
         randomVisualOrder[secondNum] = tempNum;
       }
       if (randomNum % 2 === 0) {
-        answers = StaticData.landAnimal;
+        answers = StaticData.vegetable;
       } else {
         answers = StaticData.electronics;
       }
 
       if (this.props.entireRound === 1 && this.props.testPhase) {
         secondNum = 2;
-        answers = StaticData.landAnimal;
+        answers = StaticData.vegetable;
       }
 
       while(this.props.answerRecord.includes(answers[secondNum].classLabels[0])) {
-        secondNum = (secondNum + 1) % 8;
+        secondNum = (secondNum + 1) % 5;
       }
 
       const visuals = answers[secondNum].correctURLs.concat(answers[secondNum].wrongVizURLs);
