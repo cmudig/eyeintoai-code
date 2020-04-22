@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import ChatAnswers from '../../data/ChatAnswers';
 import HintAnswers from '../../data/HintAnswers';
 
 class Chat extends Component {
@@ -47,7 +46,7 @@ class Chat extends Component {
     if (this.props.hintMode === true) {
       answer = HintAnswers[this.props.answer.hint];
     } else {
-      answer = ChatAnswers;
+      answer = HintAnswers[Math.floor(Math.random() * HintAnswers.length)];
     }
     let answers, player, element, displayElement = [];
     this.setState({ opacity: 1 });
