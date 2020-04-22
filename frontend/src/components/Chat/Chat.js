@@ -42,11 +42,10 @@ class Chat extends Component {
   }
 
   messageGenerator() {
-    let answer = '';
+    const keys = Object.keys(HintAnswers);
+    let answer = HintAnswers[keys[keys.length * Math.random() << 0]];
     if (this.props.hintMode === true) {
       answer = HintAnswers[this.props.answer.hint];
-    } else {
-      answer = HintAnswers[Math.floor(Math.random() * HintAnswers.length)];
     }
     let answers, player, element, displayElement = [];
     this.setState({ opacity: 1 });

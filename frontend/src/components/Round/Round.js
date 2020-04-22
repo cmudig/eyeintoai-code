@@ -16,7 +16,7 @@ class Round extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.props.handleLeavePage);
-    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 5000);
+    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 4000);
     const player = this.props.turns[this.props.entireRound - 1];
     if (player !== 1) {
       const randomNum = (Math.floor(Math.random() * 2));
