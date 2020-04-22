@@ -154,12 +154,13 @@ class Category extends Component {
     }
     }
 
-    let prevItem = category[Math.floor(Math.random() * category.length)];
+    const itemURLs = [];
     for (let i = 0; i < 4; i++) {
       let item = category[Math.floor(Math.random() * category.length)];
-      while (prevItem.url === item.url) {
+      while (itemURLs.includes(item.url)) {
         item = category[Math.floor(Math.random() * category.length)];
       }
+      itemURLs.push(item.url);
       images.push(
         <div key={`${i}_${item.url}`}>
           <img
@@ -179,7 +180,6 @@ class Category extends Component {
           />
         </div>
       );
-      prevItem = item;
     }
 
     return (
