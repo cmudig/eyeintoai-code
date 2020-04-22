@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import styles from './Round.module.scss';
 import { StaticData } from '../../data/images';
+import FirstImage from '../../image/round/step1.png';
+import SecondImage from '../../image/round/step2.png';
+import ThirdImage from '../../image/round/step3.png';
 
 const features = [];
 for (let i = 0; i < 528; i++) {
@@ -13,7 +16,7 @@ class Round extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.props.handleLeavePage);
-    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 1000);
+    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 5000);
     const player = this.props.turns[this.props.entireRound - 1];
     if (player !== 1) {
       const randomNum = (Math.floor(Math.random() * 2));
@@ -79,7 +82,27 @@ class Round extends Component {
     return (
       <section className={styles['Round']}>
         <h1 className={styles['Round__title']}>Round {this.props.entireRound}</h1>
-        <div className={styles['Round__text']}>{elements} selects an image</div>
+        {this.props.entireRound === 1 ? (
+          <Fragment>
+            <div className={styles['Round__text']}>It’s your turn to guess. Remember...</div>
+            <section className={styles['Round__info']}>
+              <div className={styles['Round__card']}>
+                <img className={styles['Round__image']} src={FirstImage} alt="Instruction #1" />
+                <p className={styles['Round__message']} >Type your guesses in the chat</p>
+              </div>
+              <div className={styles['Round__card']}>
+                <img className={styles['Round__image']} src={SecondImage} alt="Instruction #2" />
+                <p className={styles['Round__message']} >Visualizations show patterns, textures, and shapes</p>
+              </div>
+              <div className={styles['Round__card']}>
+                <img className={styles['Round__image']} src={ThirdImage} alt="Instruction #3" />
+                <p className={styles['Round__message']} >Think broadly, you could get images that are less familiar</p>
+              </div>
+            </section>
+          </Fragment>
+        ) : (
+          <div className={styles['Round__text']}>Sit back and watch others guess your image</div>
+        )}
       </section>
     );
   }
