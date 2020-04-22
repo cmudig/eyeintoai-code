@@ -82,7 +82,9 @@ class App extends Component {
     this.auth.signOut();
   };
 
-  handleLeavePage = () => {
+  handleLeavePage = event => {
+    event.preventDefault();
+    event.returnValue = true;
     this.signOut();
   };
 
