@@ -7,6 +7,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 import Landing from './components/Landing/Landing';
+import About from './components/About/About';
 import GameState from './components/GameState/GameState';
 
 import './App.scss';
@@ -214,6 +215,7 @@ class App extends Component {
             <Switch>
               <Route path="/" render={() => rootComponent} exact />
               <Route path="/play" render={() => playComponent} exact />
+              <Route path="/about" component={About} exact />
             </Switch>
           </main>
         </div>
