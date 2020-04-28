@@ -40,6 +40,7 @@ class ScoreImage extends Component {
               Thank you for playing our game!
             </span>
             <iframe
+              title="Google Form"
               src="https://docs.google.com/forms/d/e/1FAIpQLSdRZs3KQo_SCFU99gJMUY0o-D6gVZ9tzVgnlZaX4yz6FnxmhQ/viewform?embedded=true"
               width="640"
               height="400"

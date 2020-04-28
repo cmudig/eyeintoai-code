@@ -27,25 +27,13 @@ class Home extends Component {
     this.setState({ showHelpModal: false });
   };
 
-  renderImgs() {
-    // const element = [];
-    // for (let i = 0; i < 10; i++) {
-    //   element.push(
-    //     <img
-    //       key={i}
-    //       src={vis[i]}
-    //       alt={`Visualization ${i + 1}`}
-    //     />
-    //   );
-    // }
-    const element = [];
-    element.push(
+  renderImg() {
+    return (
       <img
         src={animatedGif}
         alt={'Eye into AI animation'}
       />
     );
-    return element;
   }
 
   render() {
@@ -98,7 +86,7 @@ class Home extends Component {
           <div className={styles['home__wrapper']}>
             <div className={styles['home__side']}>
               <div className={styles['home--left']}>
-                {this.renderImgs()}
+                {this.renderImg()}
               </div>
             </div>
             <div className={classnames(styles['home__side'], styles['home--right'])}>
@@ -225,7 +213,7 @@ class Home extends Component {
           <div className={styles['home__wrapper']}>
             <div className={styles['home__side']}>
               <div className={styles['home--left']}>
-                {this.renderImgs()}
+                {this.renderImg()}
               </div>
             </div>
             <div className={classnames(styles['home__side'], styles['home--right'])}>
