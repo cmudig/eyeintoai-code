@@ -38,7 +38,7 @@ class ImageSelect extends Component {
         }
         document.getElementById('order' + number).classList.remove('active');
       }
-      this.setState({ display: 'none' });
+      this.setState({ display: 'none', selected: selected });
     } else if(this.state.selected.length < 4) {
       target.classList.add('selected');
       document.getElementById('order' + number).classList.add('active');
