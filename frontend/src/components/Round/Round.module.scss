@@ -51,6 +51,18 @@
     word-wrap: break-word;
     width: 200px;
   }
+
+  &__button {
+    align-self: flex-end;
+    margin-top: 20px;
+    margin-right: 22%;
+    padding: 10px 10px;
+    font-size: 15px;
+    border: none;
+    background-color: #3AA757;
+    color: #fff;
+    cursor: pointer;
+  }
 }
 
 .Profile {

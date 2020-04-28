@@ -16,7 +16,11 @@ class Round extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.props.handleLeavePage);
-    window.setTimeout(function() { this.props.moveToNext(3); }.bind(this), 4000);
+    window.setTimeout(function() {
+      if (this.props.entireRound !== 1) {
+        this.props.moveToNext(3);
+      }
+    }.bind(this), 2000);
     const player = this.props.turns[this.props.entireRound - 1];
     if (player !== 1) {
       const randomNum = (Math.floor(Math.random() * 2));
@@ -99,6 +103,9 @@ class Round extends Component {
                 <p className={styles['Round__message']} >Think broadly, you could get images that are less familiar</p>
               </div>
             </section>
+            <button className={styles['Round__button']} onClick={() => this.props.moveToNext(3)}>
+              I'm Ready!
+            </button>
           </Fragment>
         ) : (
           <div className={styles['Round__text']}>Sit back and watch others guess your image</div>
