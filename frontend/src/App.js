@@ -11,7 +11,7 @@ import About from './components/About/About';
 import GameState from './components/GameState/GameState';
 
 import './App.scss';
-import CMULogo from './image/CMU_Logo.png';
+import CMU from './image/cmu.png';
 
 dotenv.config();
 const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-dog', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
@@ -206,7 +206,9 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <header className="Header">
-            <img className="Header__logo" src={CMULogo} alt="Carnegie Mellon University" />
+            <a href="https://www.cmu.edu/" target="_blank" rel="noopener noreferrer">
+              <img className="Header__logo" src={CMU} alt="Carnegie Mellon University" />
+            </a>
             <Link className="Header__link" to="/" onClick={()=> { this.setState({ gameClass: [' ', ' '] }); }}>
               Eye into AI
             </Link>

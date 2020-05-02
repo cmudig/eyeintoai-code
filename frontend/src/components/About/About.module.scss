@@ -1,4 +1,132 @@
 .About {
-  height: 93.5vh;
-  margin-top: 6.5vh;
+  margin: 15vh 0;
+  padding: 0 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__heading {
+    margin-bottom: 24px;
+    font-size: 52px;
+  }
+
+  &__subheading {
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+
+  &__content {
+    width: 60%;
+    padding-right: 10%;
+  }
+
+  &__details {
+    opacity: 0.7;
+  }
+
+  &__link {
+    color: #000;
+
+    &:hover {
+      color: #1f1f1f;
+    }
+  }
+
+  &__btn {
+    margin-right: 20px;
+    color: #007bff;
+  }
+
+  &__img {
+    width: 35%;
+  }
+
+  &__bg {
+    background-color: #F8F9FA;
+    padding: 10vh 16%;
+  }
+
+  &__caption {
+    margin-bottom: 60px;
+    font-style: italic;
+    color: #6c757d;
+  }
+
+  &__team {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+  }
+
+  &__card {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    max-width: 23%;
+    padding: 35px;
+    background-color: #FFF;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  }
+
+  &__icon {
+    margin-bottom: 10px;
+    padding: 2.5px;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  }
+
+  &__name {
+    margin-bottom: 0;
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  &__extra {
+    margin-bottom: 0;
+    font-size: 80%;
+    text-transform: uppercase;
+    line-height: 25px;
+    text-align: center;
+    color: #6c757d;
+  }
+
+  &__list {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+
+  &__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    color: #666;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:hover, &:focus {
+      background: #ddd;
+      text-decoration: none;
+      color: #555;
+    }
+  }
+
+  &__footer {
+    text-align: center;
+    opacity: 0.5;
+  }
 }

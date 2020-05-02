@@ -280,7 +280,11 @@ class Home extends Component {
             </div>
           </div>
           <p className={styles['home__footer']}>
-            Designed and developed in the <a href="https://dig.cmu.edu" target="_blank" rel="noopener noreferrer">Data Interaction Group</a> at Carnegie Mellon University, © 2020
+            Designed and developed in the&nbsp;
+            <Link className={styles['home']} to="/about">
+              Data Interaction Group
+            </Link>
+            &nbsp;at Carnegie Mellon University, © 2020.
           </p>
         </div>
       );
