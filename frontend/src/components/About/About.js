@@ -163,6 +163,55 @@ function About() {
           </div>
         </section>
         <p className={styles['About__caption']}>
+          Meet Faculty:
+        </p>
+        <section className={styles['About__team']}>
+          <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://media-exp1.licdn.com/dms/image/C5603AQHD5tgwVDhURw/profile-displayphoto-shrink_200_200/0?e=1594252800&v=beta&t=1VC1CzbOyOtF1Ar1ycJLw8RDnCsCrfjJylmpIY9zPjY"
+              alt="Adam Perer"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Adam Perer</p>
+            <p className={styles['About__extra']}>
+              Assistant Research Professor
+              <br />
+              Human-Computer Interaction Institute
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="http://www.perer.org" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="home"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://media-exp1.licdn.com/dms/image/C4E03AQEVprb2XZZCIA/profile-displayphoto-shrink_200_200/0?e=1594252800&v=beta&t=EDjoPESXcp9S6mNjAx80BKsHFvs85TXw-Is5bpqznlM"
+              alt="Jessica Hammer"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Jessica Hammer</p>
+            <p className={styles['About__extra']}>
+              Assistant Professor
+              <br />
+              Human-Computer Interaction Institute and Entertainment Technology Center
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="http://replayable.net" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="home"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <p className={styles['About__caption']}>
           Meet past contributors:
         </p>
         <section className={styles['About__team']}>
@@ -208,7 +257,7 @@ function About() {
             />
             <p className={styles['About__name']}>Ja Young Lee</p>
             <p className={styles['About__extra']}>
-              UX Design
+              UX Design and Game Design
               <br />
               M.S. Human-Computer Interaction
             </p>
@@ -235,7 +284,7 @@ function About() {
             />
             <p className={styles['About__name']}>Qian Wang</p>
             <p className={styles['About__extra']}>
-              UX Design
+              UX Design and Game Design
               <br />
               M.S. Human-Computer Interaction
             </p>
@@ -262,9 +311,9 @@ function About() {
             />
             <p className={styles['About__name']}>Shivang Gupta</p>
             <p className={styles['About__extra']}>
-              UX Developer
+              AI Developer
               <br />
-              M.S. Human-Computer Interaction
+              M.S. M.S. Educational Technology (METALS)
             </p>
             <ul className={styles['About__list']}>
               <li className={styles['About__item']}>
