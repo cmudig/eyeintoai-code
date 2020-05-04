@@ -1,6 +1,6 @@
 # AI GWAP
 
-## First time Setup
+## First Time Setup
 
 Before running/deploying, make sure you have configured the .env file in the 'frontend' directory.  The .env has not been committed to git, but can be found in our shared google drive.
 
@@ -15,6 +15,6 @@ The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
 
-### 'gcloud app deploy'
+### `gcloud app deploy`
 
 This will deploy it to our google cloud.
