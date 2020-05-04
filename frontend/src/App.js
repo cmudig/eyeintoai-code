@@ -85,7 +85,7 @@ class App extends Component {
   };
 
   handleLeavePage = event => {
-    if (window.location.pathname == '/play') {
+    if (window.location.pathname === '/play') {
       event.preventDefault();
       event.returnValue = true;
       this.signOut();
