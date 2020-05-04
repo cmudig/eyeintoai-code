@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import styles from './About.module.scss';
-import vectorImg from '../../image/about/mellons.png';
+import vectorImg from '../../images/about/mellons.png';
 
 function About() {
   return (

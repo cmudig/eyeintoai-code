@@ -2,13 +2,13 @@ import React, { Component, Fragment } from 'react';
 
 import styles from './Round.module.scss';
 import { StaticData } from '../../data/images';
-import FirstImage from '../../image/round/step1.png';
-import SecondImage from '../../image/round/step2.png';
-import ThirdImage from '../../image/round/step3.png';
+import FirstImage from '../../images/round/step1.png';
+import SecondImage from '../../images/round/step2.png';
+import ThirdImage from '../../images/round/step3.png';
 
 const features = [];
 for (let i = 0; i < 528; i++) {
-  features[i] = require('../../image/mixed4d/' + i + '.png');
+  features[i] = require('../../images/mixed4d/' + i + '.png');
 }
 
 class Round extends Component {

@@ -5,15 +5,15 @@ import classnames from 'classnames';
 import styles from './Landing.module.scss';
 import Modal from '../Modal/Modal';
 
-import firstStep from '../../image/home/step1.png';
-import secondStep from '../../image/home/step2.png';
-import thirdStep from '../../image/home/step3.png';
+import firstStep from '../../images/home/step1.png';
+import secondStep from '../../images/home/step2.png';
+import thirdStep from '../../images/home/step3.png';
 
-import animatedGif from '../../image/home/eye-into-ai.gif';
+import animatedGif from '../../images/home/eye-into-ai.gif';
 
 const vis = [];
 for (let i = 0; i < 10; i++) {
-  vis[i] = require('../../image/mixed4d/' + (i + 1) + '.png');
+  vis[i] = require('../../images/mixed4d/' + (i + 1) + '.png');
 }
 
 class Home extends Component {

@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 const visuals = [];
 for (let i = 0; i < 528; i++) {
-  visuals[i] = require('../../image/mixed4d/' + (i) + '.png');
+  visuals[i] = require('../../images/mixed4d/' + (i) + '.png');
 }
 
 class ImageSelect extends Component {

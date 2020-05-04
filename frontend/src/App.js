@@ -12,7 +12,7 @@ import GameState from './components/GameState/GameState';
 
 import './index.scss';
 import './App.scss';
-import CMU from './image/cmu.png';
+import CMU from './images/cmu.png';
 
 dotenv.config();
 const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-dog', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
