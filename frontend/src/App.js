@@ -85,9 +85,13 @@ class App extends Component {
   };
 
   handleLeavePage = event => {
-    event.preventDefault();
-    event.returnValue = true;
-    this.signOut();
+    if (window.location.pathname == '/play') {
+      event.preventDefault();
+      event.returnValue = true;
+      this.signOut();
+    } else {
+      this.signOut();
+    }
   };
 
   selectProfile() {
