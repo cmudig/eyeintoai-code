@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Profile from './profile.js';
+import domToImage from 'dom-to-image';
 
-const domtoimage = require('dom-to-image');
+import Profile from '../Profile/Profile';
 
 class Score extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Score extends Component {
     clearInterval(this.timer);
     this.setState({ animation: 'none' });
     let scoreImage = '';
-    domtoimage.toPng(document.getElementById('resultInner'))
+    domToImage.toPng(document.getElementById('resultInner'))
       .then(function(dataUrl) {
         scoreImage = dataUrl;
         this.props.setScoreImages(scoreImage);

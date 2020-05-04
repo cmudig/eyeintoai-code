@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './index.scss';
-
 class Profile extends Component {
   constructor(props) {
     super(props);

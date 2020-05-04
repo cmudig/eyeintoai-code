@@ -1,16 +1,15 @@
 // @import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono|VT323&display=swap');
-$fa-font-path: "../fonts";
+$fa-font-path: "./fonts";
 
 @font-face {
   font-family: "font awesome";
   font-weight: 900;
-  font-style : normal;
-         src : url('#{$fa-font-path}/fa-solid-900.eot');
-         src:  url("#{$fa-font-path}/fa-solid-900.eot?#iefix") format("embedded-opentype"), 
-         url("#{$fa-font-path}/fa-solid-900.woff2") format("woff2"), 
-         url("#{$fa-font-path}/fa-solid-900.woff") format("woff"), 
-         url("#{$fa-font-path}/fa-solid-900.ttf") format("truetype"),
-        url("#{$fa-font-path}/fa-solid-900.svg") format("svg"); 
+  font-style: normal;
+         src: url("#{$fa-font-path}/fa-solid-900.eot") format("embedded-opentype"), 
+              url("#{$fa-font-path}/fa-solid-900.woff2") format("woff2"), 
+              url("#{$fa-font-path}/fa-solid-900.woff") format("woff"), 
+              url("#{$fa-font-path}/fa-solid-900.ttf") format("truetype"),
+              url("#{$fa-font-path}/fa-solid-900.svg") format("svg"); 
 }
 
 @font-face {
@@ -19,14 +18,16 @@ $fa-font-path: "../fonts";
   font-weight: 400;
   src: local('Share Tech Mono'),
        local('ShareTechMono-Regular'),
-       url(https://fonts.gstatic.com/s/sharetechmono/v9/J7aHnp1uDWRBEqV98dVQztYldFcLowEFA87Heg.woff2) format('woff2'),
+       url(https://fonts.gstatic.com/s/sharetechmono/v9/J7aHnp1uDWRBEqV98dVQztYldFcLowEFA87Heg.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'VT323';
   font-style: normal;
   font-weight: 400;
-  src: local('VT323 Regular'), local('VT323-Regular'), url(https://fonts.gstatic.com/s/vt323/v11/pxiKyp0ihIEF2isfFJXUdVNF.woff2) format('woff2'),
+  src: local('VT323 Regular'),
+       local('VT323-Regular'),
+       url(https://fonts.gstatic.com/s/vt323/v11/pxiKyp0ihIEF2isfFJXUdVNF.woff2) format('woff2');
 }
 
 .fas:before {
@@ -85,15 +86,15 @@ $fa-font-path: "../fonts";
   transform: $transform;
 }
 
-@mixin keyframes( $animationName ) {
+@mixin keyframes($animationName) {
   @-webkit-keyframes #{$animationName} {
-      @content;
+    @content;
   }
   @-moz-keyframes #{$animationName} {
-      @content;
+    @content;
   }
   @keyframes #{$animationName} {
-      @content;
+    @content;
   }
 }
 
@@ -120,9 +121,7 @@ body, .App {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-family: "roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-               "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-               sans-serif;
+  font-family: "roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -449,7 +448,6 @@ body, .App {
         .name {
           margin-bottom: 0;
         }
-
       }
     }
 
@@ -527,58 +525,61 @@ body, .App {
         box-shadow:$shadow;
         background: #fff;
 
-        .answerImg{
+        .answerImg { 
           width: 100%;
           border-radius: 6px;
           margin: 0;
         }
 
-          .answerList{
-            flex-direction: column;
-            align-content: left;
-            flex-wrap: wrap;
+        .answerList {
+          flex-direction: column;
+          align-content: left;
+          flex-wrap: wrap;
 
-            .answer {
-              width: fit-content;
-              overflow: auto;
+          .answer {
+            width: fit-content;
+            overflow: auto;
 
-              font: {
-                family: "share tech mono", "monospace";
-                size: 14px;
-              }
-
-              align-self: flex-start;
-              margin: 4px 0;
-              margin-right: 4px;
-              color: $maincolor;
-              border: 1px solid $maincolor;
-              border-radius: 15px;
-              padding: 4px 12px;
+            font: {
+              family: "share tech mono", "monospace";
+              size: 14px;
             }
+
+            align-self: flex-start;
+            margin: 4px 0;
+            margin-right: 4px;
+            color: $maincolor;
+            border: 1px solid $maincolor;
+            border-radius: 15px;
+            padding: 4px 12px;
           }
+        }
       }
 
-      .profileWrapper{
+      .profileWrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        .profiles{
-          .profile{
+
+        .profiles {
+          .profile {
             border-radius: 6px;
             justify-content: center;
             width: 90px;
             height: 140px;
             margin: 0 12px;
-            
-            .name{
+
+            .name {
               font-size: 14px;
               margin: 6px 0;
             }
-            .photo{
+
+            .photo {
               width: 56px;
               height: 56px;
             }
-            .score{
+
+            .score {
               font-size: 14px;
               width: 42px;
               text-align: center;
@@ -586,20 +587,25 @@ body, .App {
               border-radius: 10px;
               padding: 2px 0;
               font-family:'Share Tech Mono', monospace;
-              &.plyr1{
+
+              &.plyr1 {
                 background: $plyr1;
               }
-              &.plyr2{
+
+              &.plyr2 {
                 background: $plyr2;
               }
-              &.plyr3{
+
+              &.plyr3 {
                 background: $plyr3;
               }
             }
-            &.mainGame{
+
+            &.mainGame {
               width: 80px;
               margin: 0 2%;
-              .photo{
+
+              .photo {
                 @media screen and (max-width: 900px){
                   width: 44px;
                   height: 44px;
@@ -608,14 +614,16 @@ body, .App {
                   }
                 }
               }
-              .name{
+
+              .name {
                 font-size: 13px;
               }
             } 
           }
         }
       }
-      .convo{
+
+      .convo {
         background: #fff;
         width: 260px;
         max-width: 100%;
@@ -629,13 +637,15 @@ body, .App {
         @media screen and (max-width: 750px) {
           font-size: 12px;
         }
-        .convo_inner{
+
+        .convo_inner {
           width: 260px;
           max-width: 100%;
           height: calc(100% - 70px);
           overflow-y: scroll;
         }
-        .profile{
+
+        .profile {
           width: 32px;
           height: 32px;
           overflow: hidden;
@@ -644,49 +654,59 @@ body, .App {
           display: flex;
           align-items: center;
           justify-content: center;
-          i{
+
+          i {
             font-size: 15px;
             color: #fff;
           }
-          &.plyr1{
+
+          &.plyr1 {
             background: $plyr1;
           }
-          &.plyr2{
+
+          &.plyr2 {
             background: $plyr2;
           }
-          &.plyr3{
+
+          &.plyr3 {
             background: $plyr3;
           }
         }
-        .convoWrap{
+
+        .convoWrap {
           display: flex;
           justify-content: flex-end;
           align-items: center;
           margin: 16px 8px;
-          
         }
-        .bubble{
+
+        .bubble {
           color: #fff;
           padding: 6px 12px;
           margin-right:8px;
           border-radius: 20px;
-          &.plyr1{
+
+          &.plyr1 {
             background: $plyr1;
           }
-          &.plyr2{
+
+          &.plyr2 {
             background: $plyr2;
           }
-          &.plyr3{
+
+          &.plyr3 {
             background: $plyr3;
           }
-          &.all{
+
+          &.all {
             height: 33px;
             padding:0 16px;
             display: flex;
             justify-content: center;
             align-items: center;
             background: rgba(0,0,0,0.2);
-            .dot{
+
+            .dot {
               @include keyframes (dots){
                 from{
                   opacity: 1;
@@ -712,16 +732,18 @@ body, .App {
               margin:0 4px;
               border-radius: 6px;
               background: rgba(0,0,0,0.2);
-              &:nth-child(2){
+
+              &:nth-child(2) {
                 animation-delay: .2s;
               }
-              &:nth-child(3){
+              &:nth-child(3) {
                 animation-delay: .4s;
               }
             }
           }
         }
-        .typing, #tAnsrWrap{
+
+        .typing, #tAnsrWrap {
           width: 100%;
           display: flex;
           justify-content: flex-end;

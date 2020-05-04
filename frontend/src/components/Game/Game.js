@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 import Chat from '../Chat/Chat';
-import Profile from '../../guessai/profile.js';
-import Score from '../../guessai/score.js';
+import Profile from '../Profile/Profile';
+import Score from '../Score/Score';
 import Hint from '../HintModal/HintModal';
-import Pause from '../../guessai/pause.js';
+import Pause from '../Pause/Pause';
 
 class Game extends Component {
   constructor(props) {

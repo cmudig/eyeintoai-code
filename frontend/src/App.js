@@ -10,6 +10,7 @@ import Landing from './components/Landing/Landing';
 import About from './components/About/About';
 import GameState from './components/GameState/GameState';
 
+import './index.scss';
 import './App.scss';
 import CMU from './image/cmu.png';
 

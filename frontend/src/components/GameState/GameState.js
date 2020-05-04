@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 
-import Loading from '../../guessai/loading.js';
+import Loading from '../Loading/Loading';
 import Category from '../Category/Category';
 import ImageSelect from '../ImageSelect/ImageSelect';
 import Game from '../Game/Game';
 import Round from '../Round/Round';
-import ScoreImage from '../../guessai/scoreimages.js';
+import ScoreImage from '../ScoreImages/ScoreImages';
 
 import styles from './GameState.module.scss';
 
