@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import styles from './Round.module.scss';
-import { StaticData } from '../../data/images';
+import { StaticData } from '../../data/Images';
 import FirstImage from '../../images/round/step1.png';
 import SecondImage from '../../images/round/step2.png';
 import ThirdImage from '../../images/round/step3.png';

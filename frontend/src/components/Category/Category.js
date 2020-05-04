@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 import styles from './Category.module.scss';
-import { StaticData } from '../../data/images';
+import { StaticData } from '../../data/Images';
 
 class Category extends Component {
   state = {
