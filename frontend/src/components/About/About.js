@@ -35,7 +35,7 @@ function About() {
           Our Team
         </h1>
         <p className={styles['About__caption']}>
-          Meet current contributors:
+          Meet Current Contributors:
         </p>
         <section className={styles['About__team']}>
           <div className={styles['About__card']}>
@@ -212,7 +212,7 @@ function About() {
           </div>
         </section>
         <p className={styles['About__caption']}>
-          Meet past contributors:
+          Meet Past Contributors:
         </p>
         <section className={styles['About__team']}>
           <div className={styles['About__card']}>
@@ -313,7 +313,7 @@ function About() {
             <p className={styles['About__extra']}>
               AI Developer
               <br />
-              M.S. M.S. Educational Technology (METALS)
+              M.S. Educational Technology (METALS)
             </p>
             <ul className={styles['About__list']}>
               <li className={styles['About__item']}>
