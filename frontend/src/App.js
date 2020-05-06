@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import * as firebase from 'firebase/app';
 import dotenv from 'dotenv';
 
@@ -208,7 +208,7 @@ class App extends Component {
     );
 
     return (
-      <BrowserRouter>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <div>
           <header className="Header">
             <a href="https://www.cmu.edu/" target="_blank" rel="noopener noreferrer">
@@ -226,7 +226,7 @@ class App extends Component {
             </Switch>
           </main>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }

@@ -2,7 +2,7 @@
   "name": "mlint",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/cmuvis/mlint",
+  "homepage": "https://dig.cmu.edu/eyeintoai",
   "dependencies": {
     "classnames": "^2.2.6",
     "dom-to-image": "^2.6.0",
@@ -23,7 +23,7 @@
     "test": "jest",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -t -r https://github.com/cmudig/eyeintoai.git -d build"
   },
   "eslintConfig": {
     "extends": [
