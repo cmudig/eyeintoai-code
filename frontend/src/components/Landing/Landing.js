@@ -284,7 +284,7 @@ class Home extends Component {
             </div>
           </div>
           <p className={styles['home__footer']}>
-            Designed and developed in the&nbsp;
+            Designed and developed by the&nbsp;
             <Link className={styles['home']} to="/about">
               Data Interaction Group
             </Link>

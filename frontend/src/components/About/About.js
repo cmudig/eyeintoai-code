@@ -12,11 +12,11 @@ function About() {
             About Us
           </h1>
           <h2 className={styles['About__subheading']}>
-            We've got an Eye for AI
+            We've got our Eye into AI
           </h2>
           <p className={styles['About__details']}>
-            We are research students at Carnegie Mellon University
-            who want to help people learn about AI image recognition.
+            We are a research group at Carnegie Mellon University
+            who want to help people learn about Explainable AI.
             Our team is part of the Data Interaction Group in the
             Human-Computer Interaction Institute,
             led by&nbsp;
