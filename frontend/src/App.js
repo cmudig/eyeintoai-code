@@ -209,7 +209,17 @@ class App extends Component {
 
     return (
       <HashRouter basename={process.env.PUBLIC_URL}>
-        <div>
+        <div className="Mobile">
+          <img className="Mobile__logo" src={Logo} alt="Eye Into AI Logo" />
+          <h1 className="Mobile__heading">Eye Into AI</h1>
+          <p className="Mobile__desc">
+            Thank you for your interest in our game!
+            Unfortunately at the moment, Eye Into AI is only supported
+            on larger devices. We recommend playing on a desktop or laptop
+            for the best experience.
+          </p>
+        </div>
+        <div className="Desktop">
           <header className="Header">
             <span className="Header__left">
               <Link className="Header__link" to="/" onClick={() => { this.setState({ gameClass: [' ', ' '] }); }}>
