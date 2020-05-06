@@ -17,7 +17,7 @@ class Round extends Component {
   componentDidMount() {
     window.addEventListener('beforeunload', this.props.handleLeavePage);
     window.setTimeout(function() {
-      if (this.props.entireRound !== 1) {
+      if (![1, 3].includes(this.props.entireRound)) {
         this.props.moveToNext(3);
       }
     }.bind(this), 2000);
@@ -86,7 +86,7 @@ class Round extends Component {
     return (
       <section className={styles['Round']}>
         <h1 className={styles['Round__title']}>Round {this.props.entireRound}</h1>
-        {this.props.entireRound === 1 ? (
+        {[1, 3].includes(this.props.entireRound) ? (
           <Fragment>
             <div className={styles['Round__text']}>It’s your turn to guess. Remember...</div>
             <section className={styles['Round__info']}>
