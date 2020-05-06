@@ -18,3 +18,7 @@ You will also see any lint errors in the console.
 ### `gcloud app deploy`
 
 This will deploy it to our google cloud.
+
+### `npm run deploy`
+
+This will deploy the frontend to Github Pages. You must be in the frontend directory for this to work.
