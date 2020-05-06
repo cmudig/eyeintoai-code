@@ -1,4 +1,4 @@
-# AI GWAP
+# Eye Into AI (Our AI GWAP)
 
 ## First Time Setup
 
