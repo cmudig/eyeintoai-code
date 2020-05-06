@@ -13,8 +13,9 @@
   box-shadow: 0px 1px 4px rgba(39, 75, 130, 0.2);
   z-index: 1000;
 
-  &__logo {
-    width: 250px;
+  &__left {
+    display: flex;
+    align-items: center;
   }
 
   &__link {
@@ -22,5 +23,10 @@
     font-weight: 600;
     text-decoration: none;
     color: rgba(0, 0, 0, 0.8);
+  }
+
+  &__logo {
+    margin-right: 10px;
+    height: 40px;
   }
 }

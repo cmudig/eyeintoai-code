@@ -12,7 +12,7 @@ import GameState from './components/GameState/GameState';
 
 import './index.scss';
 import './App.scss';
-import CMU from './images/cmu.png';
+import Logo from './images/home/logo.png';
 
 dotenv.config();
 const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-dog', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
@@ -211,11 +211,16 @@ class App extends Component {
       <HashRouter basename={process.env.PUBLIC_URL}>
         <div>
           <header className="Header">
-            <a href="https://www.cmu.edu/" target="_blank" rel="noopener noreferrer">
-              <img className="Header__logo" src={CMU} alt="Carnegie Mellon University" />
-            </a>
-            <Link className="Header__link" to="/" onClick={()=> { this.setState({ gameClass: [' ', ' '] }); }}>
-              Eye into AI
+            <span className="Header__left">
+              <Link className="Header__link" to="/" onClick={() => { this.setState({ gameClass: [' ', ' '] }); }}>
+                <img className="Header__logo" src={Logo} alt="Eye Into AI Logo" />
+              </Link>
+              <Link className="Header__link" to="/" onClick={() => { this.setState({ gameClass: [' ', ' '] }); }}>
+                Eye Into AI
+              </Link>
+            </span>
+            <Link className="Header__link" to="/about" onClick={()=> { this.setState({ gameClass: [' ', ' '] }); }}>
+              About
             </Link>
           </header>
           <main>
