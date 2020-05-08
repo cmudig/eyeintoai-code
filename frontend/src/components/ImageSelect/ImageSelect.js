@@ -105,7 +105,7 @@ class ImageSelect extends Component {
             Make other players guess the image!
           </span>
           <br />
-          Select the most representative 4 feature visualizations of the {this.props.answer.classLabels[0]} for hints
+          Select 4 of the most representative feature visualizations of the {this.props.answer.classLabels[0]} for hints
         </div>
         <div className="timer" key="timer">
           <div className="timer_in" key="timer_in" style={{ width: this.state.timerWidth }}>

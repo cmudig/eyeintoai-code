@@ -136,7 +136,7 @@ class Home extends Component {
                   By playing this game, you agree that you are 18 or older and want to participate.
                 </p>
                 <p>
-                  Enjoy the game!
+                  Enjoy the game!  Be sure to sign-in first before you can play!
                 </p>
               </div>
               <div className={styles['home__links']}>
