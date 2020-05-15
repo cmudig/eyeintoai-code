@@ -41,7 +41,7 @@ function About() {
             GoogLeNet (InceptionV1) </a> deep neural network.  You can browse some layers of GoogLeNet in this <a className={styles['About__link']} href="https://distill.pub/2017/feature-visualization/appendix/" target="_blank" rel="noopener noreferrer">
             appendix </a>. 
             <p></p>
-            Our first game prototype was designed by Ja Young Lee and Qian Wang, MHCI students at CMU.  Jessica Hammer, an award-winning game designer and professor in the OH! Lab helped us iterate on a variety of game designs.  Shivang Gupta also provided his machine learning expertise.
+            Our first game prototype was designed by Ja Young Lee and Qian Wang, MHCI students at CMU, working on an independent study with Dr. Adam Perer.  Dr. Jessica Hammer, an award-winning game designer and professor in the OH! Lab helped us iterate on a variety of game designs.  Shivang Gupta also provided his machine learning expertise.
             After Young, Qian, and Shiv graduated, Laura Beth Fulton helped lead the team as a product manager as well as an HCI expert.  Zhendong (Mike) Yuan implemented the backend to scale beyond a prototype, while Kazi Jawad re-wrote the frontend and added many important game enhancements unearthed from playtesting.  Jiachen (Lilian) Gong is leading data analysis of the game logs.  Justine Cho helped us expand the game with more categories and explanations.
             Special thanks to Niki Kittur and Zack Lipton for some initial conversations about experiments with feature visualizations.
             
@@ -242,7 +242,7 @@ function About() {
             />
             <p className={styles['About__name']}>Ja Young Lee</p>
             <p className={styles['About__extra']}>
-              UX Design and Game Design
+              UX Design, Game Design and Front-End Development
               <br />
               M.S. Human-Computer Interaction
             </p>
@@ -254,6 +254,33 @@ function About() {
               </li>
               <li className={styles['About__item']}>
                 <a className={styles['About__social']} href="https://github.com/jayolee" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://media-exp1.licdn.com/dms/image/C4E03AQHUTGYACE93_A/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=nouThx5_V6N7if6YFBizlzNavZaoLG4qBhvBNfEwG5Y"
+              alt="Qian Wang"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Qian Wang</p>
+            <p className={styles['About__extra']}>
+              UX Design and Game Design
+              <br />
+              M.S. Human-Computer Interaction
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://www.linkedin.com/in/qian-wang-11513314a/" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://github.com/WangQianEve" target="_blank" rel="noopener noreferrer">
                   <ion-icon name="logo-github"></ion-icon>
                 </a>
               </li>
@@ -286,33 +313,6 @@ function About() {
               </li>
               <li className={styles['About__item']}>
                 <a className={styles['About__social']} href="https://github.com/yzd1998111" target="_blank" rel="noopener noreferrer">
-                  <ion-icon name="logo-github"></ion-icon>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles['About__card']}>
-            <img
-              className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQHUTGYACE93_A/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=nouThx5_V6N7if6YFBizlzNavZaoLG4qBhvBNfEwG5Y"
-              alt="Qian Wang"
-              height="100"
-              width="100"
-            />
-            <p className={styles['About__name']}>Qian Wang</p>
-            <p className={styles['About__extra']}>
-              UX Design and Game Design
-              <br />
-              M.S. Human-Computer Interaction
-            </p>
-            <ul className={styles['About__list']}>
-              <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="https://www.linkedin.com/in/qian-wang-11513314a/" target="_blank" rel="noopener noreferrer">
-                  <ion-icon name="logo-linkedin"></ion-icon>
-                </a>
-              </li>
-              <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="https://github.com/WangQianEve" target="_blank" rel="noopener noreferrer">
                   <ion-icon name="logo-github"></ion-icon>
                 </a>
               </li>
