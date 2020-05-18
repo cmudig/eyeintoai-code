@@ -289,7 +289,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQEAxt5MWteaqA/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=gs1EJyH3JjEqb_ZXnypnKWgTrQs_d2ck9mGMkcSQorw"
+              src="https://media-exp1.licdn.com/dms/image/C4D03AQFHfk9hepwyIg/profile-displayphoto-shrink_400_400/0?e=1595462400&v=beta&t=fmywUv3jNihqNIiuQgHrcW9RV7EL3rb-5RWv9O36lJA"
               alt="Zhendong (Mike) Yuan"
               height="100"
               width="100"
