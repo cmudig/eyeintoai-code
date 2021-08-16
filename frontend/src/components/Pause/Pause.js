@@ -43,9 +43,10 @@ class Pause extends Component {
     let time;
     this.pauseTimer = setInterval(function() {
       time = this.state.pauseTimer - 1;
-      if (time === 9) {
-        window.setTimeout(function() { this.test_selectCard(); }.bind(this), 1000);
-      }
+      // Not sure why this is here, commenting...
+      // if (time === 9) {
+      //   window.setTimeout(function() { this.test_selectCard(); }.bind(this), 1000);
+      // }
       this.setState({ pauseTimer: time });
       if (time === 0) {
         this.props.setTimer();

@@ -1,5 +1,51 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { StaticData } from '../../data/Images';
+
+const limeVisuals = {}
+for (var type of Object.keys(StaticData)) {
+  let images = StaticData[type]
+  for (var image of images) {
+    let key = image.name;
+    console.log(image)
+    // let commPath = "../../images/LIME/"
+    let top_five = []
+    for (let i = 0; i < 5; i++) {
+      let filename =key + "/top_" + i 
+      // console.log( "../../images/LIME/" + filename + ".jpeg")
+      try {
+        let v = require(`../../images/LIME/${filename}.jpeg`)
+        top_five.push(v)
+
+      } catch {
+        console.log("Couldn't load path : " + "../../images/LIME/" + filename + ".jpeg")
+        continue;
+      }
+  
+    }
+  
+    let bottom_five = []
+    for (let i = 0; i < 5; i++) {
+      let filename =key + "/bottom_" + i 
+      try {
+        let v = require(`../../images/LIME/${filename}.jpeg`)
+        bottom_five.push(v)
+
+      } catch (err) {
+        console.log(err)
+        console.log("Couldn't load path : " + "../../images/LIME/" + filename + ".jpeg")
+        continue;
+      }
+  
+    }
+    limeVisuals[key] = {}
+    limeVisuals[key]["top_five"] = top_five
+    limeVisuals[key]["bottom_five"] = bottom_five
+  
+  }
+  
+}
+console.log(limeVisuals)
 
 const visuals = [];
 for (let i = 0; i < 528; i++) {
@@ -18,14 +64,33 @@ class ImageSelect extends Component {
   }
 
   nonSelectedVisuals() {
-    const newVisuals = [];
-    for (let i = 0; i < 8; i++) {
-      newVisuals.push(visuals[this.props.answer.correctURLs[i]]);
+    if (this.props.explanationType === 1) {
+      const newVisuals = [];
+
+      // for (let i = 0; i < 5; i++) {
+      //   let path = "bottom_" + i + ".jpeg"
+      //   let combinedPath = commPath + path;
+      //   console.log( "../../images/LIME/" + combinedPath)
+      //   let v = require("../../images/LIME/" + (combinedPath))
+
+      //   newVisuals.push(v)
+      // }
+      console.log(this.props.answer.name, limeVisuals, limeVisuals[this.props.answer.name])
+      console.log(limeVisuals[this.props.answer.name].top_five.concat( limeVisuals[this.props.answer.name].bottom_five))
+      let randomized = _.shuffle(limeVisuals[this.props.answer.name].top_five.concat( limeVisuals[this.props.answer.name].bottom_five))
+      console.log(randomized)
+      this.setState({ nonSelected: randomized });
+
+    } else {
+      const newVisuals = [];
+      for (let i = 0; i < 8; i++) {
+        newVisuals.push(visuals[this.props.answer.correctURLs[i]]);
+      }
+      for (let i = 0; i < 2; i++) {
+        newVisuals.push(visuals[this.props.answer.wrongVizURLs[i]]);
+      }
+      this.setState({ nonSelected: newVisuals });
     }
-    for (let i = 0; i < 2; i++) {
-      newVisuals.push(visuals[this.props.answer.wrongVizURLs[i]]);
-    }
-    this.setState({ nonSelected: newVisuals });
   }
 
   selectedVisuals(list, item, number, target) {

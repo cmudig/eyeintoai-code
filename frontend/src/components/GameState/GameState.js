@@ -10,20 +10,28 @@ import ScoreImage from '../ScoreImages/ScoreImages';
 
 import styles from './GameState.module.scss';
 
+
+// explanationType - 
+// 0 : featureViz
+// 1 : LIME 
+
+
+
 class GameState extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer: {},
+      explanationType : 1, 
+      answer: {}, // contains the actual answer image for current round
       turns: [],
-      mode: 0,
-      entireRound: 1,
+      mode: 0, // Current mode (choosing image, guessing, etc)
+      entireRound: 1, // Current round of guessing (3 in total)
       blueOpacity: 0,
       score: [[0, 0], [0, 0], [0, 0]],
       players: this.props.players,
-      playerHints: [],
-      playerHintsURL: [],
-      playerAnswer: [],
+      playerHints: [], // contains hints for player chosen image
+      playerHintsURL: [], // contains hints URLs for player chosen image
+      playerAnswer: [], // contains actual image chosen by player
       playerScore: [],
       hints: [],
       hintsURL: [],
@@ -34,6 +42,8 @@ class GameState extends Component {
     this.guessPerRound = {};
   }
 
+
+  
   UNSAFE_componentWillMount() {
     this.randomizeTurn();
   }
@@ -159,77 +169,174 @@ class GameState extends Component {
     }
     this.setState({ mode: n });
   }
-
+  
+  // Renders based on current mode
   renderMode() {
-    if (this.state.mode === 0) {
-      return (
-        <Loading
-          movetoNext={this.moveToNext.bind(this)}
-          players={this.state.players}
-        />
-      );
-    } else if (this.state.mode === 1) {
-      return (
-        <Category
-          setTestPhase={this.setTestPhase.bind(this)}
-          setAnswer={this.setAnswer.bind(this)}
-          movetoNext={this.moveToNext.bind(this)}
-          update={this.props.update}
-        />
-      );
-    } else if (this.state.mode === 2) {
-      return (
-        <ImageSelect
-          movetoNext={this.moveToNext.bind(this)}
-          getPlayerHint={this.getPlayerHint.bind(this)}
-          update={this.props.update}
-          answer={this.state.answer}
-        />
-      );
-    } else if (this.state.mode === 3) {
-      return (
-        <Game
-          answer={this.state.answer}
-          addHintSelected={this.addHintSelected.bind(this)}
-          setScore={this.setScore.bind(this)}
-          update={this.props.update}
-          turns={this.state.turns}
-          entireRound={this.state.entireRound}
-          guessPerRound={this.guessPerRound}
-          addRound={this.addRound.bind(this)}
-          score={this.state.score}
-          hints={this.state.hints}
-          hintsURL={this.state.hintsURL}
-          players={this.state.players}
-          setScoreImages={this.setScoreImages.bind(this)}
-          movetoNext={this.moveToNext.bind(this)}
-          addGuess={this.addGuess.bind(this)}
-        />
-      );
-    } else if (this.state.mode === 4) {
-      return (
-        <Round
-          testPhase={this.testPhase}
-          entireRound={this.state.entireRound}
-          turns={this.state.turns}
-          moveToNext={this.moveToNext.bind(this)}
-          update={this.props.update}
-          players={this.state.players}
-          setAnswer={this.setAnswer.bind(this)}
-          setHintsURL={this.setHintsURL.bind(this)}
-          setHints={this.setHints.bind(this)}
-          setPlayerHint={this.setPlayerHint.bind(this)}
-          answerRecord={this.state.answerRecord}
-        />
-      );
-    } else if (this.state.mode === 5) {
-      return (
-        <ScoreImage scoreImages={this.state.scoreImages} />
-      );
-    }
+  if (this.state.explanationType === 0 ) {
+      console.log(this.state)
+      if (this.state.mode === 0) {
+        return (
+          <Loading
+            movetoNext={this.moveToNext.bind(this)}
+            players={this.state.players}
+          />
+        );
+      } else if (this.state.mode === 1) {
+        return (
+          <Category
+            setTestPhase={this.setTestPhase.bind(this)}
+            setAnswer={this.setAnswer.bind(this)}
+            movetoNext={this.moveToNext.bind(this)}
+            update={this.props.update}
+          />
+        );
+      } else if (this.state.mode === 2) {
+        return (
+          <ImageSelect
+            movetoNext={this.moveToNext.bind(this)}
+            getPlayerHint={this.getPlayerHint.bind(this)}
+            update={this.props.update}
+            answer={this.state.answer}
+          />
+        );
+      } else if (this.state.mode === 3) {
+        return (
+          <Game
+            answer={this.state.answer}
+            addHintSelected={this.addHintSelected.bind(this)}
+            setScore={this.setScore.bind(this)}
+            update={this.props.update}
+            turns={this.state.turns}
+            entireRound={this.state.entireRound}
+            guessPerRound={this.guessPerRound}
+            addRound={this.addRound.bind(this)}
+            score={this.state.score}
+            hints={this.state.hints}
+            hintsURL={this.state.hintsURL}
+            players={this.state.players}
+            setScoreImages={this.setScoreImages.bind(this)}
+            movetoNext={this.moveToNext.bind(this)}
+            addGuess={this.addGuess.bind(this)}
+          />
+        );
+      } else if (this.state.mode === 4) {
+        return (
+          <Round
+            testPhase={this.testPhase}
+            entireRound={this.state.entireRound}
+            turns={this.state.turns}
+            moveToNext={this.moveToNext.bind(this)}
+            update={this.props.update}
+            players={this.state.players}
+            setAnswer={this.setAnswer.bind(this)}
+            setHintsURL={this.setHintsURL.bind(this)}
+            setHints={this.setHints.bind(this)}
+            setPlayerHint={this.setPlayerHint.bind(this)}
+            answerRecord={this.state.answerRecord}
+          />
+        );
+      } else if (this.state.mode === 5) {
+        this.setState({
+          explanationType : 1, 
+          answer: {}, // contains the actual answer image for current round
+          turns: [],
+          mode: 0, // Current mode (choosing image, guessing, etc)
+          entireRound: 1, // Current round of guessing (3 in total)
+          blueOpacity: 0,
+          score: [[0, 0], [0, 0], [0, 0]],
+          players: this.props.players,
+          playerHints: [], // contains hints for player chosen image
+          playerHintsURL: [], // contains hints URLs for player chosen image
+          playerAnswer: [], // contains actual image chosen by player
+          playerScore: [],
+          hints: [],
+          hintsURL: [],
+          scoreImages: [],
+          answerRecord: [],
+          testPhase: false,
+        })
+        this.randomizeTurn();
+
+        // return (
+        //   <ScoreImage scoreImages={this.state.scoreImages} />
+        // );
+      }
+    } else if (this.state.explanationType === 1) { 
+      console.log(this.state)
+      if (this.state.mode === 0) {
+        return (
+          <Loading
+            movetoNext={this.moveToNext.bind(this)}
+            players={this.state.players}
+          />
+        );
+      } else if (this.state.mode === 1) {
+        return (
+          <Category
+            setTestPhase={this.setTestPhase.bind(this)}
+            setAnswer={this.setAnswer.bind(this)}
+            movetoNext={this.moveToNext.bind(this)}
+            update={this.props.update}
+            explanationType = {this.state.explanationType}
+          />
+        );
+      } else if (this.state.mode === 2) {
+        return (
+          <ImageSelect
+            movetoNext={this.moveToNext.bind(this)}
+            getPlayerHint={this.getPlayerHint.bind(this)}
+            update={this.props.update}
+            answer={this.state.answer}
+            explanationType = {this.state.explanationType}
+          />
+        );
+      } else if (this.state.mode === 3) {
+        return (
+          <Game
+            answer={this.state.answer}
+            addHintSelected={this.addHintSelected.bind(this)}
+            setScore={this.setScore.bind(this)}
+            update={this.props.update}
+            turns={this.state.turns}
+            entireRound={this.state.entireRound}
+            guessPerRound={this.guessPerRound}
+            addRound={this.addRound.bind(this)}
+            score={this.state.score}
+            hints={this.state.hints}
+            hintsURL={this.state.hintsURL}
+            players={this.state.players}
+            setScoreImages={this.setScoreImages.bind(this)}
+            movetoNext={this.moveToNext.bind(this)}
+            addGuess={this.addGuess.bind(this)}
+          />
+        );
+      } else if (this.state.mode === 4) {
+        return (
+          <Round
+            testPhase={this.testPhase}
+            entireRound={this.state.entireRound}
+            turns={this.state.turns}
+            moveToNext={this.moveToNext.bind(this)}
+            update={this.props.update}
+            players={this.state.players}
+            setAnswer={this.setAnswer.bind(this)}
+            setHintsURL={this.setHintsURL.bind(this)}
+            setHints={this.setHints.bind(this)}
+            setPlayerHint={this.setPlayerHint.bind(this)}
+            answerRecord={this.state.answerRecord}
+            explanationType = {this.state.explanationType}
+          />
+        );
+      } else if (this.state.mode === 5) {
+        return (
+          <ScoreImage scoreImages={this.state.scoreImages} />
+        );
+      }
+    } 
   }
 
   render() {
+    console.log(this.state)
     return (
       <Fragment>
         <div className={styles['GameState__blue']} style={{ opacity: this.state.blueOpacity }}/>

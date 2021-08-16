@@ -144,6 +144,7 @@ class Category extends Component {
       break;
     }
     default: {
+      // dead code, there is no state.randomNums
       if (this.state.randomNums[0] % 2 === 1) {
         category = StaticData.landAnimal;
         categoryName = 'landAnimals';
@@ -168,6 +169,7 @@ class Category extends Component {
             alt={item.classLabels[0]}
             key={item.classLabels[0]}
             onClick={() => {
+              // Goes to App.js for logging (not used in game state)
               this.props.update({
                 explain_round: {
                   categorySelect: categoryName,

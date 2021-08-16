@@ -47,7 +47,7 @@ class HintModal extends Component {
         clearInterval(this.hinttimer);
         this.props.changeMode(4);
       }
-    }.bind(this), 1000);
+    }.bind(this), 200 );
     (this.props.turns[this.props.entireRound - 1] === 1) ? this.test_selectCard() : this.random_selectCard();
   }
 
@@ -91,7 +91,7 @@ class HintModal extends Component {
     const cards = document.getElementsByClassName('hintCard');
     window.setTimeout(function() {
       cards[3].classList.add('plyr2');
-    }, 2000);
+    }, 100);
 
     window.setTimeout(function() {
       cards[3].classList.add('plyr3');
@@ -101,8 +101,8 @@ class HintModal extends Component {
         this.setState({ result: true });
         this.rightAnswer(cards[3].classList);
 
-      }.bind(this), 3000);
-    }.bind(this), 3000);
+      }.bind(this), 100);
+    }.bind(this), 100);
   }
 
   random_selectCard() {

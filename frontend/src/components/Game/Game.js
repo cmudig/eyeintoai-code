@@ -22,7 +22,9 @@ class Game extends Component {
       opacity: 1,
       display: 'block',
       timerWidth: '300px',
-      typeMode: this.props.turns[this.props.entireRound - 1] === 1,
+      // very weird convoluted way of checking if this.props.entireRound is 2 
+      // this.props.turns is always [2, 1, 3] ?
+      typeMode: this.props.turns[this.props.entireRound - 1] === 1, 
     };
     this.timer = '';
   }
@@ -103,7 +105,7 @@ class Game extends Component {
           this.setState({ timerWidth: '300px' });
         }.bind(this), 500);
       }
-    }.bind(this), 2000);
+    }.bind(this), 500);
   }
 
   updateWrapper(newGuess) {

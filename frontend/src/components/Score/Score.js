@@ -7,7 +7,7 @@ class Score extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timer: 10,
+      timer: 2,
       animation: 'active',
       result: false,
       score: this.props.score,
