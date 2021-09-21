@@ -279,7 +279,9 @@ class Home extends Component {
                 >
                   How to Play
                 </button>
-                <div id="g-signin2" onClick={() => { this.props.signOut(); }} />
+                <div id="g-signin2" onClick={() => { 
+                  this.props.signOut(); 
+                  }} />
               </div>
             </div>
           </div>

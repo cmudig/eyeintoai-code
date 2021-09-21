@@ -7,45 +7,66 @@ import SecondImage from '../../images/round/step2.png';
 import ThirdImage from '../../images/round/step3.png';
 import _ from 'lodash';
 
+
+let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
+let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
+
+
+const gradcamVisuals = {}
+
 const limeVisuals = {}
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
   for (var image of images) {
     let key = image.name;
-    console.log(image)
+    // console.log(image)
     // let commPath = "../../images/LIME/"
-    let top_five = []
+    let top_five_lime = []
+    let top_five_gradcam = []
+
     for (let i = 0; i < 5; i++) {
       let filename =key + "/top_" + i 
       // console.log( "../../images/LIME/" + filename + ".jpeg")
       try {
-        let v = require(`../../images/LIME/${filename}.jpeg`)
-        top_five.push(v)
+        let v = r_lime(`./${filename}.jpeg`)
+        let g =  r_gradcam(`./${filename}.png`)
+        top_five_lime.push(v)
+        top_five_gradcam.push(g)
+
 
       } catch {
-        console.log("Couldn't load path : " + "../../images/LIME/" + filename + ".jpeg")
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
     }
   
-    let bottom_five = []
+    let bottom_five_lime = []
+    let bottom_five_gradcam = []
+
     for (let i = 0; i < 5; i++) {
       let filename =key + "/bottom_" + i 
       try {
-        let v = require(`../../images/LIME/${filename}.jpeg`)
-        bottom_five.push(v)
+        let v = r_lime(`./${filename}.jpeg`)
+        let g =  r_gradcam(`./${filename}.png`)
+        bottom_five_lime.push(v)
+        bottom_five_gradcam.push(g)
 
       } catch (err) {
-        console.log(err)
-        console.log("Couldn't load path : " + "../../images/LIME/" + filename + ".jpeg")
+        // console.log(err)
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
     }
     limeVisuals[key] = {}
-    limeVisuals[key]["top_five"] = top_five
-    limeVisuals[key]["bottom_five"] = bottom_five
+    limeVisuals[key]["top_five"] = top_five_lime
+    limeVisuals[key]["bottom_five"] = bottom_five_lime
+
+    gradcamVisuals[key] = {}
+    gradcamVisuals[key]["top_five"] = top_five_gradcam
+    gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
+
   
   }
   
@@ -77,8 +98,15 @@ class Round extends Component {
 
     // If it's not the user (1 is user, others are AI), then populate their answer and hints
     if (player !== 1) {
-      if (this.props.explanationType == 1) { 
-        let randomOrder = []
+      let currVisuals;
+      if (this.props.explanationType === 1) {
+        currVisuals = limeVisuals;
+      } else if (this.props.explanationType === 2) {
+        currVisuals = gradcamVisuals;
+      }
+  
+      if ([1,2].includes(this.props.explanationType)) {
+          let randomOrder = []
         // const randomNum = (Math.floor(Math.random() * 2));
 
         for (let i = 0; i < 5; i++) {
@@ -96,20 +124,27 @@ class Round extends Component {
         // }
 
         answers = randomProperty(StaticData);
+        let answer = answers[Math.floor(Math.random()*answers.length)]
         // Can randomize which one is chosen in the future 
-       let limeVisual = limeVisuals[answers[Math.floor(Math.random()*answers.length)].name]
-      //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
-      let imgArr = limeVisual.top_five
+        let currVisual = currVisuals[answer.name]
+        //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
+        let imgArr = []
+        imgArr.push([currVisual.top_five[0], "t_0"])
+        imgArr.push([currVisual.top_five[randomOrder[1]], "t_" + randomOrder[1]])
 
-        console.log(randomOrder)
 
-       this.props.setAnswer(answers[2]);
-       this.props.setHints([
-         imgArr[randomOrder[0]],
-         imgArr[randomOrder[1]],
-         imgArr[randomOrder[2]],
-         imgArr[randomOrder[3]],
-       ]);
+        randomOrder = _.shuffle(randomOrder)
+        imgArr.push([currVisual.bottom_five[randomOrder[0]], "b_" + randomOrder[0]])
+        imgArr.push([currVisual.bottom_five[randomOrder[1]], "b_" + randomOrder[1]])
+
+        imgArr = _.shuffle(imgArr)
+        let t = _.unzip(imgArr)
+        imgArr = t[0]
+        let orderArr = t[1]
+
+        console.log("orderArr = ", orderArr);
+       this.props.setAnswer(answer);
+       this.props.setHints(imgArr);
 
 
       } else {

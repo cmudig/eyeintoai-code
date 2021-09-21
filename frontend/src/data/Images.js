@@ -19,7 +19,7 @@ import starfish from '../images/samples/starfish.jpg';
 // import spiderMonkey from '../images/samples/spiderMonkey.jpg';
 import mudTurtle from '../images/samples/mudturtle.jpg';
 import kingSnake from '../images/samples/kingSnake.jpg';
-import banana from '../images/samples/banana.jpg';
+// import banana from '../images/samples/banana.jpg';
 import orange from '../images/samples/orange.jpg';
 import pineapple from '../images/samples/pineapple.jpg';
 // import raspberry from '../images/samples/raspberry.jpg';
@@ -164,14 +164,14 @@ export const StaticData = {
     },
   ],
   fruit: [
-    {
-      url: banana,
-      name: "banana",
-      correctURLs: [47, 259, 44, 57, 131, 150, 97, 407],
-      wrongVizURLs: [5, 299],
-      classLabels:['banana', 'bananas'],
-      hint: 'fruit',
-    },
+    // {
+    //   url: banana,
+    //   name: "banana",
+    //   correctURLs: [47, 259, 44, 57, 131, 150, 97, 407],
+    //   wrongVizURLs: [5, 299],
+    //   classLabels:['banana', 'bananas'],
+    //   hint: 'fruit',
+    // },
     {
       url: orange,
       name: "orange",

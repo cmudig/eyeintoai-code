@@ -2,50 +2,72 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { StaticData } from '../../data/Images';
 
+
+let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
+let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
+
+const gradcamVisuals = {}
+
 const limeVisuals = {}
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
   for (var image of images) {
     let key = image.name;
-    console.log(image)
+    // console.log(image)
     // let commPath = "../../images/LIME/"
-    let top_five = []
+    let top_five_lime = []
+    let top_five_gradcam = []
+
     for (let i = 0; i < 5; i++) {
       let filename =key + "/top_" + i 
       // console.log( "../../images/LIME/" + filename + ".jpeg")
       try {
-        let v = require(`../../images/LIME/${filename}.jpeg`)
-        top_five.push(v)
+        let v = r_lime(`./${filename}.jpeg`)
+        let g =  r_gradcam(`./${filename}.png`)
+        top_five_lime.push(v)
+        top_five_gradcam.push(g)
+
 
       } catch {
-        console.log("Couldn't load path : " + "../../images/LIME/" + filename + ".jpeg")
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
     }
   
-    let bottom_five = []
+    let bottom_five_lime = []
+    let bottom_five_gradcam = []
+
     for (let i = 0; i < 5; i++) {
       let filename =key + "/bottom_" + i 
       try {
-        let v = require(`../../images/LIME/${filename}.jpeg`)
-        bottom_five.push(v)
+        let v = r_lime(`./${filename}.jpeg`)
+        let g =  r_gradcam(`./${filename}.png`)
+        bottom_five_lime.push(v)
+        bottom_five_gradcam.push(g)
 
       } catch (err) {
-        console.log(err)
-        console.log("Couldn't load path : " + "../../images/LIME/" + filename + ".jpeg")
+        // console.log(err)
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
     }
     limeVisuals[key] = {}
-    limeVisuals[key]["top_five"] = top_five
-    limeVisuals[key]["bottom_five"] = bottom_five
+    limeVisuals[key]["top_five"] = top_five_lime
+    limeVisuals[key]["bottom_five"] = bottom_five_lime
+
+    gradcamVisuals[key] = {}
+    gradcamVisuals[key]["top_five"] = top_five_gradcam
+    gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
+
   
   }
   
 }
+
 console.log(limeVisuals)
+console.log(gradcamVisuals)
 
 const visuals = [];
 for (let i = 0; i < 528; i++) {
@@ -64,8 +86,14 @@ class ImageSelect extends Component {
   }
 
   nonSelectedVisuals() {
+    let currVisuals;
     if (this.props.explanationType === 1) {
-      const newVisuals = [];
+      currVisuals = limeVisuals;
+    } else if (this.props.explanationType === 2) {
+      currVisuals = gradcamVisuals;
+    }
+
+    if ([1,2].includes(this.props.explanationType)) {
 
       // for (let i = 0; i < 5; i++) {
       //   let path = "bottom_" + i + ".jpeg"
@@ -75,9 +103,9 @@ class ImageSelect extends Component {
 
       //   newVisuals.push(v)
       // }
-      console.log(this.props.answer.name, limeVisuals, limeVisuals[this.props.answer.name])
-      console.log(limeVisuals[this.props.answer.name].top_five.concat( limeVisuals[this.props.answer.name].bottom_five))
-      let randomized = _.shuffle(limeVisuals[this.props.answer.name].top_five.concat( limeVisuals[this.props.answer.name].bottom_five))
+      console.log(this.props.answer.name, currVisuals, currVisuals[this.props.answer.name])
+      console.log(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
+      let randomized = _.shuffle(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
       console.log(randomized)
       this.setState({ nonSelected: randomized });
 
