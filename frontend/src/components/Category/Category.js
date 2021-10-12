@@ -74,35 +74,6 @@ class Category extends Component {
             >
               Electronics
             </div>
-            <div
-              className={styles['Category__button']}
-              onClick={() => {
-                this.props.setTestPhase();
-                const randomBool = Math.random() >= 0.5;
-                if (randomBool) {
-                  const item = StaticData.landAnimal[Math.floor(Math.random() * StaticData.landAnimal.length)];
-                  this.props.setAnswer(item);
-                  this.props.update({
-                    explain_round: {
-                      categorySelect: 'landAnimals',
-                      imgSelect: item.classLabels[0],
-                    },
-                  });
-                } else {
-                  const item = StaticData.instrument[Math.floor(Math.random() * StaticData.instrument.length)];
-                  this.props.setAnswer(item);
-                  this.props.update({
-                    explain_round: {
-                      categorySelect: 'instruments',
-                      imgSelect: item.classLabels[0],
-                    },
-                  });
-                }
-                this.props.movetoNext(2);
-              }}
-            >
-              Random
-            </div>
           </div>
         </div>
       );

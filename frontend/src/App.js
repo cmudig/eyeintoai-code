@@ -178,14 +178,14 @@ class App extends Component {
   startNewLog() {
     this.timestamp = Date.now();
     var usersUpdate = {};
-    usersUpdate[`${this.timestamp}`] = { playerEmail: this.googleUser.getBasicProfile().getEmail(), playerId: this.googleUser.getBasicProfile().getGivenName(), versionNumber: 'v1', totalPoints: 0 };
-    this.db.collection('gameLogs').doc(this.uid).set(usersUpdate, { merge: true });
+    usersUpdate[`${this.timestamp}`] = { playerEmail: this.googleUser.getBasicProfile().getEmail(), playerId: this.googleUser.getBasicProfile().getGivenName() };
+    this.db.collection('gameLogsNew').doc(this.uid).set(usersUpdate, { merge: true });
   }
 
   update(fieldAndvalue) {
     var usersUpdate = {};
     usersUpdate[`${this.timestamp}`] = fieldAndvalue;
-    this.db.collection('gameLogs').doc(this.uid).set(usersUpdate, { merge: true });
+    this.db.collection('gameLogsNew').doc(this.uid).set(usersUpdate, { merge: true });
   }
 
   signOut() {
