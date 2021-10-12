@@ -18,7 +18,7 @@ for (var type of Object.keys(StaticData)) {
     let top_five_lime = []
     let top_five_gradcam = []
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       let filename =key + "/top_" + i 
       // console.log( "../../images/LIME/" + filename + ".jpeg")
       try {
@@ -38,7 +38,7 @@ for (var type of Object.keys(StaticData)) {
     let bottom_five_lime = []
     let bottom_five_gradcam = []
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       let filename =key + "/bottom_" + i 
       try {
         let v = r_lime(`./${filename}.jpeg`)
@@ -166,24 +166,34 @@ class ImageSelect extends Component {
   renderVisuals() {
     const elements = [];
     const images = this.state.nonSelected.concat(this.state.selected);
-    for (let i = 0; i < 10; i++) {
-      elements.push(
-        <div key={'vis' + i}>
-          <div className="order" id={'order' + i}>
-            {this.returnIndex(images[i])}
+    let numPics, maxWidth;
+    if ([1,2].includes(this.props.explanationType)) {
+      numPics = 8; 
+      maxWidth = "640px";
+    } else {
+      numPics = 10; 
+      maxWidth = "740px";
+    }  
+      for (let i = 0; i < numPics; i++) {
+        elements.push(
+          <div key={'vis' + i}>
+            <div className="order" id={'order' + i}>
+              {this.returnIndex(images[i])}
+            </div>  
+            <img
+              className="active"
+              src={images[i]}
+              alt={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
+              key={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
+              onClick={(e) => { this.selectedVisuals(e.target.classList, images[i], i, e.target); }}
+            />
           </div>
-          <img
-            className="active"
-            src={images[i]}
-            alt={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
-            key={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
-            onClick={(e) => { this.selectedVisuals(e.target.classList, images[i], i, e.target); }}
-          />
-        </div>
-      );
-    }
+        );
+      }
+    // }
+    
     return (
-      <div className="vis-row">
+      <div className="vis-row" style={{"max-width" : maxWidth }}>
         {elements}
       </div>
     );

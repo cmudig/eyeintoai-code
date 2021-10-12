@@ -21,7 +21,7 @@ class GameState extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      explanationType : 2, 
+      explanationType : 1, 
       answer: {}, // contains the actual answer image for current round
       turns: [],
       mode: 0, // Current mode (choosing image, guessing, etc)
@@ -38,6 +38,7 @@ class GameState extends Component {
       scoreImages: [],
       answerRecord: [],
       testPhase: false,
+      pastGuessingImgs: []
     };
     this.guessPerRound = {};
   }
@@ -62,7 +63,7 @@ class GameState extends Component {
   }
 
   randomizeTurn() {
-    this.setState({ turns: [2, 1, 3] });
+    this.setState({ turns: [2, 3] });
   }
 
   setAnswer(n) {
@@ -70,6 +71,7 @@ class GameState extends Component {
       answer: n,
       answerRecord: [...this.state.answerRecord, n.classLabels[0]],
       setAnswerRecord: n,
+      pastGuessingImgs : [...this.state.pastGuessingImgs, n]
     });
   }
 
@@ -233,6 +235,7 @@ class GameState extends Component {
             setHints={this.setHints.bind(this)}
             setPlayerHint={this.setPlayerHint.bind(this)}
             answerRecord={this.state.answerRecord}
+            pastGuessingImgs = {this.state.pastGuessingImgs}
           />
         );
       } else if (this.state.mode === 5) {
@@ -254,6 +257,7 @@ class GameState extends Component {
           scoreImages: [],
           answerRecord: [],
           testPhase: false,
+          pastGuessingImgs: []
         })
         this.randomizeTurn();
 
@@ -262,7 +266,7 @@ class GameState extends Component {
         // );
       }
     } else if (this.state.explanationType === 1) { 
-      console.log(this.state)
+      // console.log(this.state)
       if (this.state.mode === 0) {
         return (
           <Loading
@@ -325,6 +329,7 @@ class GameState extends Component {
             setPlayerHint={this.setPlayerHint.bind(this)}
             answerRecord={this.state.answerRecord}
             explanationType = {this.state.explanationType}
+            pastGuessingImgs = {this.state.pastGuessingImgs}
           />
         );
       } else if (this.state.mode === 5) {
@@ -355,7 +360,7 @@ class GameState extends Component {
         );
       }
     }  else if (this.state.explanationType === 2) { 
-      console.log(this.state)
+      // console.log(this.state)
       if (this.state.mode === 0) {
         return (
           <Loading
@@ -418,6 +423,8 @@ class GameState extends Component {
             setPlayerHint={this.setPlayerHint.bind(this)}
             answerRecord={this.state.answerRecord}
             explanationType = {this.state.explanationType}
+            pastGuessingImgs = {this.state.pastGuessingImgs}
+
           />
         );
       } else if (this.state.mode === 5) {
@@ -429,7 +436,6 @@ class GameState extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <Fragment>
         <div className={styles['GameState__blue']} style={{ opacity: this.state.blueOpacity }}/>

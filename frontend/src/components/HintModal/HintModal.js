@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash'
 
 import HintAnswers from '../../data/HintAnswers';
 
@@ -21,23 +22,41 @@ class HintModal extends Component {
   componentDidMount() {
     let numbers = [];
     const answers = HintAnswers[this.props.answer.hint];
-    for (let i = 0; i < answers.length; i++) {
-      numbers.push(i);
-    }
-    let ran1, ran2, ranTemp;
-    for (let i = 0; i < 10; i++) {
-      ran1 = Math.floor(Math.random() * answers.length);
-      ran2 = Math.floor(Math.random() * answers.length);
 
-      ranTemp = numbers[ran1];
-      numbers[ran1] = numbers[ran2];
-      numbers[ran2] = ranTemp;
-    }
-    numbers = [answers[numbers[0]], answers[numbers[1]], answers[numbers[2]], answers[numbers[3]]];
+    numbers.push(this.answer)
+
+    let samples; 
+    do {
+      samples = _.sampleSize(answers, 3)
+    } while (_.intersection(this.props.answer.classLabels, samples).length > 0)
+    
+    numbers = numbers.concat(samples)
+
+    // Unnecessarily convoluted way to get 4 random elements from answers, where one is the actual answer
+    // for (let i = 0; i < answers.length; i++) {
+    //   numbers.push(i);
+    // }
+  
+    // let ran1, ran2, ranTemp;
+    // for (let i = 0; i < 10; i++) {
+    //   ran1 = Math.floor(Math.random() * answers.length);
+    //   ran2 = Math.floor(Math.random() * answers.length);
+
+    //   ranTemp = numbers[ran1];
+    //   numbers[ran1] = numbers[ran2];
+    //   numbers[ran2] = ranTemp;
+    // }
+    // numbers = [answers[numbers[0]], answers[numbers[1]], answers[numbers[2]], answers[numbers[3]]];
+
+
+
     if (this.props.turns[this.props.entireRound - 1] === 1) {
-      numbers[3] = this.answer;
+      let t = numbers[3];
+      numbers[3] = numbers[0]; 
+      numbers[0] = t;
     } else {
-      numbers[Math.floor(Math.random() * 4)] = this.answer;
+      // numbers[Math.floor(Math.random() * 4)] = this.answer;
+      numbers = _.shuffle(numbers)
     }
     this.setState({ randomOptions: numbers });
 
@@ -47,7 +66,7 @@ class HintModal extends Component {
         clearInterval(this.hinttimer);
         this.props.changeMode(4);
       }
-    }.bind(this), 200 );
+    }.bind(this), 1000 );
     (this.props.turns[this.props.entireRound - 1] === 1) ? this.test_selectCard() : this.random_selectCard();
   }
 

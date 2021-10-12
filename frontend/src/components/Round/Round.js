@@ -80,7 +80,8 @@ for (let i = 0; i < 528; i++) {
 
 var randomProperty = function (obj) {
   var keys = Object.keys(obj);
-  return obj[keys[ keys.length * Math.random() << 0]];
+  var key = keys[ keys.length * Math.random() << 0];
+  return [obj[key], key];
 };
 
 class Round extends Component {
@@ -88,12 +89,12 @@ class Round extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.props.handleLeavePage);
-    window.setTimeout(function() {
-      // Q: Current round can't be 2? 
-      if (![1, 3].includes(this.props.entireRound)) {
-        this.props.moveToNext(3);
-      }
-    }.bind(this), 2000);
+    // window.setTimeout(function() {
+    //   // Q: Current round can't be 2? 
+    //   if (![1, 3].includes(this.props.entireRound)) {
+    //     this.props.moveToNext(3);
+    //   }
+    // }.bind(this), 2000);
     const player = this.props.turns[this.props.entireRound - 1];
 
     // If it's not the user (1 is user, others are AI), then populate their answer and hints
@@ -115,7 +116,6 @@ class Round extends Component {
 
         // quick and dirty way to randomize, not completely random 
         randomOrder = _.shuffle(randomOrder)
-        let answers;
         // Either veggies or electronics will be picked
         // if (randomNum % 2 === 0) {
         //   answers = StaticData.vegetable;
@@ -123,25 +123,40 @@ class Round extends Component {
         //   answers = StaticData.electronics;
         // }
 
-        answers = randomProperty(StaticData);
+        let [answers, category] = randomProperty(StaticData);
         let answer = answers[Math.floor(Math.random()*answers.length)]
+        while (this.props.pastGuessingImgs.includes[answer]) {
+          answer = answers[Math.floor(Math.random()*answers.length)]
+          console.log(answer)
+        }
         // Can randomize which one is chosen in the future 
         let currVisual = currVisuals[answer.name]
         //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
         let imgArr = []
-        imgArr.push([currVisual.top_five[0], "t_0"])
-        imgArr.push([currVisual.top_five[randomOrder[1]], "t_" + randomOrder[1]])
+        imgArr.push([currVisual.top_five[0], "top_0"])
+        if (randomOrder[0] !== 0) {
+            imgArr.push([currVisual.top_five[randomOrder[0]], "top_" + randomOrder[0]])
+        } else {
+          imgArr.push([currVisual.top_five[randomOrder[1]], "top_" + randomOrder[1]])
+        }
 
 
         randomOrder = _.shuffle(randomOrder)
-        imgArr.push([currVisual.bottom_five[randomOrder[0]], "b_" + randomOrder[0]])
-        imgArr.push([currVisual.bottom_five[randomOrder[1]], "b_" + randomOrder[1]])
+        imgArr.push([currVisual.bottom_five[randomOrder[0]], "bottom_" + randomOrder[0]])
+        imgArr.push([currVisual.bottom_five[randomOrder[1]], "bottom_" + randomOrder[1]])
 
         imgArr = _.shuffle(imgArr)
         let t = _.unzip(imgArr)
         imgArr = t[0]
         let orderArr = t[1]
-
+        this.props.update({
+          guess_round : {
+              categorySelect : category, 
+              imgSelect : answer.name, 
+              orderArr : orderArr
+          }
+        })
+        // console.log(category, answer.name)
         console.log("orderArr = ", orderArr);
        this.props.setAnswer(answer);
        this.props.setHints(imgArr);
@@ -175,11 +190,12 @@ class Round extends Component {
           answers = StaticData.vegetable;
         }
 
-        while(this.props.answerRecord.includes(answers[secondNum].classLabels[0])) {
+        while(this.props.answerRecord.includes(answers[secondNum].classLabels[0]) || this.props.pastGuessingImgs.includes(answers[secondNum])) {
           secondNum = (secondNum + 1) % 5;
         }
 
         const visuals = answers[secondNum].correctURLs.concat(answers[secondNum].wrongVizURLs);
+
         this.props.setAnswer(answers[secondNum]);
         this.props.setHints([
           features[visuals[randomVisualOrder[0]]],
@@ -216,7 +232,7 @@ class Round extends Component {
     return (
       <section className={styles['Round']}>
         <h1 className={styles['Round__title']}>Round {this.props.entireRound}</h1>
-        {[1, 3].includes(this.props.entireRound) ? (
+        {player !== 1 ? (
           <Fragment>
             <div className={styles['Round__text']}>It’s your turn to guess. Remember...</div>
             <section className={styles['Round__info']}>

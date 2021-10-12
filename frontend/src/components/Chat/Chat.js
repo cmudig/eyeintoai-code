@@ -106,31 +106,34 @@ class Chat extends Component {
           element.push(convo);
           displayElement.push(displayConvo);
         }
-        if (this.props.answer.classLabels.includes(answers)) { this.rightAnswer(player - 1); }
+        // To prevent computer from guessing correctly
+        // if (this.props.answer.classLabels.includes(answers)) { this.rightAnswer(player - 1); }
         this.setState({ generateAnswer: element, generateDisplay: displayElement, time: (this.state.time * 1) + 1 });
         this.autoScroll();
       }.bind(this), 4000);
     } else {
-      this.messages = setInterval(function() {
-        answers = answer[Math.floor(Math.random() * answer.length)];
-        element = this.state.generateDisplay;
-        player = (Math.floor(Math.random() * 2)) + 1;
-        const convo = (
-          <div key={'convoWarp' + element.length}>
-            <div className="convoWrap" key={'convo' + element.length}>
-              <div className={'bubble plyr' + (player + 1)} key={'convoBubble' + element.length}>
-                {answers}
-              </div>
-              <div className={'profile plyr' + (player + 1)} key={'profile' + element.length}>
-                {this.props.players[player].img}
-              </div>
-            </div>
-          </div>
-        );
-        element.push(convo);
-        this.setState({ generateDisplay: element });
-        this.autoScroll();
-      }.bind(this), 4000);
+      throw new Error("DeadCodeCalled");
+      // CODEFLOW SHOULD NEVER REACH HERE (Legacy)
+      // this.messages = setInterval(function() {
+      //   answers = answer[Math.floor(Math.random() * answer.length)];
+      //   element = this.state.generateDisplay;
+      //   player = (Math.floor(Math.random() * 2)) + 1;
+      //   const convo = (
+      //     <div key={'convoWarp' + element.length}>
+      //       <div className="convoWrap" key={'convo' + element.length}>
+      //         <div className={'bubble plyr' + (player + 1)} key={'convoBubble' + element.length}>
+      //           {answers}
+      //         </div>
+      //         <div className={'profile plyr' + (player + 1)} key={'profile' + element.length}>
+      //           {this.props.players[player].img}
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      //   element.push(convo);
+      //   this.setState({ generateDisplay: element });
+      //   this.autoScroll();
+      // }.bind(this), 4000);
     }
   }
 

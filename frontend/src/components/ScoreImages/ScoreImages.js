@@ -51,10 +51,10 @@ class ScoreImage extends Component {
             >
               Loading…
             </iframe>
-            <br />
+            {/* <br />
             Below are screenshots of the result of each round.
             <br />
-            Feel free to download and share with your friends!
+            Feel free to download and share with your friends! */}
           </div>
           <Link
             className="btn again"
@@ -63,9 +63,9 @@ class ScoreImage extends Component {
           >
             Play Again
           </Link>
-          <div id="resultImage" key="resultImage">
+          {/* <div id="resultImage" key="resultImage">
             {this.returnScoreImages()}
-          </div>
+          </div> */}
         </div>
       </div>
     );

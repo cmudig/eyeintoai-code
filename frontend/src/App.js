@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import dotenv from 'dotenv';
 
 import 'firebase/firestore';
@@ -56,6 +56,11 @@ class App extends Component {
       };
       const firebaseApp = firebase.initializeApp(firebaseConfig);
       this.db = firebaseApp.firestore();
+
+      if (window.location.hostname === "localhost") {
+        firebaseApp.firestore().useEmulator("localhost", 8081);
+        firebaseApp.auth().useEmulator("http://localhost:9099")
+      }
     }
 
     window.gapi.signin2.render('g-signin2', {

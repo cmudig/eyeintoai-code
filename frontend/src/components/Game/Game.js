@@ -105,7 +105,8 @@ class Game extends Component {
           this.setState({ timerWidth: '300px' });
         }.bind(this), 500);
       }
-    }.bind(this), 1000);
+    // To make game faster for debugging
+    }.bind(this), 200);
   }
 
   updateWrapper(newGuess) {
