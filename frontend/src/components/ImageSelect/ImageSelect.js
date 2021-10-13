@@ -66,9 +66,6 @@ for (var type of Object.keys(StaticData)) {
   
 }
 
-console.log(limeVisuals)
-console.log(gradcamVisuals)
-
 const visuals = [];
 for (let i = 0; i < 528; i++) {
   visuals[i] = require('../../images/mixed4d/' + (i) + '.png');
@@ -78,6 +75,8 @@ class ImageSelect extends Component {
   state = {
     selected: [],
     nonSelected: [],
+    top_five: [], 
+    bottom_five: [],
     display: 'none',
   };
 
@@ -107,7 +106,7 @@ class ImageSelect extends Component {
       console.log(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
       let randomized = _.shuffle(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
       console.log(randomized)
-      this.setState({ nonSelected: randomized });
+      this.setState({ nonSelected: randomized, top_five: currVisuals[this.props.answer.name].top_five, bottom_five: currVisuals[this.props.answer.name].bottom_five });
 
     } else {
       const newVisuals = [];
@@ -117,7 +116,11 @@ class ImageSelect extends Component {
       for (let i = 0; i < 2; i++) {
         newVisuals.push(visuals[this.props.answer.wrongVizURLs[i]]);
       }
-      this.setState({ nonSelected: newVisuals });
+      
+      let t = _.chunk(this.props.answer.correctURLs.concat(this.props.answer.wrongVizURLs), 5)
+      let randomized = _.shuffle(newVisuals)
+
+      this.setState({ nonSelected: randomized, top_five: t[0], bottom_five: t[1] });
     }
   }
 
@@ -193,7 +196,7 @@ class ImageSelect extends Component {
     // }
     
     return (
-      <div className="vis-row" style={{"max-width" : maxWidth }}>
+      <div className="vis-row" style={{"maxWidth" : maxWidth }}>
         {elements}
       </div>
     );
@@ -222,10 +225,25 @@ class ImageSelect extends Component {
           style={{ width: '216px', margin: '32px auto 0', display: this.state.display }}
           onClick={() => {
             const explanations = [];
+            console.log(this.state)
             for (let i = 0; i < this.state.selected.length; i++) {
               const curImage = _.get(this.state.selected, i).image;
-              const imgIdx = curImage.substring(curImage.lastIndexOf('/') + 1, curImage.indexOf('.'));
-              explanations.push({ featureID: imgIdx, featureImportanceScore: 0, timeStamp: Date.now() });
+              if ([1,2].includes(this.props.explanationType)) { 
+                if (this.state.top_five.indexOf(curImage) !== -1) 
+                explanations.push({ technique_rank: "top_"+ this.state.top_five.indexOf(curImage) });
+              else if (this.state.bottom_five.indexOf(curImage) !== -1) 
+                explanations.push({ technique_rank: "bottom_"+ this.state.bottom_five.indexOf(curImage) });
+              else 
+                throw new Error("Couldn't find img = " + curImage); 
+
+              } else {
+                const imgIdx = parseInt(curImage.substring(curImage.lastIndexOf('/') + 1, curImage.indexOf('.')));
+                if (this.state.top_five.indexOf(imgIdx) !== -1) 
+                  explanations.push({ technique_rank: "top_"+ this.state.top_five.indexOf(imgIdx)});
+                else if (this.state.bottom_five.indexOf(imgIdx) !== -1) 
+                  explanations.push({ technique_rank: "bottom_"+ this.state.bottom_five.indexOf(imgIdx) });
+                else 
+                  throw new Error("Couldn't find imgIdx = " + imgIdx);              }
             }
             this.sendHints();
             this.props.update({ explain_round: { explanations_chosen: explanations } });

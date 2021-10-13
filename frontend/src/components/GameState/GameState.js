@@ -14,7 +14,7 @@ import styles from './GameState.module.scss';
 // explanationType - 
 // 0 : featureViz
 // 1 : LIME 
-
+// 2 : Gradcam
 
 
 class GameState extends Component {
@@ -43,7 +43,17 @@ class GameState extends Component {
     this.guessPerRound = {};
   }
 
-
+  update(fieldAndvalue) { 
+    if (this.state.explanationType === 0) {
+      this.props.update({"featureViz" : fieldAndvalue})
+    } else if (this.state.explanationType  === 1) {
+      this.props.update({"LIME" : fieldAndvalue})
+    } else if (this.state.explanationType  === 2) {
+      this.props.update({"Gradcam" : fieldAndvalue})
+    } else {
+      throw new Error("Invalid explanationType = " + this.state.explanationType );
+    }
+  }
   
   UNSAFE_componentWillMount() {
     this.randomizeTurn();
@@ -189,7 +199,7 @@ class GameState extends Component {
             setTestPhase={this.setTestPhase.bind(this)}
             setAnswer={this.setAnswer.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
           />
         );
       } else if (this.state.mode === 2) {
@@ -197,7 +207,7 @@ class GameState extends Component {
           <ImageSelect
             movetoNext={this.moveToNext.bind(this)}
             getPlayerHint={this.getPlayerHint.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             answer={this.state.answer}
           />
         );
@@ -207,7 +217,7 @@ class GameState extends Component {
             answer={this.state.answer}
             addHintSelected={this.addHintSelected.bind(this)}
             setScore={this.setScore.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             turns={this.state.turns}
             entireRound={this.state.entireRound}
             guessPerRound={this.guessPerRound}
@@ -228,7 +238,7 @@ class GameState extends Component {
             entireRound={this.state.entireRound}
             turns={this.state.turns}
             moveToNext={this.moveToNext.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             players={this.state.players}
             setAnswer={this.setAnswer.bind(this)}
             setHintsURL={this.setHintsURL.bind(this)}
@@ -280,7 +290,7 @@ class GameState extends Component {
             setTestPhase={this.setTestPhase.bind(this)}
             setAnswer={this.setAnswer.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             explanationType = {this.state.explanationType}
           />
         );
@@ -289,7 +299,7 @@ class GameState extends Component {
           <ImageSelect
             movetoNext={this.moveToNext.bind(this)}
             getPlayerHint={this.getPlayerHint.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             answer={this.state.answer}
             explanationType = {this.state.explanationType}
           />
@@ -300,7 +310,7 @@ class GameState extends Component {
             answer={this.state.answer}
             addHintSelected={this.addHintSelected.bind(this)}
             setScore={this.setScore.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             turns={this.state.turns}
             entireRound={this.state.entireRound}
             guessPerRound={this.guessPerRound}
@@ -321,7 +331,7 @@ class GameState extends Component {
             entireRound={this.state.entireRound}
             turns={this.state.turns}
             moveToNext={this.moveToNext.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             players={this.state.players}
             setAnswer={this.setAnswer.bind(this)}
             setHintsURL={this.setHintsURL.bind(this)}
@@ -374,7 +384,7 @@ class GameState extends Component {
             setTestPhase={this.setTestPhase.bind(this)}
             setAnswer={this.setAnswer.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             explanationType = {this.state.explanationType}
           />
         );
@@ -383,7 +393,7 @@ class GameState extends Component {
           <ImageSelect
             movetoNext={this.moveToNext.bind(this)}
             getPlayerHint={this.getPlayerHint.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             answer={this.state.answer}
             explanationType = {this.state.explanationType}
           />
@@ -394,7 +404,7 @@ class GameState extends Component {
             answer={this.state.answer}
             addHintSelected={this.addHintSelected.bind(this)}
             setScore={this.setScore.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             turns={this.state.turns}
             entireRound={this.state.entireRound}
             guessPerRound={this.guessPerRound}
@@ -415,7 +425,7 @@ class GameState extends Component {
             entireRound={this.state.entireRound}
             turns={this.state.turns}
             moveToNext={this.moveToNext.bind(this)}
-            update={this.props.update}
+            update={this.update.bind(this)}
             players={this.state.players}
             setAnswer={this.setAnswer.bind(this)}
             setHintsURL={this.setHintsURL.bind(this)}
