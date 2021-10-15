@@ -96,6 +96,7 @@ class Round extends Component {
     //   }
     // }.bind(this), 2000);
     const player = this.props.turns[this.props.entireRound - 1];
+     
 
     // If it's not the user (1 is user, others are AI), then populate their answer and hints
     if (player !== 1) {
@@ -125,8 +126,9 @@ class Round extends Component {
 
         let [answers, category] = randomProperty(StaticData);
         let answer = answers[Math.floor(Math.random()*answers.length)]
-        while (this.props.pastGuessingImgs.includes[answer]) {
+        while (this.props.pastGuessingImgs.includes(answer)) {
           answer = answers[Math.floor(Math.random()*answers.length)]
+          console.log("past guess got repeated") 
           console.log(answer)
         }
         // Can randomize which one is chosen in the future 
@@ -149,17 +151,21 @@ class Round extends Component {
         let t = _.unzip(imgArr)
         imgArr = t[0]
         let orderArr = t[1]
-        this.props.update({
-          guess_round : {
-              categorySelect : category, 
-              imgSelect : answer.name, 
-              orderArr : orderArr
-          }
-        })
+        let roundNum = "round_" + this.props.entireRound
+        
+        let dict = {guess_round : {}}
+        let innerDict =  {
+            categorySelect : category, 
+            imgSelect : answer.name, 
+            orderArr : orderArr
+        }
+        dict["guess_round"][roundNum] = innerDict;
+        // this.props.update(dict)
         // console.log(category, answer.name)
         console.log("orderArr = ", orderArr);
        this.props.setAnswer(answer);
        this.props.setHints(imgArr);
+       this.props.setHintsURL(orderArr);
 
 
       } else {

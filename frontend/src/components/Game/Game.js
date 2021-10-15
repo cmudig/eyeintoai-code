@@ -106,11 +106,11 @@ class Game extends Component {
         }.bind(this), 500);
       }
     // To make game faster for debugging
-    }.bind(this), 200);
+    }.bind(this), 1000);
   }
 
   updateWrapper(newGuess) {
-    newGuess['release'] = this.state.round;
+    newGuess['numHints'] = this.state.round;
     this.props.addGuess(newGuess);
   }
 

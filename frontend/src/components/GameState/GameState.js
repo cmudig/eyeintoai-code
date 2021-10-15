@@ -107,17 +107,35 @@ class GameState extends Component {
     this.setHintsURL(this.state.playerHintsURL);
   }
 
+  logRoundStart() { 
+    this.guessPerRound[this.state.entireRound] = _.get(
+      this.guessPerRound,
+      this.state.entireRound,
+      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {}, 'answer' : this.state.answer.classLabels[0]}
+    );
+    if (this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].length === 0) {
+      for (let i = 0; i < 4; i++) {
+        // const image = this.state.hints[i];
+        // const imageIdx = image ? image.substring(image.lastIndexOf('/') + 1, image.indexOf('.')) : '-1';
+        const feature = this.state.hintsURL[i];
+        this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].push(feature);
+      }
+    }
+    this.guessPerRound[this.state.entireRound]['roundStart'] = Date.now();
+  }
+
   addGuess(newGuess) {
     this.guessPerRound[this.state.entireRound] = _.get(
       this.guessPerRound,
       this.state.entireRound,
-      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {} }
+      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {}, 'answer' : this.state.answer.classLabels[0]}
     );
     if (this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].length === 0) {
       for (let i = 0; i < 4; i++) {
-        const image = this.state.hints[i];
-        const imageIdx = image ? image.substring(image.lastIndexOf('/') + 1, image.indexOf('.')) : '-1';
-        this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].push(imageIdx);
+        // const image = this.state.hints[i];
+        // const imageIdx = image ? image.substring(image.lastIndexOf('/') + 1, image.indexOf('.')) : '-1';
+        const feature = this.state.hintsURL[i];
+        this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].push(feature);
       }
     }
     this.guessPerRound[this.state.entireRound]['guesses'].push(newGuess);
@@ -127,13 +145,14 @@ class GameState extends Component {
     this.guessPerRound[this.state.entireRound] = _.get(
       this.guessPerRound,
       this.state.entireRound,
-      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {} }
+      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {},  'answer' : this.state.answer.classLabels[0]}
     );
     if (this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].length === 0) {
       for (let i = 0; i < 4; i++) {
-        const image = this.state.hints[i];
-        const imageIdx = image ? image.substring(image.lastIndexOf('/') + 1, image.indexOf('.')) : '-1';
-        this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].push(imageIdx);
+        // const image = this.state.hints[i];
+        // const imageIdx = image ? image.substring(image.lastIndexOf('/') + 1, image.indexOf('.')) : '-1';
+        const feature = this.state.hintsURL[i];
+        this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].push(feature);
       }
     }
     this.guessPerRound[this.state.entireRound]['hintRound'] = hintGuess;
@@ -153,28 +172,35 @@ class GameState extends Component {
     const playerGuesses = [];
     let rounds = -1;
     let points = 0;
+    console.log("logging guess per round")
+    console.log(this.guessPerRound)
+
     _.keys(this.guessPerRound).forEach((round => {
       rounds++;
-      this.guessPerRound[round]['pointsEarned'] = _.get(
-        this.guessPerRound[round],
-        'pointsEarned',
-        _.get(this.state.playerScore, this.state.entireRound - 1, 0) - _.get(this.state.playerScore, this.state.entireRound - 2, 0)
-      );
+      // this.guessPerRound[round]['pointsEarned'] = _.get(
+      //   this.guessPerRound[round],
+      //   'pointsEarned',
+      //   _.get(this.state.playerScore, this.state.entireRound - 1, 0) - _.get(this.state.playerScore, this.state.entireRound - 2, 0)
+      // );
       playerGuesses.push({
         featuresChosenByExplainer: this.guessPerRound[round]['featuresChosenByExplainer'],
         hintRound: this.guessPerRound[round]['hintRound'],
         guesses: this.guessPerRound[round]['guesses'],
-        pointsEarned: this.guessPerRound[round]['pointsEarned'],
-        answer: this.state.answer.classLabels[0],
+        // pointsEarned: this.guessPerRound[round]['pointsEarned'],
+        answer: this.guessPerRound[round]["answer"],
+        roundStart: this.guessPerRound[round]["roundStart"]
       });
       points = this.state.score[0][rounds];
     }));
-    this.props.update({ guessRounds: playerGuesses, totalPoints: points });
+    console.log("playersGuesses = ") 
+    console.log(playerGuesses);
+    this.update({ guessRounds: playerGuesses });
     this.setState({ scoreImages: [...this.state.scoreImages, n] });
   }
 
   moveToNext(n) {
     if(n === 3) {
+      this.logRoundStart();
       this.setState({ blueOpacity : 1 });
     } else {
       this.setState({ blueOpacity : 0 });
@@ -267,8 +293,8 @@ class GameState extends Component {
           scoreImages: [],
           answerRecord: [],
           testPhase: false,
-          pastGuessingImgs: []
         })
+        this.guessPerRound = {}
         this.randomizeTurn();
 
         // return (
@@ -362,6 +388,7 @@ class GameState extends Component {
           answerRecord: [],
           testPhase: false,
         })
+        this.guessPerRound = {}
         this.randomizeTurn();
       
       
