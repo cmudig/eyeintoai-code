@@ -164,7 +164,8 @@ class GameState extends Component {
   }
 
   setScore(n) {
-    this.setState({ score: n });
+    // this.setState({ score: n });
+    return;
   }
 
   setScoreImages(n) {
@@ -226,6 +227,7 @@ class GameState extends Component {
             setAnswer={this.setAnswer.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
             update={this.update.bind(this)}
+            explanationType={this.state.explanationType}
           />
         );
       } else if (this.state.mode === 2) {
@@ -272,6 +274,7 @@ class GameState extends Component {
             setPlayerHint={this.setPlayerHint.bind(this)}
             answerRecord={this.state.answerRecord}
             pastGuessingImgs = {this.state.pastGuessingImgs}
+            explanationType = {this.state.explanationType}
           />
         );
       } else if (this.state.mode === 5) {
@@ -279,7 +282,7 @@ class GameState extends Component {
           explanationType : 1, 
           answer: {}, // contains the actual answer image for current round
           turns: [],
-          mode: 0, // Current mode (choosing image, guessing, etc)
+          mode: 1, // Current mode (choosing image, guessing, etc)
           entireRound: 1, // Current round of guessing (3 in total)
           blueOpacity: 0,
           score: [[0, 0], [0, 0], [0, 0]],
@@ -366,6 +369,7 @@ class GameState extends Component {
             answerRecord={this.state.answerRecord}
             explanationType = {this.state.explanationType}
             pastGuessingImgs = {this.state.pastGuessingImgs}
+            explanationType = {this.state.explanationType}
           />
         );
       } else if (this.state.mode === 5) {
@@ -373,7 +377,7 @@ class GameState extends Component {
           explanationType : 2, 
           answer: {}, // contains the actual answer image for current round
           turns: [],
-          mode: 0, // Current mode (choosing image, guessing, etc)
+          mode: 1, // Current mode (choosing image, guessing, etc)
           entireRound: 1, // Current round of guessing (3 in total)
           blueOpacity: 0,
           score: [[0, 0], [0, 0], [0, 0]],
@@ -461,6 +465,7 @@ class GameState extends Component {
             answerRecord={this.state.answerRecord}
             explanationType = {this.state.explanationType}
             pastGuessingImgs = {this.state.pastGuessingImgs}
+            explanationType = {this.state.explanationType}
 
           />
         );

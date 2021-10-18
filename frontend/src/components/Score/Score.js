@@ -96,7 +96,8 @@ class Score extends Component {
             The answer is <span className="asrColr">{this.answer.classLabels[0]}</span>!
           </div>
           <div className="side">
-            <Profile score={this.props.score} countScore={true} setScore={this.props.setScore.bind(this)} players={this.props.players} />
+            {/* <Profile score={this.props.score} countScore={true} setScore={this.props.setScore.bind(this)} players={this.props.players} /> */}
+            <Profile setScore={this.props.setScore.bind(this)} players={this.props.players} />
             <div className="answerWrapMsg">
               See what other players thought
             </div>

@@ -237,7 +237,7 @@ class Round extends Component {
     );
     return (
       <section className={styles['Round']}>
-        <h1 className={styles['Round__title']}>Round {this.props.entireRound}</h1>
+        <h1 className={styles['Round__title']}>Round { this.props.explanationType *2 + this.props.entireRound}</h1>
         {player !== 1 ? (
           <Fragment>
             <div className={styles['Round__text']}>It’s your turn to guess. Remember...</div>

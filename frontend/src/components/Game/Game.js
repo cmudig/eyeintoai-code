@@ -221,7 +221,7 @@ class Game extends Component {
         <div className="main">
           <div className="game">
             <div className="side left">
-              <Profile score = {this.state.score} turns = {this.props.turns} players = {this.props.players}entireRound = {this.props.entireRound}/>
+              <Profile turns = {this.props.turns} players = {this.props.players}entireRound = {this.props.entireRound}/>
               {this.renderAnswerBox()}
             </div>
             <div className="side center">

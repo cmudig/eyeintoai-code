@@ -207,9 +207,6 @@ class ImageSelect extends Component {
       <div className="modal-select">
         <img id="answerImg" src={this.props.answer.url} alt="answer"/>
         <div className="title">
-          <span style={{ fontSize: '24px', lineHeight: '2' }}>
-            Make other players guess the image!
-          </span>
           <br />
           Select 4 of the most representative feature visualizations of the {this.props.answer.classLabels[0]} for hints
         </div>

@@ -27,6 +27,18 @@
     }
   }
 
+  &__content {
+    margin-bottom: 30px;
+    font-family: 'VT323', monospace;
+    font-size: 28px;
+    text-align: center;
+
+    @media screen and (max-width: 900px) {
+      font-size: 22px;
+    }
+  }
+
+
   &__container {
     display:flex;
     justify-content: center;

@@ -14,8 +14,18 @@ class Category extends Component {
     if (this.state.nextStage) {
       return [(this.displayImage())];
     } else {
+      let explanationTypeText = "Feature Visualization";
+      if (this.props.explanationType == 1) {
+        explanationTypeText = "LIME";
+      } else if (this.props.explanationType == 2) {
+        explanationTypeText = "GradCam"
+      }
       return (
         <div>
+          <div className={styles['Category__title']}>Explanation Type: </div>
+          <div className={styles['Category__content']}>
+            This section of the game uses an explainibility technique called {explanationTypeText}! 
+          </div>
           <div className={styles['Category__title']}>Select a category</div>
           <div className={styles['Category__container']}>
             <div
