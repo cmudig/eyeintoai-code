@@ -61,16 +61,17 @@ class Score extends Component {
         this.changeMode();
       }
     }.bind(this), 1000);
-    if (this.props.turns[this.props.entireRound - 1] === 1) {
-      const urls = [];
-      for (let i = 0; i < 4; i++) {
-        if (this.props.hintVisUrl[i] > 7) {
-          urls.push(this.props.answer.wrongVizURLs[this.props.hintVisUrl[i] - 8]);
-        } else {
-          urls.push(this.props.answer.correctURLs[this.props.hintVisUrl[i]]);
-        }
-      }
-    }
+    // DEAD code, no watching round
+    // if (this.props.turns[this.props.entireRound - 1] === 1) {
+    //   const urls = [];
+    //   for (let i = 0; i < 4; i++) {
+    //     if (this.props.hintVisUrl[i] > 7) {
+    //       urls.push(this.props.answer.wrongVizURLs[this.props.hintVisUrl[i] - 8]);
+    //     } else {
+    //       urls.push(this.props.answer.correctURLs[this.props.hintVisUrl[i]]);
+    //     }
+    //   }
+    // }
   }
 
   render() {

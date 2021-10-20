@@ -171,13 +171,13 @@ class GameState extends Component {
   setScoreImages(n) {
     this.setState({ playerScore: [...this.state.playerScore, this.state.score[0][1]] });
     const playerGuesses = [];
-    let rounds = -1;
-    let points = 0;
+    // let rounds = -1;
+    // let points = 0;
     console.log("logging guess per round")
     console.log(this.guessPerRound)
 
     _.keys(this.guessPerRound).forEach((round => {
-      rounds++;
+      // rounds++;
       // this.guessPerRound[round]['pointsEarned'] = _.get(
       //   this.guessPerRound[round],
       //   'pointsEarned',
@@ -191,7 +191,7 @@ class GameState extends Component {
         answer: this.guessPerRound[round]["answer"],
         roundStart: this.guessPerRound[round]["roundStart"]
       });
-      points = this.state.score[0][rounds];
+      // points = this.state.score[0][rounds];
     }));
     console.log("playersGuesses = ") 
     console.log(playerGuesses);
@@ -369,7 +369,6 @@ class GameState extends Component {
             answerRecord={this.state.answerRecord}
             explanationType = {this.state.explanationType}
             pastGuessingImgs = {this.state.pastGuessingImgs}
-            explanationType = {this.state.explanationType}
           />
         );
       } else if (this.state.mode === 5) {
@@ -465,8 +464,6 @@ class GameState extends Component {
             answerRecord={this.state.answerRecord}
             explanationType = {this.state.explanationType}
             pastGuessingImgs = {this.state.pastGuessingImgs}
-            explanationType = {this.state.explanationType}
-
           />
         );
       } else if (this.state.mode === 5) {

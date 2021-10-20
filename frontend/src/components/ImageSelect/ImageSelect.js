@@ -110,17 +110,16 @@ class ImageSelect extends Component {
 
     } else {
       const newVisuals = [];
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 5; i++) {
         newVisuals.push(visuals[this.props.answer.correctURLs[i]]);
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 5; i++) {
         newVisuals.push(visuals[this.props.answer.wrongVizURLs[i]]);
       }
       
-      let t = _.chunk(this.props.answer.correctURLs.concat(this.props.answer.wrongVizURLs), 5)
       let randomized = _.shuffle(newVisuals)
 
-      this.setState({ nonSelected: randomized, top_five: t[0], bottom_five: t[1] });
+      this.setState({ nonSelected: randomized, top_five: this.props.answer.correctURLs, bottom_five: this.props.answer.wrongVizURLs });
     }
   }
 

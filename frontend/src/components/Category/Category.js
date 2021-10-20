@@ -15,9 +15,9 @@ class Category extends Component {
       return [(this.displayImage())];
     } else {
       let explanationTypeText = "Feature Visualization";
-      if (this.props.explanationType == 1) {
+      if (this.props.explanationType === 1) {
         explanationTypeText = "LIME";
-      } else if (this.props.explanationType == 2) {
+      } else if (this.props.explanationType === 2) {
         explanationTypeText = "GradCam"
       }
       return (
