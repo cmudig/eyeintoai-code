@@ -131,8 +131,13 @@ class Round extends Component {
           console.log("past guess got repeated") 
           console.log(answer)
         }
+        if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+          answer = StaticData["seaAnimal"][3]
+        }
         // Can randomize which one is chosen in the future 
         let currVisual = currVisuals[answer.name]
+
+        
         //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
         let imgArr = []
         imgArr.push([currVisual.top_five[0], "top_0"])

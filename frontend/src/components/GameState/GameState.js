@@ -257,6 +257,8 @@ class GameState extends Component {
             setScoreImages={this.setScoreImages.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
             addGuess={this.addGuess.bind(this)}
+            explanationType = {this.state.explanationType}
+
           />
         );
       } else if (this.state.mode === 4) {
@@ -351,6 +353,8 @@ class GameState extends Component {
             setScoreImages={this.setScoreImages.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
             addGuess={this.addGuess.bind(this)}
+            explanationType = {this.state.explanationType}
+
           />
         );
       } else if (this.state.mode === 4) {
@@ -446,6 +450,7 @@ class GameState extends Component {
             setScoreImages={this.setScoreImages.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
             addGuess={this.addGuess.bind(this)}
+            explanationType = {this.state.explanationType}
           />
         );
       } else if (this.state.mode === 4) {

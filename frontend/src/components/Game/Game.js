@@ -56,8 +56,12 @@ class Game extends Component {
   generateVisual() {
     const elements = [];
     for (let i = 0; i < Math.min(4, this.state.round); i++) {
+      let className = "visWrapper"
+      if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+        className = "visWrapper overlay"
+      } 
       elements.push(
-        <div className="visWrapper" key={'viswrapper' + i}>
+        <div className={className} key={'viswrapper' + i}>
           <img
             key={'vis' + i}
             src={this.props.hints[i]}
@@ -67,7 +71,7 @@ class Game extends Component {
       );
     }
     for (let i = 0; i < (4 - this.state.round); i++) {
-      elements.push(<div className="visWrapper" key={'vis' + i + 5}> ? </div>);
+      // elements.push(<div className="visWrapper" key={'vis' + i + 5}> ? </div>);
     }
     return elements;
   }
