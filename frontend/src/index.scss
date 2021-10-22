@@ -930,12 +930,7 @@ body, .App {
       @media screen and (max-height: 640px) {
         margin-top: 16px;
       }
-      .overlay {
-        position:absolute;
-        width: 160px;
-        height: 160px;
-        background: rgba(0,0,0,0);
-      }
+
       .visWrapper{
         border: 2px solid rgba(0,0,0,0.1);
         border-radius: 6px;
@@ -957,6 +952,13 @@ body, .App {
           margin: 8px;
           }
       }
+      .overlay {
+        position:absolute;
+        width: 160px;
+        height: 160px;
+        background: rgba(0,0,0,0);
+      }
+
       img{
         align-self: center;
         width: 100%

@@ -70,8 +70,13 @@ class Game extends Component {
         </div>
       );
     }
+
     for (let i = 0; i < (4 - this.state.round); i++) {
-      // elements.push(<div className="visWrapper" key={'vis' + i + 5}> ? </div>);
+      if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+        continue
+      } else {
+        elements.push(<div className="visWrapper" key={'vis' + i + 5}> ? </div>);
+      }
     }
     return elements;
   }
