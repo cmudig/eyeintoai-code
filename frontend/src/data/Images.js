@@ -59,7 +59,7 @@ export const StaticData = {
     {
       url: poodle,
       name: "dog", /* fixed */
-      correctUrls: [166, 39, 23, 85, 188] ,
+      correctURLs: [166, 39, 23, 85, 188] ,
       wrongVizURLs: [308, 446, 434, 499, 448] ,
       classLabels: ['dog', 'dogs', 'poodle', 'poodles', 'standard poodle', 'standard poodles'],
       hint: 'land animal',
@@ -67,7 +67,7 @@ export const StaticData = {
     {
       url: tabby,
       name: "cat", /* fixed */
-      correctUrls: [493, 88, 168, 93, 450] ,
+      correctURLs: [493, 88, 168, 93, 450] ,
       wrongVizURLs: [505, 417, 410, 460, 446] ,
       classLabels: ['cat', 'cats', 'tabby', 'tabbies'],
       hint: 'land animal',
@@ -75,7 +75,7 @@ export const StaticData = {
     {
       url:macaw, /* fixed */
       name: "parrot",
-      correctUrls: [504, 433, 475, 386, 162] ,
+      correctURLs: [504, 433, 475, 386, 162] ,
       wrongVizURLs: [132, 332, 119, 434, 523] ,
       
       classLabels: ['parrot', 'parrots', 'macaw', 'macaws', 'bird', 'birds'],
@@ -84,7 +84,7 @@ export const StaticData = {
     {
       url: treeFrog,
       name: "frog", /* fixed */
-      correctUrls: [18, 359, 527, 35, 396] ,
+      correctURLs: [18, 359, 527, 35, 396] ,
       wrongVizURLs: [246, 49, 211, 229, 159] ,
       classLabels: ['frog', 'frogs', 'tree frog', 'tree frogs'],
       hint: 'land animal',
@@ -92,7 +92,7 @@ export const StaticData = {
     {
       url:tiger,
       name : "tiger",
-      correctUrls: [23, 39, 102, 142, 165] ,
+      correctURLs: [23, 39, 102, 142, 165] ,
       wrongVizURLs: [275, 32, 296, 240, 434] ,      
       classLabels: ['tiger', 'tigers'],
       hint: 'land animal',
@@ -100,7 +100,7 @@ export const StaticData = {
     {
       url: bee,
       name: "bee", /* fixed */
-      correctUrls: [25, 30, 200, 105, 498] ,
+      correctURLs: [25, 30, 200, 105, 498] ,
       wrongVizURLs: [394, 460, 332, 18, 97] ,
       classLabels: ['bee', 'bees', 'honey bee', 'honey bees'],
       hint: 'land animal',
@@ -108,7 +108,7 @@ export const StaticData = {
     {
       url: kingSnake,
       name: "kingSnake",
-      correctUrls: [6, 231, 23, 226, 39] ,
+      correctURLs: [6, 231, 23, 226, 39] ,
       wrongVizURLs: [370, 214, 389, 100, 120] ,
       classLabels:['king snake', 'king snakes', 'snake', 'snakes'],
       hint: 'land animal',
@@ -118,7 +118,7 @@ export const StaticData = {
     {
       url: jellyfish,
       name: "jellyfish",
-      correctUrls: [4, 103, 393, 23, 325] ,
+      correctURLs: [4, 103, 393, 23, 325] ,
       wrongVizURLs: [286, 362, 107, 36, 15] ,      
       classLabels: ['jellyfish'],
       hint: 'sea animal',
@@ -126,7 +126,7 @@ export const StaticData = {
     {
       url: loggerhead,
       name: "turtle",
-      correctUrls: [48, 4, 462, 100, 386] ,
+      correctURLs: [48, 4, 462, 100, 386] ,
       wrongVizURLs: [19, 3, 178, 434, 72] ,
       classLabels: ['turtle', 'turtles', 'loggerhead', 'loggerheads', 'loggerhead sea turtle', 'loggerhead sea turtles', 'loggerhead turtle', 'loggerhead turtles'],
       hint: 'sea animal',
@@ -134,7 +134,7 @@ export const StaticData = {
     {
       url: starfish,
       name: "starfish",
-      correctUrls: [280, 163, 375, 18, 71] ,
+      correctURLs: [280, 163, 375, 18, 71] ,
       wrongVizURLs: [178, 434, 295, 21, 121] ,      
       classLabels:['starfish', 'starfishes'],
       hint: 'sea animal',
@@ -142,7 +142,7 @@ export const StaticData = {
     {
       url: mudTurtle,
       name: "mudTurtle",
-      correctUrls: [93, 229, 527, 173, 88] ,
+      correctURLs: [93, 229, 527, 173, 88] ,
       wrongVizURLs: [159, 257, 523, 409, 434] ,
       classLabels:['mud turtle', 'mud turtles', 'turtle', 'turtles', 'box turtle', 'box turtles'],
       hint: 'sea animal',
@@ -158,7 +158,7 @@ export const StaticData = {
     {
       url: seaAnemone,
       name: "seaAnemone",
-      correctUrls: [280, 70, 200, 102, 95] ,
+      correctURLs: [280, 70, 200, 102, 95] ,
       wrongVizURLs: [58, 463, 212, 34, 523] ,
       classLabels:['sea anemone', 'anemone', 'anemones', 'sea anemones'],
       hint: 'sea animal',
@@ -176,7 +176,7 @@ export const StaticData = {
     {
       url: orange,
       name: "orange",
-      correctUrls: [9, 111, 285, 435, 485] ,
+      correctURLs: [9, 111, 285, 435, 485] ,
       wrongVizURLs: [394, 295, 233, 434, 416] ,
       classLabels:['orange', 'oranges', 'tangerine', 'tangerines'],
       hint: 'fruit',
@@ -184,7 +184,7 @@ export const StaticData = {
     {
       url: pineapple,
       name: "pineapple",
-      correctUrls: [2, 200, 96, 217, 61] ,
+      correctURLs: [2, 200, 96, 217, 61] ,
       wrongVizURLs: [106, 92, 232, 19, 434] ,
       classLabels:['pineapple', 'pineapples'],
       hint: 'fruit',
@@ -192,7 +192,7 @@ export const StaticData = {
     {
       url: strawberry,
       name: "strawberry", /* fixed */
-      correctUrls: [20, 197, 69, 202, 520] ,
+      correctURLs: [20, 197, 69, 202, 520] ,
       wrongVizURLs: [315, 299, 321, 233, 394] ,      
       classLabels: ['strawberry', 'strawberries'],
       hint: 'fruit',
@@ -200,7 +200,7 @@ export const StaticData = {
     {
       url: pomegranate,
       name: "pomegranate",
-      correctUrls: [82, 20, 323, 307, 72] ,
+      correctURLs: [82, 20, 323, 307, 72] ,
       wrongVizURLs: [295, 26, 17, 100, 257] ,      
       classLabels:['pomegranate', 'pomegranates'],
       hint: 'fruit',
@@ -208,7 +208,7 @@ export const StaticData = {
     {
       url: fig,
       name: "fig",
-      correctUrls: [82, 114, 382, 73, 485] ,
+      correctURLs: [82, 114, 382, 73, 485] ,
       wrongVizURLs: [121, 438, 391, 98, 434] ,
       classLabels:['fig', 'figs'],
       hint: 'fruit',
@@ -218,7 +218,7 @@ export const StaticData = {
     {
       url: broccoli,
       name: "broccoli",
-      correctUrls: [0, 462, 86, 21, 58] ,
+      correctURLs: [0, 462, 86, 21, 58] ,
       wrongVizURLs: [112, 295, 32, 25, 434] ,
       classLabels:['broccoli', 'broccolis'],
       hint: 'vegetable',
@@ -226,7 +226,7 @@ export const StaticData = {
     {
       url: corn,
       name: "corn",
-      correctUrls: [109, 435, 326, 25, 198] ,
+      correctURLs: [109, 435, 326, 25, 198] ,
       wrongVizURLs: [297, 224, 281, 441, 434] ,
       classLabels:['corn', 'corns'],
       hint: 'vegetable',
@@ -234,7 +234,7 @@ export const StaticData = {
     {
       url: artichoke,
       name: "artichoke",
-      correctUrls: [33, 328, 447, 82, 130] ,
+      correctURLs: [33, 328, 447, 82, 130] ,
       wrongVizURLs: [19, 391, 164, 154, 434] ,
       classLabels:['artichoke', 'artichokes'],
       hint: 'vegetable',
@@ -242,7 +242,7 @@ export const StaticData = {
     {
       url: bellPepper,
       name: "bellPepper",
-      correctUrls: [433, 294, 61, 16, 198] ,
+      correctURLs: [433, 294, 61, 16, 198] ,
       wrongVizURLs: [119, 108, 128, 478, 434] ,
       classLabels:['bell pepper', 'pepper', 'peppers', 'bell peppers'],
       hint: 'vegetable',
@@ -250,7 +250,7 @@ export const StaticData = {
     {
       url: cucumber,
       name: "cucumber",
-      correctUrls: [2, 202, 433, 294, 511] ,
+      correctURLs: [2, 202, 433, 294, 511] ,
       wrongVizURLs: [434, 111, 331, 94, 27] ,      
       classLabels:['cucumber', 'cucumbers'],
       hint: 'vegetable',
@@ -260,7 +260,7 @@ export const StaticData = {
     {
       url: violin,
       name: "violin",
-      correctUrls: [66, 348, 238, 98, 131] ,
+      correctURLs: [66, 348, 238, 98, 131] ,
       wrongVizURLs: [27, 95, 19, 352, 5] ,
       classLabels:['violin', 'violins', 'viola', 'violas', 'cello', 'cellos'],
       hint: 'musical instrument',
@@ -268,7 +268,7 @@ export const StaticData = {
     {
       url: piano,
       name: "piano",
-      correctUrls: [338, 23, 156, 31, 249] ,
+      correctURLs: [338, 23, 156, 31, 249] ,
       wrongVizURLs: [87, 126, 100, 84, 85] ,
       classLabels:['piano', 'pianos', 'grand piano', 'grand pianos'],
       hint: 'musical instrument',
@@ -276,7 +276,7 @@ export const StaticData = {
     {
       url: drum,
       name: "drum",
-      correctUrls: [84, 70, 42, 91, 38] ,
+      correctURLs: [84, 70, 42, 91, 38] ,
       wrongVizURLs: [494, 321, 481, 54, 93] ,
       classLabels:['drum', 'drums', 'steel drum', 'steel drums'],
       hint: 'musical instrument',
@@ -284,7 +284,7 @@ export const StaticData = {
     {
       url: acousticGuitar,
       name: "acousticGuitar",
-      correctUrls: [348, 11, 108, 79, 93] ,
+      correctURLs: [348, 11, 108, 79, 93] ,
       wrongVizURLs: [50, 287, 35, 419, 32] ,
       classLabels:['guitar', 'guitars', 'acoustic guitar', 'acoustic guitars'],
       hint: 'musical instrument',
@@ -292,7 +292,7 @@ export const StaticData = {
     {
       url: flute,
       name: "flute",
-      correctUrls: [75, 12, 368, 23, 4] ,
+      correctURLs: [75, 12, 368, 23, 4] ,
       wrongVizURLs: [434, 514, 313, 420, 297] ,
       classLabels:['flute', 'flutes'],
       hint: 'musical instrument',
@@ -300,7 +300,7 @@ export const StaticData = {
     {
       url: harmonica,
       name: "harmonica",
-      correctUrls: [433, 435, 467, 132, 61] ,
+      correctURLs: [433, 435, 467, 132, 61] ,
       wrongVizURLs: [523, 86, 495, 304, 70] ,
       classLabels:['harmonica', 'harmonicas'],
       hint: 'musical instrument',
@@ -310,7 +310,7 @@ export const StaticData = {
     {
       url: bicycle,
       name: "bicycle",
-      correctUrls: [42, 99, 204, 84, 39] ,
+      correctURLs: [42, 99, 204, 84, 39] ,
       wrongVizURLs: [164, 244, 93, 434, 460] ,
       classLabels:['bicycle', 'bicycles', 'bike', 'bikes', 'bicycle-for-two'],
       hint: 'transportation',
@@ -318,7 +318,7 @@ export const StaticData = {
       {
         url: car,
         name: "car",
-        correctUrls: [55, 409, 123, 498, 23] ,
+        correctURLs: [55, 409, 123, 498, 23] ,
         wrongVizURLs: [248, 403, 455, 195, 417] ,
         classLabels:['car', 'cars', 'passenger car', 'passenger cars', 'sedan', 'sedans'],
         hint: 'transportation',
@@ -326,7 +326,7 @@ export const StaticData = {
       {
         url: train,
         name: "train",
-        correctUrls: [62, 284, 39, 5, 433] ,
+        correctURLs: [62, 284, 39, 5, 433] ,
         wrongVizURLs: [141, 421, 489, 164, 269] ,
         classLabels: ['train', 'trains', 'passenger car', 'passenger cars', 'coach', 'coaches', 'railroad car', 'railroad cars', 'carriage', 'carriages', 'railway car', 'railway cars', 'railcar', 'railcars'],
         hint: 'transportation',
@@ -334,7 +334,7 @@ export const StaticData = {
     {
       url: canoe,
       name: "canoe",
-      correctUrls: [27, 507, 462, 11, 13] ,
+      correctURLs: [27, 507, 462, 11, 13] ,
       wrongVizURLs: [463, 398, 434, 304, 29] ,      
       classLabels:['canoe', 'boat', 'canoes', 'boats'],
       hint: 'transportation',
@@ -342,7 +342,7 @@ export const StaticData = {
     {
       url: tractor,
       name: "tractor",
-      correctUrls: [169, 243, 72, 11, 375] ,
+      correctURLs: [169, 243, 72, 11, 375] ,
       wrongVizURLs: [460, 485, 434, 84, 484] ,
       classLabels:['tractor', 'tractors'],
       hint: 'transportation',
@@ -360,7 +360,7 @@ export const StaticData = {
     {
       url: laptop,
       name: "laptop",
-      correctUrls: [47, 3, 218, 234, 433] ,
+      correctURLs: [47, 3, 218, 234, 433] ,
       wrongVizURLs: [6, 463, 236, 467, 88] ,
       classLabels:['laptop', 'laptops', 'computer', 'computers'],
       hint: 'electronics',
@@ -368,7 +368,7 @@ export const StaticData = {
     {
       url: electricFan,
       name: "electricFan",
-      correctUrls: [15, 24, 203, 399, 0] ,
+      correctURLs: [15, 24, 203, 399, 0] ,
       wrongVizURLs: [59, 170, 434, 166, 495] ,
       classLabels:['fan', 'fans', 'electric fan', 'electric fans'],
       hint: 'electronics',
@@ -376,7 +376,7 @@ export const StaticData = {
     {
       url: keyboard,
       name: "keyboard",
-      correctUrls: [441, 502, 47, 23, 104] ,
+      correctURLs: [441, 502, 47, 23, 104] ,
       wrongVizURLs: [184, 180, 352, 343, 394] ,
       classLabels:['keyboard', 'keyboards', 'computer keyboard', 'computer keys', 'keys'],
       hint: 'electronics',
@@ -384,14 +384,14 @@ export const StaticData = {
     {
       url: toaster,
       name: "toaster",
-      correctUrls: [456, 433, 37, 294, 414] ,
+      correctURLs: [456, 433, 37, 294, 414] ,
       wrongVizURLs: [319, 244, 364, 5, 27] ,
       classLabels: ['toaster', 'toasters'],
       hint: 'electronics',
     }, {
       url: camera, /* fixed, class*/
       name: "camera",
-      correctUrls: [527, 31, 11, 32, 23] ,
+      correctURLs: [527, 31, 11, 32, 23] ,
       wrongVizURLs: [371, 394, 304, 29, 434] ,
       classLabels: ['camera', 'cameras', 'reflex camera', 'reflex cameras'],
       hint: 'electronics',

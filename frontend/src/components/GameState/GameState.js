@@ -21,7 +21,7 @@ class GameState extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      explanationType : 1, 
+      explanationType : 0, 
       answer: {}, // contains the actual answer image for current round
       turns: [],
       mode: 0, // Current mode (choosing image, guessing, etc)
