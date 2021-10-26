@@ -131,28 +131,35 @@ class Round extends Component {
           console.log("past guess got repeated") 
           console.log(answer)
         }
+
+        // Temporary
         if (this.props.explanationType === 2 && this.props.entireRound === 2) {
           answer = StaticData["seaAnimal"][3]
         }
-        // Can randomize which one is chosen in the future 
+
         let currVisual = currVisuals[answer.name]
 
         
         //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
         let imgArr = []
         imgArr.push([currVisual.top_five[0], "top_0"])
-        if (randomOrder[0] !== 0) {
-            imgArr.push([currVisual.top_five[randomOrder[0]], "top_" + randomOrder[0]])
-        } else {
-          imgArr.push([currVisual.top_five[randomOrder[1]], "top_" + randomOrder[1]])
-        }
+        imgArr.push([currVisual.top_five[1], "top_1"])
+        imgArr.push([currVisual.top_five[2], "top_3"])
+        imgArr.push([currVisual.top_five[3], "top_4"])
 
 
-        randomOrder = _.shuffle(randomOrder)
-        imgArr.push([currVisual.bottom_five[randomOrder[0]], "bottom_" + randomOrder[0]])
-        imgArr.push([currVisual.bottom_five[randomOrder[1]], "bottom_" + randomOrder[1]])
+        // if (randomOrder[0] !== 0) {
+        //     imgArr.push([currVisual.top_five[randomOrder[0]], "top_" + randomOrder[0]])
+        // } else {
+        //   imgArr.push([currVisual.top_five[randomOrder[1]], "top_" + randomOrder[1]])
+        // }
 
-        imgArr = _.shuffle(imgArr)
+
+        // randomOrder = _.shuffle(randomOrder)
+        // imgArr.push([currVisual.bottom_five[randomOrder[0]], "bottom_" + randomOrder[0]])
+        // imgArr.push([currVisual.bottom_five[randomOrder[1]], "bottom_" + randomOrder[1]])
+
+        // imgArr = _.shuffle(imgArr)
         let t = _.unzip(imgArr)
         imgArr = t[0]
         let orderArr = t[1]
@@ -173,7 +180,7 @@ class Round extends Component {
        this.props.setHintsURL(orderArr);
 
 
-      } else {
+      } else { // For Feature Viz - LEGACY
         // Weird way to shuffle array
         const randomNum = (Math.floor(Math.random() * 2));
         const randomVisualOrder = [0, 1, 2, 3, 4];
@@ -242,7 +249,7 @@ class Round extends Component {
     );
     return (
       <section className={styles['Round']}>
-        <h1 className={styles['Round__title']}>Round { this.props.explanationType *2 + this.props.entireRound}</h1>
+        <h1 className={styles['Round__title']}>Round { this.props.explanationNumber *2 + this.props.entireRound}</h1>
         {player !== 1 ? (
           <Fragment>
             <div className={styles['Round__text']}>It’s your turn to guess. Remember...</div>
