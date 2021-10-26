@@ -243,7 +243,10 @@ class Game extends Component {
                 <div className="title">
                   {this.state.typeMode ? 'Others guess the original image' : 'Guess the original image!'}
                 </div>
+                {  this.state.hintMode === true ? 
                 <div className="hint" key="hints"><span className = "title">Hint:</span> It's a type of {this.renderFirstHint()}</div>
+                : <div></div> 
+                }
                 <div className="selected-vis" key="visDisplay">
                   {this.generateVisual()}
                 </div>
