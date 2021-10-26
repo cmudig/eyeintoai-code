@@ -26,16 +26,16 @@ for (var type of Object.keys(StaticData)) {
 
     for (let i = 0; i < 5; i++) {
       let filename =key + "/top_" + i 
-      // console.log( "../../images/LIME/" + filename + ".jpeg")
+      // console.log( "../../images/LIME/" + filename + ".png")
       try {
-        let v = r_lime(`./${filename}.jpeg`)
+        let v = r_lime(`./${filename}.png`)
         let g =  r_gradcam(`./${filename}.png`)
         top_five_lime.push(v)
         top_five_gradcam.push(g)
 
 
       } catch {
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
@@ -47,14 +47,14 @@ for (var type of Object.keys(StaticData)) {
     for (let i = 0; i < 5; i++) {
       let filename =key + "/bottom_" + i 
       try {
-        let v = r_lime(`./${filename}.jpeg`)
+        let v = r_lime(`./${filename}.png`)
         let g =  r_gradcam(`./${filename}.png`)
         bottom_five_lime.push(v)
         bottom_five_gradcam.push(g)
 
       } catch (err) {
         // console.log(err)
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
@@ -133,9 +133,13 @@ class Round extends Component {
         }
 
         // Temporary
-        if (this.props.explanationType === 2 && this.props.entireRound === 2) {
-          answer = StaticData["seaAnimal"][3]
-        }
+        // if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+        //   answer = StaticData["seaAnimal"][3]
+        // }
+
+        // if (this.props.explanationType === 1 && this.props.entireRound === 1)  {
+        //   answer = StaticData["transportation"][5]
+        // }
 
         let currVisual = currVisuals[answer.name]
 

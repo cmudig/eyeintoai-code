@@ -57,7 +57,7 @@ class Game extends Component {
     const elements = [];
     for (let i = 0; i < Math.min(4, this.state.round); i++) {
       let className = "visWrapper"
-      if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+      if (this.props.explanationType === 2 || this.props.explanationType === 1) {
         className = "visWrapper overlay"
       } 
       elements.push(
@@ -72,7 +72,7 @@ class Game extends Component {
     }
 
     for (let i = 0; i < (4 - this.state.round); i++) {
-      if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+      if (this.props.explanationType === 2 || this.props.explanationType === 1) {
         continue
       } else {
         elements.push(<div className="visWrapper" key={'vis' + i + 5}> ? </div>);

@@ -20,16 +20,16 @@ for (var type of Object.keys(StaticData)) {
 
     for (let i = 0; i < 4; i++) {
       let filename =key + "/top_" + i 
-      // console.log( "../../images/LIME/" + filename + ".jpeg")
+      // console.log( "../../images/LIME/" + filename + ".png")
       try {
-        let v = r_lime(`./${filename}.jpeg`)
+        let v = r_lime(`./${filename}.png`)
         let g =  r_gradcam(`./${filename}.png`)
         top_five_lime.push(v)
         top_five_gradcam.push(g)
 
 
       } catch {
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
@@ -41,14 +41,14 @@ for (var type of Object.keys(StaticData)) {
     for (let i = 0; i < 4; i++) {
       let filename =key + "/bottom_" + i 
       try {
-        let v = r_lime(`./${filename}.jpeg`)
+        let v = r_lime(`./${filename}.png`)
         let g =  r_gradcam(`./${filename}.png`)
         bottom_five_lime.push(v)
         bottom_five_gradcam.push(g)
 
       } catch (err) {
         // console.log(err)
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".jpeg or ../../images/gradcam/" + filename + ".png")
+        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
   
@@ -95,7 +95,7 @@ class ImageSelect extends Component {
     if ([1,2].includes(this.props.explanationType)) {
 
       // for (let i = 0; i < 5; i++) {
-      //   let path = "bottom_" + i + ".jpeg"
+      //   let path = "bottom_" + i + ".png"
       //   let combinedPath = commPath + path;
       //   console.log( "../../images/LIME/" + combinedPath)
       //   let v = require("../../images/LIME/" + (combinedPath))
