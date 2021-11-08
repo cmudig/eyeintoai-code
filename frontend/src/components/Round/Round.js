@@ -10,11 +10,13 @@ import _ from 'lodash';
 
 let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
 let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
+let r_baseline = require.context('../../images/baseline', true, /\.(png|jpe?g|svg)$/);
 
 
 const gradcamVisuals = {}
-
 const limeVisuals = {}
+const baselineVisuals = {}
+
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
   for (var image of images) {
@@ -57,8 +59,23 @@ for (var type of Object.keys(StaticData)) {
         console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
+    }
+
+    let all_eight_baseline = []
+    for (let i = 0; i < 8; i++) {
+      let filename =key + "/random" + i 
+      try {
+        let b =  r_baseline(`./${filename}.png`)
+        all_eight_baseline.push(b)
+
+      } catch (err) {
+        // console.log(err)
+        console.log("Couldn't load path : ../../images/baseline/" + filename)
+        continue;
+      }
   
     }
+
     limeVisuals[key] = {}
     limeVisuals[key]["top_five"] = top_five_lime
     limeVisuals[key]["bottom_five"] = bottom_five_lime
@@ -66,6 +83,10 @@ for (var type of Object.keys(StaticData)) {
     gradcamVisuals[key] = {}
     gradcamVisuals[key]["top_five"] = top_five_gradcam
     gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
+
+    baselineVisuals[key] = {}
+    baselineVisuals[key]["all_eight"] = all_eight_baseline
+
 
   
   }
@@ -105,6 +126,8 @@ class Round extends Component {
         currVisuals = limeVisuals;
       } else if (this.props.explanationType === 2) {
         currVisuals = gradcamVisuals;
+      } else if (this.props.explanationType === 3) {
+        currVisuals = baselineVisuals;
       }
   
       if ([1,2].includes(this.props.explanationType)) {
@@ -184,7 +207,86 @@ class Round extends Component {
        this.props.setHintsURL(orderArr);
 
 
-      } else { // For Feature Viz - LEGACY
+      } else if ([3].includes(this.props.explanationType))  {
+        let randomOrder = []
+        // const randomNum = (Math.floor(Math.random() * 2));
+
+        for (let i = 0; i < 5; i++) {
+          randomOrder.push(i)
+        }
+
+        // quick and dirty way to randomize, not completely random 
+        randomOrder = _.shuffle(randomOrder)
+        // Either veggies or electronics will be picked
+        // if (randomNum % 2 === 0) {
+        //   answers = StaticData.vegetable;
+        // } else {
+        //   answers = StaticData.electronics;
+        // }
+
+        let [answers, category] = randomProperty(StaticData);
+        let answer = answers[Math.floor(Math.random()*answers.length)]
+        while (this.props.pastGuessingImgs.includes(answer)) {
+          answer = answers[Math.floor(Math.random()*answers.length)]
+          console.log("past guess got repeated") 
+          console.log(answer)
+        }
+
+        // Temporary
+        // if (this.props.explanationType === 2 && this.props.entireRound === 2) {
+        //   answer = StaticData["seaAnimal"][3]
+        // }
+
+        // if (this.props.explanationType === 1 && this.props.entireRound === 1)  {
+        //   answer = StaticData["transportation"][5]
+        // }
+
+        let currVisual = currVisuals[answer.name]
+
+        
+        //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
+        let imgArr = []
+        imgArr.push([currVisual.all_eight[randomOrder[0]], "random_" + randomOrder[0]])
+        imgArr.push([currVisual.all_eight[randomOrder[1]], "random_" + randomOrder[1]])
+        imgArr.push([currVisual.all_eight[randomOrder[2]], "random_" + randomOrder[2]])
+        imgArr.push([currVisual.all_eight[randomOrder[3]], "random_" + randomOrder[3]])
+
+
+
+
+        // if (randomOrder[0] !== 0) {
+        //     imgArr.push([currVisual.top_five[randomOrder[0]], "top_" + randomOrder[0]])
+        // } else {
+        //   imgArr.push([currVisual.top_five[randomOrder[1]], "top_" + randomOrder[1]])
+        // }
+
+
+        // randomOrder = _.shuffle(randomOrder)
+        // imgArr.push([currVisual.bottom_five[randomOrder[0]], "bottom_" + randomOrder[0]])
+        // imgArr.push([currVisual.bottom_five[randomOrder[1]], "bottom_" + randomOrder[1]])
+
+        // imgArr = _.shuffle(imgArr)
+        let t = _.unzip(imgArr)
+        imgArr = t[0]
+        let orderArr = t[1]
+        let roundNum = "round_" + this.props.entireRound
+        
+        let dict = {guess_round : {}}
+        let innerDict =  {
+            categorySelect : category, 
+            imgSelect : answer.name, 
+            orderArr : orderArr
+        }
+        dict["guess_round"][roundNum] = innerDict;
+        // this.props.update(dict)
+        // console.log(category, answer.name)
+        console.log("orderArr = ", orderArr);
+       this.props.setAnswer(answer);
+       this.props.setHints(imgArr);
+       this.props.setHintsURL(orderArr);
+
+
+      }  else { // For Feature Viz - LEGACY
         // Weird way to shuffle array
         const randomNum = (Math.floor(Math.random() * 2));
         const randomVisualOrder = [0, 1, 2, 3, 4];

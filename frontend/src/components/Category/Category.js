@@ -19,6 +19,8 @@ class Category extends Component {
         explanationTypeText = "LIME";
       } else if (this.props.explanationType === 2) {
         explanationTypeText = "GradCam"
+      } else if (this.props.explanationType === 3) {
+        explanationTypeText = "SHAP"
       }
       return (
         <div>

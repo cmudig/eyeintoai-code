@@ -5,9 +5,11 @@ import { StaticData } from '../../data/Images';
 
 let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
 let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
+let r_baseline = require.context('../../images/baseline', true, /\.(png|jpe?g|svg)$/);
+
 
 const gradcamVisuals = {}
-
+const baselineVisuals = {}
 const limeVisuals = {}
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
@@ -53,6 +55,21 @@ for (var type of Object.keys(StaticData)) {
       }
   
     }
+
+    let all_eight_baseline = []
+    for (let i = 0; i < 8; i++) {
+      let filename =key + "/random" + i 
+      try {
+        let b =  r_baseline(`./${filename}.png`)
+        all_eight_baseline.push(b)
+
+      } catch (err) {
+        // console.log(err)
+        console.log("Couldn't load path : ../../images/baseline/" + filename)
+        continue;
+      }
+  
+    }
     limeVisuals[key] = {}
     limeVisuals[key]["top_five"] = top_five_lime
     limeVisuals[key]["bottom_five"] = bottom_five_lime
@@ -61,6 +78,9 @@ for (var type of Object.keys(StaticData)) {
     gradcamVisuals[key]["top_five"] = top_five_gradcam
     gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
 
+
+    baselineVisuals[key] = {}
+    baselineVisuals[key]["all_eight"] = all_eight_baseline
   
   }
   
@@ -77,6 +97,7 @@ class ImageSelect extends Component {
     nonSelected: [],
     top_five: [], 
     bottom_five: [],
+    baseline: [],
     display: 'none',
   };
 
@@ -90,6 +111,8 @@ class ImageSelect extends Component {
       currVisuals = limeVisuals;
     } else if (this.props.explanationType === 2) {
       currVisuals = gradcamVisuals;
+    } else if (this.props.explanationType === 3) {
+      currVisuals = baselineVisuals;
     }
 
     if ([1,2].includes(this.props.explanationType)) {
@@ -108,6 +131,10 @@ class ImageSelect extends Component {
       console.log(randomized)
       this.setState({ nonSelected: randomized, top_five: currVisuals[this.props.answer.name].top_five, bottom_five: currVisuals[this.props.answer.name].bottom_five });
 
+    } else if ([3].includes(this.props.explanationType)) {
+      let randomized = _.shuffle(baselineVisuals[this.props.answer.name].all_eight)
+      console.log(randomized)
+      this.setState({ nonSelected: randomized, baseline:baselineVisuals[this.props.answer.name].all_eight});
     } else {
       const newVisuals = [];
       for (let i = 0; i < 5; i++) {
@@ -169,7 +196,7 @@ class ImageSelect extends Component {
     const elements = [];
     const images = this.state.nonSelected.concat(this.state.selected);
     let numPics, maxWidth;
-    if ([1,2].includes(this.props.explanationType)) {
+    if ([1,2,3].includes(this.props.explanationType)) {
       numPics = 8; 
       maxWidth = "640px";
     } else {
@@ -232,6 +259,8 @@ class ImageSelect extends Component {
               else 
                 throw new Error("Couldn't find img = " + curImage); 
 
+              } else if ([3].includes(this.props.explanationType)) {
+                explanations.push({ technique_rank: "random_"+ this.state.baseline.indexOf(curImage) });
               } else {
                 const imgIdx = parseInt(curImage.substring(curImage.lastIndexOf('/') + 1, curImage.indexOf('.')));
                 if (this.state.top_five.indexOf(imgIdx) !== -1) 

@@ -52,6 +52,8 @@ class GameState extends Component {
       this.props.update({"LIME" : fieldAndvalue})
     } else if (this.state.explanationType  === 2) {
       this.props.update({"Gradcam" : fieldAndvalue})
+    }  else if (this.state.explanationType  === 3) {
+      this.props.update({"Baseline" : fieldAndvalue})
     } else {
       throw new Error("Invalid explanationType = " + this.state.explanationType );
     }
@@ -80,7 +82,7 @@ class GameState extends Component {
   }
 
   randomizeExplanationTypes() { 
-    let arr = [1,2]
+    let arr = [1,2,3]
     let shuffled_arr = _.shuffle(arr)
     shuffled_arr.push(0)
 
