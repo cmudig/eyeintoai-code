@@ -39,10 +39,11 @@ function About() {
               Lucid library
             </a> to generate the feature visualizations from the  <a className={styles['About__link']} href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43022.pdf" target="_blank" rel="noopener noreferrer">
             GoogLeNet (InceptionV1) </a> deep neural network.  You can browse some layers of GoogLeNet in this <a className={styles['About__link']} href="https://distill.pub/2017/feature-visualization/appendix/" target="_blank" rel="noopener noreferrer">
-            appendix </a>. 
+            appendix </a>.   We have since expanded the game to include different types of explanations as well, such as <a  className={styles['About__link']}  href="https://github.com/marcotcr/understanding-ml">LIME</a> and <a  className={styles['About__link']} href="http://gradcam.cloudcv.org">GradCam</a>.
             <p></p>
+            The current iteration of this game's implementation and research is led by Mayank Jain.
             Our first game prototype was designed by Ja Young Lee and Qian Wang, MHCI students at CMU, working on an independent study with Dr. Adam Perer.  Dr. Jessica Hammer, an award-winning game designer and professor in the OH! Lab helped us iterate on a variety of game designs.  Shivang Gupta also provided his machine learning expertise.
-            After Young, Qian, and Shiv graduated, Laura Beth Fulton helped lead the team as a product manager as well as an HCI expert.  Zhendong (Mike) Yuan implemented the backend to scale beyond a prototype, while Kazi Jawad re-wrote the frontend and added many important game enhancements unearthed from playtesting.  Jiachen (Lilian) Gong is leading data analysis of the game logs.  Justine Cho helped us expand the game with more categories and explanations.
+            After Young, Qian, and Shiv graduated, Laura Beth Fulton helped lead the team as a product manager as well as an HCI expert.  Zhendong (Mike) Yuan implemented the backend to scale beyond a prototype, while Kazi Jawad re-wrote the frontend and added many important game enhancements unearthed from playtesting.  Jiachen (Lilian) Gong helped provide data analysis of the game logs.  Justine Cho helped us expand the game with more categories and explanations.
             Special thanks to Niki Kittur and Zack Lipton for some initial conversations about experiments with feature visualizations.
             
       </p>
@@ -58,7 +59,99 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C5603AQEYAWmbvNRNvw/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=YhONd7iOgTSudP2sPMZSK6i8ETJ5F9EKbppYKtjuKiQ"
+              src="https://www.linkedin.com/in/mjain30/"
+              alt="Mayank Jain"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Mayank Jain</p>
+            <p className={styles['About__extra']}>
+              Research and Development
+              <br />
+              M.S. Computer Science
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://www.linkedin.com/in/kazijawad/" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="mailto:kazijawad@cmu.edu">
+                  <ion-icon name="mail"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://github.com/kazijawad" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <p className={styles['About__caption']}>
+          Meet Past Contributors:
+        </p>
+        <section className={styles['About__team']}>
+          
+        </section>
+        <p className={styles['About__caption']}>
+          Meet Faculty:
+        </p>
+        <section className={styles['About__team']}>
+          <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://dig.cmu.edu/assets/people/adam.jpg"
+              alt="Adam Perer"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Adam Perer</p>
+            <p className={styles['About__extra']}>
+              Assistant Research Professor
+              <br />
+              Human-Computer Interaction Institute
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="http://www.perer.org" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="home"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://dig.cmu.edu/assets/people/jessica.jpg"
+              alt="Jessica Hammer"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Jessica Hammer</p>
+            <p className={styles['About__extra']}>
+              Assistant Professor
+              <br />
+              Human-Computer Interaction Institute and Entertainment Technology Center
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="http://replayable.net" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="home"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <p className={styles['About__caption']}>
+          Meet Past Contributors:
+        </p>
+        <section className={styles['About__team']}>
+        <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://dig.cmu.edu/assets/people/kazi.jpg"
               alt="Kazi Jawad"
               height="100"
               width="100"
@@ -90,7 +183,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4D03AQHIZ3IFjush4A/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=NUB6h2K5OQKKZOL6hs5AQrBSm5zkerH_rrIIiUTtfiQ"
+              src="https://dig.cmu.edu/assets/people/laura.jpg"
               alt="Laura Beth Fulton"
               height="100"
               width="100"
@@ -122,7 +215,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQH3IzwNpmIKQw/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=KSOhjVheBNRij8xNugmaDLmiX9LDLyrDwRwCVPudd7k"
+              src="https://dig.cmu.edu/assets/people/lilian.jpg"
               alt="Jiachen (Lilian) Gong"
               height="100"
               width="100"
@@ -149,7 +242,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C5603AQFyAl138zTQ-g/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=_48vGSvVJ7p3ecbgPWUF34nR8XlgEk3o8fsFRucmbxM"
+              src="https://dig.cmu.edu/assets/people/justine.jpg"
               alt="Justine Cho"
               height="100"
               width="100"
@@ -178,64 +271,10 @@ function About() {
               </li>
             </ul>
           </div>
-        </section>
-        <p className={styles['About__caption']}>
-          Meet Faculty:
-        </p>
-        <section className={styles['About__team']}>
-          <div className={styles['About__card']}>
-            <img
-              className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C5603AQHD5tgwVDhURw/profile-displayphoto-shrink_200_200/0?e=1594252800&v=beta&t=1VC1CzbOyOtF1Ar1ycJLw8RDnCsCrfjJylmpIY9zPjY"
-              alt="Adam Perer"
-              height="100"
-              width="100"
-            />
-            <p className={styles['About__name']}>Adam Perer</p>
-            <p className={styles['About__extra']}>
-              Assistant Research Professor
-              <br />
-              Human-Computer Interaction Institute
-            </p>
-            <ul className={styles['About__list']}>
-              <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="http://www.perer.org" target="_blank" rel="noopener noreferrer">
-                  <ion-icon name="home"></ion-icon>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles['About__card']}>
-            <img
-              className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQEVprb2XZZCIA/profile-displayphoto-shrink_200_200/0?e=1594252800&v=beta&t=EDjoPESXcp9S6mNjAx80BKsHFvs85TXw-Is5bpqznlM"
-              alt="Jessica Hammer"
-              height="100"
-              width="100"
-            />
-            <p className={styles['About__name']}>Jessica Hammer</p>
-            <p className={styles['About__extra']}>
-              Assistant Professor
-              <br />
-              Human-Computer Interaction Institute and Entertainment Technology Center
-            </p>
-            <ul className={styles['About__list']}>
-              <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="http://replayable.net" target="_blank" rel="noopener noreferrer">
-                  <ion-icon name="home"></ion-icon>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <p className={styles['About__caption']}>
-          Meet Past Contributors:
-        </p>
-        <section className={styles['About__team']}>
         <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQHEPE2DnmRtCw/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=0CQjmybr09V1skvQ5UALtT_et41UAJt_D-hF_Lk5RIY"
+              src="https://dig.cmu.edu/assets/people/young.jpg"
               alt="Ja Young Lee"
               height="100"
               width="100"
@@ -262,7 +301,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQHUTGYACE93_A/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=nouThx5_V6N7if6YFBizlzNavZaoLG4qBhvBNfEwG5Y"
+              src="https://dig.cmu.edu/assets/people/qian.jpg"
               alt="Qian Wang"
               height="100"
               width="100"
@@ -289,7 +328,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4D03AQFHfk9hepwyIg/profile-displayphoto-shrink_400_400/0?e=1595462400&v=beta&t=fmywUv3jNihqNIiuQgHrcW9RV7EL3rb-5RWv9O36lJA"
+              src="https://dig.cmu.edu/assets/people/zhendong.jpg"
               alt="Zhendong (Mike) Yuan"
               height="100"
               width="100"
@@ -321,7 +360,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQEnxoKDJdpeMg/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=o_TOZ2ZxOJ072ckJjZRdfYpuO7JBqVvuQL4t7PHXI5o"
+              src="https://dig.cmu.edu/assets/person.png"
               alt="Shivang Gupta"
               height="100"
               width="100"
@@ -352,7 +391,7 @@ function About() {
       </p>
       </section>
         <footer className={styles['About__footer']}>
-          Designed and developed at Carnegie Mellon University, © 2020
+          Designed and developed at Carnegie Mellon University, © 2021
         </footer>
       </section>
     </Fragment>
