@@ -164,7 +164,7 @@ class Home extends Component {
             <Link className={styles['home']} to="/about">
               Data Interaction Group
             </Link>
-            &nbsp;at Carnegie Mellon University, © 2020.
+            &nbsp;at Carnegie Mellon University, © 2021.
           </p>
         </div>
       );
@@ -290,7 +290,7 @@ class Home extends Component {
             <Link className={styles['home']} to="/about">
               Data Interaction Group
             </Link>
-            &nbsp;at Carnegie Mellon University, © 2020.
+            &nbsp;at Carnegie Mellon University, © 2021.
           </p>
         </div>
       );
