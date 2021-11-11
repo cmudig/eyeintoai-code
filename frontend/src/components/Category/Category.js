@@ -10,6 +10,8 @@ class Category extends Component {
     imageType: '',
   };
 
+  items = [];
+
   displayContent() {
     if (this.state.nextStage) {
       return [(this.displayImage())];
@@ -145,6 +147,8 @@ class Category extends Component {
         item = category[Math.floor(Math.random() * category.length)];
       }
       itemURLs.push(item.url);
+      this.items.push(item)
+
       images.push(
         <div key={`${i}_${item.url}`}>
           <img
@@ -159,13 +163,16 @@ class Category extends Component {
                   imgSelect: _.get(item.classLabels, 0, ''),
                 },
               });
-              this.props.setAnswer(item);
               this.props.movetoNext(2);
+              this.props.setAnswer(item, true);
+              this.props.setPastGuesses(this.items);
+
             }}
           />
         </div>
       );
     }
+
 
     return (
       <div key="selectCategory">

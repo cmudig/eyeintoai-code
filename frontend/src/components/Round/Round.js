@@ -171,8 +171,8 @@ class Round extends Component {
         let imgArr = []
         imgArr.push([currVisual.top_five[0], "top_0"])
         imgArr.push([currVisual.top_five[1], "top_1"])
-        imgArr.push([currVisual.top_five[2], "top_3"])
-        imgArr.push([currVisual.top_five[3], "top_4"])
+        imgArr.push([currVisual.top_five[2], "top_2"])
+        imgArr.push([currVisual.top_five[3], "top_3"])
 
 
         // if (randomOrder[0] !== 0) {

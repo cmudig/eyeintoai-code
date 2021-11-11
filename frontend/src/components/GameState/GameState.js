@@ -90,13 +90,20 @@ class GameState extends Component {
     this.setState({explanationTypes : shuffled_arr, explanationType : shuffled_arr[0]})
   }
 
-  setAnswer(n) {
+  setAnswer(n, setPastGuessingImgs = false) {
     this.setState({
       answer: n,
       answerRecord: [...this.state.answerRecord, n.classLabels[0]],
       setAnswerRecord: n,
       pastGuessingImgs : [...this.state.pastGuessingImgs, n]
     });
+  }
+
+  setPastGuesses(n) {
+    console.log("In Set Past Guesses")
+    this.setState({
+      pastGuessingImgs: [...this.state.pastGuessingImgs, ...n]
+    })
   }
 
   setHints(n) {
@@ -238,6 +245,7 @@ class GameState extends Component {
           <Category
             setTestPhase={this.setTestPhase.bind(this)}
             setAnswer={this.setAnswer.bind(this)}
+            setPastGuesses={this.setPastGuesses.bind(this)}
             movetoNext={this.moveToNext.bind(this)}
             update={this.update.bind(this)}
             explanationType={this.state.explanationType}
