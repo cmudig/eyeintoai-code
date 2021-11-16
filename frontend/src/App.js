@@ -178,7 +178,7 @@ class App extends Component {
   startNewLog() {
     this.timestamp = Date.now();
     var usersUpdate = {playerEmail: this.googleUser.getBasicProfile().getEmail(), playerId: this.googleUser.getBasicProfile().getGivenName() };
-    usersUpdate[`${this.timestamp}`] = { };
+    usersUpdate[`${this.timestamp}`] = { "version" : 2 };
     this.db.collection('gameLogsNew').doc(this.uid).set(usersUpdate, { merge: true });
   }
 

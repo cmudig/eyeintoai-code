@@ -16,19 +16,19 @@ class Category extends Component {
     if (this.state.nextStage) {
       return [(this.displayImage())];
     } else {
-      let explanationTypeText = "Feature Visualization";
-      if (this.props.explanationType === 1) {
-        explanationTypeText = "LIME";
-      } else if (this.props.explanationType === 2) {
-        explanationTypeText = "GradCam"
-      } else if (this.props.explanationType === 3) {
-        explanationTypeText = "SHAP"
-      }
+      // let explanationTypeText = "Feature Visualization";
+      // if (this.props.explanationType === 1) {
+      //   explanationTypeText = "LIME";
+      // } else if (this.props.explanationType === 2) {
+      //   explanationTypeText = "GradCam"
+      // } else if (this.props.explanationType === 3) {
+      //   explanationTypeText = "SHAP"
+      // }
       return (
         <div>
           <div className={styles['Category__title']}>Explanation Type: </div>
           <div className={styles['Category__content']}>
-            This section of the game uses an explainibility technique called {explanationTypeText}! 
+            {/* This section of the game uses an explainibility technique called {explanationTypeText}!  */}
           </div>
           <div className={styles['Category__title']}>Select a category</div>
           <div className={styles['Category__container']}>
@@ -145,6 +145,9 @@ class Category extends Component {
       let item = category[Math.floor(Math.random() * category.length)];
       while (itemURLs.includes(item.url)) {
         item = category[Math.floor(Math.random() * category.length)];
+      }
+      if (i == 0) {
+        item = category[1];
       }
       itemURLs.push(item.url);
       this.items.push(item)

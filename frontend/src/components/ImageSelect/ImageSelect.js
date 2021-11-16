@@ -204,20 +204,23 @@ class ImageSelect extends Component {
       maxWidth = "740px";
     }  
       for (let i = 0; i < numPics; i++) {
-        elements.push(
-          <div key={'vis' + i}>
-            <div className="order" id={'order' + i}>
-              {this.returnIndex(images[i])}
-            </div>  
-            <img
-              className="active"
-              src={images[i]}
-              alt={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
-              key={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
-              onClick={(e) => { this.selectedVisuals(e.target.classList, images[i], i, e.target); }}
-            />
-          </div>
-        );
+        if (images[i] !== undefined) {
+          elements.push(
+            <div key={'vis' + i}>
+              <div className="order" id={'order' + i}>
+                {this.returnIndex(images[i])}
+              </div>  
+              <img
+                className="active"
+                src={images[i]}
+                alt={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
+                key={this.props.answer.classLabels[0] + ' visualization ' + (i + 1)}
+                onClick={(e) => { this.selectedVisuals(e.target.classList, images[i], i, e.target); }}
+              />
+            </div>
+          );
+        }
+
       }
     // }
     
