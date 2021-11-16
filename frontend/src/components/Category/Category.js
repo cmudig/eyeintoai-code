@@ -146,9 +146,7 @@ class Category extends Component {
       while (itemURLs.includes(item.url)) {
         item = category[Math.floor(Math.random() * category.length)];
       }
-      if (i == 0) {
-        item = category[1];
-      }
+
       itemURLs.push(item.url);
       this.items.push(item)
 
