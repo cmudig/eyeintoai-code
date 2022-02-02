@@ -3,19 +3,30 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://dig.cmu.edu/eyeintoai",
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "dependencies": {
+    "@babel/eslint-parser": "^7.16.5",
     "again": "^0.0.1",
     "classnames": "^2.2.6",
     "dom-to-image": "^2.6.0",
     "dom-to-image-font-patch": "^1.0.1",
     "dotenv": "^8.1.0",
-    "node-sass": "^4.12.0",
+    "dotenv-webpack": "^7.1.0",
+    "firebase": "^8.6.8",
+    "i": "^0.3.7",
+    "npm": "^8.4.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.2",
     "react-router": "5.1.2",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
-    "react-with-firebase-auth": "^1.2.0"
+    "react-scripts": "^5.0.0",
+    "react-with-firebase-auth": "^1.2.0",
+    "sass": "^1.49.7",
+    "webpack": "^5.68.0"
   },
   "scripts": {
     "start": "PORT=8080 react-scripts start",
@@ -36,7 +47,7 @@
       "es6": true,
       "jest": true
     },
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
       "ecmaVersion": 2018,
       "sourceType": "module",
@@ -139,6 +150,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "sass": "^1.49.7"
   }
 }
