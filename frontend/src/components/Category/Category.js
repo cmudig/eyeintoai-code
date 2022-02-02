@@ -26,7 +26,7 @@ class Category extends Component {
       // }
       return (
         <div>
-          <div className={styles['Category__title']}>Explanation Type: </div>
+          // <div className={styles['Category__title']}>Explanation Type: </div>
           <div className={styles['Category__content']}>
             {/* This section of the game uses an explainibility technique called {explanationTypeText}!  */}
           </div>

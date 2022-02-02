@@ -366,7 +366,7 @@ class Round extends Component {
               </div>
               <div className={styles['Round__card']}>
                 <img className={styles['Round__image']} src={SecondImage} alt="Instruction #2" />
-                <p className={styles['Round__message']} >Explanations may important regions of the image, or show abstract patterns, textures, and shapes</p>
+                <p className={styles['Round__message']} >Explanations may show important regions of the image, or show abstract patterns, textures, and shapes</p>
               </div>
               <div className={styles['Round__card']}>
                 <img className={styles['Round__image']} src={ThirdImage} alt="Instruction #3" />
