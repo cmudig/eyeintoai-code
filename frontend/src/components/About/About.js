@@ -66,7 +66,7 @@ function About() {
             />
             <p className={styles['About__name']}>Katelyn Morrison</p>
             <p className={styles['About__extra']}>
-              Research and Development
+              Research
               <br />
               Ph.D. Student in Human-Computer Interaction
             </p>
