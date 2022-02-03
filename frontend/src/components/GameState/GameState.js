@@ -82,7 +82,7 @@ class GameState extends Component {
   }
 
   randomizeExplanationTypes() { 
-    let arr = [1,2,3]
+    let arr = [0,1,2,3]
     let shuffled_arr = _.shuffle(arr)
     shuffled_arr.push(0)
 
@@ -303,7 +303,7 @@ class GameState extends Component {
           />
         );
       } else if (this.state.mode === 5) {
-        if (this.state.explanationNumber < 2) {
+        if (this.state.explanationNumber < 3) {
           let newExplanationNumber = this.state.explanationNumber + 1;
           let newExplanationType = this.state.explanationTypes[newExplanationNumber]
           this.setState({
