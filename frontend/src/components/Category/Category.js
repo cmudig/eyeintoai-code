@@ -26,10 +26,6 @@ class Category extends Component {
       // }
       return (
         <div>
-          // <div className={styles['Category__title']}>Explanation Type: </div>
-          <div className={styles['Category__content']}>
-            {/* This section of the game uses an explainibility technique called {explanationTypeText}!  */}
-          </div>
           <div className={styles['Category__title']}>Select a category</div>
           <div className={styles['Category__container']}>
             <div
@@ -150,7 +146,7 @@ class Category extends Component {
         item = category[1];
       }
       itemURLs.push(item.url);
-      this.items.push(item)
+      this.items.push(item);
 
       images.push(
         <div key={`${i}_${item.url}`}>
@@ -172,10 +168,9 @@ class Category extends Component {
 
             }}
           />
-        </div>
+        </div>,
       );
     }
-
 
     return (
       <div key="selectCategory">
