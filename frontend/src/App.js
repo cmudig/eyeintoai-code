@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import firebase from 'firebase/app';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -14,7 +14,7 @@ import './index.scss';
 import './App.scss';
 import Logo from './images/home/logo.png';
 
-dotenv.config();
+// dotenv.config();
 const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-dog', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
 
 /* global gapi */

@@ -59,7 +59,39 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://www.linkedin.com/in/mjain30/"
+              src="https://katelyn98.github.io/assets/img/prof_pic.jpg"
+              alt="Katelyn Morrison"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Katelyn Morrison</p>
+            <p className={styles['About__extra']}>
+              Research
+              <br />
+              Ph.D. Student in Human-Computer Interaction
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://cs.cmu.edu/~kcmorris" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="mailto:kcmorris@cs.cmu.edu">
+                  <ion-icon name="mail"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://github.com/katelyn98" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://media-exp1.licdn.com/dms/image/C4E03AQHI2CuwhGzaTQ/profile-displayphoto-shrink_200_200/0/1628131590949?e=1649289600&v=beta&t=sXH8dw6He0LM9OVe0ZiE65JCXOqdfhL5EO418-KoCuQ"
               alt="Mayank Jain"
               height="100"
               width="100"
@@ -72,26 +104,24 @@ function About() {
             </p>
             <ul className={styles['About__list']}>
               <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="https://www.linkedin.com/in/kazijawad/" target="_blank" rel="noopener noreferrer">
+                <a className={styles['About__social']} href="https://www.linkedin.com/in/mjain30/" target="_blank" rel="noopener noreferrer">
                   <ion-icon name="logo-linkedin"></ion-icon>
                 </a>
               </li>
               <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="mailto:kazijawad@cmu.edu">
+                <a className={styles['About__social']} href="mailto:mayankj@andrew.cmu.edu">
                   <ion-icon name="mail"></ion-icon>
                 </a>
               </li>
               <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="https://github.com/kazijawad" target="_blank" rel="noopener noreferrer">
+                <a className={styles['About__social']} href="https://github.com/mayankj" target="_blank" rel="noopener noreferrer">
                   <ion-icon name="logo-github"></ion-icon>
                 </a>
               </li>
             </ul>
           </div>
         </section>
-        <p className={styles['About__caption']}>
-          Meet Past Contributors:
-        </p>
+        
         <section className={styles['About__team']}>
           
         </section>
