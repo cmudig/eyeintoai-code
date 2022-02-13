@@ -1,5 +1,6 @@
+/* eslint-disable */
 import poodle from '../images/samples/dog.jpg';
-import tabby from '../images/samples/cat.jpg';
+// import tabby from '../images/samples/cat.jpg';
 import macaw from '../images/samples/parrot.jpg';
 import jellyfish from '../images/samples/jellyfish.jpg';
 import treeFrog from '../images/samples/frog.jpg';
@@ -45,7 +46,7 @@ import fig from '../images/samples/fig.jpg';
 import artichoke from '../images/samples/artichoke.jpg';
 import bellPepper from '../images/samples/bellPepper.jpg';
 import cucumber from '../images/samples/cucumber.jpg';
-import drum from '../images/samples/drum.jpg';
+// import drum from '../images/samples/drum.jpg';
 import acousticGuitar from '../images/samples/acousticGuitar.jpg';
 import flute from '../images/samples/flute.jpg';
 import harmonica from '../images/samples/harmonica.jpg';
@@ -64,14 +65,14 @@ export const StaticData = {
       classLabels: ['dog', 'dogs', 'poodle', 'poodles', 'standard poodle', 'standard poodles'],
       hint: 'land animal',
     },
-    {
-      url: tabby,
-      name: "cat", /* fixed */
-      correctURLs: [493, 88, 168, 93, 450] ,
-      wrongVizURLs: [505, 417, 410, 460, 446] ,
-      classLabels: ['cat', 'cats', 'tabby', 'tabbies'],
-      hint: 'land animal',
-    },
+    // {
+    //   url: tabby,
+    //   name: "cat", /* fixed */
+    //   correctURLs: [493, 88, 168, 93, 450] ,
+    //   wrongVizURLs: [505, 417, 410, 460, 446] ,
+    //   classLabels: ['cat', 'cats', 'tabby', 'tabbies'],
+    //   hint: 'land animal',
+    // },
     {
       url:macaw, /* fixed */
       name: "parrot",
@@ -173,14 +174,14 @@ export const StaticData = {
     //   classLabels:['banana', 'bananas'],
     //   hint: 'fruit',
     // },
-    {
-      url: orange,
-      name: "orange",
-      correctURLs: [9, 111, 285, 435, 485] ,
-      wrongVizURLs: [394, 295, 233, 434, 416] ,
-      classLabels:['orange', 'oranges', 'tangerine', 'tangerines'],
-      hint: 'fruit',
-    },
+    // {
+    //   url: orange,
+    //   name: "orange",
+    //   correctURLs: [9, 111, 285, 435, 485] ,
+    //   wrongVizURLs: [394, 295, 233, 434, 416] ,
+    //   classLabels:['orange', 'oranges', 'tangerine', 'tangerines'],
+    //   hint: 'fruit',
+    // },
     {
       url: pineapple,
       name: "pineapple",
@@ -273,14 +274,14 @@ export const StaticData = {
       classLabels:['piano', 'pianos', 'grand piano', 'grand pianos'],
       hint: 'musical instrument',
     },
-    {
-      url: drum,
-      name: "drum",
-      correctURLs: [84, 70, 42, 91, 38] ,
-      wrongVizURLs: [494, 321, 481, 54, 93] ,
-      classLabels:['drum', 'drums', 'steel drum', 'steel drums'],
-      hint: 'musical instrument',
-    },
+    // {
+    //   url: drum,
+    //   name: "drum",
+    //   correctURLs: [84, 70, 42, 91, 38] ,
+    //   wrongVizURLs: [494, 321, 481, 54, 93] ,
+    //   classLabels:['drum', 'drums', 'steel drum', 'steel drums'],
+    //   hint: 'musical instrument',
+    // },
     {
       url: acousticGuitar,
       name: "acousticGuitar",
@@ -373,22 +374,23 @@ export const StaticData = {
       classLabels:['fan', 'fans', 'electric fan', 'electric fans'],
       hint: 'electronics',
     },
+    // {
+    //   url: keyboard,
+    //   name: "keyboard",
+    //   correctURLs: [441, 502, 47, 23, 104] ,
+    //   wrongVizURLs: [184, 180, 352, 343, 394] ,
+    //   classLabels:['keyboard', 'keyboards', 'computer keyboard', 'computer keys', 'keys'],
+    //   hint: 'electronics',
+    // },
+    // {
+    //   url: toaster,
+    //   name: "toaster",
+    //   correctURLs: [456, 433, 37, 294, 414] ,
+    //   wrongVizURLs: [319, 244, 364, 5, 27] ,
+    //   classLabels: ['toaster', 'toasters'],
+    //   hint: 'electronics',
+    // }, 
     {
-      url: keyboard,
-      name: "keyboard",
-      correctURLs: [441, 502, 47, 23, 104] ,
-      wrongVizURLs: [184, 180, 352, 343, 394] ,
-      classLabels:['keyboard', 'keyboards', 'computer keyboard', 'computer keys', 'keys'],
-      hint: 'electronics',
-    },
-    {
-      url: toaster,
-      name: "toaster",
-      correctURLs: [456, 433, 37, 294, 414] ,
-      wrongVizURLs: [319, 244, 364, 5, 27] ,
-      classLabels: ['toaster', 'toasters'],
-      hint: 'electronics',
-    }, {
       url: camera, /* fixed, class*/
       name: "camera",
       correctURLs: [527, 31, 11, 32, 23] ,

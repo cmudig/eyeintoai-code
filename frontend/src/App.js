@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import firebase from 'firebase/app';
@@ -179,13 +180,13 @@ class App extends Component {
     this.timestamp = Date.now();
     var usersUpdate = {playerEmail: this.googleUser.getBasicProfile().getEmail(), playerId: this.googleUser.getBasicProfile().getGivenName() };
     usersUpdate[`${this.timestamp}`] = { "version" : 2 };
-    this.db.collection('gameLogsNew').doc(this.uid).set(usersUpdate, { merge: true });
+    this.db.collection('gameLogsStudy2').doc(this.uid).set(usersUpdate, { merge: true });
   }
 
   update(fieldAndvalue) {
     var usersUpdate = {};
     usersUpdate[`${this.timestamp}`] = fieldAndvalue;
-    this.db.collection('gameLogsNew').doc(this.uid).set(usersUpdate, { merge: true });
+    this.db.collection('gameLogsStudy2').doc(this.uid).set(usersUpdate, { merge: true });
   }
 
   signOut() {

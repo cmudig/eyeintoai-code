@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import domToImage from 'dom-to-image';
 

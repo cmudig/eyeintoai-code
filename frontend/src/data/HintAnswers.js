@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default {
   'land animal': ['poodle', 'llama', 'snake', 'spider', 'cat', 'parrot', 'frog', 'bee', 'butterfly', 'tiger', 'bear', 'deer', 'mouse', 'hamster', 'wolf', 'fox'],
   'sea animal': ['jellyfish', 'shark', 'turtle', 'starfish', 'dolphin', 'whale', 'octopus', 'turtle', 'squid', 'seal', 'seahorse', 'lobster', 'walrus', 'rays', 'crab', 'walrus'],

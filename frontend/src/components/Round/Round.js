@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component, Fragment } from 'react';
 
 import styles from './Round.module.scss';
@@ -150,9 +151,11 @@ class Round extends Component {
         let [answers, category] = randomProperty(StaticData);
         let answer = answers[Math.floor(Math.random()*answers.length)]
         while (this.props.pastGuessingImgs.includes(answer)) {
+          [answers, category] = randomProperty(StaticData);
           answer = answers[Math.floor(Math.random()*answers.length)]
           console.log("past guess got repeated") 
-          console.log(answer)
+          console.log("ANSWER:",answer)
+          console.log(this.props.pastGuessingImgs)
         }
 
         // Temporary
@@ -227,9 +230,11 @@ class Round extends Component {
         let [answers, category] = randomProperty(StaticData);
         let answer = answers[Math.floor(Math.random()*answers.length)]
         while (this.props.pastGuessingImgs.includes(answer)) {
+          [answers, category] = randomProperty(StaticData);
           answer = answers[Math.floor(Math.random()*answers.length)]
           console.log("past guess got repeated") 
           console.log(answer)
+          console.log(this.props.pastGuessingImgs)
         }
 
         // Temporary
@@ -293,7 +298,7 @@ class Round extends Component {
         let firstNum = 0;
         let secondNum = 0;
         let tempNum = 0;
-        let answers = [];
+        // let answers = [];
         for (let i = 0; i < 10; i++) {
           firstNum = Math.floor(Math.random() * 5);
           secondNum = Math.floor(Math.random() * 5);
@@ -303,24 +308,39 @@ class Round extends Component {
         }
 
         // Either veggies or electronics will be picked
-        if (randomNum % 2 === 0) {
-          answers = StaticData.vegetable;
-        } else {
-          answers = StaticData.electronics;
-        }
+        // if (randomNum % 2 === 0) {
+        //   answers = StaticData.vegetable;
+        // } else {
+        //   answers = StaticData.electronics;
+        // }
         
-        if (this.props.entireRound === 1 && this.props.testPhase) {
-          secondNum = 2;
-          answers = StaticData.vegetable;
+        // if (this.props.entireRound === 1 && this.props.testPhase) {
+        //   secondNum = 2;
+        //   answers = StaticData.vegetable;
+        // }
+
+        // while(this.props.answerRecord.includes(answers[secondNum].classLabels[0]) || this.props.pastGuessingImgs.includes(answers[secondNum])) {
+        //   secondNum = (secondNum + 1) % 5;
+        //   console.log("ANSWER RECORD: ", this.props.answerRecord)
+        //   console.log("ANSWERS: ", answers)
+        //   console.log("ANSWER AT SECOND NUM: ", answers[secondNum])
+        //   console.log("SECONDNUM: ", secondNum)
+        // }
+
+        let [answers, category] = randomProperty(StaticData);
+        let answer = answers[secondNum]
+        while (this.props.pastGuessingImgs.includes(answer)) {
+          [answers, category] = randomProperty(StaticData);
+          secondNum = (secondNum + 1) % 4
+          answer = answers[secondNum]
+          console.log("past guess got repeated") 
+          console.log("ANSWER:",answer)
+          console.log(this.props.pastGuessingImgs)
         }
 
-        while(this.props.answerRecord.includes(answers[secondNum].classLabels[0]) || this.props.pastGuessingImgs.includes(answers[secondNum])) {
-          secondNum = (secondNum + 1) % 5;
-        }
+        const visuals = answer.correctURLs.concat(answer.wrongVizURLs);
 
-        const visuals = answers[secondNum].correctURLs.concat(answers[secondNum].wrongVizURLs);
-
-        this.props.setAnswer(answers[secondNum]);
+        this.props.setAnswer(answer);
         this.props.setHints([
           features[visuals[randomVisualOrder[0]]],
           features[visuals[randomVisualOrder[1]]],

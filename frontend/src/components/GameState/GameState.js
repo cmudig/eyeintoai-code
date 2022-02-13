@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 
@@ -15,6 +16,7 @@ import styles from './GameState.module.scss';
 // 0 : featureViz
 // 1 : LIME 
 // 2 : Gradcam
+// 3 : Baseline LIME
 
 
 class GameState extends Component {
