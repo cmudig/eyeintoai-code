@@ -17,6 +17,7 @@ import styles from './GameState.module.scss';
 // 1 : LIME 
 // 2 : Gradcam
 // 3 : Baseline LIME
+// 4 : Baseline Gradcam
 
 
 class GameState extends Component {
@@ -54,8 +55,10 @@ class GameState extends Component {
       this.props.update({"LIME" : fieldAndvalue})
     } else if (this.state.explanationType  === 2) {
       this.props.update({"Gradcam" : fieldAndvalue})
-    }  else if (this.state.explanationType  === 3) {
+    } else if (this.state.explanationType  === 3) {
       this.props.update({"Baseline" : fieldAndvalue})
+    } else if (this.state.explanationType  === 4) {
+      this.props.update({"Baseline_Gradcam" : fieldAndvalue})
     } else {
       throw new Error("Invalid explanationType = " + this.state.explanationType );
     }
@@ -84,7 +87,7 @@ class GameState extends Component {
   }
 
   randomizeExplanationTypes() { 
-    let arr = [0,1,2,3]
+    let arr = [0,1,2,3,4]
     let shuffled_arr = _.shuffle(arr)
     shuffled_arr.push(0)
 
@@ -305,7 +308,7 @@ class GameState extends Component {
           />
         );
       } else if (this.state.mode === 5) {
-        if (this.state.explanationNumber < 3) {
+        if (this.state.explanationNumber < 4) {
           let newExplanationNumber = this.state.explanationNumber + 1;
           let newExplanationType = this.state.explanationTypes[newExplanationNumber]
           this.setState({

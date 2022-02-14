@@ -12,11 +12,13 @@ import _ from 'lodash';
 let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
 let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
 let r_baseline = require.context('../../images/baseline', true, /\.(png|jpe?g|svg)$/);
+let r_gradcam_baseline = require.context('../../images/gradcam_baseline', true, /\.(png|jpe?g|svg)$/);
 
 
 const gradcamVisuals = {}
 const limeVisuals = {}
 const baselineVisuals = {}
+const gradcam_baseline_Visuals = {}
 
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
@@ -26,6 +28,7 @@ for (var type of Object.keys(StaticData)) {
     // let commPath = "../../images/LIME/"
     let top_five_lime = []
     let top_five_gradcam = []
+    let top_five_gradcam_baseline = []
 
     for (let i = 0; i < 5; i++) {
       let filename =key + "/top_" + i 
@@ -41,11 +44,21 @@ for (var type of Object.keys(StaticData)) {
         console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
+
+      filename =key + "/top" + (i+1)
+      try {
+        let v = r_gradcam_baseline(`./${filename}.png`)
+        top_five_gradcam_baseline.push(v)
+      } catch {
+        console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
+        continue;
+      }
   
     }
   
     let bottom_five_lime = []
     let bottom_five_gradcam = []
+    let bottom_five_gradcam_baseline = []
 
     for (let i = 0; i < 5; i++) {
       let filename =key + "/bottom_" + i 
@@ -58,6 +71,15 @@ for (var type of Object.keys(StaticData)) {
       } catch (err) {
         // console.log(err)
         console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
+        continue;
+      }
+
+      filename =key + "/bottom" + (i+1)
+      try {
+        let v = r_gradcam_baseline(`./${filename}.png`)
+        bottom_five_gradcam_baseline.push(v)
+      } catch {
+        console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
         continue;
       }
     }
@@ -85,10 +107,12 @@ for (var type of Object.keys(StaticData)) {
     gradcamVisuals[key]["top_five"] = top_five_gradcam
     gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
 
+    gradcam_baseline_Visuals[key] = {}
+    gradcam_baseline_Visuals[key]["top_five"] = top_five_gradcam_baseline
+    gradcam_baseline_Visuals[key]["bottom_five"] = bottom_five_gradcam_baseline
+
     baselineVisuals[key] = {}
     baselineVisuals[key]["all_eight"] = all_eight_baseline
-
-
   
   }
   
@@ -129,6 +153,8 @@ class Round extends Component {
         currVisuals = gradcamVisuals;
       } else if (this.props.explanationType === 3) {
         currVisuals = baselineVisuals;
+      } else if (this.props.explanationType === 4) {
+        currVisuals = gradcam_baseline_Visuals;
       }
   
       if ([1,2].includes(this.props.explanationType)) {
@@ -210,8 +236,9 @@ class Round extends Component {
        this.props.setHintsURL(orderArr);
 
 
-      } else if ([3].includes(this.props.explanationType))  {
+      } else if ([3,4].includes(this.props.explanationType))  {
         let randomOrder = []
+        let randomOrder_grad_base = []
         // const randomNum = (Math.floor(Math.random() * 2));
 
         for (let i = 0; i < 5; i++) {
@@ -226,6 +253,13 @@ class Round extends Component {
         // } else {
         //   answers = StaticData.electronics;
         // }
+
+        for (let i = 0; i < 5; i++) {
+          randomOrder_grad_base.push(i)
+        }
+
+        // quick and dirty way to randomize, not completely random 
+        randomOrder_grad_base = _.shuffle(randomOrder_grad_base)
 
         let [answers, category] = randomProperty(StaticData);
         let answer = answers[Math.floor(Math.random()*answers.length)]
@@ -251,14 +285,46 @@ class Round extends Component {
         
         //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
         let imgArr = []
-        imgArr.push([currVisual.all_eight[randomOrder[0]], "random_" + randomOrder[0]])
-        imgArr.push([currVisual.all_eight[randomOrder[1]], "random_" + randomOrder[1]])
-        imgArr.push([currVisual.all_eight[randomOrder[2]], "random_" + randomOrder[2]])
-        imgArr.push([currVisual.all_eight[randomOrder[3]], "random_" + randomOrder[3]])
+        if ([4].includes(this.props.explanationType)){
 
+          const choice_name = ["top", "bottom"]
+          const choice_list = []
 
+          for (let i = 0; i < 5; i++){
+            choice_list.push(choice_name[Math.floor(Math.random()*choice_name.length)]);
+          }
 
+          if (choice_list[0] == "top"){
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[0]], choice_list[0] + randomOrder[0]])
+          } else {
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[0]], choice_list[0] + randomOrder[0]])
+          }
 
+          if (choice_list[1] == "top"){
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[1]], choice_list[1] + randomOrder[1]])
+          } else {
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[1]], choice_list[1] + randomOrder[1]])
+          }
+
+          if (choice_list[2] == "top"){
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[2]], choice_list[2] + randomOrder[2]])
+          } else {
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[2]], choice_list[2] + randomOrder[2]])
+          }
+
+          if (choice_list[3] == "top"){
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[3]], choice_list[3] + randomOrder[3]])
+          } else {
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[3]], choice_list[3] + randomOrder[3]])
+          }
+          
+        } else {
+          imgArr.push([currVisual.all_eight[randomOrder[0]], "random_" + randomOrder[0]])
+          imgArr.push([currVisual.all_eight[randomOrder[1]], "random_" + randomOrder[1]])
+          imgArr.push([currVisual.all_eight[randomOrder[2]], "random_" + randomOrder[2]])
+          imgArr.push([currVisual.all_eight[randomOrder[3]], "random_" + randomOrder[3]])
+        }
+        
         // if (randomOrder[0] !== 0) {
         //     imgArr.push([currVisual.top_five[randomOrder[0]], "top_" + randomOrder[0]])
         // } else {
@@ -321,10 +387,6 @@ class Round extends Component {
 
         // while(this.props.answerRecord.includes(answers[secondNum].classLabels[0]) || this.props.pastGuessingImgs.includes(answers[secondNum])) {
         //   secondNum = (secondNum + 1) % 5;
-        //   console.log("ANSWER RECORD: ", this.props.answerRecord)
-        //   console.log("ANSWERS: ", answers)
-        //   console.log("ANSWER AT SECOND NUM: ", answers[secondNum])
-        //   console.log("SECONDNUM: ", secondNum)
         // }
 
         let [answers, category] = randomProperty(StaticData);

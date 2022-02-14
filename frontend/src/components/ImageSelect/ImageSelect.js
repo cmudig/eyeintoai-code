@@ -7,11 +7,14 @@ import { StaticData } from '../../data/Images';
 let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
 let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
 let r_baseline = require.context('../../images/baseline', true, /\.(png|jpe?g|svg)$/);
+let r_gradcam_baseline = require.context('../../images/gradcam_baseline', true, /\.(png|jpe?g|svg)$/);
 
 
 const gradcamVisuals = {}
 const baselineVisuals = {}
 const limeVisuals = {}
+const gradcam_baseline_Visuals = {}
+
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
   for (var image of images) {
@@ -20,6 +23,7 @@ for (var type of Object.keys(StaticData)) {
     // let commPath = "../../images/LIME/"
     let top_five_lime = []
     let top_five_gradcam = []
+    let top_five_gradcam_baseline = []
 
     for (let i = 0; i < 4; i++) {
       let filename =key + "/top_" + i 
@@ -35,11 +39,21 @@ for (var type of Object.keys(StaticData)) {
         console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
+
+      filename =key + "/top" + (i+1)
+      try {
+        let v = r_gradcam_baseline(`./${filename}.png`)
+        top_five_gradcam_baseline.push(v)
+      } catch {
+        console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
+        continue;
+      }
   
     }
   
     let bottom_five_lime = []
     let bottom_five_gradcam = []
+    let bottom_five_gradcam_baseline = []
 
     for (let i = 0; i < 4; i++) {
       let filename =key + "/bottom_" + i 
@@ -52,6 +66,15 @@ for (var type of Object.keys(StaticData)) {
       } catch (err) {
         // console.log(err)
         console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
+        continue;
+      }
+
+      filename =key + "/bottom" + (i+1)
+      try {
+        let v = r_gradcam_baseline(`./${filename}.png`)
+        bottom_five_gradcam_baseline.push(v)
+      } catch {
+        console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
         continue;
       }
   
@@ -79,6 +102,9 @@ for (var type of Object.keys(StaticData)) {
     gradcamVisuals[key]["top_five"] = top_five_gradcam
     gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
 
+    gradcam_baseline_Visuals[key] = {}
+    gradcam_baseline_Visuals[key]["top_five"] = top_five_gradcam_baseline
+    gradcam_baseline_Visuals[key]["bottom_five"] = bottom_five_gradcam_baseline
 
     baselineVisuals[key] = {}
     baselineVisuals[key]["all_eight"] = all_eight_baseline
@@ -114,9 +140,11 @@ class ImageSelect extends Component {
       currVisuals = gradcamVisuals;
     } else if (this.props.explanationType === 3) {
       currVisuals = baselineVisuals;
+    } else if (this.props.explanationType === 4) {
+      currVisuals = gradcam_baseline_Visuals;
     }
 
-    if ([1,2].includes(this.props.explanationType)) {
+    if ([1,2,4].includes(this.props.explanationType)) {
 
       // for (let i = 0; i < 5; i++) {
       //   let path = "bottom_" + i + ".png"
@@ -197,7 +225,7 @@ class ImageSelect extends Component {
     const elements = [];
     const images = this.state.nonSelected.concat(this.state.selected);
     let numPics, maxWidth;
-    if ([1,2,3].includes(this.props.explanationType)) {
+    if ([1,2,3,4].includes(this.props.explanationType)) {
       numPics = 8; 
       maxWidth = "640px";
     } else {
@@ -255,7 +283,7 @@ class ImageSelect extends Component {
             console.log(this.state)
             for (let i = 0; i < this.state.selected.length; i++) {
               const curImage = _.get(this.state.selected, i).image;
-              if ([1,2].includes(this.props.explanationType)) { 
+              if ([1,2,4].includes(this.props.explanationType)) { 
                 if (this.state.top_five.indexOf(curImage) !== -1) 
                 explanations.push({ technique_rank: "top_"+ this.state.top_five.indexOf(curImage) });
               else if (this.state.bottom_five.indexOf(curImage) !== -1) 
