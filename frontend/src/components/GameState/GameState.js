@@ -55,10 +55,10 @@ class GameState extends Component {
       this.props.update({"LIME" : fieldAndvalue})
     } else if (this.state.explanationType  === 2) {
       this.props.update({"Gradcam" : fieldAndvalue})
-    } else if (this.state.explanationType  === 3) {
-      this.props.update({"Baseline" : fieldAndvalue})
-    } else if (this.state.explanationType  === 4) {
-      this.props.update({"Baseline_Gradcam" : fieldAndvalue})
+    // } else if (this.state.explanationType  === 3) {
+    //   this.props.update({"Baseline" : fieldAndvalue})
+    // } else if (this.state.explanationType  === 4) {
+    //   this.props.update({"Baseline_Gradcam" : fieldAndvalue})
     } else {
       throw new Error("Invalid explanationType = " + this.state.explanationType );
     }
@@ -83,13 +83,15 @@ class GameState extends Component {
   }
 
   randomizeTurn() {
-    this.setState({ turns: [2, 3] });
+    let playerturns = [2,3]
+    let shuffled_turns = _.shuffle(playerturns)
+
+    this.setState({ turns: shuffled_turns });
   }
 
   randomizeExplanationTypes() { 
-    let arr = [0,1,2,3,4]
+    let arr = [0,1,2]
     let shuffled_arr = _.shuffle(arr)
-    shuffled_arr.push(0)
 
     console.log(shuffled_arr)
     this.setState({explanationTypes : shuffled_arr, explanationType : shuffled_arr[0]})
@@ -134,10 +136,11 @@ class GameState extends Component {
   }
 
   logRoundStart() { 
+
     this.guessPerRound[this.state.entireRound] = _.get(
       this.guessPerRound,
       this.state.entireRound,
-      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {}, 'answer' : this.state.answer.classLabels[0]}
+      { 'guesses': [], 'featuresChosenByExplainer': [], 'type': "", 'hintRound': {}, 'answer' : this.state.answer.classLabels[0]}
     );
     if (this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].length === 0) {
       for (let i = 0; i < 4; i++) {
@@ -148,13 +151,21 @@ class GameState extends Component {
       }
     }
     this.guessPerRound[this.state.entireRound]['roundStart'] = Date.now();
+
+    if (this.state.turns[this.state.entireRound - 1] === 2){
+      console.log("REGULAR - player 2")
+      this.guessPerRound[this.state.entireRound]['type'] = "regular"
+    } else {
+      console.log("PLAYER 3")
+      this.guessPerRound[this.state.entireRound]['type'] = "baseline"
+    }
   }
 
   addGuess(newGuess) {
     this.guessPerRound[this.state.entireRound] = _.get(
       this.guessPerRound,
       this.state.entireRound,
-      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {}, 'answer' : this.state.answer.classLabels[0]}
+      { 'guesses': [], 'featuresChosenByExplainer': [], 'type': "", 'hintRound': {}, 'answer' : this.state.answer.classLabels[0]}
     );
     if (this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].length === 0) {
       for (let i = 0; i < 4; i++) {
@@ -171,7 +182,7 @@ class GameState extends Component {
     this.guessPerRound[this.state.entireRound] = _.get(
       this.guessPerRound,
       this.state.entireRound,
-      { 'guesses': [], 'featuresChosenByExplainer': [], 'hintRound': {},  'answer' : this.state.answer.classLabels[0]}
+      { 'guesses': [], 'featuresChosenByExplainer': [], 'type': "", 'hintRound': {},  'answer' : this.state.answer.classLabels[0]}
     );
     if (this.guessPerRound[this.state.entireRound]['featuresChosenByExplainer'].length === 0) {
       for (let i = 0; i < 4; i++) {
@@ -213,6 +224,7 @@ class GameState extends Component {
         featuresChosenByExplainer: this.guessPerRound[round]['featuresChosenByExplainer'],
         hintRound: this.guessPerRound[round]['hintRound'],
         guesses: this.guessPerRound[round]['guesses'],
+        type: this.guessPerRound[round]['type'],
         // pointsEarned: this.guessPerRound[round]['pointsEarned'],
         answer: this.guessPerRound[round]["answer"],
         roundStart: this.guessPerRound[round]["roundStart"]
@@ -254,6 +266,7 @@ class GameState extends Component {
             movetoNext={this.moveToNext.bind(this)}
             update={this.update.bind(this)}
             explanationType={this.state.explanationType}
+            explanationTypes={this.state.explanationTypes}
           />
         );
       } else if (this.state.mode === 2) {
@@ -308,7 +321,7 @@ class GameState extends Component {
           />
         );
       } else if (this.state.mode === 5) {
-        if (this.state.explanationNumber < 4) {
+        if (this.state.explanationNumber < 2) {
           let newExplanationNumber = this.state.explanationNumber + 1;
           let newExplanationType = this.state.explanationTypes[newExplanationNumber]
           this.setState({

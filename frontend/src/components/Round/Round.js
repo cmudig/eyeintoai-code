@@ -146,18 +146,38 @@ class Round extends Component {
 
     // If it's not the user (1 is user, others are AI), then populate their answer and hints
     if (player !== 1) {
+
       let currVisuals;
-      if (this.props.explanationType === 1) {
-        currVisuals = limeVisuals;
-      } else if (this.props.explanationType === 2) {
-        currVisuals = gradcamVisuals;
-      } else if (this.props.explanationType === 3) {
-        currVisuals = baselineVisuals;
-      } else if (this.props.explanationType === 4) {
-        currVisuals = gradcam_baseline_Visuals;
+      // if (this.props.explanationType === 1) {
+      //   currVisuals = limeVisuals;
+      // } else if (this.props.explanationType === 2) {
+      //   currVisuals = gradcamVisuals;
+      // } else if (this.props.explanationType === 3) {
+      //   currVisuals = baselineVisuals;
+      // } else if (this.props.explanationType === 4) {
+      //   currVisuals = gradcam_baseline_Visuals;
+      // }
+      let value = 0;
+      // we will assign player two to the regular and player three to the baseline
+      if (player === 2){
+        if (this.props.explanationType === 1){
+          value = 1
+          currVisuals = limeVisuals;
+        } else if (this.props.explanationType === 2){
+          value = 2
+          currVisuals = gradcamVisuals;
+        }
+      } else if (player === 3){
+        if (this.props.explanationType === 1){
+          value = 3
+          currVisuals = baselineVisuals;
+        } else if (this.props.explanationType === 2){
+          value = 4
+          currVisuals = gradcam_baseline_Visuals;
+        }
       }
   
-      if ([1,2].includes(this.props.explanationType)) {
+      if ((value === 1 || value === 2) && [1,2].includes(this.props.explanationType)) {
           let randomOrder = []
         // const randomNum = (Math.floor(Math.random() * 2));
 
@@ -236,7 +256,7 @@ class Round extends Component {
        this.props.setHintsURL(orderArr);
 
 
-      } else if ([3,4].includes(this.props.explanationType))  {
+      } else if (value === 3 || value === 4)  {
         let randomOrder = []
         let randomOrder_grad_base = []
         // const randomNum = (Math.floor(Math.random() * 2));
@@ -285,7 +305,7 @@ class Round extends Component {
         
         //  let imgArr = limeVisual.top_five.concat(limeVisual.bottom_five)
         let imgArr = []
-        if ([4].includes(this.props.explanationType)){
+        if (value === 4){
 
           const choice_name = ["top", "bottom"]
           const choice_list = []
@@ -400,7 +420,11 @@ class Round extends Component {
           console.log(this.props.pastGuessingImgs)
         }
 
-        const visuals = answer.correctURLs.concat(answer.wrongVizURLs);
+        let visuals = answer.correctURLs.concat(answer.wrongVizURLs);
+
+        if (player === 3){
+          visuals = answer.randomURLs;
+        }
 
         this.props.setAnswer(answer);
         this.props.setHints([

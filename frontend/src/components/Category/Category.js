@@ -17,7 +17,18 @@ class Category extends Component {
     if (this.state.nextStage) {
       return [(this.displayImage())];
     } else {
-      // let explanationTypeText = "Feature Visualization";
+      let explanationTypeText = "0";
+      let completed = "";
+      console.log("Explanation TYPES LIST: ")
+      console.log(this.props)
+      if (this.props.explanationTypes.indexOf(this.props.explanationType) === 0){
+        explanationTypeText = "0"
+      } else if (this.props.explanationTypes.indexOf(this.props.explanationType) === 1) {
+        explanationTypeText = "1"
+      } else if (this.props.explanationTypes.indexOf(this.props.explanationType) === 2) {
+        explanationTypeText = "2"
+        completed = "Last round!"
+      }
       // if (this.props.explanationType === 1) {
       //   explanationTypeText = "LIME";
       // } else if (this.props.explanationType === 2) {
@@ -27,6 +38,10 @@ class Category extends Component {
       // }
       return (
         <div>
+          <div className={styles['Category__title']}>Game Progress: </div>
+          <div className={styles['Category__content']}>
+            You have completed {explanationTypeText} out of 3 rounds. {completed}
+          </div>
           <div className={styles['Category__title']}>Select a category</div>
           <div className={styles['Category__container']}>
             <div
@@ -173,6 +188,7 @@ class Category extends Component {
 
     return (
       <div key="selectCategory">
+
         <div className={styles['Category__title']}>Select An Image</div>
         <div className={styles['Category__photos']}>
           {images}
