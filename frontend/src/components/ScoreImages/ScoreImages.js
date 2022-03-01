@@ -29,6 +29,20 @@ class ScoreImage extends Component {
   }
 
   render() {
+
+    let old_score = "";
+    console.log("FINAL SCORE: ", this.props.playerScore)
+
+    let tmp_val = this.props.playerScore.slice(-1)
+    let val = parseInt(tmp_val, 10)
+    tmp_val = this.props.playerScore[1]
+    let val2 = parseInt(tmp_val, 10)
+    tmp_val = this.props.playerScore[3]
+    let val3 = parseInt(tmp_val, 10)
+    let res = val+val2+val3
+    console.log(res)
+    old_score = ""+res
+
     return (
       <div
         className="App"
@@ -38,7 +52,15 @@ class ScoreImage extends Component {
         <div className="main">
           <div className="result title">
             <span className="large" >
-              Thank you for playing our game!
+              Your final score was {old_score} / 150. 
+            </span>
+            <br></br>
+            <span className="large" >
+              Thank you for playing our game! 
+            </span>
+            <br></br>
+            <span className="large">
+            Be sure to fill out the survey to get Prolific Completion Code for completing the experiment.
             </span>
             <iframe
               title="Google Form"
@@ -57,13 +79,7 @@ class ScoreImage extends Component {
             <br />
             Feel free to download and share with your friends! */}
           </div>
-          <Link
-            className="btn again"
-            to="/"
-            key="btn1"onClick={()=> { this.setState({ gameClass: ['active', ' '] }); }}
-          >
-            Play Again
-          </Link>
+          
           {/* <div id="resultImage" key="resultImage">
             {this.returnScoreImages()}
           </div> */}

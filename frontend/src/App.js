@@ -45,6 +45,8 @@ class App extends Component {
         this.auth.isSignedIn.listen(this.handleAuthChange);
       });
     });
+
+
     if (!this.db) {
       const firebaseConfig = {
         apiKey: process.env.REACT_APP_apiKey,

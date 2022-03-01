@@ -201,35 +201,37 @@ class GameState extends Component {
   }
 
   setScore(n) {
-    // this.setState({ score: n });
-    return;
+    console.log("SET SCORE")
+    console.log(n)
+    this.setState({ score: n });
+    // return;
   }
 
   setScoreImages(n) {
     this.setState({ playerScore: [...this.state.playerScore, this.state.score[0][1]] });
     const playerGuesses = [];
-    // let rounds = -1;
-    // let points = 0;
+    let rounds = -1;
+    let points = 0;
     console.log("logging guess per round")
     console.log(this.guessPerRound)
 
     _.keys(this.guessPerRound).forEach((round => {
-      // rounds++;
-      // this.guessPerRound[round]['pointsEarned'] = _.get(
-      //   this.guessPerRound[round],
-      //   'pointsEarned',
-      //   _.get(this.state.playerScore, this.state.entireRound - 1, 0) - _.get(this.state.playerScore, this.state.entireRound - 2, 0)
-      // );
+      rounds++;
+      this.guessPerRound[round]['pointsEarned'] = _.get(
+        this.guessPerRound[round],
+        'pointsEarned',
+        _.get(this.state.playerScore, this.state.entireRound - 1, 0) - _.get(this.state.playerScore, this.state.entireRound - 2, 0)
+      );
       playerGuesses.push({
         featuresChosenByExplainer: this.guessPerRound[round]['featuresChosenByExplainer'],
         hintRound: this.guessPerRound[round]['hintRound'],
         guesses: this.guessPerRound[round]['guesses'],
         type: this.guessPerRound[round]['type'],
-        // pointsEarned: this.guessPerRound[round]['pointsEarned'],
+        pointsEarned: this.guessPerRound[round]['pointsEarned'],
         answer: this.guessPerRound[round]["answer"],
         roundStart: this.guessPerRound[round]["roundStart"]
       });
-      // points = this.state.score[0][rounds];
+      points = this.state.score[0][rounds];
     }));
     console.log("playersGuesses = ") 
     console.log(playerGuesses);
@@ -267,6 +269,7 @@ class GameState extends Component {
             update={this.update.bind(this)}
             explanationType={this.state.explanationType}
             explanationTypes={this.state.explanationTypes}
+            playerScore={this.state.playerScore}
           />
         );
       } else if (this.state.mode === 2) {
@@ -337,7 +340,7 @@ class GameState extends Component {
             playerHints: [], // contains hints for player chosen image
             playerHintsURL: [], // contains hints URLs for player chosen image
             playerAnswer: [], // contains actual image chosen by player
-            playerScore: [],
+            playerScore: this.state.playerScore,
             hints: [],
             hintsURL: [],
             scoreImages: [],
@@ -348,7 +351,10 @@ class GameState extends Component {
           this.randomizeTurn();  
         } else {
           return (
-            <ScoreImage scoreImages={this.state.scoreImages} />
+            <ScoreImage 
+              scoreImages={this.state.scoreImages}
+              playerScore={this.state.playerScore} 
+            />
           );
         }
       }   

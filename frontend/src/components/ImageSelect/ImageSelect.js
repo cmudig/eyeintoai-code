@@ -270,7 +270,7 @@ class ImageSelect extends Component {
         <img id="answerImg" src={this.props.answer.url} alt="answer"/>
         <div className="title">
           <br />
-          Select 4 of the most representative feature visualizations of the {this.props.answer.classLabels[0]} for hints
+          Select 4 of the most representative visualizations of the {this.props.answer.classLabels[0]} for hints
         </div>
         <div className="timer" key="timer">
           <div className="timer_in" key="timer_in" style={{ width: this.state.timerWidth }}>
