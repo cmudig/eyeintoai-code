@@ -25,7 +25,7 @@ for (var type of Object.keys(StaticData)) {
     let top_five_gradcam = []
     // let top_five_gradcam_baseline = []
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       let filename =key + "/top_" + i 
       // console.log( "../../images/LIME/" + filename + ".png")
       try {
@@ -36,7 +36,7 @@ for (var type of Object.keys(StaticData)) {
 
 
       } catch {
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
+        // console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
 
@@ -55,7 +55,7 @@ for (var type of Object.keys(StaticData)) {
     let bottom_five_gradcam = []
     // let bottom_five_gradcam_baseline = []
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       let filename =key + "/bottom_" + i 
       try {
         let v = r_lime(`./${filename}.png`)
@@ -65,7 +65,7 @@ for (var type of Object.keys(StaticData)) {
 
       } catch (err) {
         // console.log(err)
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
+        // console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
 
@@ -156,10 +156,10 @@ class ImageSelect extends Component {
 
       //   newVisuals.push(v)
       // }
-      console.log(this.props.answer.name, currVisuals, currVisuals[this.props.answer.name])
-      console.log(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
+      // console.log(this.props.answer.name, currVisuals, currVisuals[this.props.answer.name])
+      // console.log(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
       let randomized = _.shuffle(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
-      console.log(randomized)
+      // console.log(randomized)
       this.setState({ nonSelected: randomized, top_five: currVisuals[this.props.answer.name].top_five, bottom_five: currVisuals[this.props.answer.name].bottom_five });
 
     } 
@@ -229,13 +229,10 @@ class ImageSelect extends Component {
     const elements = [];
     const images = this.state.nonSelected.concat(this.state.selected);
     let numPics, maxWidth;
-    if ([1,2,3,4].includes(this.props.explanationType)) {
-      numPics = 8; 
-      maxWidth = "640px";
-    } else {
+    if ([0,1,2,3,4].includes(this.props.explanationType)) {
       numPics = 10; 
       maxWidth = "740px";
-    }  
+    } 
       for (let i = 0; i < numPics; i++) {
         if (images[i] !== undefined) {
           elements.push(
@@ -284,7 +281,6 @@ class ImageSelect extends Component {
           style={{ width: '216px', margin: '32px auto 0', display: this.state.display }}
           onClick={() => {
             const explanations = [];
-            console.log(this.state)
             for (let i = 0; i < this.state.selected.length; i++) {
               const curImage = _.get(this.state.selected, i).image;
               if ([1,2].includes(this.props.explanationType)) { 

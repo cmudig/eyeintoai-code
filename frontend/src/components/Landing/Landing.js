@@ -97,9 +97,8 @@ class Home extends Component {
               <div className={styles['home__details']}>
                 <p>
                   The goal of <i>Explainable AI</i> is to bring transparency to humans about how
-                  AI systems make decisions. For example, why does the image recognition AI on the left
-                  think that image is dog? How can we trust if the AI classifies dogs correctly is so the
-                  AI can detect dogs reliably in the future? There have been many exciting proposals for how
+                  AI systems make decisions. For example, why does the AI on the left
+                  think that image is a dog? How can we trust that the AI classifies dogs correctly and will do so reliably in the future? There have been many exciting proposals for how
                   to explain AI to provide such reliability, including&nbsp;
                   <a
                     href="https://distill.pub/2017/feature-visualization/"
@@ -114,6 +113,12 @@ class Home extends Component {
                   >saliency maps</a>.
                   But are these explanations helpful and interpretable to humans? We believe its critical to find out!
                 </p>
+                <p>
+                <b>Scoring, Payment, & Bonuses</b>: There are a total of six rounds. The sooner you correctly guess what the image is of, the more points you will receive.
+                You will receive a max of 25 points per round. The more hints you need, the less points you will receive. Participants with a score within the top 50% of all participants will receive a $1 bonus.
+                All participants will be compensated $1.27 for completing this task. 
+                </p>
+                <h3>Click 'How to Play' to learn how to play the game BEFORE playing</h3>
                 <p>
                   By playing our game, you will provide critical feedback for how explanations of AI may
                   benefit human understanding of their complex algorithms.
@@ -151,7 +156,10 @@ class Home extends Component {
                   className={styles['home__btn']}
                   to="/play"
                   onClick={() => {
-                    this.props.startNewLog();
+                    let profid = prompt('Please enter your Prolific ID here');
+                    // console.log("PROLIFIC ID")
+                    // console.log(profid)
+                    this.props.startNewLog(profid);
                     this.props.setMenu(0);
                   }}
                 >
@@ -228,10 +236,9 @@ class Home extends Component {
               <div className={styles['home__details']}>
                 <p>
                   The goal of <i>Explainable AI</i> is to bring transparency to humans about how
-                  AI systems make decisions. For example, why does the image recognition AI on the
-                  left think that image is dog? How can we trust if the AI classifies dogs correctly
-                  is so the AI can detect dogs reliably in the future? There have been many exciting
-                  proposals for how to explain AI to provide such reliability, including&nbsp;
+                  AI systems make decisions. For example, why does the AI on the left
+                  think that image is a dog? How can we trust that the AI classifies dogs correctly and will do so reliably in the future? There have been many exciting proposals for how
+                  to explain AI to provide such reliability, including&nbsp;
                   <a
                     href="https://distill.pub/2017/feature-visualization/"
                     target="_blank"
@@ -246,6 +253,12 @@ class Home extends Component {
                   But are these explanations helpful and interpretable to humans? We believe its critical
                   to find out!
                 </p>
+                <p>
+                <b>Scoring, Payment, & Bonuses</b>: There are a total of six rounds. The sooner you correctly guess what the image is of, the more points you will receive.
+                You will receive a max of 25 points per round. The more hints you need, the less points you will receive. Participants with a score within the top 50% of all participants will receive a $1 bonus.
+                All participants will be compensated $1.27 for completing this task. 
+                </p>
+                <h3>Click 'How to Play' to learn how to play the game BEFORE playing</h3>
                 <p>
                   By playing our game, you will provide critical feedback for how explanations of AI may
                   benefit human understanding of their complex algorithms.

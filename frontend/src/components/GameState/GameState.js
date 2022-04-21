@@ -93,7 +93,7 @@ class GameState extends Component {
     let arr = [0,1,2]
     let shuffled_arr = _.shuffle(arr)
 
-    console.log(shuffled_arr)
+    // console.log(shuffled_arr)
     this.setState({explanationTypes : shuffled_arr, explanationType : shuffled_arr[0]})
   }
 
@@ -107,7 +107,7 @@ class GameState extends Component {
   }
 
   setPastGuesses(n) {
-    console.log("In Set Past Guesses")
+    // console.log("In Set Past Guesses")
     this.setState({
       pastGuessingImgs: [...this.state.pastGuessingImgs, ...n]
     })
@@ -153,10 +153,10 @@ class GameState extends Component {
     this.guessPerRound[this.state.entireRound]['roundStart'] = Date.now();
 
     if (this.state.turns[this.state.entireRound - 1] === 2){
-      console.log("REGULAR - player 2")
+      // console.log("REGULAR - player 2")
       this.guessPerRound[this.state.entireRound]['type'] = "regular"
     } else {
-      console.log("PLAYER 3")
+      // console.log("PLAYER 3")
       this.guessPerRound[this.state.entireRound]['type'] = "baseline"
     }
   }
@@ -201,8 +201,8 @@ class GameState extends Component {
   }
 
   setScore(n) {
-    console.log("SET SCORE")
-    console.log(n)
+    // console.log("SET SCORE")
+    // console.log(n)
     this.setState({ score: n });
     // return;
   }
@@ -212,8 +212,8 @@ class GameState extends Component {
     const playerGuesses = [];
     let rounds = -1;
     let points = 0;
-    console.log("logging guess per round")
-    console.log(this.guessPerRound)
+    // console.log("logging guess per round")
+    // console.log(this.guessPerRound)
 
     _.keys(this.guessPerRound).forEach((round => {
       rounds++;
@@ -233,8 +233,8 @@ class GameState extends Component {
       });
       points = this.state.score[0][rounds];
     }));
-    console.log("playersGuesses = ") 
-    console.log(playerGuesses);
+    // console.log("playersGuesses = ") 
+    // console.log(playerGuesses);
     this.update({ guessRounds: playerGuesses });
     this.setState({ scoreImages: [...this.state.scoreImages, n] });
   }
@@ -251,7 +251,7 @@ class GameState extends Component {
   
   // Renders based on current mode
   renderMode() {
-      console.log(this.state)
+      // console.log(this.state)
       if (this.state.mode === 0) {
         return (
           <Loading

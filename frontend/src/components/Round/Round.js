@@ -48,6 +48,7 @@ for (var type of Object.keys(StaticData)) {
       filename =key + "/top" + (i+1)
       try {
         let v = r_gradcam_baseline(`./${filename}.png`)
+        // console.log("gradcam/"+ filename + ".png")
         top_five_gradcam_baseline.push(v)
       } catch {
         console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
@@ -70,7 +71,7 @@ for (var type of Object.keys(StaticData)) {
 
       } catch (err) {
         // console.log(err)
-        console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
+        // console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
 
@@ -79,7 +80,7 @@ for (var type of Object.keys(StaticData)) {
         let v = r_gradcam_baseline(`./${filename}.png`)
         bottom_five_gradcam_baseline.push(v)
       } catch {
-        console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
+        // console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
         continue;
       }
     }
@@ -93,7 +94,7 @@ for (var type of Object.keys(StaticData)) {
 
       } catch (err) {
         // console.log(err)
-        console.log("Couldn't load path : ../../images/baseline/" + filename)
+        // console.log("Couldn't load path : ../../images/baseline/" + filename)
         continue;
       }
   
@@ -181,7 +182,7 @@ class Round extends Component {
           let randomOrder = []
         // const randomNum = (Math.floor(Math.random() * 2));
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
           randomOrder.push(i)
         }
 
@@ -199,9 +200,9 @@ class Round extends Component {
         while (this.props.pastGuessingImgs.includes(answer)) {
           [answers, category] = randomProperty(StaticData);
           answer = answers[Math.floor(Math.random()*answers.length)]
-          console.log("past guess got repeated") 
-          console.log("ANSWER:",answer)
-          console.log(this.props.pastGuessingImgs)
+          // console.log("past guess got repeated") 
+          // console.log("ANSWER:",answer)
+          // console.log(this.props.pastGuessingImgs)
         }
 
         // Temporary
@@ -250,7 +251,7 @@ class Round extends Component {
         dict["guess_round"][roundNum] = innerDict;
         // this.props.update(dict)
         // console.log(category, answer.name)
-        console.log("orderArr = ", orderArr);
+        // console.log("orderArr = ", orderArr);
        this.props.setAnswer(answer);
        this.props.setHints(imgArr);
        this.props.setHintsURL(orderArr);
@@ -261,8 +262,35 @@ class Round extends Component {
         let randomOrder_grad_base = []
         // const randomNum = (Math.floor(Math.random() * 2));
 
-        for (let i = 0; i < 5; i++) {
-          randomOrder.push(i)
+        let [answers, category] = randomProperty(StaticData);
+        let answer = answers[Math.floor(Math.random()*answers.length)]
+        while (this.props.pastGuessingImgs.includes(answer)) {
+          [answers, category] = randomProperty(StaticData);
+          answer = answers[Math.floor(Math.random()*answers.length)]
+          // console.log("past guess got repeated") 
+          // console.log(answer)
+          // console.log(this.props.pastGuessingImgs)
+        }
+
+        // console.log("FINAL ANSWER SET IS: ", answer['name'])
+
+        for (let i = 0; i < 4; i++) {
+          let randnum = Math.floor(Math.random() * 8)
+          if(answer['name'] === "drum" || answer['name'] === "cat" || answer['name'] === "toaster" || answer['name'] === "orange" || answer['name'] === "keyboard"){
+            // console.log("we need to limit the results")
+            randnum = Math.floor(Math.random() * 7)
+            while (randomOrder.includes(randnum)) {
+              randnum = Math.floor(Math.random() * 7)
+            }
+            randomOrder.push(randnum)
+          } else {
+            // console.log("answer does not need to be limited")
+            randnum = Math.floor(Math.random() * 8)
+            while (randomOrder.includes(randnum)) {
+              randnum = Math.floor(Math.random() * 8)
+            }
+            randomOrder.push(randnum)
+          }
         }
 
         // quick and dirty way to randomize, not completely random 
@@ -274,23 +302,16 @@ class Round extends Component {
         //   answers = StaticData.electronics;
         // }
 
-        for (let i = 0; i < 5; i++) {
-          randomOrder_grad_base.push(i)
+        for (let i = 0; i < 4; i++) {
+          let randnum_grad = Math.floor(Math.random() * 5)
+          while (randomOrder_grad_base.includes(randnum_grad)) {
+            randnum_grad = Math.floor(Math.random() * 5)
+          }
+          randomOrder_grad_base.push(randnum_grad)
         }
 
         // quick and dirty way to randomize, not completely random 
         randomOrder_grad_base = _.shuffle(randomOrder_grad_base)
-
-        let [answers, category] = randomProperty(StaticData);
-        let answer = answers[Math.floor(Math.random()*answers.length)]
-        while (this.props.pastGuessingImgs.includes(answer)) {
-          [answers, category] = randomProperty(StaticData);
-          answer = answers[Math.floor(Math.random()*answers.length)]
-          console.log("past guess got repeated") 
-          console.log(answer)
-          console.log(this.props.pastGuessingImgs)
-        }
-
         // Temporary
         // if (this.props.explanationType === 2 && this.props.entireRound === 2) {
         //   answer = StaticData["seaAnimal"][3]
@@ -309,33 +330,39 @@ class Round extends Component {
 
           const choice_name = ["top", "bottom"]
           const choice_list = []
+          // console.log("RANDOMG GRAD: ")
+          // console.log(randomOrder_grad_base)
 
-          for (let i = 0; i < 5; i++){
+
+          for (let i = 0; i < 4; i++){
             choice_list.push(choice_name[Math.floor(Math.random()*choice_name.length)]);
           }
 
+          // console.log("CHOICE LIST: ")
+          // console.log(choice_list)
+
           if (choice_list[0] == "top"){
-            imgArr.push([currVisual.top_five[randomOrder_grad_base[0]], choice_list[0] + randomOrder[0]])
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[0]], choice_list[0] + (randomOrder_grad_base[0]+1)])
           } else {
-            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[0]], choice_list[0] + randomOrder[0]])
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[0]], choice_list[0] + (randomOrder_grad_base[0]+1)])
           }
 
           if (choice_list[1] == "top"){
-            imgArr.push([currVisual.top_five[randomOrder_grad_base[1]], choice_list[1] + randomOrder[1]])
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[1]], choice_list[1] + (randomOrder_grad_base[1]+1)])
           } else {
-            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[1]], choice_list[1] + randomOrder[1]])
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[1]], choice_list[1] + (randomOrder_grad_base[1]+1)])
           }
 
           if (choice_list[2] == "top"){
-            imgArr.push([currVisual.top_five[randomOrder_grad_base[2]], choice_list[2] + randomOrder[2]])
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[2]], choice_list[2] + (randomOrder_grad_base[2]+1)])
           } else {
-            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[2]], choice_list[2] + randomOrder[2]])
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[2]], choice_list[2] + (randomOrder_grad_base[2]+1)])
           }
 
           if (choice_list[3] == "top"){
-            imgArr.push([currVisual.top_five[randomOrder_grad_base[3]], choice_list[3] + randomOrder[3]])
+            imgArr.push([currVisual.top_five[randomOrder_grad_base[3]], choice_list[3] + (randomOrder_grad_base[3]+1)])
           } else {
-            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[3]], choice_list[3] + randomOrder[3]])
+            imgArr.push([currVisual.bottom_five[randomOrder_grad_base[3]], choice_list[3] + (randomOrder_grad_base[3]+1)])
           }
           
         } else {
@@ -371,7 +398,7 @@ class Round extends Component {
         dict["guess_round"][roundNum] = innerDict;
         // this.props.update(dict)
         // console.log(category, answer.name)
-        console.log("orderArr = ", orderArr);
+        // console.log("orderArr = ", orderArr);
        this.props.setAnswer(answer);
        this.props.setHints(imgArr);
        this.props.setHintsURL(orderArr);
@@ -380,17 +407,19 @@ class Round extends Component {
       }  else { // For Feature Viz - LEGACY
         // Weird way to shuffle array
         const randomNum = (Math.floor(Math.random() * 2));
-        const randomVisualOrder = [0, 1, 2, 3, 4];
-        let firstNum = 0;
+        const randomVisualOrder = [];
+        const visualOrder = [0, 1, 2, 3]
+        let randNum = 0;
         let secondNum = 0;
         let tempNum = 0;
         // let answers = [];
-        for (let i = 0; i < 10; i++) {
-          firstNum = Math.floor(Math.random() * 5);
-          secondNum = Math.floor(Math.random() * 5);
-          tempNum = randomVisualOrder[firstNum];
-          randomVisualOrder[firstNum] = randomVisualOrder[secondNum];
-          randomVisualOrder[secondNum] = tempNum;
+        for (let i = 0; i < 4; i++) {
+          randNum = Math.floor(Math.random() * 10);
+          while (randomVisualOrder.includes(randNum)) {
+            randNum = Math.floor(Math.random() * 10)
+          }
+          secondNum = Math.floor(Math.random() * 5)
+          randomVisualOrder.push(randNum);
         }
 
         // Either veggies or electronics will be picked
@@ -415,30 +444,53 @@ class Round extends Component {
           [answers, category] = randomProperty(StaticData);
           secondNum = (secondNum + 1) % 4
           answer = answers[secondNum]
-          console.log("past guess got repeated") 
-          console.log("ANSWER:",answer)
-          console.log(this.props.pastGuessingImgs)
+          // console.log("past guess got repeated") 
+          // console.log("ANSWER:",answer)
+          // console.log(this.props.pastGuessingImgs)
         }
 
         let visuals = answer.correctURLs.concat(answer.wrongVizURLs);
 
         if (player === 3){
-          visuals = answer.randomURLs;
-        }
+          visuals = answer.randomURLs10;
+          this.props.setAnswer(answer);
+          this.props.setHints([
+            features[visuals[randomVisualOrder[0]]],
+            features[visuals[randomVisualOrder[1]]],
+            features[visuals[randomVisualOrder[2]]],
+            features[visuals[randomVisualOrder[3]]],
+          ]);
+          this.props.setHintsURL([
+            visuals[randomVisualOrder[0]],
+            visuals[randomVisualOrder[1]],
+            visuals[randomVisualOrder[2]],
+            visuals[randomVisualOrder[3]],
+          ]);
 
-        this.props.setAnswer(answer);
-        this.props.setHints([
-          features[visuals[randomVisualOrder[0]]],
-          features[visuals[randomVisualOrder[1]]],
-          features[visuals[randomVisualOrder[2]]],
-          features[visuals[randomVisualOrder[3]]],
-        ]);
-        this.props.setHintsURL([
-          visuals[randomVisualOrder[0]],
-          visuals[randomVisualOrder[1]],
-          visuals[randomVisualOrder[2]],
-          visuals[randomVisualOrder[3]],
-        ]);
+          // console.log("FEATURE VIZ: RANDOM ORDER: ")
+          // console.log(randomVisualOrder)
+          // console.log("FEATURE VIZ: VISUALS: ")
+          // console.log(visuals)
+        } else{
+          this.props.setAnswer(answer);
+          this.props.setHints([
+            features[visuals[visualOrder[0]]],
+            features[visuals[visualOrder[1]]],
+            features[visuals[visualOrder[2]]],
+            features[visuals[visualOrder[3]]],
+          ]);
+          this.props.setHintsURL([
+            visuals[visualOrder[0]],
+            visuals[visualOrder[1]],
+            visuals[visualOrder[2]],
+            visuals[visualOrder[3]],
+          ]);
+
+          // console.log("FEATURE VIZ: ORDER: ")
+          // console.log(visualOrder)
+          // console.log("FEATURE VIZ: VISUALS: ")
+          // console.log(visuals)
+        }
       }
      
     } else {

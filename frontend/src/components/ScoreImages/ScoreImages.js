@@ -31,7 +31,6 @@ class ScoreImage extends Component {
   render() {
 
     let old_score = "";
-    console.log("FINAL SCORE: ", this.props.playerScore)
 
     let tmp_val = this.props.playerScore.slice(-1)
     let val = parseInt(tmp_val, 10)
@@ -40,7 +39,6 @@ class ScoreImage extends Component {
     tmp_val = this.props.playerScore[3]
     let val3 = parseInt(tmp_val, 10)
     let res = val+val2+val3
-    console.log(res)
     old_score = ""+res
 
     return (

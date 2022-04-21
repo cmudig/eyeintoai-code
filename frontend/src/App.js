@@ -16,7 +16,7 @@ import './App.scss';
 import Logo from './images/home/logo.png';
 
 // dotenv.config();
-const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-dog', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
+const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
 
 /* global gapi */
 class App extends Component {
@@ -161,34 +161,32 @@ class App extends Component {
           firebase.auth().signInWithCredential(credential);
         } else {
           this.uid = firebaseUser.uid;
-          console.log('User already signed-in Firebase.');
+          // console.log('User already signed-in Firebase.');
         }
       }).bind(this));
       const playerProfile = googleUser.getBasicProfile();
       const players = this.state.players;
       players[0].img = (
-        <i className={players[0].name}>
-          <img src={playerProfile.getImageUrl()} alt="Player Profile" />
-        </i>
+        <i className="fas fa-dog"></i>
       );
-      players[0].name = playerProfile.getGivenName();
+      players[0].name = "You";
       this.googleUser = googleUser;
       this.setState({ players: players });
     }
     this.setState({ isSignedIn: this.auth.isSignedIn.get() });
   }
 
-  startNewLog() {
+  startNewLog(prolificID) {
     this.timestamp = Date.now();
-    var usersUpdate = {playerEmail: this.googleUser.getBasicProfile().getEmail(), playerId: this.googleUser.getBasicProfile().getGivenName() };
+    var usersUpdate = {prolificID: prolificID};
     usersUpdate[`${this.timestamp}`] = { "version" : 2 };
-    this.db.collection('gameLogsStudy2').doc(this.uid).set(usersUpdate, { merge: true });
+    this.db.collection('gameLogsProlific2').doc(this.uid).set(usersUpdate, { merge: true });
   }
 
   update(fieldAndvalue) {
     var usersUpdate = {};
     usersUpdate[`${this.timestamp}`] = fieldAndvalue;
-    this.db.collection('gameLogsStudy2').doc(this.uid).set(usersUpdate, { merge: true });
+    this.db.collection('gameLogsProlific2').doc(this.uid).set(usersUpdate, { merge: true });
   }
 
   signOut() {
