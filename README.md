@@ -6,6 +6,8 @@ Before running/deploying, make sure you have configured the .env file in the 'fr
 
 In the 'frontend' directory, you can then run:
 
+### `npm install`
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
