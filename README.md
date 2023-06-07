@@ -8,6 +8,12 @@ In the 'frontend' directory, you can then run:
 
 ### `npm install`
 
+### `firebase login`
+
+### `firebase init`
+
+Select Emualtors then select Firestore, Database, Hosting, and Authentication emulators
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
