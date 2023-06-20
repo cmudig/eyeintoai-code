@@ -178,16 +178,17 @@ class App extends Component {
 
   startNewLog(prolificID) {
     this.timestamp = Date.now();
-    var usersUpdate = {prolificID: prolificID};
-    usersUpdate[`${this.timestamp}`] = { "version" : 2 };
-    this.db.collection('gameLogsProlific2').doc(this.uid).set(usersUpdate, { merge: true });
+    var usersUpdate = { prolificID: prolificID };
+    usersUpdate[`${this.timestamp}`] = { version: 2 };
+    this.db.collection('living-public-game').doc(this.uid).set(usersUpdate, { merge: true });
   }
-
+  
   update(fieldAndvalue) {
     var usersUpdate = {};
     usersUpdate[`${this.timestamp}`] = fieldAndvalue;
-    this.db.collection('gameLogsProlific2').doc(this.uid).set(usersUpdate, { merge: true });
+    this.db.collection('living-public-game').doc(this.uid).set(usersUpdate, { merge: true });
   }
+  
 
   signOut() {
     this.auth.signOut();
