@@ -57,9 +57,9 @@ class ScoreImage extends Component {
               Thank you for playing our game! 
             </span>
             <br></br>
-            <span className="large">
+            {/* <span className="large">
             Be sure to fill out the survey to get Prolific Completion Code for completing the experiment.
-            </span>
+            </span> */}
             <iframe
               title="Google Form"
               src="https://docs.google.com/forms/d/e/1FAIpQLSdRZs3KQo_SCFU99gJMUY0o-D6gVZ9tzVgnlZaX4yz6FnxmhQ/viewform?embedded=true"

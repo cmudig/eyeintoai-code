@@ -253,11 +253,7 @@ class Home extends Component {
                   But are these explanations helpful and interpretable to humans? We believe its critical
                   to find out!
                 </p>
-                <p>
-                <b>Scoring, Payment, & Bonuses</b>: There are a total of six rounds. The sooner you correctly guess what the image is of, the more points you will receive.
-                You will receive a max of 25 points per round. The more hints you need, the less points you will receive. Participants with a score within the top 50% of all participants will receive a $1 bonus.
-                All participants will be compensated $1.27 for completing this task. 
-                </p>
+
                 <h3>Click 'How to Play' to learn how to play the game BEFORE playing</h3>
                 <p>
                   By playing our game, you will provide critical feedback for how explanations of AI may
