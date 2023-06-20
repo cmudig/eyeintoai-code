@@ -156,10 +156,6 @@ class Home extends Component {
                   className={styles['home__btn']}
                   to="/play"
                   onClick={() => {
-                    let profid = prompt('Please enter your Prolific ID here');
-                    // console.log("PROLIFIC ID")
-                    // console.log(profid)
-                    this.props.startNewLog(profid);
                     this.props.setMenu(0);
                   }}
                 >
