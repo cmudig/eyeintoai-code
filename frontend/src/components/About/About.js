@@ -49,6 +49,26 @@ function About() {
             
       </p>
       </section>
+
+      <section className={styles['About__bg']}>
+        <div className={styles['About__content']}>
+          <h1 className={styles['About__heading']}>
+            Publications
+          </h1>
+          <p className={styles['About__details']}>
+            Description
+          </p>
+          <a className={styles['About__btn']} href="Publication 1" target="_blank" rel="noopener noreferrer">
+            Publication 1
+          </a>
+          <br></br>
+          <br></br>
+          <a className={styles['About__btn']} href="Publication 2" target="_blank" rel="noopener noreferrer">
+            Publication 2
+          </a>
+        </div>
+      </section>
+      
       <section className={styles['About__bg']}>
         <h1 className={styles['About__heading']}>
           Our Team
@@ -89,38 +109,40 @@ function About() {
               </li>
             </ul>
           </div>
+
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://media-exp1.licdn.com/dms/image/C4E03AQHI2CuwhGzaTQ/profile-displayphoto-shrink_200_200/0/1628131590949?e=1649289600&v=beta&t=sXH8dw6He0LM9OVe0ZiE65JCXOqdfhL5EO418-KoCuQ"
-              alt="Mayank Jain"
+              src=""
+              alt="Youwei Jiang"
               height="100"
               width="100"
             />
-            <p className={styles['About__name']}>Mayank Jain</p>
+            <p className={styles['About__name']}>Youwei Jiang</p>
             <p className={styles['About__extra']}>
-              Research and Development
+              Full Stack Software Engineering
               <br />
-              M.S. Computer Science
+              B.S. Math + Computer Science
             </p>
             <ul className={styles['About__list']}>
               <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="https://www.linkedin.com/in/mjain30/" target="_blank" rel="noopener noreferrer">
+                <a className={styles['About__social']} href="https://www.linkedin.com/in/jerryjianguv/" target="_blank" rel="noopener noreferrer">
                   <ion-icon name="logo-linkedin"></ion-icon>
                 </a>
               </li>
               <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="mailto:mayankj@andrew.cmu.edu">
+                <a className={styles['About__social']} href="mailto:youweij@andrew.cmu.edu">
                   <ion-icon name="mail"></ion-icon>
                 </a>
               </li>
               <li className={styles['About__item']}>
-                <a className={styles['About__social']} href="https://github.com/mayankj" target="_blank" rel="noopener noreferrer">
+                <a className={styles['About__social']} href="https://github.com/jerryjianguv" target="_blank" rel="noopener noreferrer">
                   <ion-icon name="logo-github"></ion-icon>
                 </a>
               </li>
             </ul>
           </div>
+
         </section>
         
         <section className={styles['About__team']}>
@@ -179,6 +201,41 @@ function About() {
           Meet Past Contributors:
         </p>
         <section className={styles['About__team']}>
+
+        <div className={styles['About__card']}>
+            <img
+              className={styles['About__icon']}
+              src="https://media-exp1.licdn.com/dms/image/C4E03AQHI2CuwhGzaTQ/profile-displayphoto-shrink_200_200/0/1628131590949?e=1649289600&v=beta&t=sXH8dw6He0LM9OVe0ZiE65JCXOqdfhL5EO418-KoCuQ"
+              alt="Mayank Jain"
+              height="100"
+              width="100"
+            />
+            <p className={styles['About__name']}>Mayank Jain</p>
+            <p className={styles['About__extra']}>
+              Research and Development
+              <br />
+              M.S. Computer Science
+            </p>
+            <ul className={styles['About__list']}>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://www.linkedin.com/in/mjain30/" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="mailto:mayankj@andrew.cmu.edu">
+                  <ion-icon name="mail"></ion-icon>
+                </a>
+              </li>
+              <li className={styles['About__item']}>
+                <a className={styles['About__social']} href="https://github.com/mayankj" target="_blank" rel="noopener noreferrer">
+                  <ion-icon name="logo-github"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
         <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
@@ -211,6 +268,10 @@ function About() {
               </li>
             </ul>
           </div>
+
+
+
+
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
