@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /gameLogsNew/{uid} {
+      allow read, update, delete: if request.auth.uid != null && request.auth.uid == uid;
+      allow create: if request.auth.uid != null;
+    }
+    match /gameLogsStudy2/{uid} {
+      allow read, update, delete: if request.auth.uid != null && request.auth.uid == uid;
+      allow create: if request.auth.uid != null;
+    }
+    match /gameLogsProlific/{uid} {
+      allow read, update, delete: if request.auth.uid != null && request.auth.uid == uid;
+      allow create: if request.auth.uid != null;
+    }
+    match /living-public-game/{uid} {
+      allow read, update, delete: if request.auth.uid != null && request.auth.uid == uid;
+      allow create: if request.auth.uid != null;
+    }
+  }
+}

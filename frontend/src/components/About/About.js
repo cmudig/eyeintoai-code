@@ -55,16 +55,13 @@ function About() {
           <h1 className={styles['About__heading']}>
             Publications
           </h1>
-          <p className={styles['About__details']}>
-            Description
-          </p>
-          <a className={styles['About__btn']} href="Publication 1" target="_blank" rel="noopener noreferrer">
-            Publication 1
+          <a className={styles['About__btn']} href="https://katelyn98.github.io/assets/pdf/23_cscw_eye_into_AI_study_updated.pdf" target="_blank" rel="noopener noreferrer">
+          Eye into AI: Evaluating the Interpretability of Explainable AI Techniques through a Game With a Purpose
           </a>
           <br></br>
           <br></br>
-          <a className={styles['About__btn']} href="Publication 2" target="_blank" rel="noopener noreferrer">
-            Publication 2
+          <a className={styles['About__btn']} href="http://perer.org/papers/adamPerer-AIGWAP-CHI2020.pdf" target="_blank" rel="noopener noreferrer">
+          Getting Playful with Explainable AI: Games with a Purpose to Improve Human Understanding of AI
           </a>
         </div>
       </section>
@@ -80,7 +77,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src="https://katelyn98.github.io/assets/img/prof_pic.jpg"
+              src="https://katelyn98.github.io/assets/img/prof_pic2.jpg"
               alt="Katelyn Morrison"
               height="100"
               width="100"
@@ -113,7 +110,7 @@ function About() {
           <div className={styles['About__card']}>
             <img
               className={styles['About__icon']}
-              src=""
+              src="https://media.licdn.com/dms/image/D5603AQGfHNpW4_yg3g/profile-displayphoto-shrink_400_400/0/1666053524029?e=1692835200&v=beta&t=AMuwx6XEzmK_itUDeXKn_r8UK9WfF8VjtHdNFPXgGyo"
               alt="Youwei Jiang"
               height="100"
               width="100"
