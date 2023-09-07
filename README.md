@@ -1,5 +1,7 @@
 # Eye Into AI (Our AI GWAP)
 
+### `cd frontend`
+
 ## First Time Setup
 
 Before running/deploying, make sure you have configured the .env file in the 'frontend' directory.  The .env has not been committed to git, but can be found in our shared google drive.
