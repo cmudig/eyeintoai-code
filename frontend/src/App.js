@@ -83,11 +83,21 @@ class App extends Component {
   }
 
   constructPlayer(name) {
-    return {
-      img: <i className={name}></i>,
-      name: name.slice(7),
-      score: 0,
-    };
+    console.log("NAME:", name)
+    if (name) {
+      return {
+        img: <i className={name}></i>,
+        name: name.slice(7),
+        score: 0,
+      };
+    } else {
+      return {
+        img: <i className={"guest"}></i>,
+        name: "guest",
+        score: 0,
+      };
+    }
+    
   }
 
   setMenu(i) {
