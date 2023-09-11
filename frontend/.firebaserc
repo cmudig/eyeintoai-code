@@ -1,8 +1,0 @@
-{
-  "projects": {
-    "default": "ai-gwap",
-    "publicdeploy": "ai-gwap",
-    "cameraready": "ai-gwap"
-  },
-  "targets": {}
-}

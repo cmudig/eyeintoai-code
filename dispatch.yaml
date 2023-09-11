@@ -1,8 +1,0 @@
-dispatch:
-  # server serves api requests that involve communication with database
-  - url: "ai-gwap.appspot.com/api/*"
-    service: server
-  # Default service serves simple hostname request.
-  - url: "ai-gwap.appspot.com/"
-    service: default
-  
