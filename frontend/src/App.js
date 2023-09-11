@@ -1,11 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
-import firebase from 'firebase/app';
-// import dotenv from 'dotenv';
-
-import 'firebase/firestore';
-import 'firebase/auth';
 
 import Landing from './components/Landing/Landing';
 import About from './components/About/About';
@@ -15,63 +10,45 @@ import './index.scss';
 import './App.scss';
 import Logo from './images/home/logo.png';
 
-// dotenv.config();
 const profiles = ['fas fa-otter', 'fas fa-hippo', 'fas fa-crow', 'fas fa-horse', 'fas fa-frog', 'fas fa-fish', 'fas fa-dragon', 'fas fa-dove', 'fas fa-spider', 'fas fa-cat'];
 
-/* global gapi */
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  databaseURL: process.env.REACT_APP_databaseURL,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = firebaseApp.firestore();
+
+const randomNumber = Math.floor(Math.random() * 10000000000);
+
+// Convert the random number to a string
+const randomNumberString = randomNumber.toString();
+
+// Pad the string with leading zeros to ensure it's 10 characters long
+const paddedRandomNumber = randomNumberString.padStart(10, '0');
+console.log("PADDED:", paddedRandomNumber)
+const documentId = paddedRandomNumber
+// const documentId = "myCustomDocumentID";
+
+// Reference to the Firestore collection
+const collectionRef = db.collection('living-public-game'); // Replace with your collection name
+
+// Create a document with the specified document ID
+const customDocRef = collectionRef.doc(documentId);
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSignedIn: false,
+  state = {
       players: [],
       gameClass: [' ', ' '],
-    };
-    this.googleUser = null;
-    this.uid = '';
-    this.db = null;
-    this.timestamp = null;
-  }
+  };
 
   componentDidMount() {
-    window.addEventListener('beforeunload', this.handleLeavePage.bind(this));
-    window.gapi.load('auth2', () => {
-      gapi.auth2.init({
-        client_id: '423634020815-9pu8kc2gfh3s7rejq6d7k1nmcaqn70d4.apps.googleusercontent.com',
-        scope: 'profile',
-      }).then(() => {
-        this.auth = window.gapi.auth2.getAuthInstance();
-        this.handleAuthChange();
-        this.auth.isSignedIn.listen(this.handleAuthChange);
-      });
-    });
-
-
-    if (!this.db) {
-      const firebaseConfig = {
-        apiKey: process.env.REACT_APP_apiKey,
-        authDomain: process.env.REACT_APP_authDomain,
-        databaseURL: process.env.REACT_APP_databaseURL,
-        projectId: process.env.REACT_APP_projectId,
-        storageBucket: process.env.REACT_APP_storageBucket,
-        messagingSenderId: process.env.REACT_APP_messagingSenderId,
-        appId: process.env.REACT_APP_appId,
-      };
-      const firebaseApp = firebase.initializeApp(firebaseConfig);
-      this.db = firebaseApp.firestore();
-
-      if (window.location.hostname === "localhost") {
-        firebaseApp.firestore().useEmulator("localhost", 8081);
-        firebaseApp.auth().useEmulator("http://localhost:9099")
-      }
-    }
-
-    window.gapi.signin2.render('g-signin2', {
-      'theme': 'dark',
-      'width': 100,
-      'display':'inline',
-      'onsuccess': this.onSuccess.bind(this),
-    });
+    window.addEventListener('beforeunload', this.handleLeavePage);
 
     this.selectProfile();
   }
@@ -80,25 +57,10 @@ class App extends Component {
     window.removeEventListener('beforeunload', this.handleLeavePage.bind(this));
   }
 
-  handleAuthChange = () => {
-    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
-  };
-
-  handleSignIn = () => {
-    this.auth.signIn();
-  };
-
-  handleSignOut = () => {
-    this.auth.signOut();
-  };
-
-  handleLeavePage = event => {
+  handleLeavePage = (event) => {
     if (window.location.pathname === '/play') {
       event.preventDefault();
       event.returnValue = true;
-      this.signOut();
-    } else {
-      this.signOut();
     }
   };
 
@@ -134,73 +96,27 @@ class App extends Component {
     this.setState({ gameClass: menuClass });
   }
 
-  isUserEqual(googleUser, firebaseUser) {
-    if (firebaseUser) {
-      var providerData = firebaseUser.providerData;
-      for (var i = 0; i < providerData.length; i++) {
-        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-        providerData[i].uid === googleUser.getBasicProfile().getId()) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  onSuccess(googleUser) {
-    if (this.state.isSignedIn) {
-      this.signOut();
-    } else {
-      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-      firebase.auth().onAuthStateChanged((function(firebaseUser) {
-        // Check if we are already signed-in Firebase with the correct user.
-        if (!this.isUserEqual(googleUser, firebaseUser)) {
-          // Build Firebase credential with the Google ID token.
-          var credential = firebase.auth.GoogleAuthProvider.credential(googleUser.getAuthResponse().id_token);
-          // Sign in with credential from the Google user.
-          firebase.auth().signInWithCredential(credential);
-        } else {
-          this.uid = firebaseUser.uid;
-          // console.log('User already signed-in Firebase.');
-        }
-      }).bind(this));
-      const playerProfile = googleUser.getBasicProfile();
-      const players = this.state.players;
-      players[0].img = (
-        <i className="fas fa-dog"></i>
-      );
-      players[0].name = "You";
-      this.googleUser = googleUser;
-      this.setState({ players: players });
-    }
-    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
-  }
-
-  startNewLog(prolificID) {
-    this.timestamp = Date.now();
-    var usersUpdate = { prolificID: prolificID };
-    usersUpdate[`${this.timestamp}`] = { version: 2 };
-    this.db.collection('living-public-game').doc(this.uid).set(usersUpdate, { merge: true });
-  }
-  
   update(fieldAndvalue) {
     var usersUpdate = {};
-    usersUpdate[`${this.timestamp}`] = fieldAndvalue;
-    this.db.collection('living-public-game').doc(this.uid).set(usersUpdate, { merge: true });
-  }
-  
-
-  signOut() {
-    this.auth.signOut();
-    this.auth.disconnect();
+    const currentDate = new Date()
+    usersUpdate[`${Math.floor(currentDate.getTime()/1000)}`] = fieldAndvalue;
+    console.log("USERS UPDATE: ", usersUpdate)
+    customDocRef.set(usersUpdate, { merge: true })
+      .then(() => {
+        // Update successful
+        console.log("Document updated successfully");
+      })
+      .catch((error) => {
+        // Handle update error
+        console.error("Update Error: ", error);
+      });
   }
 
   render() {
+    
     const rootComponent = (
       <Landing
-        isSignedIn={this.state.isSignedIn}
-        startNewLog={this.startNewLog.bind(this)}
-        signOut={this.signOut.bind(this)}
+        // startNewLog={this.startNewLog.bind(this)}
         setMenu={this.setMenu.bind(this)}
       />
     );

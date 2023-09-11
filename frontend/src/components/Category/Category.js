@@ -21,40 +21,27 @@ class Category extends Component {
       let completed = "";
       let old_score = "0"
       let tmp_val = 0
-      // console.log("PLAYER SCORE")
-      // console.log(this.props.playerScore)
-
-      // console.log(this.props.playerScore.slice(-1))
-      // console.log("Explanation TYPES LIST: ")
-      // console.log(this.props)
+      
       if (this.props.explanationTypes.indexOf(this.props.explanationType) === 0){
         explanationTypeText = "0"
         old_score = "0"
       } else if (this.props.explanationTypes.indexOf(this.props.explanationType) === 1) {
         explanationTypeText = "1"
-        // console.log(this.props.playerScore.slice(-1))
         tmp_val = this.props.playerScore.slice(-1)
         old_score = ""+tmp_val
       } else if (this.props.explanationTypes.indexOf(this.props.explanationType) === 2) {
         explanationTypeText = "2"
         completed = "Last round!"
-        // console.log(this.props.playerScore.slice(-3))
-        // console.log(this.props.playerScore.slice(-3) + this.props.playerScore.slice(-1))
+        
         tmp_val = this.props.playerScore.slice(-1)
         let val = parseInt(tmp_val, 10)
         tmp_val = this.props.playerScore[1]
         let val2 = parseInt(tmp_val, 10)
         let res = val+val2
-        // console.log(res)
+        
         old_score = ""+res
       }
-      // if (this.props.explanationType === 1) {
-      //   explanationTypeText = "LIME";
-      // } else if (this.props.explanationType === 2) {
-      //   explanationTypeText = "GradCam"
-      // } else if (this.props.explanationType === 3) {
-      //   explanationTypeText = "SHAP"
-      // }
+      
       return (
         <div>
           <div className={styles['Category__title']}>Game Progress: </div>

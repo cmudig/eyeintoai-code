@@ -13,9 +13,8 @@ service cloud.firestore {
       allow read, update, delete: if request.auth.uid != null && request.auth.uid == uid;
       allow create: if request.auth.uid != null;
     }
-    match /living-public-game/{uid} {
-      allow read, update, delete: if request.auth.uid != null && request.auth.uid == uid;
-      allow create: if request.auth.uid != null;
+    match /living-public-game/{document=**} {
+      allow create, read, write, update, delete
     }
   }
 }

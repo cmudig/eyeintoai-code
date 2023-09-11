@@ -6,54 +6,32 @@ import { StaticData } from '../../data/Images';
 
 let r_lime = require.context('../../images/LIME', true, /\.(png|jpe?g|svg)$/);
 let r_gradcam = require.context('../../images/gradcam', true, /\.(png|jpe?g|svg)$/);
-// let r_baseline = require.context('../../images/baseline', true, /\.(png|jpe?g|svg)$/);
-// let r_gradcam_baseline = require.context('../../images/gradcam_baseline', true, /\.(png|jpe?g|svg)$/);
 
 
 const gradcamVisuals = {}
-// const baselineVisuals = {}
 const limeVisuals = {}
-// const gradcam_baseline_Visuals = {}
 
 for (var type of Object.keys(StaticData)) {
   let images = StaticData[type]
   for (var image of images) {
     let key = image.name;
-    // console.log(image)
-    // let commPath = "../../images/LIME/"
     let top_five_lime = []
     let top_five_gradcam = []
-    // let top_five_gradcam_baseline = []
 
     for (let i = 0; i < 5; i++) {
       let filename =key + "/top_" + i 
-      // console.log( "../../images/LIME/" + filename + ".png")
       try {
         let v = r_lime(`./${filename}.png`)
         let g =  r_gradcam(`./${filename}.png`)
         top_five_lime.push(v)
         top_five_gradcam.push(g)
-
-
       } catch {
-        // console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
-
-      // filename =key + "/top" + (i+1)
-      // try {
-      //   let v = r_gradcam_baseline(`./${filename}.png`)
-      //   top_five_gradcam_baseline.push(v)
-      // } catch {
-      //   console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
-      //   continue;
-      // }
-  
     }
   
     let bottom_five_lime = []
     let bottom_five_gradcam = []
-    // let bottom_five_gradcam_baseline = []
 
     for (let i = 0; i < 5; i++) {
       let filename =key + "/bottom_" + i 
@@ -64,36 +42,11 @@ for (var type of Object.keys(StaticData)) {
         bottom_five_gradcam.push(g)
 
       } catch (err) {
-        // console.log(err)
-        // console.log("Couldn't load path : ../../images/LIME/" + filename + ".png or ../../images/gradcam/" + filename + ".png")
         continue;
       }
-
-      // filename =key + "/bottom" + (i+1)
-      // try {
-      //   let v = r_gradcam_baseline(`./${filename}.png`)
-      //   bottom_five_gradcam_baseline.push(v)
-      // } catch {
-      //   console.log("Couldn't load path : ../../images/gradcam_baseline/" + filename + ".png")
-      //   continue;
-      // }
   
     }
 
-    // let all_eight_baseline = []
-    // for (let i = 0; i < 8; i++) {
-    //   let filename =key + "/random" + i 
-    //   try {
-    //     let b =  r_baseline(`./${filename}.png`)
-    //     all_eight_baseline.push(b)
-
-    //   } catch (err) {
-    //     // console.log(err)
-    //     console.log("Couldn't load path : ../../images/baseline/" + filename)
-    //     continue;
-    //   }
-  
-    // }
     limeVisuals[key] = {}
     limeVisuals[key]["top_five"] = top_five_lime
     limeVisuals[key]["bottom_five"] = bottom_five_lime
@@ -101,13 +54,6 @@ for (var type of Object.keys(StaticData)) {
     gradcamVisuals[key] = {}
     gradcamVisuals[key]["top_five"] = top_five_gradcam
     gradcamVisuals[key]["bottom_five"] = bottom_five_gradcam
-
-    // gradcam_baseline_Visuals[key] = {}
-    // gradcam_baseline_Visuals[key]["top_five"] = top_five_gradcam_baseline
-    // gradcam_baseline_Visuals[key]["bottom_five"] = bottom_five_gradcam_baseline
-
-    // baselineVisuals[key] = {}
-    // baselineVisuals[key]["all_eight"] = all_eight_baseline
   
   }
   
@@ -124,7 +70,6 @@ class ImageSelect extends Component {
     nonSelected: [],
     top_five: [], 
     bottom_five: [],
-    // baseline: [],
     display: 'none',
   };
 
@@ -139,35 +84,13 @@ class ImageSelect extends Component {
     } else if (this.props.explanationType === 2) {
       currVisuals = gradcamVisuals;
     } 
-    // else if (this.props.explanationType === 3) {
-    //   currVisuals = baselineVisuals;
-    // } else if (this.props.explanationType === 4) {
-    //   currVisuals = gradcam_baseline_Visuals;
-    // }
 
-    // if ([1,2,4].includes(this.props.explanationType)) {
     if ([1,2].includes(this.props.explanationType)) {
 
-      // for (let i = 0; i < 5; i++) {
-      //   let path = "bottom_" + i + ".png"
-      //   let combinedPath = commPath + path;
-      //   console.log( "../../images/LIME/" + combinedPath)
-      //   let v = require("../../images/LIME/" + (combinedPath))
-
-      //   newVisuals.push(v)
-      // }
-      // console.log(this.props.answer.name, currVisuals, currVisuals[this.props.answer.name])
-      // console.log(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
       let randomized = _.shuffle(currVisuals[this.props.answer.name].top_five.concat( currVisuals[this.props.answer.name].bottom_five))
-      // console.log(randomized)
       this.setState({ nonSelected: randomized, top_five: currVisuals[this.props.answer.name].top_five, bottom_five: currVisuals[this.props.answer.name].bottom_five });
 
     } 
-    // else if ([3].includes(this.props.explanationType)) {
-    //   let randomized = _.shuffle(baselineVisuals[this.props.answer.name].all_eight)
-    //   console.log(randomized)
-    //   this.setState({ nonSelected: randomized, baseline:baselineVisuals[this.props.answer.name].all_eight});
-    // } 
     else {
       const newVisuals = [];
       for (let i = 0; i < 5; i++) {
@@ -292,9 +215,6 @@ class ImageSelect extends Component {
                 throw new Error("Couldn't find img = " + curImage); 
 
               } 
-              // else if ([3].includes(this.props.explanationType)) {
-              //   explanations.push({ technique_rank: "random_"+ this.state.baseline.indexOf(curImage) });
-              // } 
               else {
                 const imgIdx = parseInt(curImage.substring(curImage.lastIndexOf('/') + 1, curImage.indexOf('.')));
                 if (this.state.top_five.indexOf(imgIdx) !== -1) 
