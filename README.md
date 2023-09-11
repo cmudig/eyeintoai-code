@@ -19,8 +19,8 @@ At this point you may need to run the command `firebase use --add` and add your 
 ### `firebase init`
 
 * Select Hosting, Emulators, and Firestore
-  * For the emulators init: select Firestore, Database and Hosting emulators
-* Follow all of the prompts for set up
+  * For the emulators init: select Firestore emulators
+* Follow all of the prompts for setup
 
 ### `npm start`
 
@@ -31,10 +31,6 @@ The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
 ### `npm run build`
-
-### `gcloud app deploy`
-
-This will deploy it to our google cloud.
 
 ### `npm run deploy`
 
